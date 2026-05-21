@@ -226,6 +226,16 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
     q_n_m_s[:, :, 0] = (p_n_neg1_2*w_n_m_mu[:, :, 1] - p_n_pos1_2*w_n_m_mu[:, :, 0])/determinant
     q_n_m_s[:, :, 1] = (p_n_pos1_1*w_n_m_mu[:, :, 0] - p_n_neg1_1*w_n_m_mu[:, :, 1])/determinant
 
+    # Zero the |m| > n entries.  Spherical-wave coefficients are only
+    # defined for |m| <= n, but the FFT-based decomposition produces a
+    # value at every (n, m) bin -- the out-of-range entries are decomposition
+    # noise (typically ~1e-15 of the signal) and must be cleared so that
+    # downstream consumers don't mistake them for physical modes.
+    if m_max > 0:
+        for n in range(1, min(n_max, m_max) + 1):
+            q_n_m_s[n - 1, : m_max - n,       :] = 0.0
+            q_n_m_s[n - 1,   m_max + n + 1 :, :] = 0.0
+
     return q_n_m_s
 
 # ------------------------------------------------------------------------
@@ -548,7 +558,377 @@ def incomplete_farfield_pattern_functions(n_max, m_max, thetas, delta=1.0e-6):
     k_n_m_s_theta = np.swapaxes(k_n_m_s_theta, 2, 3)
     k_n_m_s_phi = np.swapaxes(k_n_m_s_phi, 2, 3)
 
+    # Pole exact values per Hansen [1], A1.61-A1.64.  Where the caller
+    # asked for theta = 0 or theta = pi, the nudge produced K values with
+    # O(delta * dK/dtheta) error (~ 1e-5 for n_max = 12 at delta = 1e-6).
+    # The nonzero pole values exist only for |m| = 1; everything else is
+    # exactly zero.  Overwrite both columns here so downstream code sees
+    # machine-precision K at the poles.
+    if (m_max >= 1) and (np.any(zero_inds) or np.any(pi_inds)):
+        n_arr = np.arange(1, n_max + 1)
+        half_root = 0.5 * np.sqrt(2.0 * n_arr + 1.0)
+        m_pos1 = m_max + 1   # index of m = +1 column
+        m_neg1 = m_max - 1   # index of m = -1 column
+
+        if np.any(zero_inds):
+            zero_ti = np.where(zero_inds)[0]
+            # Clear all entries at the pole indices first -- |m| != 1
+            # entries are exactly zero, and the nudge left noise there.
+            k_n_m_s_theta[:, :, :, zero_ti] = 0.0
+            k_n_m_s_phi[:,   :, :, zero_ti] = 0.0
+            # c = -(-i)^n * (1/2) * sqrt(2n+1)   (Hansen A1.61)
+            c = (-((-1j) ** n_arr) * half_root)[:, None]   # (n, 1)
+            # m = +1
+            k_n_m_s_theta[:, m_pos1, 0, zero_ti] = c
+            k_n_m_s_theta[:, m_pos1, 1, zero_ti] = c
+            k_n_m_s_phi[:,   m_pos1, 0, zero_ti] = c * 1j
+            k_n_m_s_phi[:,   m_pos1, 1, zero_ti] = c * 1j
+            # m = -1
+            k_n_m_s_theta[:, m_neg1, 0, zero_ti] =  c
+            k_n_m_s_theta[:, m_neg1, 1, zero_ti] = -c
+            k_n_m_s_phi[:,   m_neg1, 0, zero_ti] =  c * (-1j)
+            k_n_m_s_phi[:,   m_neg1, 1, zero_ti] =  c * 1j     # = (-c)*(-i)
+
+        if np.any(pi_inds):
+            pi_ti = np.where(pi_inds)[0]
+            k_n_m_s_theta[:, :, :, pi_ti] = 0.0
+            k_n_m_s_phi[:,   :, :, pi_ti] = 0.0
+            # cp = i^n * (1/2) * sqrt(2n+1)   (Hansen A1.63)
+            cp = (((1j) ** n_arr) * half_root)[:, None]    # (n, 1)
+            # m = +1
+            k_n_m_s_theta[:, m_pos1, 0, pi_ti] =  cp
+            k_n_m_s_theta[:, m_pos1, 1, pi_ti] = -cp
+            k_n_m_s_phi[:,   m_pos1, 0, pi_ti] =  cp * (-1j)
+            k_n_m_s_phi[:,   m_pos1, 1, pi_ti] =  cp * 1j     # = (-cp)*(-i)
+            # m = -1
+            k_n_m_s_theta[:, m_neg1, 0, pi_ti] = cp
+            k_n_m_s_theta[:, m_neg1, 1, pi_ti] = cp
+            k_n_m_s_phi[:,   m_neg1, 0, pi_ti] = cp * 1j
+            k_n_m_s_phi[:,   m_neg1, 1, pi_ti] = cp * 1j
+
     return k_n_m_s_theta, k_n_m_s_phi
+
+# ------------------------------------------------------------------------
+
+
+def farfield_pattern_functions(n_max, m_max, thetas, phis, delta=1.0e-6):
+    """Far-field pattern functions K_{1mn}(theta,phi) and K_{2mn}(theta,phi).
+
+    Implements Hansen [1], Eqs. (A1.59)-(A1.60).  Equivalent to
+    ``incomplete_farfield_pattern_functions`` multiplied by the e^{i*m*phi}
+    azimuthal factor, evaluated on the (thetas, phis) tensor grid.
+
+    Parameters
+    ----------
+    n_max : int
+        Maximum spherical-wave degree n.
+    m_max : int
+        Maximum spherical-wave order |m|.
+    thetas : array_like, shape (T,)
+        Theta sample points in *radians*, in [0, pi].
+    phis : array_like, shape (P,)
+        Phi sample points in *radians*.
+    delta : float, optional
+        Pole-protection nudge in radians.  See
+        ``incomplete_farfield_pattern_functions`` for details.
+
+    Returns
+    -------
+    k_n_m_s_theta : ndarray, shape (n_max, 2*m_max+1, 2, T, P), complex128
+        Theta-component of K_{smn}(theta, phi), indexed as
+        ``k_n_m_s_theta[n-1, m + m_max, s-1, t, p]``.
+    k_n_m_s_phi : ndarray, shape (n_max, 2*m_max+1, 2, T, P), complex128
+        Phi-component of K_{smn}(theta, phi), indexed the same way.
+    """
+
+    k_theta_incomplete, k_phi_incomplete = \
+        incomplete_farfield_pattern_functions(n_max, m_max, thetas, delta=delta)
+
+    phis = np.atleast_1d(np.asarray(phis, dtype=float))
+
+    # e^{i*m*phi} factor; broadcast against the (n, m, s, T) incomplete arrays.
+    m_vec = np.arange(-m_max, m_max + 1).reshape(1, 2*m_max + 1, 1, 1, 1)
+    phi_arr = phis.reshape(1, 1, 1, 1, phis.size)
+    phi_factor = np.exp(1j * m_vec * phi_arr)
+
+    k_n_m_s_theta = k_theta_incomplete[..., np.newaxis] * phi_factor
+    k_n_m_s_phi = k_phi_incomplete[..., np.newaxis] * phi_factor
+
+    return k_n_m_s_theta, k_n_m_s_phi
+
+# ------------------------------------------------------------------------
+
+
+def wavecoeffs2farfield(q_n_m_s, thetas, phis, delta=1.0e-6):
+    """Absolute far-field pattern K(theta, phi) at arbitrary paired directions.
+
+    Computes K(theta, phi) = sum_{s,m,n} Q^{(3)}_{smn} * K_{smn}(theta, phi)
+    using the per-mode far-field pattern functions of Hansen [1],
+    Eqs. (A1.59)-(A1.60), and returns its theta- and phi-components.
+
+    Parameters
+    ----------
+    q_n_m_s : ndarray, shape (n_max, 2*m_max+1, 2), complex
+        Test-antenna transmitting coefficients, indexed as
+        ``q_n_m_s[n-1, m + m_max, s-1] = Q^{(3)}_{smn}``.
+    thetas, phis : array_like, shape (N,)
+        Paired direction samples in *radians*; ``thetas`` in [0, pi].
+        Must have the same shape.
+    delta : float, optional
+        Pole-protection nudge in radians; see
+        ``incomplete_farfield_pattern_functions``.
+
+    Returns
+    -------
+    k_theta, k_phi : ndarray, shape (N,), complex128
+        Theta- and phi-components of K(theta, phi) at each direction.
+
+    Notes
+    -----
+    Unlike ``wavecoeffs2farfield_uniform`` (which returns the probe-signal
+    of an ideal +x Hertzian dipole, equal to K up to a constant probe
+    factor), this routine returns the raw absolute far-field pattern with
+    no probe normalization applied.
+
+    Concretely, on the same (theta, phi) grid::
+
+        wavecoeffs2farfield_uniform(q, ...) == (sqrt(6)/4) * wavecoeffs2farfield(q, ...)
+
+    for both the theta- and phi-polarized components.  The ``sqrt(6)/4``
+    factor arises from the ``-sqrt(6)/8`` per-pole Hertzian-dipole probe
+    response constants in ``dipole_probe_response_constants`` (Hansen [1],
+    Eqs. (4.103)-(4.104)), summed over mu = +/-1.  Multiply this function's
+    output by ``sqrt(6)/4`` to match the uniform-grid helper's convention.
+    """
+
+    thetas = np.atleast_1d(np.asarray(thetas, dtype=float))
+    phis = np.atleast_1d(np.asarray(phis, dtype=float))
+
+    if thetas.shape != phis.shape:
+        raise ValueError(
+            "thetas and phis must have the same shape; got "
+            "{} and {}".format(thetas.shape, phis.shape))
+
+    n_max, mm, _ = q_n_m_s.shape
+    m_max = (mm - 1) // 2
+    n_points = thetas.size
+
+    # Phi-independent part of K_{smn}; shape (n_max, 2*m_max+1, 2, N).
+    k_th_inc, k_ph_inc = incomplete_farfield_pattern_functions(
+        n_max, m_max, thetas, delta=delta)
+
+    # e^{i*m*phi} factor; shape (1, 2*m_max+1, 1, N).
+    m_vec = np.arange(-m_max, m_max + 1).reshape(1, 2*m_max + 1, 1, 1)
+    phi_factor = np.exp(1j * m_vec * phis.reshape(1, 1, 1, n_points))
+
+    # Q-weighted sum over (n, m, s).
+    q = q_n_m_s[..., np.newaxis]  # (n_max, 2*m_max+1, 2, 1)
+    k_theta = np.sum(q * k_th_inc * phi_factor, axis=(0, 1, 2))
+    k_phi = np.sum(q * k_ph_inc * phi_factor, axis=(0, 1, 2))
+
+    return k_theta, k_phi
+
+# ------------------------------------------------------------------------
+
+
+def transmission_formula(t_n_m_s, chi, thetas, phis,
+                         p_n_mu_s=None, r_p=None, ka=None, v=1.0):
+    """Spherical near-field transmission formula (Hansen [1], Eq. (3.10)).
+
+    Computes the complex probe-received signal::
+
+        w(A, chi, theta, phi) = v * sum_{s,m,n,mu} T_{smn} * P_{s mu n}(kA)
+                                * d^n_{mu m}(theta) * e^{i m phi} * e^{i mu chi}
+
+    where the per-mu probe response constants
+
+        P_{s mu n}(kA) = (1/2) sum_{sigma, nu} C^{sn(3)}_{sigma mu nu}(kA) * R^p_{sigma mu nu}
+
+    absorb the translation coefficients C and the probe receiving
+    coefficients R^p (Hansen Eq. (3.26)).
+
+    Parameters
+    ----------
+    t_n_m_s : ndarray, shape (n_max, 2*m_max+1, 2), complex
+        Test-antenna transmitting coefficients ``T_{smn}``, indexed as
+        ``t_n_m_s[n-1, m + m_max, s-1]``.
+    chi, thetas, phis : float or array_like
+        Probe pose angles in *radians* (``thetas`` in [0, pi]).  These
+        three are broadcast against each other; the output shape is the
+        broadcast shape.  A is implicit in the probe response
+        (either via ``ka`` or already baked into ``p_n_mu_s``).
+    p_n_mu_s : ndarray, shape (n_max, 2*mu_max+1, 2), complex, optional
+        Pre-computed probe response constants ``P_{s, mu, n}(kA)`` from
+        ``probe_response_constants`` or ``dipole_probe_response_constants``.
+        Use this form when reusing one probe over many scan-point queries.
+        Mutually exclusive with (``r_p``, ``ka``).
+    r_p : ndarray, shape (2, 2*mu_max+1, nu_max), complex, optional
+        Raw probe receiving coefficients ``R^p_{sigma, mu, nu}`` indexed
+        per the convention of ``probe_response_constants``.  Requires
+        ``ka`` to also be given.  The library will compute ``p_n_mu_s``
+        internally via ``probe_response_constants(r_p, n_max, ka)``.
+    ka : float, optional
+        Probe-to-origin distance ``k*A``.  Use ``np.inf`` for the
+        far-field limit.  Required when supplying ``r_p``.
+    v : complex, optional
+        Source amplitude (default 1.0).
+
+    Returns
+    -------
+    w : ndarray, complex, shape = ``broadcast(chi, thetas, phis)``
+        Probe-received signal at each pose.
+
+    Notes
+    -----
+    For an ideal +x electric Hertzian dipole probe at ``ka = np.inf``,
+    this function reproduces ``wavecoeffs2farfield_uniform`` (which folds
+    in the same probe) on a uniform grid: the chi=0 cut equals the
+    theta-pol output and chi=pi/2 equals the phi-pol output, exactly.
+
+    Linearly-polarized probe fast path
+    ---------------------------------
+    When ``p_n_mu_s`` satisfies Hansen Eq. (3.27) -- i.e.
+    ``P_{1,-1,n} == P_{1,+1,n}`` and ``P_{2,-1,n} == -P_{2,+1,n}`` --
+    the probe is linearly polarized with mu = +/-1 only, and this
+    function automatically switches to the reduced Eq. (3.32)
+    formulation: it builds the vector field
+    ``V(theta, phi) = v * sum_{smn} T_{smn} * P_{s,+1,n} * (-2 i^n / sqrt(2n+1)) * K_{smn}(theta, phi)``
+    once via ``incomplete_farfield_pattern_functions`` and then assembles
+    ``w(chi) = cos(chi) * V_theta + sin(chi) * V_phi`` for any chi.  This
+    replaces ``rotation_coefficients`` with the cheaper Legendre-based
+    K-pattern evaluation and drops one contraction axis (no mu sum),
+    giving a noticeable speedup -- typically the common case for SNF
+    measurements (lin-pol horn probes, Hertzian dipoles).  General
+    (non-lin-pol) probes silently fall back to the full Eq. (3.10) path.
+    """
+
+    if p_n_mu_s is None:
+        if r_p is None or ka is None:
+            raise ValueError(
+                "must supply either p_n_mu_s, or both r_p and ka")
+        p_n_mu_s = probe_response_constants(r_p, t_n_m_s.shape[0], ka)
+    elif r_p is not None or ka is not None:
+        raise ValueError(
+            "supply p_n_mu_s OR (r_p, ka), not both")
+
+    _check_m_le_n(t_n_m_s, 't_n_m_s')
+
+    # Broadcast pose arrays to a common shape, then flatten.
+    chi_a = np.asarray(chi, dtype=float)
+    thetas_a = np.asarray(thetas, dtype=float)
+    phis_a = np.asarray(phis, dtype=float)
+    out_shape = np.broadcast_shapes(chi_a.shape, thetas_a.shape, phis_a.shape)
+    chi_b = np.broadcast_to(chi_a, out_shape).ravel()
+    thetas_b = np.broadcast_to(thetas_a, out_shape).ravel()
+    phis_b = np.broadcast_to(phis_a, out_shape).ravel()
+
+    n_max_t, mm_t, _ = t_n_m_s.shape
+    m_max = (mm_t - 1) // 2
+    n_max_p, mm_p, _ = p_n_mu_s.shape
+    if n_max_t != n_max_p:
+        raise ValueError(
+            "n_max mismatch between t_n_m_s ({}) and p_n_mu_s ({})".format(
+                n_max_t, n_max_p))
+    if mm_p != 2:
+        raise ValueError(
+            "p_n_mu_s must have shape (n_max, 2, 2): the library stores "
+            "only the mu = -1 (idx 0) and mu = +1 (idx 1) probe entries "
+            "(linearly-polarized mu = +/-1 probe convention)")
+    n_max = n_max_t
+
+    if _is_linpol_probe(p_n_mu_s):
+        w_flat = _transmission_formula_linpol(
+            t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b, v,
+            n_max, m_max)
+    else:
+        w_flat = _transmission_formula_general(
+            t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b, v,
+            n_max, m_max)
+
+    return w_flat.reshape(out_shape)
+
+
+def _is_linpol_probe(p_n_mu_s, atol=1e-12):
+    """Hansen Eq. (3.27) check: P_{s,-1,n} == (-1)^{s+1} P_{s,+1,n}.
+
+    True when the supplied probe response constants belong to a
+    linearly-polarized mu = +/-1 probe.  ``p_n_mu_s`` is indexed
+    ``[n-1, mu_idx, s-1]`` with mu_idx 0 = mu=-1 and 1 = mu=+1.
+    """
+    # s=1: mu=-1 entry must equal mu=+1 entry.
+    s1_diff = p_n_mu_s[:, 0, 0] - p_n_mu_s[:, 1, 0]
+    # s=2: mu=-1 entry must equal -(mu=+1 entry).
+    s2_diff = p_n_mu_s[:, 0, 1] + p_n_mu_s[:, 1, 1]
+    scale = max(np.max(np.abs(p_n_mu_s)), 1.0)
+    return (np.max(np.abs(s1_diff)) < atol * scale and
+            np.max(np.abs(s2_diff)) < atol * scale)
+
+
+def _transmission_formula_linpol(t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b,
+                                 v, n_max, m_max):
+    """Hansen Eq. (3.32) reduction for mu = +/-1 linearly-polarized probes.
+
+    Builds ``V_theta`` and ``V_phi`` once at every pose, then combines
+    them as ``w(chi) = cos(chi) * V_theta + sin(chi) * V_phi``.
+    """
+    n_points = thetas_b.size
+
+    # K_{smn}(theta, phi) components without the e^{i m phi} factor.
+    # Shape (n_max, 2*m_max+1, 2, N).
+    k_th_inc, k_ph_inc = incomplete_farfield_pattern_functions(
+        n_max, m_max, thetas_b)
+
+    # e^{i m phi}: shape (1, 2*m_max+1, 1, N)
+    m_vec = np.arange(-m_max, m_max + 1).reshape(1, 2*m_max + 1, 1, 1)
+    phi_factor = np.exp(1j * m_vec * phis_b.reshape(1, 1, 1, n_points))
+
+    # Per-mode weight: T_{smn} * P_{s,+1,n} * (-2 * i^n / sqrt(2n+1))
+    # Shape (n_max, 2*m_max+1, 2).
+    n_arr = np.arange(1, n_max + 1, dtype=float)
+    n_factor = (-2.0 * (1j ** n_arr) / np.sqrt(2.0*n_arr + 1.0))[:, None]  # (n,1)
+    P_s_pos1_n = p_n_mu_s[:, 1, :]                                          # (n,2)
+    weight = (P_s_pos1_n * n_factor)[:, None, :]                            # (n,1,2)
+    weighted_T = t_n_m_s * weight                                            # (n,m,2)
+
+    # V_theta, V_phi at every pose -- single contraction over (n, m, s).
+    V_theta = v * np.einsum('nms,nmsk,mk->k',
+                              weighted_T, k_th_inc, phi_factor[0, :, 0, :],
+                              optimize='greedy')
+    V_phi   = v * np.einsum('nms,nmsk,mk->k',
+                              weighted_T, k_ph_inc, phi_factor[0, :, 0, :],
+                              optimize='greedy')
+
+    # Assemble w(chi) for arbitrary chi.  Falls out from the e^{+/- i chi}
+    # pair contracted against the (-1)^{s+1} P symmetry; for any
+    # lin-pol mu = +/-1 probe this collapses to a sin/cos linear combination.
+    return np.cos(chi_b) * V_theta + np.sin(chi_b) * V_phi
+
+
+def _transmission_formula_general(t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b,
+                                  v, n_max, m_max):
+    """Full Hansen Eq. (3.10) path -- works for any mu = +/-1 probe,
+    including those that aren't linearly polarized."""
+    # d^n_{mu, m}(theta) from rotation_coefficients returns the full
+    # mu = {-1, 0, +1} layout at indices {0, 1, 2}; slice out mu = +/-1
+    # only to match the 2-entry p_n_mu_s layout.
+    d_full = rotation_coefficients(n_max, m_max, 1, thetas_b)  # (n, 3, 2m+1, N)
+    d = d_full[:, [0, 2], :, :]                                # (n, 2, 2m+1, N)
+
+    # Phase factors.  mu_vec matches the 2-entry layout: idx 0 -> mu=-1,
+    # idx 1 -> mu=+1.
+    m_vec = np.arange(-m_max, m_max + 1)
+    mu_vec = np.array([-1.0, 1.0])
+    phi_factor = np.exp(1j * m_vec[:, None] * phis_b[None, :])
+    chi_factor = np.exp(1j * mu_vec[:, None] * chi_b[None, :])
+
+    # Eq. (3.10) assembled in one contraction.  einsum's optimizer picks
+    # an order that keeps the intermediates small (largest is shape
+    # (n_max, 2, 2, N), not the full 5-D product).
+    # Axes: n, m, s, u (= mu, length 2), k (= flattened pose index).
+    return v * np.einsum(
+        'nms,nus,numk,mk,uk->k',
+        t_n_m_s, p_n_mu_s, d, phi_factor, chi_factor,
+        optimize='greedy')
 
 # ------------------------------------------------------------------------
 
@@ -1159,6 +1539,34 @@ def b_wiggle(b_l_m_mu):
 
 def db(a):
     return 20*np.log10(np.absolute(a))
+
+# ------------------------------------------------------------------------
+
+
+def _check_m_le_n(q, name='q'):
+    """Raise if any |m| > n entry of a wavecoeff array is non-zero.
+
+    Spherical-wave coefficients T_{smn} / R_{smn} are only defined for
+    |m| <= n.  The library stores them in a dense (n_max, 2*m_max+1, 2)
+    array, so the |m| > n entries are structurally inaccessible and
+    must be zero.  Non-zero values there indicate the caller has placed
+    unphysical "modes" that downstream code will silently propagate as
+    garbage (e.g. the round-trip T -> field -> T loses ~100% accuracy).
+    """
+    n_max, mm, _ = q.shape
+    m_max = (mm - 1) // 2
+    if m_max <= n_max - 1:
+        return  # all entries are within the |m| <= n triangle
+    for n in range(1, n_max + 1):
+        if n >= m_max:
+            continue
+        left  = q[n - 1, : m_max - n,        :]
+        right = q[n - 1,   m_max + n + 1 :,  :]
+        if np.any(left != 0) or np.any(right != 0):
+            raise ValueError(
+                "{}: non-zero entries found at |m| > n (n = {}). "
+                "Spherical-wave coefficients require |m| <= n; zero "
+                "those entries before passing in.".format(name, n))
 
 # ------------------------------------------------------------------------
 
