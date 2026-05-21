@@ -35,11 +35,15 @@ Right-hand rule: a positive $\pi/2$ rotation about $\hat{z}$ takes $\hat{x} \to 
 
 A wave function defined in the *unprimed* frame is expanded in the *primed* frame's basis:
 
-$$\boxed{\;\vec{F}^{(c)}_{smn}(r,\theta,\phi) = \sum_{\mu=-n}^{n} D^{n}_{\mu m}(\chi_o, \theta_o, \phi_o)\,\vec{F}^{(c)}_{s\mu n}(r', \theta', \phi')\;} \tag{A2.1}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.1) | $\boxed{\;\vec{F}^{(c)}_{smn}(r,\theta,\phi) = \sum_{\mu=-n}^{n} D^{n}_{\mu m}(\chi_o, \theta_o, \phi_o)\,\vec{F}^{(c)}_{s\mu n}(r', \theta', \phi')\;}$ |
 
 with the rotation function decomposing as:
 
-$$\boxed{\;D^{n}_{\mu m}(\chi_o, \theta_o, \phi_o) = e^{im\phi_o}\,d^{n}_{\mu m}(\theta_o)\,e^{i\mu\chi_o}\;} \tag{A2.2}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.2) | $\boxed{\;D^{n}_{\mu m}(\chi_o, \theta_o, \phi_o) = e^{im\phi_o}\,d^{n}_{\mu m}(\theta_o)\,e^{i\mu\chi_o}\;}$ |
 
 ### Invariants under rotation
 
@@ -61,7 +65,9 @@ $$\boxed{\;D^{n}_{\mu m}(\chi_o, \theta_o, \phi_o) = e^{im\phi_o}\,d^{n}_{\mu m}
 
 If the unrotated antenna has coefficients $Q^{(c)}_{smn}$, then after rotating the antenna by Euler angles $(\chi_o, \theta_o, \phi_o)$ the new coefficients (in the original frame) are:
 
-$$Q'^{(c)}_{s\mu n} = \sum_{m=-n}^{n} D^{n}_{\mu m}(\chi_o, \theta_o, \phi_o)\,Q^{(c)}_{smn}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $Q'^{(c)}_{s\mu n} = \sum_{m=-n}^{n} D^{n}_{\mu m}(\chi_o, \theta_o, \phi_o)\,Q^{(c)}_{smn}$ |
 
 (Derived by transforming the expansion through (A2.1) and reading off coefficients of $\vec{F}^{(c)}_{s\mu n}$ in the new frame.)
 
@@ -76,7 +82,9 @@ $$Q'^{(c)}_{s\mu n} = \sum_{m=-n}^{n} D^{n}_{\mu m}(\chi_o, \theta_o, \phi_o)\,Q
 
 ### General expression (Edmonds [1], Eq. 4.1.15)
 
-$$\boxed{\;d^{n}_{\mu m}(\theta) = \sqrt{\frac{(n+\mu)!\,(n-\mu)!}{(n+m)!\,(n-m)!}}\,\sum_{\sigma}\binom{n+m}{n-\mu-\sigma}\binom{n-m}{\sigma}\,(-1)^{n-\mu-\sigma}\,\Bigl(\cos\tfrac{\theta}{2}\Bigr)^{2\sigma+\mu+m}\,\Bigl(\sin\tfrac{\theta}{2}\Bigr)^{2n-2\sigma-\mu-m}\;} \tag{A2.3}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.3) | $\boxed{\;d^{n}_{\mu m}(\theta) = \sqrt{\frac{(n+\mu)!\,(n-\mu)!}{(n+m)!\,(n-m)!}}\,\sum_{\sigma}\binom{n+m}{n-\mu-\sigma}\binom{n-m}{\sigma}\,(-1)^{n-\mu-\sigma}\,\Bigl(\cos\tfrac{\theta}{2}\Bigr)^{2\sigma+\mu+m}\,\Bigl(\sin\tfrac{\theta}{2}\Bigr)^{2n-2\sigma-\mu-m}\;}$ |
 
 with the binomial coefficient $\binom{i}{j} = i!/((i-j)!\,j!)$ (A2.4).
 
@@ -84,73 +92,87 @@ Summation range for $\sigma$: only those terms where every factorial argument is
 
 ### Jacobi-polynomial form (Edmonds [1], Eq. 4.1.23)
 
-$$d^{n}_{\mu m}(\theta) = \sqrt{\frac{(n+\mu)!\,(n-\mu)!}{(n+m)!\,(n-m)!}}\,\Bigl(\cos\tfrac{\theta}{2}\Bigr)^{\mu+m}\,\Bigl(\sin\tfrac{\theta}{2}\Bigr)^{\mu-m}\,P^{(\mu-m,\mu+m)}_{n-\mu}(\cos\theta) \tag{A2.5}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.5) | $d^{n}_{\mu m}(\theta) = \sqrt{\frac{(n+\mu)!\,(n-\mu)!}{(n+m)!\,(n-m)!}}\,\Bigl(\cos\tfrac{\theta}{2}\Bigr)^{\mu+m}\,\Bigl(\sin\tfrac{\theta}{2}\Bigr)^{\mu-m}\,P^{(\mu-m,\mu+m)}_{n-\mu}(\cos\theta)$ |
 
 where $P^{(\alpha,\beta)}_n$ is the Jacobi polynomial.
 
 ### Normalization
 
-$$\sum_{\mu=-n}^{n}\bigl(d^{n}_{\mu m}(\theta)\bigr)^2 = 1 \quad\text{for all }(m,n) \tag{A2.6}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.6) | $\sum_{\mu=-n}^{n}\bigl(d^{n}_{\mu m}(\theta)\bigr)^2 = 1 \quad\text{for all }(m,n)$ |
 
 ### Symmetries
 
-$$d^{n}_{\mu m}(\theta) = d^{n}_{m\mu}(-\theta) \tag{A2.7}$$
-
-$$d^{n}_{\mu m}(\theta) = (-1)^{\mu+m}\,d^{n}_{m\mu}(\theta) \tag{A2.8}$$
-
-$$d^{n}_{\mu m}(\theta) = (-1)^{\mu+m}\,d^{n}_{-\mu,-m}(\theta) \tag{A2.9}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.7) | $d^{n}_{\mu m}(\theta) = d^{n}_{m\mu}(-\theta)$ |
+| (A2.8) | $d^{n}_{\mu m}(\theta) = (-1)^{\mu+m}\,d^{n}_{m\mu}(\theta)$ |
+| (A2.9) | $d^{n}_{\mu m}(\theta) = (-1)^{\mu+m}\,d^{n}_{-\mu,-m}(\theta)$ |
 
 Combining (A2.8) and (A2.9): $d^n_{\mu m}(\theta)$ has **parity $(\mu + m)$**. It is $2\pi$-periodic in $\theta$.
 
 ### Orthogonality (Edmonds [1], Eq. 4.6.1)
 
-$$\int_{0}^{\pi} d^{n}_{\mu m}(\theta)\,d^{n'}_{\mu m}(\theta)\,\sin\theta\,d\theta = \frac{2}{2n+1}\,\delta_{nn'} \tag{A2.10}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.10) | $\int_{0}^{\pi} d^{n}_{\mu m}(\theta)\,d^{n'}_{\mu m}(\theta)\,\sin\theta\,d\theta = \frac{2}{2n+1}\,\delta_{nn'}$ |
 
 ### Fourier expansion (used in Wacker algorithm)
 
-$$d^{n}_{\mu m}(\theta) = i^{\mu - m}\sum_{m'=-n}^{n}\Delta^{n}_{m'\mu}\,\Delta^{n}_{m'm}\,e^{-im'\theta} \tag{A2.11}$$
-
-$$= i^{m - \mu}\sum_{m'=-n}^{n}\Delta^{n}_{m'\mu}\,\Delta^{n}_{m'm}\,e^{+im'\theta} \tag{A2.12}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.11) | $d^{n}_{\mu m}(\theta) = i^{\mu - m}\sum_{m'=-n}^{n}\Delta^{n}_{m'\mu}\,\Delta^{n}_{m'm}\,e^{-im'\theta}$ |
+| (A2.12) | $= i^{m - \mu}\sum_{m'=-n}^{n}\Delta^{n}_{m'\mu}\,\Delta^{n}_{m'm}\,e^{+im'\theta}$ |
 
 The Fourier coefficient is a product of "deltas":
 
-$$\boxed{\;\Delta^{n}_{m'm} \equiv d^{n}_{m'm}(\pi/2)\;} \tag{A2.13}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.13) | $\boxed{\;\Delta^{n}_{m'm} \equiv d^{n}_{m'm}(\pi/2)\;}$ |
 
 ### Three-term recurrence in $\mu$ (Fano & Racah [3])
 
-$$\sqrt{(n+\mu+1)(n-\mu)}\,\sin\theta\,d^{n}_{\mu+1, m}(\theta) + \sqrt{(n+\mu)(n-\mu+1)}\,\sin\theta\,d^{n}_{\mu-1, m}(\theta) + (2m - 2\mu\cos\theta)\,d^{n}_{\mu m}(\theta) = 0 \tag{A2.14}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.14) | $\sqrt{(n+\mu+1)(n-\mu)}\,\sin\theta\,d^{n}_{\mu+1, m}(\theta) + \sqrt{(n+\mu)(n-\mu+1)}\,\sin\theta\,d^{n}_{\mu-1, m}(\theta) + (2m - 2\mu\cos\theta)\,d^{n}_{\mu m}(\theta) = 0$ |
 
 ### Special values
 
-$$d^{n}_{\mu m}(0) = \delta_{\mu m},\quad\text{all }n \tag{A2.15}$$
-
-$$d^{n}_{\mu m}(\pi) = (-1)^{n+m}\,\delta_{\mu,-m} \tag{A2.16}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.15) | $d^{n}_{\mu m}(0) = \delta_{\mu m},\quad\text{all }n$ |
+| (A2.16) | $d^{n}_{\mu m}(\pi) = (-1)^{n+m}\,\delta_{\mu,-m}$ |
 
 ### Special cases (Larsen [4])
 
 Relation to normalized associated Legendre functions:
 
-$$\boxed{\;d^{n}_{0m}(\theta) = \Bigl(-\frac{m}{|m|}\Bigr)^m\,\sqrt{\frac{2}{2n+1}}\,\bar{P}_n^{|m|}(\cos\theta)\;} \tag{A2.17}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.17) | $\boxed{\;d^{n}_{0m}(\theta) = \Bigl(-\frac{m}{\|m\|}\Bigr)^m\,\sqrt{\frac{2}{2n+1}}\,\bar{P}_n^{\|m\|}(\cos\theta)\;}$ |
 
 (Convention: $(-m/|m|)^m = 1$ when $m=0$.)
 
 Combinations relevant for $m = \pm 1$:
 
-$$d^{n}_{1m}(\theta) + d^{n}_{-1,m}(\theta) = -\frac{2}{\sqrt{n(n+1)}}\,\frac{m\,d^{n}_{0m}(\theta)}{\sin\theta} \tag{A2.18}$$
-
-$$d^{n}_{1m}(\theta) - d^{n}_{-1,m}(\theta) = -\frac{2}{\sqrt{n(n+1)}}\,\frac{d}{d\theta}\{d^{n}_{0m}(\theta)\} \tag{A2.19}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.18) | $d^{n}_{1m}(\theta) + d^{n}_{-1,m}(\theta) = -\frac{2}{\sqrt{n(n+1)}}\,\frac{m\,d^{n}_{0m}(\theta)}{\sin\theta}$ |
+| (A2.19) | $d^{n}_{1m}(\theta) - d^{n}_{-1,m}(\theta) = -\frac{2}{\sqrt{n(n+1)}}\,\frac{d}{d\theta}\{d^{n}_{0m}(\theta)\}$ |
 
 ### Direct link to far-field pattern components $\vec{K}_{smn}$
 
 Inserting (A2.17) into (A2.18)/(A2.19) and using the $\vec{K}_{smn}$ definitions of (A1.59)/(A1.60):
 
-$$d^{n}_{1m}(\theta) + d^{n}_{-1,m}(\theta) = \frac{-2i^{n}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{1mn}(\theta,\phi)\}_\theta \tag{A2.20}$$
-
-$$= \frac{2i^{n+1}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{2mn}(\theta,\phi)\}_\phi \tag{A2.21}$$
-
-$$d^{n}_{1m}(\theta) - d^{n}_{-1,m}(\theta) = \frac{2i^{n+1}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{1mn}(\theta,\phi)\}_\phi \tag{A2.22}$$
-
-$$= \frac{-2i^{n}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{2mn}(\theta,\phi)\}_\theta \tag{A2.23}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.20) | $d^{n}_{1m}(\theta) + d^{n}_{-1,m}(\theta) = \frac{-2i^{n}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{1mn}(\theta,\phi)\}_\theta$ |
+| (A2.21) | $= \frac{2i^{n+1}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{2mn}(\theta,\phi)\}_\phi$ |
+| (A2.22) | $d^{n}_{1m}(\theta) - d^{n}_{-1,m}(\theta) = \frac{2i^{n+1}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{1mn}(\theta,\phi)\}_\phi$ |
+| (A2.23) | $= \frac{-2i^{n}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{2mn}(\theta,\phi)\}_\theta$ |
 
 > **Consistency check.** (A2.20) and (A2.21) equating yields $\{\vec{K}_{2mn}\}_\phi = i\,\{\vec{K}_{1mn}\}_\theta$, which is one component of the helicity identity $\vec{K}_{smn} = i\hat{r}\times\vec{K}_{3-s,m,n}$ (Eq. 2.178). Use as a unit test.
 
@@ -164,11 +186,15 @@ $\Delta^{n}_{m'm} = d^{n}_{m'm}(\pi/2)$ for $-n \le m', m \le n$. Indexed inside
 
 From (A2.3) with $\theta = \pi/2$:
 
-$$\Delta^{n}_{m'm} = \sqrt{\frac{(n+m')!\,(n-m')!}{(n+m)!\,(n-m)!}}\,\frac{1}{2^n}\sum_{\sigma}\binom{n+m}{n-m'-\sigma}\binom{n-m}{\sigma}\,(-1)^{n-m'-\sigma} \tag{A2.24}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.24) | $\Delta^{n}_{m'm} = \sqrt{\frac{(n+m')!\,(n-m')!}{(n+m)!\,(n-m)!}}\,\frac{1}{2^n}\sum_{\sigma}\binom{n+m}{n-m'-\sigma}\binom{n-m}{\sigma}\,(-1)^{n-m'-\sigma}$ |
 
 From the Jacobi form (A2.5):
 
-$$\Delta^{n}_{m'm} = \sqrt{\frac{(n+m')!\,(n-m')!}{(n+m)!\,(n-m)!}}\,\frac{1}{2^{m'}}\,P^{(m'-m,\,m'+m)}_{n-m'}(0) \tag{A2.25}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.25) | $\Delta^{n}_{m'm} = \sqrt{\frac{(n+m')!\,(n-m')!}{(n+m)!\,(n-m)!}}\,\frac{1}{2^{m'}}\,P^{(m'-m,\,m'+m)}_{n-m'}(0)$ |
 
 ### Symmetries (full triangle from one octant)
 
@@ -188,39 +214,50 @@ These reduce storage to the $(m \ge 0,\,m' \ge 0,\,m' \ge m)$ triangle.
 
 **Horizontal in $m'$** (from A2.14 at $\theta = \pi/2$):
 
-$$\sqrt{(n+m'+1)(n-m')}\,\Delta^{n}_{m'+1,m} + \sqrt{(n+m')(n-m'+1)}\,\Delta^{n}_{m'-1,m} + 2m\,\Delta^{n}_{m'm} = 0 \tag{A2.33}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.33) | $\sqrt{(n+m'+1)(n-m')}\,\Delta^{n}_{m'+1,m} + \sqrt{(n+m')(n-m'+1)}\,\Delta^{n}_{m'-1,m} + 2m\,\Delta^{n}_{m'm} = 0$ |
 
 **Horizontal in $m$** (from A2.33 + symmetries):
 
-$$\sqrt{(n+m+1)(n-m)}\,\Delta^{n}_{m',m+1} + \sqrt{(n+m)(n-m+1)}\,\Delta^{n}_{m',m-1} - 2m'\,\Delta^{n}_{m'm} = 0 \tag{A2.34}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.34) | $\sqrt{(n+m+1)(n-m)}\,\Delta^{n}_{m',m+1} + \sqrt{(n+m)(n-m+1)}\,\Delta^{n}_{m',m-1} - 2m'\,\Delta^{n}_{m'm} = 0$ |
 
 **Lewis' diagonal recurrence** [6]:
 
-$$\frac{\sqrt{(n+m'+1)(n-m')}\,\sqrt{(n+m+1)(n-m)}}{m' + m + 1}\,\Delta^{n}_{m'+1,m+1} + \frac{\sqrt{(n+m')(n-m'+1)}\,\sqrt{(n+m)(n-m+1)}}{m' + m - 1}\,\Delta^{n}_{m'-1,m-1} = \frac{2(m'+m)}{(m'+m)^2 - 1}\bigl\{n(n+1) - (m'+m)^2 + m'm + 1\bigr\}\,\Delta^{n}_{m'm} \tag{A2.35}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.35) | $\frac{\sqrt{(n+m'+1)(n-m')}\,\sqrt{(n+m+1)(n-m)}}{m' + m + 1}\,\Delta^{n}_{m'+1,m+1} + \frac{\sqrt{(n+m')(n-m'+1)}\,\sqrt{(n+m)(n-m+1)}}{m' + m - 1}\,\Delta^{n}_{m'-1,m-1} = \frac{2(m'+m)}{(m'+m)^2 - 1}\bigl\{n(n+1) - (m'+m)^2 + m'm + 1\bigr\}\,\Delta^{n}_{m'm}$ |
 
 **Vertical (in $n$)** from Jacobi-polynomial recurrence:
 
-$$\sqrt{(n+m'+1)(n-m'+1)(n+m+1)(n-m+1)}\,n\,\Delta^{n+1}_{m'm} + \sqrt{(n+m')(n-m')(n+m)(n-m)}\,(n+1)\,\Delta^{n-1}_{m'm} + (2n+1)\,m'm\,\Delta^{n}_{m'm} = 0 \tag{A2.36}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.36) | $\sqrt{(n+m'+1)(n-m'+1)(n+m+1)(n-m+1)}\,n\,\Delta^{n+1}_{m'm} + \sqrt{(n+m')(n-m')(n+m)(n-m)}\,(n+1)\,\Delta^{n-1}_{m'm} + (2n+1)\,m'm\,\Delta^{n}_{m'm} = 0$ |
 
 **Wave recurrence for Fourier coefficients of $d^n_{0m}(\theta)$, $\bar{P}_n^m$, $P_n^m$:**
 
-$$(n+m'+2)(n-m'-1)\,\Delta^{n}_{m'+2,m}\,\Delta^{n}_{m'+2,0} + (n+m'-1)(n-m'+2)\,\Delta^{n}_{m'-2,m}\,\Delta^{n}_{m'-2,0} - 2(n^2 - m'^2 + n - 2m^2)\,\Delta^{n}_{m'm}\,\Delta^{n}_{m'0} = 0 \tag{A2.37}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.37) | $(n+m'+2)(n-m'-1)\,\Delta^{n}_{m'+2,m}\,\Delta^{n}_{m'+2,0} + (n+m'-1)(n-m'+2)\,\Delta^{n}_{m'-2,m}\,\Delta^{n}_{m'-2,0} - 2(n^2 - m'^2 + n - 2m^2)\,\Delta^{n}_{m'm}\,\Delta^{n}_{m'0} = 0$ |
 
 ### Special cases (from A2.17, A2.24, [2] eqn 8.6.1)
 
 **Column at $m = 0$ or $m' = 0$:**
 
-$$\Delta^{n}_{m'0} = \begin{cases} 0, & (n+m')\text{ odd} \\ (-1)^{(n-m')/2}\,\dfrac{1}{2^n}\,\sqrt{\dbinom{n+m'}{(n+m')/2}\dbinom{n-m'}{(n-m')/2}}, & (n+m')\text{ even}\end{cases} \tag{A2.38}$$
-
-$$\Delta^{n}_{0m} = \begin{cases} 0, & (n+m)\text{ odd} \\ (-1)^{(n+m)/2}\,\dfrac{1}{2^n}\,\sqrt{\dbinom{n+m}{(n+m)/2}\dbinom{n-m}{(n-m)/2}}, & (n+m)\text{ even}\end{cases} \tag{A2.39}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.38) | $\Delta^{n}_{m'0} = \begin{cases} 0, & (n+m')\text{ odd} \\ (-1)^{(n-m')/2}\,\dfrac{1}{2^n}\,\sqrt{\dbinom{n+m'}{(n+m')/2}\dbinom{n-m'}{(n-m')/2}}, & (n+m')\text{ even}\end{cases}$ |
+| (A2.39) | $\Delta^{n}_{0m} = \begin{cases} 0, & (n+m)\text{ odd} \\ (-1)^{(n+m)/2}\,\dfrac{1}{2^n}\,\sqrt{\dbinom{n+m}{(n+m)/2}\dbinom{n-m}{(n-m)/2}}, & (n+m)\text{ even}\end{cases}$ |
 
 **Diagonal at $m = n$ or $m' = n$ (corner of the layer):**
 
-$$\Delta^{n}_{m'n} = (-1)^{n+m'}\,\frac{1}{2^n}\,\sqrt{\dbinom{2n}{n-m'}} \tag{A2.40}$$
-
-$$\Delta^{n}_{nm} = \frac{1}{2^n}\,\sqrt{\dbinom{2n}{n-m}} \tag{A2.41}$$
-
-$$\boxed{\;\Delta^{n}_{nn} = \frac{1}{2^n}\;} \tag{A2.42}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.40) | $\Delta^{n}_{m'n} = (-1)^{n+m'}\,\frac{1}{2^n}\,\sqrt{\dbinom{2n}{n-m'}}$ |
+| (A2.41) | $\Delta^{n}_{nm} = \frac{1}{2^n}\,\sqrt{\dbinom{2n}{n-m}}$ |
+| (A2.42) | $\boxed{\;\Delta^{n}_{nn} = \frac{1}{2^n}\;}$ |
 
 ---
 
@@ -237,7 +274,9 @@ For $y_{n+2} + a\,y_{n+1} + b\,y_n = 0$, the characteristic roots $K_{1,2}$ from
 
 For the $\Delta$ recurrence (A2.33), the approximate characteristic roots for large $(n+m'), (n-m')$ are:
 
-$$K_{\pm} \approx -\sqrt{\frac{m^2}{n^2 - m'^2}} \pm \sqrt{\frac{m^2}{n^2 - m'^2} - 1} \tag{A2.45}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A2.45) | $K_{\pm} \approx -\sqrt{\frac{m^2}{n^2 - m'^2}} \pm \sqrt{\frac{m^2}{n^2 - m'^2} - 1}$ |
 
 **Behaviour by region:**
 
@@ -261,7 +300,9 @@ Tables show the $(m \ge 0,\,m' \ge 0)$ block. Use the symmetries in §4 to exten
 
 ### $n = 0$
 
-$$\Delta^{0}_{00} = 1$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\Delta^{0}_{00} = 1$ |
 
 ### $n = 1$
 
