@@ -121,9 +121,7 @@ with
 |  Eq.  |   |
 | :---: | :-- |
 | (A1.7) | $\frac{z_n^{(c)}}{x} = \frac{1}{2n+1}\bigl\{z_{n-1}^{(c)} + z_{n+1}^{(c)}\bigr\}$ |
-| (A1.8) | $\frac{1}{x}\frac{d}{dx}\bigl\{x\,z_n^{(c)}\bigr\} = z_{n-1}^{(c)} - n\,\frac{z_n^{(c)}}{x}$ |
-| (A1.9) | $= (n+1)\,\frac{z_n^{(c)}}{x} - z_{n+1}^{(c)}$ |
-| (A1.10) | $= \frac{1}{2n+1}\bigl\{(n+1)\,z_{n-1}^{(c)} - n\,z_{n+1}^{(c)}\bigr\}$ |
+| (A1.8), (A1.9), (A1.10) | $\frac{1}{x}\frac{d}{dx}\bigl\{x\,z_n^{(c)}\bigr\} = z_{n-1}^{(c)} - n\,\frac{z_n^{(c)}}{x} = (n+1)\,\frac{z_n^{(c)}}{x} - z_{n+1}^{(c)} = \frac{1}{2n+1}\bigl\{(n+1)\,z_{n-1}^{(c)} - n\,z_{n+1}^{(c)}\bigr\}$ |
 
 ### Wronskian
 
@@ -344,45 +342,29 @@ Convention: $(-m/|m|)^m = 1$ when $m = 0$.
 
 For $\vec{F}^{(c)}_{1mn}$:
 
-$$\vec{F}^{(c)}_{1mn}(r,0,\phi) = \begin{cases}
-0, & m > 1 \\
--\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\
-0, & m = 0 \\
--\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\
-0, & m < -1
-\end{cases} \tag{A1.47}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A1.47) | $\vec{F}^{(c)}_{1mn}(r,0,\phi) = \begin{cases} 0, & m > 1 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\ 0, & m = 0 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}$ |
 
 For $\vec{F}^{(c)}_{2mn}$:
 
-$$\vec{F}^{(c)}_{2mn}(r,0,\phi) = \begin{cases}
-0, & m > 1 \\
--\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\
-\sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\
-\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\
-0, & m < -1
-\end{cases} \tag{A1.48}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A1.48) | $\vec{F}^{(c)}_{2mn}(r,0,\phi) = \begin{cases} 0, & m > 1 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\ \sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\ \tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}$ |
 
 ### Special values at $\theta = \pi$ (A1.49, A1.50)
 
 For $\vec{F}^{(c)}_{1mn}$ (same structure as A1.47 but with $(-1)^n$ prefactor and sign flip in second component):
 
-$$\vec{F}^{(c)}_{1mn}(r,\pi,\phi) = \begin{cases}
-0, & m > 1 \\
-(-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & m = 1 \\
-0, & m = 0 \\
-(-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & m = -1 \\
-0, & m < -1
-\end{cases} \tag{A1.49}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A1.49) | $\vec{F}^{(c)}_{1mn}(r,\pi,\phi) = \begin{cases} 0, & m > 1 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & m = 1 \\ 0, & m = 0 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}$ |
 
 For $\vec{F}^{(c)}_{2mn}$:
 
-$$\vec{F}^{(c)}_{2mn}(r,\pi,\phi) = \begin{cases}
-0, & m > 1 \\
--(-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & m = 1 \\
-(-1)^n\sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\
-(-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & m = -1 \\
-0, & m < -1
-\end{cases} \tag{A1.50}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A1.50) | $\vec{F}^{(c)}_{2mn}(r,\pi,\phi) = \begin{cases} 0, & m > 1 \\ -(-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & m = 1 \\ (-1)^n\sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}$ |
 
 ### Value at the origin $r = 0$ — only $n = 1$, $s = 2$ survives
 
@@ -449,27 +431,15 @@ $$\vec{F}^{(c)}_{2mn}(r,\pi,\phi) = \begin{cases}
 
 **At $\theta = 0$:**
 
-$$\vec{K}_{smn}(0,\phi) = \begin{cases}
-0, & |m| > 1 \\
--(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & s=1,\,m=+1 \\
-0, & s=1,\,m=0 \\
--(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & s=1,\,m=-1 \\
--(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & s=2,\,m=+1 \\
-0, & s=2,\,m=0 \\
-(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & s=2,\,m=-1
-\end{cases} \tag{A1.61, A1.62}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A1.61, A1.62) | $\vec{K}_{smn}(0,\phi) = \begin{cases} 0, & \|m\| > 1 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & s=1,\,m=+1 \\ 0, & s=1,\,m=0 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & s=1,\,m=-1 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & s=2,\,m=+1 \\ 0, & s=2,\,m=0 \\ (-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & s=2,\,m=-1 \end{cases}$ |
 
 **At $\theta = \pi$:**
 
-$$\vec{K}_{smn}(\pi,\phi) = \begin{cases}
-0, & |m| > 1 \\
-i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & s=1,\,m=+1 \\
-0, & s=1,\,m=0 \\
-i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & s=1,\,m=-1 \\
--i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & s=2,\,m=+1 \\
-0, & s=2,\,m=0 \\
-i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & s=2,\,m=-1
-\end{cases} \tag{A1.63, A1.64}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (A1.63, A1.64) | $\vec{K}_{smn}(\pi,\phi) = \begin{cases} 0, & \|m\| > 1 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & s=1,\,m=+1 \\ 0, & s=1,\,m=0 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & s=1,\,m=-1 \\ -i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & s=2,\,m=+1 \\ 0, & s=2,\,m=0 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & s=2,\,m=-1 \end{cases}$ |
 
 ### Squared magnitude on z-axis
 
@@ -498,29 +468,25 @@ Notation: $\delta_{ij} = 1$ if $i=j$, else $0$. Integration is over the unit sph
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\{\vec{F}^{(c)}_{smn}\cdot\hat{r}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{r}\}\sin\theta\,d\theta\,d\phi$ |
-|  | $= \delta_{s\sigma}\,\delta_{s2}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,n(n+1)\,\frac{z_n^{(c)}(kr)}{kr}\,\frac{z_n^{(\gamma)}(kr)}{kr}$ |
+|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\{\vec{F}^{(c)}_{smn}\cdot\hat{r}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{r}\}\sin\theta\,d\theta\,d\phi = \delta_{s\sigma}\,\delta_{s2}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,n(n+1)\,\frac{z_n^{(c)}(kr)}{kr}\,\frac{z_n^{(\gamma)}(kr)}{kr}$ |
 
 ### Tangential-component products (A1.69)
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\bigl[\{\vec{F}^{(c)}_{smn}\cdot\hat{\theta}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{\theta}\} + \{\vec{F}^{(c)}_{smn}\cdot\hat{\phi}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{\phi}\}\bigr]\sin\theta\,d\theta\,d\phi$ |
-|  | $= \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{sn}(kr)$ |
+|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\bigl[\{\vec{F}^{(c)}_{smn}\cdot\hat{\theta}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{\theta}\} + \{\vec{F}^{(c)}_{smn}\cdot\hat{\phi}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{\phi}\}\bigr]\sin\theta\,d\theta\,d\phi = \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{sn}(kr)$ |
 
 ### Scalar product (A1.70)
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\vec{F}^{(c)}_{smn}\cdot\vec{F}^{(\gamma)}_{\sigma\mu\nu}\,\sin\theta\,d\theta\,d\phi$ |
-|  | $= \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\left\{R^{(c)}_{sn}(kr)R^{(\gamma)}_{sn}(kr) + \delta_{s2}\,n(n+1)\,\frac{z_n^{(c)}(kr)}{kr}\,\frac{z_n^{(\gamma)}(kr)}{kr}\right\}$ |
+|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\vec{F}^{(c)}_{smn}\cdot\vec{F}^{(\gamma)}_{\sigma\mu\nu}\,\sin\theta\,d\theta\,d\phi = \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\left\{R^{(c)}_{sn}(kr)R^{(\gamma)}_{sn}(kr) + \delta_{s2}\,n(n+1)\,\frac{z_n^{(c)}(kr)}{kr}\,\frac{z_n^{(\gamma)}(kr)}{kr}\right\}$ |
 
 ### Vector (cross) product — used for power flux (A1.71)
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\{\vec{F}^{(c)}_{smn}\times\vec{F}^{(\gamma)}_{\sigma\mu\nu}\}\cdot\hat{r}\,\sin\theta\,d\theta\,d\phi$ |
-|  | $= -\delta_{s,3-\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^{m+s}\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{3-s,n}(kr)$ |
+|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\{\vec{F}^{(c)}_{smn}\times\vec{F}^{(\gamma)}_{\sigma\mu\nu}\}\cdot\hat{r}\,\sin\theta\,d\theta\,d\phi = -\delta_{s,3-\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^{m+s}\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{3-s,n}(kr)$ |
 
 > **Sign discrepancy note.** Chapter 2 (Eq. 2.46) wrote this with $(-1)^{3-s}(-1)^m$ — equivalent to $(-1)^{m+s+1}$, which differs from the $(-1)^{m+s}$ here by an overall sign. Both forms appear in the book; resolve by checking against power-flow (must give $+\tfrac{1}{2}|Q^{(3)}|^2$ for outgoing modes). **Recommended unit test:** integrate the cross-product for a single outgoing mode and require $P > 0$.
 
@@ -531,8 +497,7 @@ For two single-mode fields each carrying $1\text{ W}^{1/2}$:
 |  Eq.  |   |
 | :---: | :-- |
 | (A1.72) | $(\vec{E}^{(c)}_{smn},\vec{H}^{(c)}_{smn}) = \Bigl(\tfrac{k}{\sqrt{\eta}}\,\vec{F}^{(c)}_{smn},\,-ik\sqrt{\eta}\,\vec{F}^{(c)}_{3-s,m,n}\Bigr)$ |
-|  | $\int_S\{\vec{E}^{(c)}_{smn}\times\vec{H}^{(\gamma)}_{\sigma\mu\nu} - \vec{E}^{(\gamma)}_{\sigma\mu\nu}\times\vec{H}^{(c)}_{smn}\}\cdot d\vec{S}$ |
-| (A1.74) | $= \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,(-i)\,A^{(c,\gamma)}$ |
+| (A1.74) | $\int_S\{\vec{E}^{(c)}_{smn}\times\vec{H}^{(\gamma)}_{\sigma\mu\nu} - \vec{E}^{(\gamma)}_{\sigma\mu\nu}\times\vec{H}^{(c)}_{smn}\}\cdot d\vec{S} = \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,(-i)\,A^{(c,\gamma)}$ |
 
 $A^{(c,\gamma)}$ from the table in §5. The surface $S$ can be deformed across any source-free region.
 

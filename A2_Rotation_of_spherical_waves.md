@@ -72,8 +72,8 @@ If the unrotated antenna has coefficients $Q^{(c)}_{smn}$, then after rotating t
 (Derived by transforming the expansion through (A2.1) and reading off coefficients of $\vec{F}^{(c)}_{s\mu n}$ in the new frame.)
 
 > **Quick sanity check** (Chapter 2 dipole example, Eq. 2.123): rotating a $\hat{z}$-electric dipole into a $\hat{x}$-electric dipole uses $(\chi_o, \theta_o, \phi_o) = (0, -\pi/2, 0)$. With $m = 0$ (only $Q_{201}$ is non-zero for the z-dipole), the sum collapses to $\mu = \pm 1$:
-> $$\vec{F}^{(3)}_{201}(r,\theta,\phi) = d^1_{-1,0}(-\pi/2)\,\vec{F}^{(3)}_{2,-1,1}(r',\theta',\phi') + d^1_{0,0}(-\pi/2)\,\vec{F}^{(3)}_{201}(r',\theta',\phi') + d^1_{1,0}(-\pi/2)\,\vec{F}^{(3)}_{211}(r',\theta',\phi')$$
-> $$= \tfrac{\sqrt{2}}{2}\,\vec{F}^{(3)}_{2,-1,1} + 0 - \tfrac{\sqrt{2}}{2}\,\vec{F}^{(3)}_{211}$$
+> $\vec{F}^{(3)}_{201}(r,\theta,\phi) = d^1_{-1,0}(-\pi/2)\,\vec{F}^{(3)}_{2,-1,1}(r',\theta',\phi') + d^1_{0,0}(-\pi/2)\,\vec{F}^{(3)}_{201}(r',\theta',\phi') + d^1_{1,0}(-\pi/2)\,\vec{F}^{(3)}_{211}(r',\theta',\phi')$
+> $= \tfrac{\sqrt{2}}{2}\,\vec{F}^{(3)}_{2,-1,1} + 0 - \tfrac{\sqrt{2}}{2}\,\vec{F}^{(3)}_{211}$
 > matching Eq. (2.123). Use this as a regression test.
 
 ---
@@ -124,8 +124,7 @@ Combining (A2.8) and (A2.9): $d^n_{\mu m}(\theta)$ has **parity $(\mu + m)$**. I
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A2.11) | $d^{n}_{\mu m}(\theta) = i^{\mu - m}\sum_{m'=-n}^{n}\Delta^{n}_{m'\mu}\,\Delta^{n}_{m'm}\,e^{-im'\theta}$ |
-| (A2.12) | $= i^{m - \mu}\sum_{m'=-n}^{n}\Delta^{n}_{m'\mu}\,\Delta^{n}_{m'm}\,e^{+im'\theta}$ |
+| (A2.11), (A2.12) | $d^{n}_{\mu m}(\theta) = i^{\mu - m}\sum_{m'=-n}^{n}\Delta^{n}_{m'\mu}\,\Delta^{n}_{m'm}\,e^{-im'\theta} = i^{m - \mu}\sum_{m'=-n}^{n}\Delta^{n}_{m'\mu}\,\Delta^{n}_{m'm}\,e^{+im'\theta}$ |
 
 The Fourier coefficient is a product of "deltas":
 
@@ -169,10 +168,8 @@ Inserting (A2.17) into (A2.18)/(A2.19) and using the $\vec{K}_{smn}$ definitions
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A2.20) | $d^{n}_{1m}(\theta) + d^{n}_{-1,m}(\theta) = \frac{-2i^{n}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{1mn}(\theta,\phi)\}_\theta$ |
-| (A2.21) | $= \frac{2i^{n+1}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{2mn}(\theta,\phi)\}_\phi$ |
-| (A2.22) | $d^{n}_{1m}(\theta) - d^{n}_{-1,m}(\theta) = \frac{2i^{n+1}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{1mn}(\theta,\phi)\}_\phi$ |
-| (A2.23) | $= \frac{-2i^{n}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{2mn}(\theta,\phi)\}_\theta$ |
+| (A2.20), (A2.21) | $d^{n}_{1m}(\theta) + d^{n}_{-1,m}(\theta) = \frac{-2i^{n}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{1mn}(\theta,\phi)\}_\theta = \frac{2i^{n+1}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{2mn}(\theta,\phi)\}_\phi$ |
+| (A2.22), (A2.23) | $d^{n}_{1m}(\theta) - d^{n}_{-1,m}(\theta) = \frac{2i^{n+1}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{1mn}(\theta,\phi)\}_\phi = \frac{-2i^{n}}{\sqrt{2n+1}}\,e^{-im\phi}\,\{\vec{K}_{2mn}(\theta,\phi)\}_\theta$ |
 
 > **Consistency check.** (A2.20) and (A2.21) equating yields $\{\vec{K}_{2mn}\}_\phi = i\,\{\vec{K}_{1mn}\}_\theta$, which is one component of the helicity identity $\vec{K}_{smn} = i\hat{r}\times\vec{K}_{3-s,m,n}$ (Eq. 2.178). Use as a unit test.
 

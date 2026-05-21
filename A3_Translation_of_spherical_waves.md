@@ -129,17 +129,13 @@ So $p$ steps in 2's, halving the work.
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A3.10) | $C^{sn(c)}_{\sigma\mu\nu}(kA) = (-1)^{n+\nu}\,C^{s\nu(c)}_{\sigma\mu n}(kA)$ |
-| (A3.11) | $= (-1)^{s+\sigma}\,(-1)^{n+\nu}\,C^{\sigma\nu(c)}_{s,-\mu,n}(kA)$ |
-| (A3.12) | $= (-1)^{s+\sigma}\,C^{sn(c)}_{\sigma,-\mu,\nu}(kA)$ |
+| (A3.10), (A3.11), (A3.12) | $C^{sn(c)}_{\sigma\mu\nu}(kA) = (-1)^{n+\nu}\,C^{s\nu(c)}_{\sigma\mu n}(kA) = (-1)^{s+\sigma}\,(-1)^{n+\nu}\,C^{\sigma\nu(c)}_{s,-\mu,n}(kA) = (-1)^{s+\sigma}\,C^{sn(c)}_{\sigma,-\mu,\nu}(kA)$ |
 
 ### Sign of $A$
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A3.13) | $C^{sn(c)}_{\sigma\mu\nu}(-kA) = (-1)^{s+\sigma}\,(-1)^{n+\nu}\,C^{sn(c)}_{\sigma\mu\nu}(kA)$ |
-| (A3.14) | $= (-1)^{s+\sigma}\,C^{s\nu(c)}_{\sigma\mu n}(kA)$ |
-| (A3.15) | $= C^{\sigma\nu(c)}_{s,-\mu,n}(kA)$ |
+| (A3.13), (A3.14), (A3.15) | $C^{sn(c)}_{\sigma\mu\nu}(-kA) = (-1)^{s+\sigma}\,(-1)^{n+\nu}\,C^{sn(c)}_{\sigma\mu\nu}(kA) = (-1)^{s+\sigma}\,C^{s\nu(c)}_{\sigma\mu n}(kA) = C^{\sigma\nu(c)}_{s,-\mu,n}(kA)$ |
 
 ### Complex conjugation
 
@@ -155,7 +151,7 @@ So $p$ steps in 2's, halving the work.
 
 > All special cases below use the convenient binomial-coefficient combination
 >
-> $$\frac{\dbinom{-n+\nu+p}{(-n+\nu+p)/2}\,\dbinom{n-\nu+p}{(n-\nu+p)/2}\,\dbinom{n+\nu-p}{(n+\nu-p)/2}}{\dbinom{n+\nu+p}{(n+\nu+p)/2}}$$
+> $\frac{\dbinom{-n+\nu+p}{(-n+\nu+p)/2}\,\dbinom{n-\nu+p}{(n-\nu+p)/2}\,\dbinom{n+\nu-p}{(n+\nu-p)/2}}{\dbinom{n+\nu+p}{(n+\nu+p)/2}}$
 >
 > arising from explicit 3-j evaluation. The four binomials are all $\binom{J}{J/2}$ with even $J$ — replace each by $B'(J) = \binom{J}{J/2}\,2^{-J}$ to avoid overflow (see §8).
 

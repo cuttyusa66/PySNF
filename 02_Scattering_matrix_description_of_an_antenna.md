@@ -111,28 +111,13 @@ with $\bar{P}_n^{|m|}$ the **normalized** associated Legendre function (Belousov
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\vec{F}^{(c)}_{1mn}(r,\theta,\phi) = \nabla F^{(c)}_{mn} \times \vec{r}$ |
-
-$$= \frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m}\left\{
-\,z_n^{(c)}(kr)\,\frac{im\,\bar{P}_n^{|m|}(\cos\theta)}{\sin\theta}\,e^{im\phi}\,\hat{\theta}
--z_n^{(c)}(kr)\,\frac{d\bar{P}_n^{|m|}(\cos\theta)}{d\theta}\,e^{im\phi}\,\hat{\phi}
-\right\} \tag{2.20}$$
+| (2.20) | $\vec{F}^{(c)}_{1mn}(r,\theta,\phi) = \nabla F^{(c)}_{mn} \times \vec{r} = \frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{\|m\|}\Bigr)^{m}\left\{ \,z_n^{(c)}(kr)\,\frac{im\,\bar{P}_n^{\|m\|}(\cos\theta)}{\sin\theta}\,e^{im\phi}\,\hat{\theta} -z_n^{(c)}(kr)\,\frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\,e^{im\phi}\,\hat{\phi} \right\}$ |
 
 **$s=2$ (carries radial component):**
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\vec{F}^{(c)}_{2mn}(r,\theta,\phi) = k^{-1}\nabla \times \vec{F}^{(c)}_{1mn}$ |
-
-$$= \frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m}\Biggl\{
-\frac{n(n+1)}{kr}\,z_n^{(c)}(kr)\,\bar{P}_n^{|m|}(\cos\theta)\,e^{im\phi}\,\hat{r}
-$$
-$$
-+\,\frac{1}{kr}\frac{d}{d(kr)}\bigl\{kr z_n^{(c)}(kr)\bigr\}\,\frac{d\bar{P}_n^{|m|}(\cos\theta)}{d\theta}\,e^{im\phi}\,\hat{\theta}
-$$
-$$
-+\,\frac{1}{kr}\frac{d}{d(kr)}\bigl\{kr z_n^{(c)}(kr)\bigr\}\,\frac{im\,\bar{P}_n^{|m|}(\cos\theta)}{\sin\theta}\,e^{im\phi}\,\hat{\phi}
-\Biggr\} \tag{2.21}$$
+| (2.21) | $\vec{F}^{(c)}_{2mn}(r,\theta,\phi) = k^{-1}\nabla \times \vec{F}^{(c)}_{1mn} = \frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{\|m\|}\Bigr)^{m}\Biggl\{ \frac{n(n+1)}{kr}\,z_n^{(c)}(kr)\,\bar{P}_n^{\|m\|}(\cos\theta)\,e^{im\phi}\,\hat{r} +\,\frac{1}{kr}\frac{d}{d(kr)}\bigl\{kr z_n^{(c)}(kr)\bigr\}\,\frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\,e^{im\phi}\,\hat{\theta} +\,\frac{1}{kr}\frac{d}{d(kr)}\bigl\{kr z_n^{(c)}(kr)\bigr\}\,\frac{im\,\bar{P}_n^{\|m\|}(\cos\theta)}{\sin\theta}\,e^{im\phi}\,\hat{\phi} \Biggr\}$ |
 
 > Both $\vec{F}^{(c)}_{1mn}$ and $\vec{F}^{(c)}_{2mn}$ are **dimensionless**.
 
@@ -215,8 +200,7 @@ For an interior (point closer than the source-free inner radius $r_i$):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (2.33) | $R = \frac{2D^2}{\lambda} = \frac{2}{\lambda}(2 r_0)^2$ |
-| (2.34) | $\approx \frac{2}{\lambda}\Bigl(2\frac{N}{k}\Bigr)^2 = \frac{4}{\pi}\frac{N^2}{k}$ |
+| (2.33), (2.34) | $R = \frac{2D^2}{\lambda} = \frac{2}{\lambda}(2 r_0)^2 \approx \frac{2}{\lambda}\Bigl(2\frac{N}{k}\Bigr)^2 = \frac{4}{\pi}\frac{N^2}{k}$ |
 
 ### On-axis behaviour (singular at poles, used in dipole derivations)
 
@@ -267,8 +251,7 @@ For a TE mode ($s=1$): $W_m > W_e$. For a TM mode ($s=2$): $W_e > W_m$.
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi} \bigl\{\vec{F}^{(c)}_{smn}\times\vec{F}^{(\gamma)}_{\sigma\mu\nu}\bigr\}\cdot\hat{r}\,\sin\theta\,d\theta\,d\phi$ |
-| (2.46) | $= \delta_{3-s,\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^{3-s}\,(-1)^m\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{3-s,n}(kr)$ |
+| (2.46) | $\int_0^{2\pi}\!\!\int_0^{\pi} \bigl\{\vec{F}^{(c)}_{smn}\times\vec{F}^{(\gamma)}_{\sigma\mu\nu}\bigr\}\cdot\hat{r}\,\sin\theta\,d\theta\,d\phi = \delta_{3-s,\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^{3-s}\,(-1)^m\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{3-s,n}(kr)$ |
 
 with the radial-function abbreviation
 
@@ -287,8 +270,9 @@ with the radial-function abbreviation
 
 ### Complex-power-flux result (outgoing $c=3$ field)
 
-$$\tfrac{1}{2}\int(\vec{E}\times\vec{H}^*)\cdot\hat{r}\,r^2\sin\theta\,d\theta\,d\phi
-= \sum_{smn}\Bigl\{\tfrac{1}{2} + \tfrac{1}{2}i(-1)^{3-s}(kr)^2 V_n(kr)\Bigr\}\bigl|Q^{(3)}_{smn}\bigr|^2 \tag{2.53}$$
+|  Eq.  |   |
+| :---: | :-- |
+| (2.53) | $\tfrac{1}{2}\int(\vec{E}\times\vec{H}^*)\cdot\hat{r}\,r^2\sin\theta\,d\theta\,d\phi = \sum_{smn}\Bigl\{\tfrac{1}{2} + \tfrac{1}{2}i(-1)^{3-s}(kr)^2 V_n(kr)\Bigr\}\bigl\|Q^{(3)}_{smn}\bigr\|^2$ |
 
 with cross-product
 
@@ -338,7 +322,7 @@ All elements of $\hat{\mathbf{S}}$ are dimensionless.
 
 ### Lossless antenna — unitarity
 
-$$\hat{\mathbf{S}}^{+}\hat{\mathbf{S}} = \hat{\mathbf{I}}$$ (unit matrix of order $J+1$).
+$\hat{\mathbf{S}}^{+}\hat{\mathbf{S}} = \hat{\mathbf{I}}$ (unit matrix of order $J+1$).
 
 In particular, for the first column:
 
@@ -544,16 +528,9 @@ Only mode $j=4$ ($s=2, m=0, n=1$) couples to the port.
 - $R_4 = 1$, all other $R_j = 0$ (consistent with reciprocity (2.107)).
 - $S_{ij} = \delta_{ij}$ for $i,j \ne 4$; $S_{4j} = S_{i4} = 0$.
 
-$$\hat{\mathbf{S}}^{z}_e = \begin{bmatrix}
-0 & 0 & 0 & 0 & 1 & 0 & 0 & \cdots\\
-0 & 1 & 0 & 0 & 0 & 0 & 0\\
-0 & 0 & 1 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 1 & 0 & 0 & 0\\
-1 & 0 & 0 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 1 & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 1\\
-\vdots & & & & & & & \ddots
-\end{bmatrix}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\hat{\mathbf{S}}^{z}_e = \begin{bmatrix} 0 & 0 & 0 & 0 & 1 & 0 & 0 & \cdots\\ 0 & 1 & 0 & 0 & 0 & 0 & 0\\ 0 & 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 1 & 0 & 0 & 0\\ 1 & 0 & 0 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 0 & 0 & 0 & 1\\ \vdots & & & & & & & \ddots \end{bmatrix}$ |
 
 ### x-directed electric dipole — Eq. (2.154)
 
@@ -562,17 +539,9 @@ Non-zero $\mathbf{R}$: $R_2 = \sqrt{2}/2$, $R_6 = -\sqrt{2}/2$.
 Non-zero $\mathbf{S}$ entries (within $n=1$ block): $S_{22} = S_{26} = S_{62} = S_{66} = 1/2$.
 All other entries: $S_{ii} = 1$ outside the $\{2,6\}$ subspace; rest zero.
 
-$$\hat{\mathbf{S}}^{x}_e = \begin{bmatrix}
-0 & 0 & \tfrac{\sqrt 2}{2} & 0 & 0 & 0 & -\tfrac{\sqrt 2}{2} & 0 & \cdots\\
-0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
-\tfrac{\sqrt 2}{2} & 0 & \tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\
-0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
--\tfrac{\sqrt 2}{2} & 0 & \tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
-\vdots & & & & & & & & \ddots
-\end{bmatrix}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\hat{\mathbf{S}}^{x}_e = \begin{bmatrix} 0 & 0 & \tfrac{\sqrt 2}{2} & 0 & 0 & 0 & -\tfrac{\sqrt 2}{2} & 0 & \cdots\\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\ \tfrac{\sqrt 2}{2} & 0 & \tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\ -\tfrac{\sqrt 2}{2} & 0 & \tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\ \vdots & & & & & & & & \ddots \end{bmatrix}$ |
 
 ### y-directed electric dipole — Eq. (2.155)
 
@@ -580,93 +549,49 @@ Non-zero $\mathbf{T}$: $T_2 = i\sqrt{2}/2$, $T_6 = i\sqrt{2}/2$.
 Non-zero $\mathbf{R}$: $R_2 = -i\sqrt{2}/2$, $R_6 = -i\sqrt{2}/2$.
 Non-zero $\mathbf{S}$ in $\{2,6\}$ block: $S_{22} = 1/2$, $S_{26} = -1/2$, $S_{62} = -1/2$, $S_{66} = 1/2$.
 
-$$\hat{\mathbf{S}}^{y}_e = \begin{bmatrix}
-0 & 0 & -\tfrac{i\sqrt 2}{2} & 0 & 0 & 0 & -\tfrac{i\sqrt 2}{2} & 0 & \cdots\\
-0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
-\tfrac{i\sqrt 2}{2} & 0 & \tfrac{1}{2} & 0 & 0 & 0 & -\tfrac{1}{2} & 0\\
-0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
-\tfrac{i\sqrt 2}{2} & 0 & -\tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
-\vdots & & & & & & & & \ddots
-\end{bmatrix}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\hat{\mathbf{S}}^{y}_e = \begin{bmatrix} 0 & 0 & -\tfrac{i\sqrt 2}{2} & 0 & 0 & 0 & -\tfrac{i\sqrt 2}{2} & 0 & \cdots\\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\ \tfrac{i\sqrt 2}{2} & 0 & \tfrac{1}{2} & 0 & 0 & 0 & -\tfrac{1}{2} & 0\\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\ \tfrac{i\sqrt 2}{2} & 0 & -\tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\ \vdots & & & & & & & & \ddots \end{bmatrix}$ |
 
 ### z-directed magnetic dipole — Eq. (2.156)
 
 Only mode $j=3$ ($s=1, m=0, n=1$) couples. $T_3 = -i$, $R_3 = -i$, $S_{33} = 0$.
 
-$$\hat{\mathbf{S}}^{z}_m = \begin{bmatrix}
-0 & 0 & 0 & -i & 0 & 0 & \cdots\\
-0 & 1 & 0 & 0 & 0 & 0\\
-0 & 0 & 1 & 0 & 0 & 0\\
--i & 0 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & 0\\
-0 & 0 & 0 & 0 & 0 & 1\\
-\vdots & & & & & & \ddots
-\end{bmatrix}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\hat{\mathbf{S}}^{z}_m = \begin{bmatrix} 0 & 0 & 0 & -i & 0 & 0 & \cdots\\ 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 1 & 0 & 0 & 0\\ -i & 0 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 0 & 0 & 1\\ \vdots & & & & & & \ddots \end{bmatrix}$ |
 
 ### x-directed magnetic dipole — Eq. (2.157)
 
 Non-zero $\mathbf{T}$: $T_1 = -i\sqrt{2}/2$, $T_5 = i\sqrt{2}/2$.
 $\{1,5\}$ block: $S_{11} = S_{55} = 1/2$, $S_{15} = S_{51} = 1/2$.
 
-$$\hat{\mathbf{S}}^{x}_m = \begin{bmatrix}
-0 & -\tfrac{i\sqrt 2}{2} & 0 & 0 & 0 & \tfrac{i\sqrt 2}{2} & 0 & \cdots\\
--\tfrac{i\sqrt 2}{2} & \tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\
-0 & 0 & 1 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 1 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & 0 & 0\\
-\tfrac{i\sqrt 2}{2} & \tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 1\\
-\vdots & & & & & & & \ddots
-\end{bmatrix}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\hat{\mathbf{S}}^{x}_m = \begin{bmatrix} 0 & -\tfrac{i\sqrt 2}{2} & 0 & 0 & 0 & \tfrac{i\sqrt 2}{2} & 0 & \cdots\\ -\tfrac{i\sqrt 2}{2} & \tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\ 0 & 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 1 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 1 & 0 & 0\\ \tfrac{i\sqrt 2}{2} & \tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\ 0 & 0 & 0 & 0 & 0 & 0 & 1\\ \vdots & & & & & & & \ddots \end{bmatrix}$ |
 
 ### y-directed magnetic dipole — Eq. (2.158)
 
 Non-zero $\mathbf{T}$: $T_1 = \sqrt{2}/2$, $T_5 = \sqrt{2}/2$.
 $\{1,5\}$ block: $S_{11} = 1/2$, $S_{15} = -1/2$, $S_{51} = -1/2$, $S_{55} = 1/2$.
 
-$$\hat{\mathbf{S}}^{y}_m = \begin{bmatrix}
-0 & -\tfrac{\sqrt 2}{2} & 0 & 0 & 0 & -\tfrac{\sqrt 2}{2} & 0 & \cdots\\
-\tfrac{\sqrt 2}{2} & \tfrac{1}{2} & 0 & 0 & 0 & -\tfrac{1}{2} & 0\\
-0 & 0 & 1 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 1 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & 0 & 0\\
-\tfrac{\sqrt 2}{2} & -\tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 1\\
-\vdots & & & & & & & \ddots
-\end{bmatrix}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\hat{\mathbf{S}}^{y}_m = \begin{bmatrix} 0 & -\tfrac{\sqrt 2}{2} & 0 & 0 & 0 & -\tfrac{\sqrt 2}{2} & 0 & \cdots\\ \tfrac{\sqrt 2}{2} & \tfrac{1}{2} & 0 & 0 & 0 & -\tfrac{1}{2} & 0\\ 0 & 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 1 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 1 & 0 & 0\\ \tfrac{\sqrt 2}{2} & -\tfrac{1}{2} & 0 & 0 & 0 & \tfrac{1}{2} & 0\\ 0 & 0 & 0 & 0 & 0 & 0 & 1\\ \vdots & & & & & & & \ddots \end{bmatrix}$ |
 
 ### Combined elements (Huygens, turnstile)
 
 **z-directed Huygens source** = $\hat{x}$-electric + $\hat{y}$-magnetic-dual dipoles (the magnetic dipole is the dual source of the electric one). Total matrix (Eq. 2.159):
 
-$$\hat{\mathbf{S}}^{z}_H = \begin{bmatrix}
-0 & -\tfrac{1}{2} & \tfrac{1}{2} & 0 & 0 & -\tfrac{1}{2} & -\tfrac{1}{2} & 0 & \cdots\\
-\tfrac{1}{2} & \tfrac{3}{4} & \tfrac{1}{4} & 0 & 0 & -\tfrac{1}{4} & -\tfrac{1}{4} & 0\\
-\tfrac{1}{2} & -\tfrac{1}{4} & \tfrac{1}{4} & 0 & 0 & -\tfrac{1}{4} & \tfrac{3}{4} & 0\\
-0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
-\tfrac{1}{2} & -\tfrac{1}{4} & \tfrac{1}{4} & 0 & 0 & \tfrac{3}{4} & -\tfrac{1}{4} & 0\\
--\tfrac{1}{2} & \tfrac{1}{4} & \tfrac{3}{4} & 0 & 0 & \tfrac{1}{4} & \tfrac{1}{4} & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
-\vdots & & & & & & & & \ddots
-\end{bmatrix}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\hat{\mathbf{S}}^{z}_H = \begin{bmatrix} 0 & -\tfrac{1}{2} & \tfrac{1}{2} & 0 & 0 & -\tfrac{1}{2} & -\tfrac{1}{2} & 0 & \cdots\\ \tfrac{1}{2} & \tfrac{3}{4} & \tfrac{1}{4} & 0 & 0 & -\tfrac{1}{4} & -\tfrac{1}{4} & 0\\ \tfrac{1}{2} & -\tfrac{1}{4} & \tfrac{1}{4} & 0 & 0 & -\tfrac{1}{4} & \tfrac{3}{4} & 0\\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\ \tfrac{1}{2} & -\tfrac{1}{4} & \tfrac{1}{4} & 0 & 0 & \tfrac{3}{4} & -\tfrac{1}{4} & 0\\ -\tfrac{1}{2} & \tfrac{1}{4} & \tfrac{3}{4} & 0 & 0 & \tfrac{1}{4} & \tfrac{1}{4} & 0\\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\ \vdots & & & & & & & & \ddots \end{bmatrix}$ |
 
 **z-directed turnstile** = $\hat{x}$-electric + $\hat{y}$-electric dipoles in phase quadrature. Total matrix (Eq. 2.160):
 
-$$\hat{\mathbf{S}}^{z}_T = \begin{bmatrix}
-0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & \cdots\\
-0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\
-0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
--1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
-0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\
-\vdots & & & & & & & & \ddots
-\end{bmatrix}$$
+|  Eq.  |   |
+| :---: | :-- |
+|  | $\hat{\mathbf{S}}^{z}_T = \begin{bmatrix} 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & \cdots\\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\ -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1\\ \vdots & & & & & & & & \ddots \end{bmatrix}$ |
 
 Only $T_6$ and $R_2$ are non-zero; corresponds to far field $\vec{F}_6 = \vec{F}^{(3)}_{211}$ only (RHCP at $\theta = 0$, LHCP at $\theta = \pi$).
 
