@@ -32,49 +32,33 @@
 
 In a linear, isotropic, homogeneous medium with assumed sources $\vec{J}$ (electric), $\vec{M}$ (magnetic):
 
-$$
-\nabla \times \vec{H} = -i\omega\varepsilon \vec{E} + \vec{J} \tag{2.1}
-$$
+$$\nabla \times \vec{H} = -i\omega\varepsilon \vec{E} + \vec{J} \tag{2.1}$$
 
-$$
-\nabla \times \vec{E} = i\omega\mu \vec{H} - \vec{M} \tag{2.2}
-$$
+$$\nabla \times \vec{E} = i\omega\mu \vec{H} - \vec{M} \tag{2.2}$$
 
 In a source-free region both $\vec{E}$ and $\vec{H}$ satisfy:
 
-$$
-\nabla \times (\nabla \times \vec{C}) - k^2 \vec{C} = 0 \tag{2.3}
-$$
+$$\nabla \times (\nabla \times \vec{C}) - k^2 \vec{C} = 0 \tag{2.3}$$
 
 ### Generating function and Hansen vector functions
 
 The scalar Helmholtz equation $(\nabla^2 + k^2) f = 0$ (Eq. 2.4) generates:
 
-$$
-\vec{m} = \nabla f \times \vec{r} \tag{2.5}
-$$
+$$\vec{m} = \nabla f \times \vec{r} \tag{2.5}$$
 
-$$
-\vec{n} = k^{-1} \nabla \times \vec{m} \tag{2.6}
-$$
+$$\vec{n} = k^{-1} \nabla \times \vec{m} \tag{2.6}$$
 
 Reciprocal curl relations:
 
-$$
-\vec{m} = k^{-2} \nabla \times (\nabla \times \vec{m}) \tag{2.7}
-$$
+$$\vec{m} = k^{-2} \nabla \times (\nabla \times \vec{m}) \tag{2.7}$$
 
-$$
-\vec{m} = k^{-1} \nabla \times \vec{n} \tag{2.8}
-$$
+$$\vec{m} = k^{-1} \nabla \times \vec{n} \tag{2.8}$$
 
 > The third (irrotational) Hansen function $\vec{l} = \nabla f$ is not needed here.
 
 ### Stratton generating function
 
-$$
-f^{(c)}_{\sigma mn}(r,\theta,\phi) = z^{(c)}_n(kr)\, P_n^m(\cos\theta)\, \begin{cases}\cos m\phi\\\sin m\phi\end{cases} \tag{2.9}
-$$
+$$f^{(c)}_{\sigma mn}(r,\theta,\phi) = z^{(c)}_n(kr)\, P_n^m(\cos\theta)\, \begin{cases}\cos m\phi\\\sin m\phi\end{cases} \tag{2.9}$$
 
 (With $\sigma \in \{e, o\}$ for even/odd trig.) $P_n^m$ is the unnormalized associated Legendre function.
 
@@ -89,27 +73,17 @@ $$
 
 **Bessel identity (used for matching at origin):**
 
-$$
-j_n(kr) = \tfrac{1}{2}\bigl(h_n^{(1)}(kr) + h_n^{(2)}(kr)\bigr) \tag{2.30}
-$$
+$$j_n(kr) = \tfrac{1}{2}\bigl(h_n^{(1)}(kr) + h_n^{(2)}(kr)\bigr) \tag{2.30}$$
 
 ### Large-argument (far-field) asymptotics for $kr \to \infty$, $kr \gg n$
 
-$$
-z_n^{(3)}(kr) \to (-i)^{n+1} \frac{e^{ikr}}{kr} \tag{2.13}
-$$
+$$z_n^{(3)}(kr) \to (-i)^{n+1} \frac{e^{ikr}}{kr} \tag{2.13}$$
 
-$$
-z_n^{(4)}(kr) \to i^{n+1} \frac{e^{-ikr}}{kr} \tag{2.14}
-$$
+$$z_n^{(4)}(kr) \to i^{n+1} \frac{e^{-ikr}}{kr} \tag{2.14}$$
 
-$$
-\frac{1}{kr}\frac{d}{d(kr)}\bigl\{kr\, z_n^{(3)}(kr)\bigr\} \to (-i)^{n}\frac{e^{ikr}}{kr} \tag{2.15}
-$$
+$$\frac{1}{kr}\frac{d}{d(kr)}\bigl\{kr\, z_n^{(3)}(kr)\bigr\} \to (-i)^{n}\frac{e^{ikr}}{kr} \tag{2.15}$$
 
-$$
-\frac{1}{kr}\frac{d}{d(kr)}\bigl\{kr\, z_n^{(4)}(kr)\bigr\} \to i^{n}\frac{e^{-ikr}}{kr} \tag{2.16}
-$$
+$$\frac{1}{kr}\frac{d}{d(kr)}\bigl\{kr\, z_n^{(4)}(kr)\bigr\} \to i^{n}\frac{e^{-ikr}}{kr} \tag{2.16}$$
 
 ---
 
@@ -117,9 +91,7 @@ $$
 
 ### Modified scalar generating function (Jensen [13])
 
-$$
-F^{(c)}_{mn}(r,\theta,\phi) = \frac{1}{\sqrt{2\pi}}\,\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m} z_n^{(c)}(kr)\, \bar{P}_n^{|m|}(\cos\theta)\, e^{im\phi} \tag{2.18}
-$$
+$$F^{(c)}_{mn}(r,\theta,\phi) = \frac{1}{\sqrt{2\pi}}\,\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m} z_n^{(c)}(kr)\, \bar{P}_n^{|m|}(\cos\theta)\, e^{im\phi} \tag{2.18}$$
 
 with $\bar{P}_n^{|m|}$ the **normalized** associated Legendre function (Belousov [14]; see Appendix A1).
 
@@ -127,9 +99,7 @@ with $\bar{P}_n^{|m|}$ the **normalized** associated Legendre function (Belousov
 
 **$s=1$ (transverse — no radial component):**
 
-$$
-\vec{F}^{(c)}_{1mn}(r,\theta,\phi) = \nabla F^{(c)}_{mn} \times \vec{r}
-$$
+$$\vec{F}^{(c)}_{1mn}(r,\theta,\phi) = \nabla F^{(c)}_{mn} \times \vec{r}$$
 
 $$= \frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m}\left\{
 \,z_n^{(c)}(kr)\,\frac{im\,\bar{P}_n^{|m|}(\cos\theta)}{\sin\theta}\,e^{im\phi}\,\hat{\theta}
@@ -138,9 +108,7 @@ $$= \frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m}\l
 
 **$s=2$ (carries radial component):**
 
-$$
-\vec{F}^{(c)}_{2mn}(r,\theta,\phi) = k^{-1}\nabla \times \vec{F}^{(c)}_{1mn}
-$$
+$$\vec{F}^{(c)}_{2mn}(r,\theta,\phi) = k^{-1}\nabla \times \vec{F}^{(c)}_{1mn}$$
 
 $$= \frac{1}{\sqrt{2\pi}}\frac{1}{\sqrt{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m}\Biggl\{
 \frac{n(n+1)}{kr}\,z_n^{(c)}(kr)\,\bar{P}_n^{|m|}(\cos\theta)\,e^{im\phi}\,\hat{r}
@@ -156,39 +124,25 @@ $$
 
 ### Field expansion (in a source-free region such as region 2 of Fig. 2.2)
 
-$$
-\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{c\,s\,m\,n} Q^{(c)}_{smn}\,\vec{F}^{(c)}_{smn}(r,\theta,\phi) \tag{2.22}
-$$
+$$\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{c\,s\,m\,n} Q^{(c)}_{smn}\,\vec{F}^{(c)}_{smn}(r,\theta,\phi) \tag{2.22}$$
 
-$$
-\vec{H}(r,\theta,\phi) = (i\omega\mu)^{-1}\nabla\times\vec{E} = -ik\sqrt{\eta}\sum_{c\,s\,m\,n} Q^{(c)}_{smn}\,\vec{F}^{(c)}_{3-s,m,n}(r,\theta,\phi) \tag{2.23}
-$$
+$$\vec{H}(r,\theta,\phi) = (i\omega\mu)^{-1}\nabla\times\vec{E} = -ik\sqrt{\eta}\sum_{c\,s\,m\,n} Q^{(c)}_{smn}\,\vec{F}^{(c)}_{3-s,m,n}(r,\theta,\phi) \tag{2.23}$$
 
 **Note the index swap $s \to 3-s$ in the magnetic field.** A correct implementation must mirror this.
 
 ### Summation conventions
 
-$$
-\sum_{smn} \;=\; \sum_{s=1}^{2}\sum_{n=1}^{\infty}\sum_{m=-n}^{n} \tag{2.25}
-$$
+$$\sum_{smn} \;=\; \sum_{s=1}^{2}\sum_{n=1}^{\infty}\sum_{m=-n}^{n} \tag{2.25}$$
 
-$$
-\sum_{csmn} \;=\; \sum_{c=3}^{4}\sum_{s=1}^{2}\sum_{n=1}^{\infty}\sum_{m=-n}^{n} \tag{2.26}
-$$
+$$\sum_{csmn} \;=\; \sum_{c=3}^{4}\sum_{s=1}^{2}\sum_{n=1}^{\infty}\sum_{m=-n}^{n} \tag{2.26}$$
 
 ### Single-index transformation (when $M = N$)
 
-$$
-j = 2\{n(n+1) + m - 1\} + s \tag{2.27}
-$$
+$$j = 2\{n(n+1) + m - 1\} + s \tag{2.27}$$
 
-$$
-\sum_{s=1}^{2}\sum_{n=1}^{N}\sum_{m=-n}^{n} = \sum_{j=1}^{J} \tag{2.28}
-$$
+$$\sum_{s=1}^{2}\sum_{n=1}^{N}\sum_{m=-n}^{n} = \sum_{j=1}^{J} \tag{2.28}$$
 
-$$
-J = 2N(N+2) \tag{2.29}
-$$
+$$J = 2N(N+2) \tag{2.29}$$
 
 Substitutions: $Q^{(c)}_{smn} = Q^{(c)}_j$, $\vec{F}^{(c)}_{smn} = \vec{F}^{(c)}_j$.
 
@@ -207,9 +161,7 @@ Substitutions: $Q^{(c)}_{smn} = Q^{(c)}_j$, $\vec{F}^{(c)}_{smn} = \vec{F}^{(c)}
 
 ### Power radiated (outgoing-wave field)
 
-$$
-P = \frac{1}{2}\sum_{smn}|Q^{(3)}_{smn}|^2 \quad\text{[watts]} \tag{2.24, 2.55}
-$$
+$$P = \frac{1}{2}\sum_{smn}|Q^{(3)}_{smn}|^2 \quad\text{[watts]} \tag{2.24, 2.55}$$
 
 ### Mode-type identification
 
@@ -221,17 +173,13 @@ $$
 
 Convergence is obtained for:
 
-$$
-N = \lfloor kr_0 \rfloor + n_1 \tag{2.31}
-$$
+$$N = \lfloor kr_0 \rfloor + n_1 \tag{2.31}$$
 
 with $r_0$ = minimum-sphere radius, $n_1$ depending on accuracy/geometry. **Empirical default: $n_1 = 10$** when the field point is more than a few wavelengths from the minimum sphere and 4 correct digits suffice. $n_1$ grows roughly as $(kr_0)^{1/3}$ for fixed accuracy.
 
 For an interior (point closer than the source-free inner radius $r_i$):
 
-$$
-N = \lfloor kr \rfloor + n_1 \tag{2.32}
-$$
+$$N = \lfloor kr \rfloor + n_1 \tag{2.32}$$
 
 ### Region definitions for a multi-mode antenna ($N$ = truncation)
 
@@ -243,23 +191,15 @@ $$
 
 ### Rayleigh distance
 
-$$
-R = \frac{2D^2}{\lambda} = \frac{2}{\lambda}(2 r_0)^2 \tag{2.33}
-$$
+$$R = \frac{2D^2}{\lambda} = \frac{2}{\lambda}(2 r_0)^2 \tag{2.33}$$
 
-$$
-\approx \frac{2}{\lambda}\Bigl(2\frac{N}{k}\Bigr)^2 = \frac{4}{\pi}\frac{N^2}{k} \tag{2.34}
-$$
+$$\approx \frac{2}{\lambda}\Bigl(2\frac{N}{k}\Bigr)^2 = \frac{4}{\pi}\frac{N^2}{k} \tag{2.34}$$
 
 ### On-axis behaviour (singular at poles, used in dipole derivations)
 
-$$
-[\vec{F}^{(c)}_{smn}(r,0,\phi)]_r = [\vec{F}^{(c)}_{smn}(r,\pi,\phi)]_r = 0 \quad\text{for } m \ne 0 \tag{2.35}
-$$
+$$[\vec{F}^{(c)}_{smn}(r,0,\phi)]_r = [\vec{F}^{(c)}_{smn}(r,\pi,\phi)]_r = 0 \quad\text{for } m \ne 0 \tag{2.35}$$
 
-$$
-[\vec{F}^{(c)}_{smn}(r,0,\phi)]_{\theta,\phi} = [\vec{F}^{(c)}_{smn}(r,\pi,\phi)]_{\theta,\phi} = 0 \quad\text{for } m \ne \pm 1 \tag{2.36}
-$$
+$$[\vec{F}^{(c)}_{smn}(r,0,\phi)]_{\theta,\phi} = [\vec{F}^{(c)}_{smn}(r,\pi,\phi)]_{\theta,\phi} = 0 \quad\text{for } m \ne \pm 1 \tag{2.36}$$
 
 ---
 
@@ -267,77 +207,49 @@ $$
 
 ### Complex Poynting vector
 
-$$
-\vec{S} = \tfrac{1}{2}\,\vec{E}\times\vec{H}^* \tag{2.37}
-$$
+$$\vec{S} = \tfrac{1}{2}\,\vec{E}\times\vec{H}^* \tag{2.37}$$
 
 ### Power radiated through a sphere of radius $r$
 
-$$
-P = \int_0^{2\pi}\!\!\int_0^{\pi} \mathrm{Re}(\hat{r}\cdot\vec{S})\, r^2\sin\theta\, d\theta\, d\phi \tag{2.38}
-$$
+$$P = \int_0^{2\pi}\!\!\int_0^{\pi} \mathrm{Re}(\hat{r}\cdot\vec{S})\, r^2\sin\theta\, d\theta\, d\phi \tag{2.38}$$
 
 ### Reactive-energy relation
 
-$$
-2\omega(W_e - W_m) = \int_0^{2\pi}\!\!\int_0^{\pi} \mathrm{Im}(\hat{r}\cdot\vec{S})\, r^2\sin\theta\, d\theta\, d\phi \tag{2.39}
-$$
+$$2\omega(W_e - W_m) = \int_0^{2\pi}\!\!\int_0^{\pi} \mathrm{Im}(\hat{r}\cdot\vec{S})\, r^2\sin\theta\, d\theta\, d\phi \tag{2.39}$$
 
 For a TE mode ($s=1$): $W_m > W_e$. For a TM mode ($s=2$): $W_e > W_m$.
 
 ### Far-field plane-wave relation
 
-$$
-\vec{H} = \eta\,\hat{r}\times\vec{E} \tag{2.40}
-$$
+$$\vec{H} = \eta\,\hat{r}\times\vec{E} \tag{2.40}$$
 
-$$
-\vec{S} = \tfrac{1}{2}\eta|\vec{E}|^2\,\hat{r} \quad\text{[W/m²]} \tag{2.41}
-$$
+$$\vec{S} = \tfrac{1}{2}\eta|\vec{E}|^2\,\hat{r} \quad\text{[W/m²]} \tag{2.41}$$
 
-$$
-P_1(\theta,\phi) = \tfrac{1}{2}\eta|\vec{E}|^2 r^2 \quad\text{[W/sr]} \tag{2.42}
-$$
+$$P_1(\theta,\phi) = \tfrac{1}{2}\eta|\vec{E}|^2 r^2 \quad\text{[W/sr]} \tag{2.42}$$
 
 ### Complex-conjugate identity for $\vec{F}^{(c)}_{smn}$
 
-$$
-\vec{F}^{(3)*}_{smn}(r,\theta,\phi) = (-1)^m\,\vec{F}^{(4)}_{s,-m,n}(r,\theta,\phi) \tag{2.45}
-$$
+$$\vec{F}^{(3)*}_{smn}(r,\theta,\phi) = (-1)^m\,\vec{F}^{(4)}_{s,-m,n}(r,\theta,\phi) \tag{2.45}$$
 
 ### Orthogonality integral (used for power and reciprocity)
 
-$$
-\int_0^{2\pi}\!\!\int_0^{\pi} \bigl\{\vec{F}^{(c)}_{smn}\times\vec{F}^{(\gamma)}_{\sigma\mu\nu}\bigr\}\cdot\hat{r}\,\sin\theta\,d\theta\,d\phi
-$$
+$$\int_0^{2\pi}\!\!\int_0^{\pi} \bigl\{\vec{F}^{(c)}_{smn}\times\vec{F}^{(\gamma)}_{\sigma\mu\nu}\bigr\}\cdot\hat{r}\,\sin\theta\,d\theta\,d\phi$$
 
-$$
-= \delta_{3-s,\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^{3-s}\,(-1)^m\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{3-s,n}(kr) \tag{2.46}
-$$
+$$ = \delta_{3-s,\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^{3-s}\,(-1)^m\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{3-s,n}(kr) \tag{2.46}$$
 
 with the radial-function abbreviation
 
-$$
-R^{(c)}_{sn}(kr) = \begin{cases} z_n^{(c)}(kr), & s = 1 \\ \dfrac{1}{kr}\dfrac{d}{d(kr)}\{kr\,z_n^{(c)}(kr)\}, & s = 2 \end{cases} \tag{2.47}
-$$
+$$R^{(c)}_{sn}(kr) = \begin{cases} z_n^{(c)}(kr), & s = 1 \\ \dfrac{1}{kr}\dfrac{d}{d(kr)}\{kr\,z_n^{(c)}(kr)\}, & s = 2 \end{cases} \tag{2.47}$$
 
 ### Kronecker delta and Wronskian
 
-$$
-\delta_{ij} = \begin{cases}0 & i \ne j \\ 1 & i = j\end{cases} \tag{2.48}
-$$
+$$\delta_{ij} = \begin{cases}0 & i \ne j \\ 1 & i = j\end{cases} \tag{2.48}$$
 
-$$
-R^{(3)}_{sn}(kr) = R^{(1)}_{sn}(kr) + i\,R^{(2)}_{sn}(kr) \tag{2.50}
-$$
+$$R^{(3)}_{sn}(kr) = R^{(1)}_{sn}(kr) + i\,R^{(2)}_{sn}(kr) \tag{2.50}$$
 
-$$
-R^{(4)}_{sn}(kr) = R^{(1)}_{sn}(kr) - i\,R^{(2)}_{sn}(kr) \tag{2.51}
-$$
+$$R^{(4)}_{sn}(kr) = R^{(1)}_{sn}(kr) - i\,R^{(2)}_{sn}(kr) \tag{2.51}$$
 
-$$
-R^{(1)}_{1n}(kr)R^{(2)}_{2n}(kr) - R^{(1)}_{2n}(kr)R^{(2)}_{1n}(kr) = (kr)^{-2} \tag{2.52}
-$$
+$$R^{(1)}_{1n}(kr)R^{(2)}_{2n}(kr) - R^{(1)}_{2n}(kr)R^{(2)}_{1n}(kr) = (kr)^{-2} \tag{2.52}$$
 
 ### Complex-power-flux result (outgoing $c=3$ field)
 
@@ -346,9 +258,7 @@ $$\tfrac{1}{2}\int(\vec{E}\times\vec{H}^*)\cdot\hat{r}\,r^2\sin\theta\,d\theta\,
 
 with cross-product
 
-$$
-V_n(kr) = R^{(1)}_{1n}(kr)R^{(2)}_{1n}(kr) + R^{(1)}_{2n}(kr)R^{(2)}_{2n}(kr) = \Bigl(\frac{1}{kr} + \frac{1}{2}\frac{d}{d(kr)}\Bigr)|h_n^{(1)}(kr)|^2 \tag{2.54}
-$$
+$$V_n(kr) = R^{(1)}_{1n}(kr)R^{(2)}_{1n}(kr) + R^{(1)}_{2n}(kr)R^{(2)}_{2n}(kr) = \Bigl(\frac{1}{kr} + \frac{1}{2}\frac{d}{d(kr)}\Bigr)|h_n^{(1)}(kr)|^2 \tag{2.54}$$
 
 $V_n(kr)$ is always negative (Abramowitz & Stegun 10.1.27).
 
@@ -360,27 +270,18 @@ $V_n(kr)$ is always negative (Abramowitz & Stegun 10.1.27).
 
 ### Field outside the minimum sphere
 
-$$
-\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{j=1}^{J}\bigl\{a_j\,\vec{F}^{(4)}_j(r,\theta,\phi) + b_j\,\vec{F}^{(3)}_j(r,\theta,\phi)\bigr\},\quad r > r_0 \tag{2.56}
-$$
+$$\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{j=1}^{J}\bigl\{a_j\,\vec{F}^{(4)}_j(r,\theta,\phi) + b_j\,\vec{F}^{(3)}_j(r,\theta,\phi)\bigr\},\quad r > r_0 \tag{2.56}$$
 
 Index relation: $Q^{(4)}_{smn} = a_j = a_{smn}$ (incoming), $Q^{(3)}_{smn} = b_j = b_{smn}$ (outgoing), with $j$ from (2.27).
 
 ### Antenna scattering equation (order $J+1$)
 
-$$
-\begin{bmatrix}\Gamma & \mathbf{R}\\ \mathbf{T} & \mathbf{S}\end{bmatrix}\begin{bmatrix}v\\ \mathbf{a}\end{bmatrix} = \begin{bmatrix}w\\ \mathbf{b}\end{bmatrix} \tag{2.57}
-$$
+$$\begin{bmatrix}\Gamma & \mathbf{R}\\ \mathbf{T} & \mathbf{S}\end{bmatrix}\begin{bmatrix}v\\ \mathbf{a}\end{bmatrix} = \begin{bmatrix}w\\ \mathbf{b}\end{bmatrix} \tag{2.57}$$
 
 Expanded:
+$$\Gamma v + \sum_{j=1}^{J} R_j a_j = w \tag{2.58}$$
 
-$$
-\Gamma v + \sum_{j=1}^{J} R_j a_j = w \tag{2.58}
-$$
-
-$$
-T_i v + \sum_{j=1}^{J} S_{ij} a_j = b_i,\quad i = 1, 2, \dots, J \tag{2.59}
-$$
+$$T_i v + \sum_{j=1}^{J} S_{ij} a_j = b_i,\quad i = 1, 2, \dots, J \tag{2.59}$$
 
 Condensed: $\hat{\mathbf{S}}\hat{\mathbf{a}} = \hat{\mathbf{b}}$ (2.60), where $\hat{\mathbf{S}}$ is the **total** scattering matrix.
 
@@ -398,20 +299,13 @@ All elements of $\hat{\mathbf{S}}$ are dimensionless.
 $$\hat{\mathbf{S}}^{+}\hat{\mathbf{S}} = \hat{\mathbf{I}}$$ (unit matrix of order $J+1$).
 
 In particular, for the first column:
-
-$$
-|\Gamma|^2 + |\mathbf{T}|^2 = 1 \tag{2.61}
-$$
+$$|\Gamma|^2 + |\mathbf{T}|^2 = 1 \tag{2.61}$$
 
 ### Lossy antenna
 
-$$
-\tfrac{1}{2}\sum_{i=1}^{J}|b_i|^2 = \tfrac{1}{2}|v|^2 - \bigl(\tfrac{1}{2}|w|^2 + P_{\text{loss}}\bigr) \tag{2.62}
-$$
+$$\tfrac{1}{2}\sum_{i=1}^{J}|b_i|^2 = \tfrac{1}{2}|v|^2 - \bigl(\tfrac{1}{2}|w|^2 + P_{\text{loss}}\bigr) \tag{2.62}$$
 
-$$
-|\Gamma|^2 + |\mathbf{T}|^2 = 1 - \frac{P_{\text{loss}}}{P_{\text{inc}}} \tag{2.63}
-$$
+$$|\Gamma|^2 + |\mathbf{T}|^2 = 1 - \frac{P_{\text{loss}}}{P_{\text{inc}}} \tag{2.63}$$
 
 In the lossy case, every row and column of $\hat{\mathbf{S}}$ has norm $\le 1$.
 
@@ -422,64 +316,38 @@ $\hat{\mathbf{S}}$ undefined, but $\mathbf{S} = \mathbf{I}$ (unit matrix of infi
 ### Generator coupling — radiated waves
 
 Generator: $v = v_g + \Gamma_g w$ (2.64). With $\mathbf{a} = 0$:
+$$\Gamma v = w \tag{2.65}$$
 
-$$
-\Gamma v = w \tag{2.65}
-$$
+$$\mathbf{T} v = \mathbf{b} \tag{2.66}$$
 
-$$
-\mathbf{T} v = \mathbf{b} \tag{2.66}
-$$
+$$\boxed{\;\mathbf{b} = \frac{v_g}{1 - \Gamma_g \Gamma}\,\mathbf{T}\;} \tag{2.67}$$
 
-$$
-\boxed{\;\mathbf{b} = \frac{v_g}{1 - \Gamma_g \Gamma}\,\mathbf{T}\;} \tag{2.67}
-$$
-
-$$
-\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{i=1}^{J} b_i\,\vec{F}^{(3)}_i(r,\theta,\phi) \tag{2.68}
-$$
+$$\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{i=1}^{J} b_i\,\vec{F}^{(3)}_i(r,\theta,\phi) \tag{2.68}$$
 
 ### Load coupling — received wave & scattering
 
 Load: $v = \Gamma_l w$ (2.69). With $\Gamma v + \mathbf{R}\mathbf{a} = w$ (2.70):
-
-$$
-\boxed{\;w = \frac{1}{1-\Gamma_l\Gamma}\,\mathbf{R}\mathbf{a}\;} \tag{2.71}
-$$
+$$\boxed{\;w = \frac{1}{1-\Gamma_l\Gamma}\,\mathbf{R}\mathbf{a}\;} \tag{2.71}$$
 
 Power accepted by the load:
-
-$$
-P = \tfrac{1}{2}(1-|\Gamma_l|^2)|w|^2 = \tfrac{1}{2}(1-|\Gamma_l|^2)\,\frac{|\mathbf{R}\mathbf{a}|^2}{|1-\Gamma_l\Gamma|^2} \tag{2.72}
-$$
+$$P = \tfrac{1}{2}(1-|\Gamma_l|^2)|w|^2 = \tfrac{1}{2}(1-|\Gamma_l|^2)\,\frac{|\mathbf{R}\mathbf{a}|^2}{|1-\Gamma_l\Gamma|^2} \tag{2.72}$$
 
 **Matched load** ($\Gamma_l = 0$): $P = P' = \tfrac{1}{2}|\mathbf{R}\mathbf{a}|^2$ (2.73).
 
 **Conjugate-matched load** ($\Gamma_l = \Gamma^*$): maximum, "available" power:
-
-$$
-P_a = \frac{1}{2}\,\frac{|\mathbf{R}\mathbf{a}|^2}{1-|\Gamma|^2} \tag{2.74}
-$$
+$$P_a = \frac{1}{2}\,\frac{|\mathbf{R}\mathbf{a}|^2}{1-|\Gamma|^2} \tag{2.74}$$
 
 ### Scattered field
 
 From $\mathbf{T} v + \mathbf{S}\mathbf{a} = \mathbf{b}$ (2.75) and (2.69), (2.71):
-
-$$
-\mathbf{b} = \{\mathbf{T}\Gamma_l(1-\Gamma\Gamma_l)^{-1}\mathbf{R} + \mathbf{S}\}\mathbf{a} \tag{2.76}
-$$
+$$\mathbf{b} = \{\mathbf{T}\Gamma_l(1-\Gamma\Gamma_l)^{-1}\mathbf{R} + \mathbf{S}\}\mathbf{a} \tag{2.76}$$
 
 **Subtract empty-space scattering** to get the field actually scattered by the antenna:
-
-$$
-\mathbf{b}' = \{\mathbf{T}\Gamma_l(1-\Gamma\Gamma_l)^{-1}\mathbf{R} + (\mathbf{S} - \mathbf{I})\}\mathbf{a} \tag{2.77}
-$$
+$$\mathbf{b}' = \{\mathbf{T}\Gamma_l(1-\Gamma\Gamma_l)^{-1}\mathbf{R} + (\mathbf{S} - \mathbf{I})\}\mathbf{a} \tag{2.77}$$
 
 Matched load ($\Gamma_l = 0$): $\mathbf{b}' = (\mathbf{S} - \mathbf{I})\mathbf{a}$ (2.78).
 
-$$
-\vec{E}'(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{i=1}^{J} b'_i\,\vec{F}^{(3)}_i(r,\theta,\phi) \tag{2.79}
-$$
+$$\vec{E}'(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{i=1}^{J} b'_i\,\vec{F}^{(3)}_i(r,\theta,\phi) \tag{2.79}$$
 
 ---
 
@@ -487,33 +355,21 @@ $$
 
 ### Generalized Lorentz form (unprimed and primed = adjoint device)
 
-$$
-vw' - v'w = \sum_{smn}(-1)^m\bigl(b_{smn}\,a'_{s,-m,n} - a_{smn}\,b'_{s,-m,n}\bigr) \tag{2.93}
-$$
+$$vw' - v'w = \sum_{smn}(-1)^m\bigl(b_{smn}\,a'_{s,-m,n} - a_{smn}\,b'_{s,-m,n}\bigr) \tag{2.93}$$
 
 ### Adjoint-antenna relations (with $\mathbf{R}'$, $\mathbf{T}$, etc.)
 
-$$
-R'_{smn} = (-1)^m\,T_{s,-m,n} \tag{2.104}
-$$
+$$R'_{smn} = (-1)^m\,T_{s,-m,n} \tag{2.104}$$
 
-$$
-S'^{\sigma\mu\nu}_{smn} = (-1)^{m+\mu}\,S^{s,-m,n}_{\sigma,-\mu,\nu} \tag{2.105}
-$$
+$$S'^{\sigma\mu\nu}_{smn} = (-1)^{m+\mu}\,S^{s,-m,n}_{\sigma,-\mu,\nu} \tag{2.105}$$
 
-$$
-\Gamma' = \Gamma \tag{2.106}
-$$
+$$\Gamma' = \Gamma \tag{2.106}$$
 
 ### Reciprocal antenna (special case — antenna is its own adjoint)
 
-$$
-\boxed{\;R_{smn} = (-1)^m\,T_{s,-m,n}\;} \tag{2.107}
-$$
+$$\boxed{\;R_{smn} = (-1)^m\,T_{s,-m,n}\;} \tag{2.107}$$
 
-$$
-S^{\sigma\mu\nu}_{smn} = (-1)^{m+\mu}\,S^{s,-m,n}_{\sigma,-\mu,\nu} \tag{2.108}
-$$
+$$S^{\sigma\mu\nu}_{smn} = (-1)^{m+\mu}\,S^{s,-m,n}_{\sigma,-\mu,\nu} \tag{2.108}$$
 
 ---
 
@@ -523,121 +379,70 @@ $$
 
 Dipole moment $d_e = I\ell$.
 
-$$
-\vec{E}^{z}_e = -\frac{\zeta k^2}{2\pi}d_e\,\frac{h_1^{(1)}(kr)}{kr}\cos\theta\,\hat{r} + \frac{\zeta k^2}{4\pi}d_e\,\frac{1}{kr}\frac{d}{d(kr)}\{kr\,h_1^{(1)}(kr)\}\sin\theta\,\hat{\theta} \tag{2.109}
-$$
+$$\vec{E}^{z}_e = -\frac{\zeta k^2}{2\pi}d_e\,\frac{h_1^{(1)}(kr)}{kr}\cos\theta\,\hat{r} + \frac{\zeta k^2}{4\pi}d_e\,\frac{1}{kr}\frac{d}{d(kr)}\{kr\,h_1^{(1)}(kr)\}\sin\theta\,\hat{\theta} \tag{2.109}$$
 
-$$
-\vec{H}^{z}_e = \frac{ik^2}{4\pi}d_e\,h_1^{(1)}(kr)\sin\theta\,\hat{\phi} \tag{2.110}
-$$
+$$\vec{H}^{z}_e = \frac{ik^2}{4\pi}d_e\,h_1^{(1)}(kr)\sin\theta\,\hat{\phi} \tag{2.110}$$
 
 with
 
-$$
-h_1^{(1)}(kr) = -\frac{e^{ikr}}{kr}\Bigl(1 + \frac{i}{kr}\Bigr) \tag{2.111}
-$$
+$$h_1^{(1)}(kr) = -\frac{e^{ikr}}{kr}\Bigl(1 + \frac{i}{kr}\Bigr) \tag{2.111}$$
 
-$$
-\frac{1}{kr}\frac{d}{d(kr)}\{kr\,h_1^{(1)}(kr)\} = \frac{e^{ikr}}{kr}\Bigl\{-i + \frac{1}{kr} + \frac{i}{(kr)^2}\Bigr\} \tag{2.112}
-$$
+$$\frac{1}{kr}\frac{d}{d(kr)}\{kr\,h_1^{(1)}(kr)\} = \frac{e^{ikr}}{kr}\Bigl\{-i + \frac{1}{kr} + \frac{i}{(kr)^2}\Bigr\} \tag{2.112}$$
 
 ### Spherical-wave form
 
-$$
-\vec{E}^{z}_e = \frac{k}{\sqrt{\eta}}\,Q_{201}\,\vec{F}^{(3)}_{201}(r,\theta,\phi) \tag{2.115}
-$$
+$$\vec{E}^{z}_e = \frac{k}{\sqrt{\eta}}\,Q_{201}\,\vec{F}^{(3)}_{201}(r,\theta,\phi) \tag{2.115}$$
 
-$$
-\vec{H}^{z}_e = -ik\sqrt{\eta}\,Q_{201}\,\vec{F}^{(3)}_{101}(r,\theta,\phi) \tag{2.116}
-$$
+$$\vec{H}^{z}_e = -ik\sqrt{\eta}\,Q_{201}\,\vec{F}^{(3)}_{101}(r,\theta,\phi) \tag{2.116}$$
 
-$$
-\boxed{\;Q_{201} = -\frac{1}{\sqrt{6\pi}}\,\frac{k}{\sqrt{\eta}}\,d_e\;} \tag{2.117}
-$$
+$$\boxed{\;Q_{201} = -\frac{1}{\sqrt{6\pi}}\,\frac{k}{\sqrt{\eta}}\,d_e\;} \tag{2.117}$$
 
 ### z-directed magnetic dipole
 
 Moment $d_m = I_m \ell = -i\omega\mu S I'$ (2.130, 2.131).
 
-$$
-\vec{E}^{z}_m = \frac{k}{\sqrt{\eta}}\,Q_{101}\,\vec{F}^{(3)}_{101}(r,\theta,\phi) \tag{2.132}
-$$
+$$\vec{E}^{z}_m = \frac{k}{\sqrt{\eta}}\,Q_{101}\,\vec{F}^{(3)}_{101}(r,\theta,\phi) \tag{2.132}$$
 
-$$
-\vec{H}^{z}_m = -ik\sqrt{\eta}\,Q_{101}\,\vec{F}^{(3)}_{201}(r,\theta,\phi) \tag{2.133}
-$$
+$$\vec{H}^{z}_m = -ik\sqrt{\eta}\,Q_{101}\,\vec{F}^{(3)}_{201}(r,\theta,\phi) \tag{2.133}$$
 
-$$
-\boxed{\;Q_{101} = -\frac{i}{\sqrt{6\pi}}\,k\sqrt{\eta}\,d_m\;} \tag{2.138}
-$$
+$$\boxed{\;Q_{101} = -\frac{i}{\sqrt{6\pi}}\,k\sqrt{\eta}\,d_m\;} \tag{2.138}$$
 
 ### Duality
 
 If $d_m = -\zeta d_e$ (2.139):
+$$\vec{E}_m = \zeta\vec{H}_e,\quad \vec{H}_m = -\eta\vec{E}_e \tag{2.140, 2.141}$$
 
-$$
-\vec{E}_m = \zeta\vec{H}_e,\quad \vec{H}_m = -\eta\vec{E}_e \tag{2.140, 2.141}
-$$
-
-$$
-Q_{101} = -i\,Q_{201} \tag{2.142}
-$$
+$$Q_{101} = -i\,Q_{201} \tag{2.142}$$
 
 ### Rotation result for x-directed dipole (Euler angles $(0,-\pi/2,0)$)
 
 Rotation coefficients used:
-
-$$
-d^{1}_{-1,0}(-\pi/2) = \tfrac{\sqrt{2}}{2},\quad d^{1}_{0,0}(-\pi/2) = 0,\quad d^{1}_{1,0}(-\pi/2) = -\tfrac{\sqrt{2}}{2} \tag{2.120-2.122}
-$$
+$$d^{1}_{-1,0}(-\pi/2) = \tfrac{\sqrt{2}}{2},\quad d^{1}_{0,0}(-\pi/2) = 0,\quad d^{1}_{1,0}(-\pi/2) = -\tfrac{\sqrt{2}}{2} \tag{2.120-2.122}$$
 
 Yielding:
-
-$$
-\vec{F}^{(3)}_{201}(r,\theta,\phi) = \tfrac{\sqrt{2}}{2}\vec{F}^{(3)}_{2,-1,1}(r',\theta',\phi') - \tfrac{\sqrt{2}}{2}\vec{F}^{(3)}_{211}(r',\theta',\phi') \tag{2.123}
-$$
+$$\vec{F}^{(3)}_{201}(r,\theta,\phi) = \tfrac{\sqrt{2}}{2}\vec{F}^{(3)}_{2,-1,1}(r',\theta',\phi') - \tfrac{\sqrt{2}}{2}\vec{F}^{(3)}_{211}(r',\theta',\phi') \tag{2.123}$$
 
 ### Fields of x- and y-directed dipoles
 
 **x-directed electric dipole:**
+$$\vec{E}^{x}_e = \frac{k}{\sqrt{\eta}}Q_{201}\,\tfrac{\sqrt{2}}{2}\{\vec{F}^{(3)}_{2,-1,1} - \vec{F}^{(3)}_{211}\} \tag{2.124}$$
 
-$$
-\vec{E}^{x}_e = \frac{k}{\sqrt{\eta}}Q_{201}\,\tfrac{\sqrt{2}}{2}\{\vec{F}^{(3)}_{2,-1,1} - \vec{F}^{(3)}_{211}\} \tag{2.124}
-$$
-
-$$
-\vec{H}^{x}_e = -ik\sqrt{\eta}\,Q_{201}\,\tfrac{\sqrt{2}}{2}\{\vec{F}^{(3)}_{1,-1,1} - \vec{F}^{(3)}_{111}\} \tag{2.125}
-$$
+$$\vec{H}^{x}_e = -ik\sqrt{\eta}\,Q_{201}\,\tfrac{\sqrt{2}}{2}\{\vec{F}^{(3)}_{1,-1,1} - \vec{F}^{(3)}_{111}\} \tag{2.125}$$
 
 **y-directed electric dipole:**
+$$\vec{E}^{y}_e = \frac{k}{\sqrt{\eta}}Q_{201}\,\tfrac{i\sqrt{2}}{2}\{\vec{F}^{(3)}_{2,-1,1} + \vec{F}^{(3)}_{211}\} \tag{2.128}$$
 
-$$
-\vec{E}^{y}_e = \frac{k}{\sqrt{\eta}}Q_{201}\,\tfrac{i\sqrt{2}}{2}\{\vec{F}^{(3)}_{2,-1,1} + \vec{F}^{(3)}_{211}\} \tag{2.128}
-$$
-
-$$
-\vec{H}^{y}_e = -ik\sqrt{\eta}\,Q_{201}\,\tfrac{i\sqrt{2}}{2}\{\vec{F}^{(3)}_{1,-1,1} + \vec{F}^{(3)}_{111}\} \tag{2.129}
-$$
+$$\vec{H}^{y}_e = -ik\sqrt{\eta}\,Q_{201}\,\tfrac{i\sqrt{2}}{2}\{\vec{F}^{(3)}_{1,-1,1} + \vec{F}^{(3)}_{111}\} \tag{2.129}$$
 
 **x-directed magnetic dipole:**
+$$\vec{E}^{x}_m = \frac{k}{\sqrt{\eta}}Q_{101}\,\tfrac{\sqrt{2}}{2}\{\vec{F}^{(3)}_{1,-1,1} - \vec{F}^{(3)}_{111}\} \tag{2.134}$$
 
-$$
-\vec{E}^{x}_m = \frac{k}{\sqrt{\eta}}Q_{101}\,\tfrac{\sqrt{2}}{2}\{\vec{F}^{(3)}_{1,-1,1} - \vec{F}^{(3)}_{111}\} \tag{2.134}
-$$
-
-$$
-\vec{H}^{x}_m = -ik\sqrt{\eta}\,Q_{101}\,\tfrac{\sqrt{2}}{2}\{\vec{F}^{(3)}_{2,-1,1} - \vec{F}^{(3)}_{211}\} \tag{2.135}
-$$
+$$\vec{H}^{x}_m = -ik\sqrt{\eta}\,Q_{101}\,\tfrac{\sqrt{2}}{2}\{\vec{F}^{(3)}_{2,-1,1} - \vec{F}^{(3)}_{211}\} \tag{2.135}$$
 
 **y-directed magnetic dipole:**
+$$\vec{E}^{y}_m = \frac{k}{\sqrt{\eta}}Q_{101}\,\tfrac{i\sqrt{2}}{2}\{\vec{F}^{(3)}_{1,-1,1} + \vec{F}^{(3)}_{111}\} \tag{2.136}$$
 
-$$
-\vec{E}^{y}_m = \frac{k}{\sqrt{\eta}}Q_{101}\,\tfrac{i\sqrt{2}}{2}\{\vec{F}^{(3)}_{1,-1,1} + \vec{F}^{(3)}_{111}\} \tag{2.136}
-$$
-
-$$
-\vec{H}^{y}_m = -ik\sqrt{\eta}\,Q_{101}\,\tfrac{i\sqrt{2}}{2}\{\vec{F}^{(3)}_{2,-1,1} + \vec{F}^{(3)}_{211}\} \tag{2.137}
-$$
+$$\vec{H}^{y}_m = -ik\sqrt{\eta}\,Q_{101}\,\tfrac{i\sqrt{2}}{2}\{\vec{F}^{(3)}_{2,-1,1} + \vec{F}^{(3)}_{211}\} \tag{2.137}$$
 
 ---
 
@@ -787,9 +592,7 @@ Receiving/transmitting elements of an antenna built from multiple dipoles = sum 
 
 ### Receiving-formula special case (z-electric dipole, matched load, $\Gamma_l = 0$)
 
-$$
-w = a_4 = \frac{\sqrt{6\pi}}{2}\,\frac{\sqrt{\eta}}{k}\,E_z(0,\theta,\phi) \tag{2.152}
-$$
+$$w = a_4 = \frac{\sqrt{6\pi}}{2}\,\frac{\sqrt{\eta}}{k}\,E_z(0,\theta,\phi) \tag{2.152}$$
 
 Scattered field for that dipole: $b_i = a_i$ for $i \ne 4$, $b_4 = 0$ (Eq. 2.153).
 
@@ -799,15 +602,11 @@ Scattered field for that dipole: $b_i = a_i$ for $i \ne 4$, $b_4 = 0$ (Eq. 2.153
 
 Same waveguide modes, but use $\vec{F}^{(1)}_j$ (standing) instead of $\vec{F}^{(4)}_j$ for the second basis:
 
-$$
-\vec{E} = \frac{k}{\sqrt{\eta}}\sum_j \bigl\{a'_j\,\vec{F}^{(1)}_j + b'_j\,\vec{F}^{(3)}_j\bigr\} \tag{2.164}
-$$
+$$\vec{E} = \frac{k}{\sqrt{\eta}}\sum_j \bigl\{a'_j\,\vec{F}^{(1)}_j + b'_j\,\vec{F}^{(3)}_j\bigr\} \tag{2.164}$$
 
 Using $\vec{F}^{(1)}_j = \tfrac{1}{2}\{\vec{F}^{(3)}_j + \vec{F}^{(4)}_j\}$ (2.165):
 
-$$
-\begin{bmatrix}\Gamma' & \mathbf{R}'\\\mathbf{T}' & \mathbf{S}'\end{bmatrix} = \begin{bmatrix}\Gamma & \tfrac{1}{2}\mathbf{R}\\\mathbf{T} & \tfrac{1}{2}(\mathbf{S} - \mathbf{I})\end{bmatrix} \tag{2.166}
-$$
+$$\begin{bmatrix}\Gamma' & \mathbf{R}'\\\mathbf{T}' & \mathbf{S}'\end{bmatrix} = \begin{bmatrix}\Gamma & \tfrac{1}{2}\mathbf{R}\\\mathbf{T} & \tfrac{1}{2}(\mathbf{S} - \mathbf{I})\end{bmatrix} \tag{2.166}$$
 
 Implications:
 - $\Gamma' = \Gamma$, $\mathbf{T}' = \mathbf{T}$.
@@ -822,41 +621,27 @@ For pure scatterers (no local port), $\mathbf{S}'$ reduces to Waterman's T-matri
 
 ### Definition
 
-$$
-\vec{K}_{smn}(\theta,\phi) = \lim_{kr\to\infty}\Bigl[\sqrt{4\pi}\,\frac{kr}{e^{ikr}}\,\vec{F}^{(3)}_{smn}(r,\theta,\phi)\Bigr] \tag{2.175}
-$$
+$$\vec{K}_{smn}(\theta,\phi) = \lim_{kr\to\infty}\Bigl[\sqrt{4\pi}\,\frac{kr}{e^{ikr}}\,\vec{F}^{(3)}_{smn}(r,\theta,\phi)\Bigr] \tag{2.175}$$
 
 ### Explicit pattern functions
 
-$$
-\boxed{\;\vec{K}_{1mn}(\theta,\phi) = \sqrt{\frac{2}{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m} e^{im\phi}(-i)^{n+1}\left\{\frac{im\,\bar{P}_n^{|m|}(\cos\theta)}{\sin\theta}\,\hat{\theta} - \frac{d\bar{P}_n^{|m|}(\cos\theta)}{d\theta}\,\hat{\phi}\right\}\;} \tag{2.176}
-$$
+$$\boxed{\;\vec{K}_{1mn}(\theta,\phi) = \sqrt{\frac{2}{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m} e^{im\phi}(-i)^{n+1}\left\{\frac{im\,\bar{P}_n^{|m|}(\cos\theta)}{\sin\theta}\,\hat{\theta} - \frac{d\bar{P}_n^{|m|}(\cos\theta)}{d\theta}\,\hat{\phi}\right\}\;} \tag{2.176}$$
 
-$$
-\boxed{\;\vec{K}_{2mn}(\theta,\phi) = \sqrt{\frac{2}{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m} e^{im\phi}(-i)^{n}\left\{\frac{d\bar{P}_n^{|m|}(\cos\theta)}{d\theta}\,\hat{\theta} + \frac{im\,\bar{P}_n^{|m|}(\cos\theta)}{\sin\theta}\,\hat{\phi}\right\}\;} \tag{2.177}
-$$
+$$\boxed{\;\vec{K}_{2mn}(\theta,\phi) = \sqrt{\frac{2}{n(n+1)}}\Bigl(-\frac{m}{|m|}\Bigr)^{m} e^{im\phi}(-i)^{n}\left\{\frac{d\bar{P}_n^{|m|}(\cos\theta)}{d\theta}\,\hat{\theta} + \frac{im\,\bar{P}_n^{|m|}(\cos\theta)}{\sin\theta}\,\hat{\phi}\right\}\;} \tag{2.177}$$
 
 ### Useful identity
 
-$$
-\vec{K}_{smn} = i\,\hat{r}\times\vec{K}_{3-s,m,n} \tag{2.178}
-$$
+$$\vec{K}_{smn} = i\,\hat{r}\times\vec{K}_{3-s,m,n} \tag{2.178}$$
 
 ### Far-field expressions
 
-$$
-\vec{E}(r,\theta,\phi) \to \frac{k}{\sqrt{\eta}}\,\frac{1}{\sqrt{4\pi}}\,\frac{e^{ikr}}{kr}\sum_{smn} Q^{(3)}_{smn}\,\vec{K}_{smn}(\theta,\phi) = \frac{k}{\sqrt{\eta}}\,\frac{1}{\sqrt{4\pi}}\,\frac{e^{ikr}}{kr}\,v\sum_{smn} T_{smn}\,\vec{K}_{smn}(\theta,\phi) = \frac{k}{\sqrt{\eta}}\,\frac{1}{\sqrt{4\pi}}\,\frac{e^{ikr}}{kr}\,v\,\vec{K}(\theta,\phi) \tag{2.179,\,2.180}
-$$
+$$\vec{E}(r,\theta,\phi) \to \frac{k}{\sqrt{\eta}}\,\frac{1}{\sqrt{4\pi}}\,\frac{e^{ikr}}{kr}\sum_{smn} Q^{(3)}_{smn}\,\vec{K}_{smn}(\theta,\phi) = \frac{k}{\sqrt{\eta}}\,\frac{1}{\sqrt{4\pi}}\,\frac{e^{ikr}}{kr}\,v\sum_{smn} T_{smn}\,\vec{K}_{smn}(\theta,\phi) = \frac{k}{\sqrt{\eta}}\,\frac{1}{\sqrt{4\pi}}\,\frac{e^{ikr}}{kr}\,v\,\vec{K}(\theta,\phi) \tag{2.179,\,2.180}$$
 
-$$
-\vec{H} \to \eta\,\hat{r}\times\vec{E} = k\sqrt{\eta}\,\frac{1}{\sqrt{4\pi}}\,\frac{e^{ikr}}{kr}\,v\,\hat{r}\times\vec{K}(\theta,\phi) \tag{2.181}
-$$
+$$\vec{H} \to \eta\,\hat{r}\times\vec{E} = k\sqrt{\eta}\,\frac{1}{\sqrt{4\pi}}\,\frac{e^{ikr}}{kr}\,v\,\hat{r}\times\vec{K}(\theta,\phi) \tag{2.181}$$
 
 ### Absolute far-field pattern
 
-$$
-\vec{K}(\theta,\phi) = \sum_{smn} T_{smn}\,\vec{K}_{smn}(\theta,\phi) \tag{2.182}
-$$
+$$\vec{K}(\theta,\phi) = \sum_{smn} T_{smn}\,\vec{K}_{smn}(\theta,\phi) \tag{2.182}$$
 
 Dimensionless. $C\vec{K}(\theta,\phi)$ for arbitrary $C$ is a **relative far-field pattern**.
 
@@ -866,91 +651,56 @@ Dimensionless. $C\vec{K}(\theta,\phi)$ for arbitrary $C$ is a **relative far-fie
 
 ### Orthogonal polarization unit vector
 
-$$
-\hat{i}_{\text{cross}}(\theta,\phi) = \hat{r}\times\hat{i}_{co}^{*}(\theta,\phi) \tag{2.183}
-$$
+$$\hat{i}_{\text{cross}}(\theta,\phi) = \hat{r}\times\hat{i}_{co}^{*}(\theta,\phi) \tag{2.183}$$
 
 with $\hat{i}_{co}\cdot\hat{i}_{\text{cross}}^{*} = 0$ (2.184).
 
 ### Decomposition
 
-$$
-K_{co}(\theta,\phi) = \vec{K}\cdot\hat{i}_{co}^{*} = \sum_{smn} T_{smn}\,\vec{K}_{smn}\cdot\hat{i}_{co}^{*} \tag{2.185, 2.186}
-$$
+$$K_{co}(\theta,\phi) = \vec{K}\cdot\hat{i}_{co}^{*} = \sum_{smn} T_{smn}\,\vec{K}_{smn}\cdot\hat{i}_{co}^{*} \tag{2.185, 2.186}$$
 
-$$
-K_{\text{cross}}(\theta,\phi) = \vec{K}\cdot\hat{i}_{\text{cross}}^{*} \tag{2.187, 2.188}
-$$
+$$K_{\text{cross}}(\theta,\phi) = \vec{K}\cdot\hat{i}_{\text{cross}}^{*} \tag{2.187, 2.188}$$
 
-$$
-\vec{K} = K_{co}\,\hat{i}_{co} + K_{\text{cross}}\,\hat{i}_{\text{cross}} \tag{2.189}
-$$
+$$\vec{K} = K_{co}\,\hat{i}_{co} + K_{\text{cross}}\,\hat{i}_{\text{cross}} \tag{2.189}$$
 
 ### Ludwig's "Definition 3" — Linear (boresight along $+z$, reference angle $\phi_o$)
 
-$$
-\hat{i}_{co,3L}(\theta,\phi) = \hat{\theta}\cos(\phi-\phi_o) - \hat{\phi}\sin(\phi-\phi_o),\quad 0\le\theta<\pi \tag{2.190}
-$$
+$$\hat{i}_{co,3L}(\theta,\phi) = \hat{\theta}\cos(\phi-\phi_o) - \hat{\phi}\sin(\phi-\phi_o),\quad 0\le\theta<\pi \tag{2.190}$$
 
-$$
-\hat{i}_{\text{cross},3L}(\theta,\phi) = \hat{\theta}\sin(\phi-\phi_o) + \hat{\phi}\cos(\phi-\phi_o) \tag{2.191}
-$$
+$$\hat{i}_{\text{cross},3L}(\theta,\phi) = \hat{\theta}\sin(\phi-\phi_o) + \hat{\phi}\cos(\phi-\phi_o) \tag{2.191}$$
 
 With $\phi_o = 0$: identical to a $\hat{x}$-electric + $\hat{y}$-magnetic Huygens source.
 
 ### Circular polarization unit vectors ($\phi_o = 0$)
 
 **Right-hand (RCP):**
+$$\hat{i}_{co,RC}(\theta,\phi) = \tfrac{1}{\sqrt 2}\bigl[\hat{i}_{co,3L} + i\,\hat{i}_{\text{cross},3L}\bigr]_{\phi_o=0} = \tfrac{1}{\sqrt 2}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}) \tag{2.192}$$
 
-$$
-\hat{i}_{co,RC}(\theta,\phi) = \tfrac{1}{\sqrt 2}\bigl[\hat{i}_{co,3L} + i\,\hat{i}_{\text{cross},3L}\bigr]_{\phi_o=0} = \tfrac{1}{\sqrt 2}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}) \tag{2.192}
-$$
-
-$$
-\hat{i}_{\text{cross},RC}(\theta,\phi) = \tfrac{i}{\sqrt 2}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}) \tag{2.193}
-$$
+$$\hat{i}_{\text{cross},RC}(\theta,\phi) = \tfrac{i}{\sqrt 2}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}) \tag{2.193}$$
 
 **Left-hand (LCP):**
+$$\hat{i}_{co,LC}(\theta,\phi) = \tfrac{1}{\sqrt 2}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}) \tag{2.194}$$
 
-$$
-\hat{i}_{co,LC}(\theta,\phi) = \tfrac{1}{\sqrt 2}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}) \tag{2.194}
-$$
-
-$$
-\hat{i}_{\text{cross},LC}(\theta,\phi) = \tfrac{-i}{\sqrt 2}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}) \tag{2.195}
-$$
+$$\hat{i}_{\text{cross},LC}(\theta,\phi) = \tfrac{-i}{\sqrt 2}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}) \tag{2.195}$$
 
 The factors $i$ may be dropped in practice but the $e^{\pm i\phi}$ factors must remain for continuity at $\theta = 0$. All unit-vector distributions are discontinuous at $\theta = \pi$.
 
 ### Polarization-ellipse parameters
 
 Decomposition (without the cross-polar $i$):
+$$\vec{K}(\theta,\phi) = K_R\,\hat{i}_{co,RC} + K_L\,\hat{i}_{co,LC} \tag{2.196}$$
 
-$$
-\vec{K}(\theta,\phi) = K_R\,\hat{i}_{co,RC} + K_L\,\hat{i}_{co,LC} \tag{2.196}
-$$
+$$K_R = |K_R|\,e^{i\psi_R},\quad K_L = |K_L|\,e^{i\psi_L} \tag{2.197, 2.198}$$
 
-$$
-K_R = |K_R|\,e^{i\psi_R},\quad K_L = |K_L|\,e^{i\psi_L} \tag{2.197, 2.198}
-$$
-
-$$
-Q = K_R / K_L \tag{2.199}
-$$
+$$Q = K_R / K_L \tag{2.199}$$
 
 **Axial ratio** $r = \tan\alpha$:
-
-$$
-\tan\alpha = \frac{|K_R| - |K_L|}{|K_R| + |K_L|} = \frac{|Q| - 1}{|Q| + 1},\quad -\tfrac{\pi}{4}\le\alpha\le\tfrac{\pi}{4} \tag{2.200, 2.201}
-$$
+$$\tan\alpha = \frac{|K_R| - |K_L|}{|K_R| + |K_L|} = \frac{|Q| - 1}{|Q| + 1},\quad -\tfrac{\pi}{4}\le\alpha\le\tfrac{\pi}{4} \tag{2.200, 2.201}$$
 
 $\alpha = 0$ ↔ linear; $\alpha > 0$ ↔ RH-elliptical; $\alpha < 0$ ↔ LH-elliptical.
 
 **Tilt angle** $\beta$ (relative to $\hat{i}_{co,3L}|_{\phi_o=0}$):
-
-$$
-\beta = \frac{\psi_L - \psi_R}{2} = -\tfrac{1}{2}\arg(Q) \tag{2.202, 2.203}
-$$
+$$\beta = \frac{\psi_L - \psi_R}{2} = -\tfrac{1}{2}\arg(Q) \tag{2.202, 2.203}$$
 
 ---
 
@@ -958,27 +708,18 @@ $$
 
 ### Power per unit solid angle (far field)
 
-$$
-r^2\,\tfrac{1}{2}\,\mathrm{Re}\{\vec{E}\times\vec{H}^*\}\cdot\hat{r} = r^2\,\tfrac{1}{2}\eta|\vec{E}|^2 = \frac{1}{2}\,\frac{1}{4\pi}\Bigl|\sum_{smn}Q^{(3)}_{smn}\vec{K}_{smn}(\theta,\phi)\Bigr|^2 \tag{2.204, 2.205}
-$$
+$$r^2\,\tfrac{1}{2}\,\mathrm{Re}\{\vec{E}\times\vec{H}^*\}\cdot\hat{r} = r^2\,\tfrac{1}{2}\eta|\vec{E}|^2 = \frac{1}{2}\,\frac{1}{4\pi}\Bigl|\sum_{smn}Q^{(3)}_{smn}\vec{K}_{smn}(\theta,\phi)\Bigr|^2 \tag{2.204, 2.205}$$
 
 ### Isotropic reference
 
-$$
-\frac{P}{4\pi} = \frac{1}{4\pi}\,\frac{1}{2}\sum_{smn}|Q^{(3)}_{smn}|^2 \tag{2.206}
-$$
+$$\frac{P}{4\pi} = \frac{1}{4\pi}\,\frac{1}{2}\sum_{smn}|Q^{(3)}_{smn}|^2 \tag{2.206}$$
 
 ### Directivity
 
-$$
-\boxed{\;D(\theta,\phi) = \frac{\Bigl|\sum_{smn} Q^{(3)}_{smn}\,\vec{K}_{smn}(\theta,\phi)\Bigr|^2}{\sum_{smn}|Q^{(3)}_{smn}|^2}\;} \tag{2.207}
-$$
+$$\boxed{\;D(\theta,\phi) = \frac{\Bigl|\sum_{smn} Q^{(3)}_{smn}\,\vec{K}_{smn}(\theta,\phi)\Bigr|^2}{\sum_{smn}|Q^{(3)}_{smn}|^2}\;} \tag{2.207}$$
 
 Equivalently (since $Q^{(3)}_{smn} = b_{smn} = v\,T_{smn}$):
-
-$$
-D(\theta,\phi) = \frac{\Bigl|\sum_{smn} T_{smn}\,\vec{K}_{smn}(\theta,\phi)\Bigr|^2}{\sum_{smn}|T_{smn}|^2} = \frac{|\vec{K}(\theta,\phi)|^2}{\sum_{smn}|T_{smn}|^2} = |\vec{K}(\theta,\phi)|^2 \tag{2.208}
-$$
+$$D(\theta,\phi) = \frac{\Bigl|\sum_{smn} T_{smn}\,\vec{K}_{smn}(\theta,\phi)\Bigr|^2}{\sum_{smn}|T_{smn}|^2} = \frac{|\vec{K}(\theta,\phi)|^2}{\sum_{smn}|T_{smn}|^2} = |\vec{K}(\theta,\phi)|^2 \tag{2.208}$$
 
 The last equality requires **matched and lossless** ($\sum |T_{smn}|^2 = 1$).
 
@@ -986,9 +727,7 @@ The last equality requires **matched and lossless** ($\sum |T_{smn}|^2 = 1$).
 
 Input power $P_{\text{in}} = \tfrac{1}{2}|v|^2(1 - |\Gamma|^2)$ (2.209).
 
-$$
-\boxed{\;G(\theta,\phi) = \frac{\Bigl|\sum_{smn} Q^{(3)}_{smn}\,\vec{K}_{smn}(\theta,\phi)\Bigr|^2}{|v|^2(1-|\Gamma|^2)} = \frac{|\vec{K}(\theta,\phi)|^2}{1-|\Gamma|^2} = \frac{|\vec{K}(\theta,\phi)|^2}{P_{\text{loss}}/P_{\text{inc}} + \sum|T_{smn}|^2}\;} \tag{2.210, 2.211, 2.212}
-$$
+$$\boxed{\;G(\theta,\phi) = \frac{\Bigl|\sum_{smn} Q^{(3)}_{smn}\,\vec{K}_{smn}(\theta,\phi)\Bigr|^2}{|v|^2(1-|\Gamma|^2)} = \frac{|\vec{K}(\theta,\phi)|^2}{1-|\Gamma|^2} = \frac{|\vec{K}(\theta,\phi)|^2}{P_{\text{loss}}/P_{\text{inc}} + \sum|T_{smn}|^2}\;} \tag{2.210, 2.211, 2.212}$$
 
 ### Polarization additivity
 
@@ -1000,29 +739,19 @@ $D$ (or $G$) in any direction = sum of $D$ (or $G$) for any two orthogonal polar
 
 ### Component directivities
 
-$$
-D(\theta,\phi) = D_{co}(\theta,\phi) + D_{\text{cross}}(\theta,\phi) \tag{2.213}
-$$
+$$D(\theta,\phi) = D_{co}(\theta,\phi) + D_{\text{cross}}(\theta,\phi) \tag{2.213}$$
 
-$$
-D_{co}(\theta,\phi) = \frac{|\sum_{smn} Q_{smn}\,\vec{K}_{smn}(\theta,\phi)\cdot\hat{i}_{co}^{*}|^2}{\sum_{smn}|Q_{smn}|^2} = |\vec{K}(\theta,\phi)\cdot\hat{i}_{co}^{*}|^2 \tag{2.214}
-$$
+$$D_{co}(\theta,\phi) = \frac{|\sum_{smn} Q_{smn}\,\vec{K}_{smn}(\theta,\phi)\cdot\hat{i}_{co}^{*}|^2}{\sum_{smn}|Q_{smn}|^2} = |\vec{K}(\theta,\phi)\cdot\hat{i}_{co}^{*}|^2 \tag{2.214}$$
 
-$$
-D_{\text{cross}}(\theta,\phi) = |\vec{K}(\theta,\phi)\cdot\hat{i}_{\text{cross}}^{*}|^2 \tag{2.215}
-$$
+$$D_{\text{cross}}(\theta,\phi) = |\vec{K}(\theta,\phi)\cdot\hat{i}_{\text{cross}}^{*}|^2 \tag{2.215}$$
 
 ### Cauchy–Schwartz bound
 
-$$
-D_{co}(\theta',\phi') \le \sum_{smn}|\vec{K}_{smn}(\theta',\phi')\cdot\hat{i}_{co}^{*}|^2 = D_{co,\max}(\theta',\phi') \tag{2.216, 2.217}
-$$
+$$D_{co}(\theta',\phi') \le \sum_{smn}|\vec{K}_{smn}(\theta',\phi')\cdot\hat{i}_{co}^{*}|^2 = D_{co,\max}(\theta',\phi') \tag{2.216, 2.217}$$
 
 Equality (i.e. the maximum) is achieved by:
 
-$$
-\boxed{\;Q_{smn} = c\,\bigl(\vec{K}_{smn}(\theta',\phi')\cdot\hat{i}_{co}^{*}\bigr)^*\;} \tag{2.218}
-$$
+$$\boxed{\;Q_{smn} = c\,\bigl(\vec{K}_{smn}(\theta',\phi')\cdot\hat{i}_{co}^{*}\bigr)^*\;} \tag{2.218}$$
 
 with arbitrary constant $c$.
 
@@ -1030,17 +759,13 @@ with arbitrary constant $c$.
 
 For $\hat{i}_{co} = \alpha\hat{\theta} + \beta\hat{\phi}$, $|\alpha|^2 + |\beta|^2 = 1$ (2.219, 2.220):
 
-$$
-\boxed{\;D_{co,\max}(\theta',\phi') = N^2 + 2N\;} \tag{2.225, 2.226}
-$$
+$$\boxed{\;D_{co,\max}(\theta',\phi') = N^2 + 2N\;} \tag{2.225, 2.226}$$
 
 where $N$ is the truncation in $n$.
 
 ### Coefficients for $\hat{x}$-polarized peak at $(\theta',\phi')=(0,0)$
 
-$$
-Q_{1,1,n} = Q_{1,-1,n} = Q_{2,1,n} = -Q_{2,-1,n} = c\,(-i^{n})\,\tfrac{1}{2}\sqrt{2n+1} \tag{2.227}
-$$
+$$Q_{1,1,n} = Q_{1,-1,n} = Q_{2,1,n} = -Q_{2,-1,n} = c\,(-i^{n})\,\tfrac{1}{2}\sqrt{2n+1} \tag{2.227}$$
 
 All other coefficients zero. Cross-polarization is zero in every direction.
 

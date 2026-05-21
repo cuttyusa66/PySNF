@@ -32,9 +32,7 @@ Typical scan values: $\chi \in \{0, \pi/2\}$ (two roll positions sufficient for 
 
 ### Starting field (test antenna only)
 
-$$
-\vec{E}_t(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{smn} Q^{(3)}_{smn}\,\vec{F}^{(3)}_{smn}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{smn} v\,T_{smn}\,\vec{F}^{(3)}_{smn}(r,\theta,\phi),\quad r > r_0 \tag{3.1}
-$$
+$$\vec{E}_t(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{smn} Q^{(3)}_{smn}\,\vec{F}^{(3)}_{smn}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{smn} v\,T_{smn}\,\vec{F}^{(3)}_{smn}(r,\theta,\phi),\quad r > r_0 \tag{3.1}$$
 
 (Using $Q^{(3)}_{smn} = b_{smn} = v\,T_{smn}$ from Eq. 2.66.)
 
@@ -53,31 +51,23 @@ Each spherical mode $\vec{F}^{(3)}_{smn}$ is re-expressed in the probe frame by:
 
 ### Composite transform formula
 
-$$
-\boxed{\;\vec{F}^{(3)}_{smn}(r,\theta,\phi) = \sum_{\sigma\mu\nu} e^{im\phi_o}\,d^n_{\mu m}(\theta_o)\,e^{i\mu\chi_o}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,\tfrac{1}{2}\bigl\{\vec{F}^{(3)}_{\sigma\mu\nu}(r',\theta',\phi') + \vec{F}^{(4)}_{\sigma\mu\nu}(r',\theta',\phi')\bigr\}\;} \tag{3.6}
-$$
+$$\boxed{\;\vec{F}^{(3)}_{smn}(r,\theta,\phi) = \sum_{\sigma\mu\nu} e^{im\phi_o}\,d^n_{\mu m}(\theta_o)\,e^{i\mu\chi_o}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,\tfrac{1}{2}\bigl\{\vec{F}^{(3)}_{\sigma\mu\nu}(r',\theta',\phi') + \vec{F}^{(4)}_{\sigma\mu\nu}(r',\theta',\phi')\bigr\}\;} \tag{3.6}$$
 
 ### Field expansion in the probe frame
 
-$$
-\vec{E}_t = \frac{k}{\sqrt{\eta}}\sum_{\substack{smn\\\sigma\mu\nu}} v\,T_{smn}\,e^{im\phi_o}\,d^n_{\mu m}(\theta_o)\,e^{i\mu\chi_o}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,\tfrac{1}{2}\{\vec{F}^{(3)}_{\sigma\mu\nu} + \vec{F}^{(4)}_{\sigma\mu\nu}\} \tag{3.7}
-$$
+$$\vec{E}_t = \frac{k}{\sqrt{\eta}}\sum_{\substack{smn\\\sigma\mu\nu}} v\,T_{smn}\,e^{im\phi_o}\,d^n_{\mu m}(\theta_o)\,e^{i\mu\chi_o}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,\tfrac{1}{2}\{\vec{F}^{(3)}_{\sigma\mu\nu} + \vec{F}^{(4)}_{\sigma\mu\nu}\} \tag{3.7}$$
 
 ### Incoming-wave coefficients at the probe
 
 The probe sees $\vec{F}^{(4)}_{\sigma\mu\nu}$ as incoming with amplitude:
 
-$$
-a_{\sigma\mu\nu} = \frac{v}{2}\sum_{smn} T_{smn}\,e^{im\phi_o}\,d^n_{\mu m}(\theta_o)\,e^{i\mu\chi_o}\,C^{sn(3)}_{\sigma\mu\nu}(kA) \tag{3.9}
-$$
+$$a_{\sigma\mu\nu} = \frac{v}{2}\sum_{smn} T_{smn}\,e^{im\phi_o}\,d^n_{\mu m}(\theta_o)\,e^{i\mu\chi_o}\,C^{sn(3)}_{\sigma\mu\nu}(kA) \tag{3.9}$$
 
 ### Probe-received signal (matched load: $\Gamma_l = 0$)
 
 Using $w = \mathbf{R}^p\,\mathbf{a}$ (Eq. 2.71 with $\Gamma_l = 0$) and dropping the $o$-subscript on probe angles:
 
-$$
-\boxed{\;w(A, \chi, \theta, \phi) = \frac{v}{2}\sum_{\substack{smn\\\sigma\mu\nu}} T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}\;} \tag{3.10}
-$$
+$$\boxed{\;w(A, \chi, \theta, \phi) = \frac{v}{2}\sum_{\substack{smn\\\sigma\mu\nu}} T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}\;} \tag{3.10}$$
 
 > **The Transmission Formula.** This is the central equation of the entire book. It expresses the complex probe-received signal as a function of:
 > - **Inputs (knowns):** probe coordinates $(A, \chi, \theta, \phi)$, probe receiving coefficients $R^p_{\sigma\mu\nu}$, source amplitude $v$.
@@ -96,41 +86,29 @@ $$
 
 ### Probe-radiated field in the probe frame
 
-$$
-\vec{E}_p(r',\theta',\phi') = \frac{k}{\sqrt{\eta}}\sum_{\sigma\mu\nu} v_p\,T^p_{\sigma\mu\nu}\,\vec{F}^{(3)}_{\sigma\mu\nu}(r',\theta',\phi'),\quad r' > r'_0 \tag{3.11}
-$$
+$$\vec{E}_p(r',\theta',\phi') = \frac{k}{\sqrt{\eta}}\sum_{\sigma\mu\nu} v_p\,T^p_{\sigma\mu\nu}\,\vec{F}^{(3)}_{\sigma\mu\nu}(r',\theta',\phi'),\quad r' > r'_0 \tag{3.11}$$
 
 ### Inverse coordinate cascade
 
 Apply the same four-step cascade in **reverse order with negated angles** $(-A, -\chi_o, -\theta_o, -\phi_o)$. Result expressing $\vec{E}_p$ in the test-antenna frame:
 
-$$
-\vec{E}_p = \frac{k}{\sqrt{\eta}}\sum_{\substack{\sigma\mu\nu\\smn}} v_p\,T^p_{\sigma\mu\nu}\,C^{\sigma\nu(3)}_{s\mu n}(-kA)\,e^{-i\mu\chi_o}\,d^n_{m\mu}(-\theta_o)\,e^{-im\phi_o}\,\tfrac{1}{2}\{\vec{F}^{(3)}_{smn} + \vec{F}^{(4)}_{smn}\} \tag{3.12}
-$$
+$$\vec{E}_p = \frac{k}{\sqrt{\eta}}\sum_{\substack{\sigma\mu\nu\\smn}} v_p\,T^p_{\sigma\mu\nu}\,C^{\sigma\nu(3)}_{s\mu n}(-kA)\,e^{-i\mu\chi_o}\,d^n_{m\mu}(-\theta_o)\,e^{-im\phi_o}\,\tfrac{1}{2}\{\vec{F}^{(3)}_{smn} + \vec{F}^{(4)}_{smn}\} \tag{3.12}$$
 
 ### Test antenna received signal (matched load: $\Gamma = 0$)
 
 Initial form:
 
-$$
-a_{smn} = \frac{v_p}{2}\sum_{\sigma\mu\nu} T^p_{\sigma\mu\nu}\,C^{\sigma\nu(3)}_{s\mu n}(-kA)\,e^{-i\mu\chi_o}\,d^n_{m\mu}(-\theta_o)\,e^{-im\phi_o} \tag{3.14}
-$$
+$$a_{smn} = \frac{v_p}{2}\sum_{\sigma\mu\nu} T^p_{\sigma\mu\nu}\,C^{\sigma\nu(3)}_{s\mu n}(-kA)\,e^{-i\mu\chi_o}\,d^n_{m\mu}(-\theta_o)\,e^{-im\phi_o} \tag{3.14}$$
 
-$$
-w_t = \frac{v_p}{2}\sum_{\substack{\sigma\mu\nu\\smn}} T^p_{\sigma\mu\nu}\,C^{\sigma\nu(3)}_{s\mu n}(-kA)\,e^{-i\mu\chi}\,d^n_{m\mu}(-\theta)\,e^{-im\phi}\,R_{smn} \tag{3.15}
-$$
+$$w_t = \frac{v_p}{2}\sum_{\substack{\sigma\mu\nu\\smn}} T^p_{\sigma\mu\nu}\,C^{\sigma\nu(3)}_{s\mu n}(-kA)\,e^{-i\mu\chi}\,d^n_{m\mu}(-\theta)\,e^{-im\phi}\,R_{smn} \tag{3.15}$$
 
 ### Simplification via symmetry relations (A3.13) and (A2.7)
 
-$$
-w_t = \frac{v_p}{2}\sum_{\substack{\sigma\mu\nu\\smn}} T^p_{\sigma\mu\nu}\,C^{sn(3)}_{\sigma,-\mu,\nu}(kA)\,e^{-i\mu\chi}\,d^n_{\mu m}(\theta)\,e^{-im\phi}\,R_{smn} \tag{3.16}
-$$
+$$w_t = \frac{v_p}{2}\sum_{\substack{\sigma\mu\nu\\smn}} T^p_{\sigma\mu\nu}\,C^{sn(3)}_{\sigma,-\mu,\nu}(kA)\,e^{-i\mu\chi}\,d^n_{\mu m}(\theta)\,e^{-im\phi}\,R_{smn} \tag{3.16}$$
 
 ### Final form via (A2.9) and relabeling
 
-$$
-\boxed{\;w_t = \frac{v_p}{2}\sum_{\substack{\sigma\mu\nu\\smn}}(-1)^\mu\,T^p_{\sigma,-\mu,\nu}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,e^{i\mu\chi}\,d^n_{\mu m}(\theta)\,e^{im\phi}\,(-1)^m\,R_{s,-m,n}\;} \tag{3.17}
-$$
+$$\boxed{\;w_t = \frac{v_p}{2}\sum_{\substack{\sigma\mu\nu\\smn}}(-1)^\mu\,T^p_{\sigma,-\mu,\nu}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,e^{i\mu\chi}\,d^n_{\mu m}(\theta)\,e^{im\phi}\,(-1)^m\,R_{s,-m,n}\;} \tag{3.17}$$
 
 ---
 
@@ -138,19 +116,13 @@ $$
 
 Using the adjoint relations (Eqs. 2.103, 2.104) between original and adjoint antenna coefficients:
 
-$$
-T^p_{\sigma,-\mu,\nu} = (-1)^\mu\,R^{p'}_{\sigma\mu\nu} \tag{3.18}
-$$
+$$T^p_{\sigma,-\mu,\nu} = (-1)^\mu\,R^{p'}_{\sigma\mu\nu} \tag{3.18}$$
 
-$$
-R_{s,-m,n} = (-1)^m\,T'_{smn} \tag{3.19}
-$$
+$$R_{s,-m,n} = (-1)^m\,T'_{smn} \tag{3.19}$$
 
 The receiving formula (3.17) becomes:
 
-$$
-\boxed{\;w_t = \frac{v_p}{2}\sum_{\substack{\sigma\mu\nu\\smn}} R^{p'}_{\sigma\mu\nu}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,e^{i\mu\chi}\,d^n_{\mu m}(\theta)\,e^{im\phi}\,T'_{smn}\;} \tag{3.20}
-$$
+$$\boxed{\;w_t = \frac{v_p}{2}\sum_{\substack{\sigma\mu\nu\\smn}} R^{p'}_{\sigma\mu\nu}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,e^{i\mu\chi}\,d^n_{\mu m}(\theta)\,e^{im\phi}\,T'_{smn}\;} \tag{3.20}$$
 
 > **Key observation.** Equation (3.20) has the **same structural form** as the transmitting-case formula (3.10) — only with primes (adjoint quantities) substituted. The same Python algorithm that inverts (3.10) will also invert (3.20), provided the user supplies adjoint-probe coefficients $R^{p'}_{\sigma\mu\nu}$ instead of $R^p_{\sigma\mu\nu}$.
 
@@ -158,13 +130,9 @@ $$
 
 If both antennas are reciprocal, primes drop and the two formulas (3.10), (3.20) become identical via:
 
-$$
-T^p_{\sigma,-\mu,\nu} = (-1)^\mu\,R^p_{\sigma\mu\nu} \tag{3.21}
-$$
+$$T^p_{\sigma,-\mu,\nu} = (-1)^\mu\,R^p_{\sigma\mu\nu} \tag{3.21}$$
 
-$$
-R_{s,-m,n} = (-1)^m\,T_{smn} \tag{3.22}
-$$
+$$R_{s,-m,n} = (-1)^m\,T_{smn} \tag{3.22}$$
 
 ---
 
@@ -172,18 +140,14 @@ $$
 
 ### Transmitting case (3.23) — same as (3.10):
 
-$$
-w(A, \chi, \theta, \phi) = \frac{v}{2}\sum T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}
-$$
+$$w(A, \chi, \theta, \phi) = \frac{v}{2}\sum T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}$$
 
 **Inputs needed by inversion algorithm:** measured $w(A, \chi, \theta, \phi)$, probe $R^p_{\sigma\mu\nu}$, and excitation $v$.
 **Output:** test-antenna $T_{smn}$.
 
 ### Receiving case (3.24) — same as (3.20):
 
-$$
-w_t(A, \chi, \theta, \phi) = \frac{v_p}{2}\sum T'_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^{p'}_{\sigma\mu\nu}
-$$
+$$w_t(A, \chi, \theta, \phi) = \frac{v_p}{2}\sum T'_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^{p'}_{\sigma\mu\nu}$$
 
 **Inputs needed:** measured $w_t$, adjoint-probe $R^{p'}_{\sigma\mu\nu}$, and excitation $v_p$.
 **Output:** adjoint test-antenna $T'_{smn}$. Apply (3.19) for the physical receiving coefficients $R_{smn}$.
@@ -242,37 +206,27 @@ The most common probe class — conical horn fed by circular waveguide with only
 
 Only $\mu = \pm 1$ entries are non-zero, with:
 
-$$
-R^p_{1,-1,\nu} = R^p_{1,1,\nu},\quad R^p_{2,-1,\nu} = -R^p_{2,1,\nu} \tag{Eqs. 5.8, 5.9}
-$$
+$$R^p_{1,-1,\nu} = R^p_{1,1,\nu},\quad R^p_{2,-1,\nu} = -R^p_{2,1,\nu} \tag{Eqs. 5.8, 5.9}$$
 
 ### Probe response constants $P_{s\mu n}(kA)$
 
-$$
-\boxed{\;P_{s\mu n}(kA) = \frac{1}{2}\sum_{\sigma\nu} C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}\;} \tag{3.26}
-$$
+$$\boxed{\;P_{s\mu n}(kA) = \frac{1}{2}\sum_{\sigma\nu} C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}\;} \tag{3.26}$$
 
 > **Implementation note.** $P_{s\mu n}(kA)$ is precomputed once per probe and per measurement distance, then reused across all scan points $(\chi, \theta, \phi)$. Massive speedup.
 
 Symmetry from (A3.12):
 
-$$
-P_{s,-1,n}(kA) = (-1)^{s+1}\,P_{s1n}(kA) \tag{3.27}
-$$
+$$P_{s,-1,n}(kA) = (-1)^{s+1}\,P_{s1n}(kA) \tag{3.27}$$
 
 Vanishes for $\mu \ne \pm 1$ (since the probe coefficients do).
 
 ### Reduced transmission formula
 
-$$
-w = v\sum_{smn} T_{smn}\,e^{im\phi}\bigl\{d^n_{1m}(\theta)\,e^{i\chi} + (-1)^{s+1}\,d^n_{-1,m}(\theta)\,e^{-i\chi}\bigr\}\,P_{s1n}(kA) \tag{3.28}
-$$
+$$w = v\sum_{smn} T_{smn}\,e^{im\phi}\bigl\{d^n_{1m}(\theta)\,e^{i\chi} + (-1)^{s+1}\,d^n_{-1,m}(\theta)\,e^{-i\chi}\bigr\}\,P_{s1n}(kA) \tag{3.28}$$
 
 ### Far-field-pattern formulation via (A2.20)–(A2.23)
 
-$$
-\boxed{\;w(A, \chi, \theta, \phi) = v\sum_{smn} T_{smn}\,P_{s1n}(kA)\,\frac{-2i^n}{\sqrt{2n+1}}\,\vec{K}_{smn}(\theta,\phi)\cdot\hat x'\;} \tag{3.32}
-$$
+$$\boxed{\;w(A, \chi, \theta, \phi) = v\sum_{smn} T_{smn}\,P_{s1n}(kA)\,\frac{-2i^n}{\sqrt{2n+1}}\,\vec{K}_{smn}(\theta,\phi)\cdot\hat x'\;} \tag{3.32}$$
 
 with $\hat x' = \hat\theta$ when $\chi = 0$ and $\hat x' = \hat\phi$ when $\chi = \pi/2$.
 
@@ -280,17 +234,13 @@ with $\hat x' = \hat\theta$ when $\chi = 0$ and $\hat x' = \hat\phi$ when $\chi 
 
 Let $w_\theta = w(A, 0, \theta, \phi)$, $w_\phi = w(A, \pi/2, \theta, \phi)$:
 
-$$
-\boxed{\;w_\theta\,\hat\theta + w_\phi\,\hat\phi = v\sum_{smn} T_{smn}\,\Bigl\{P_{s1n}(kA)\,\frac{-2i^n}{\sqrt{2n+1}}\Bigr\}\,\vec{K}_{smn}(\theta,\phi)\;} \tag{3.33}
-$$
+$$\boxed{\;w_\theta\,\hat\theta + w_\phi\,\hat\phi = v\sum_{smn} T_{smn}\,\Bigl\{P_{s1n}(kA)\,\frac{-2i^n}{\sqrt{2n+1}}\Bigr\}\,\vec{K}_{smn}(\theta,\phi)\;} \tag{3.33}$$
 
 ### Direct far-field probe condition
 
 If the probe satisfies
 
-$$
-P_{s1n}(kA) = -\tfrac{1}{2}\,i^{-n}\,\sqrt{2n+1} \tag{3.34}
-$$
+$$P_{s1n}(kA) = -\tfrac{1}{2}\,i^{-n}\,\sqrt{2n+1} \tag{3.34}$$
 
 the probe signal **is** the test antenna far field. (These match the plane-wave expansion coefficients per Eq. A1.108 — far-field measurement is the antenna's response to a plane wave.)
 
@@ -298,27 +248,19 @@ the probe signal **is** the test antenna far field. (These match the plane-wave 
 
 Using the spherical-wave-function tangential decomposition (Eq. 3.35):
 
-$$
-[\vec{F}^{(3)}_{smn}(A, \theta, \phi)]_\text{tang} = \frac{-i^{n-s}}{\sqrt{4\pi}}\,R^{(3)}_{sn}(kA)\,\vec{K}_{smn}(\theta, \phi)
-$$
+$$[\vec{F}^{(3)}_{smn}(A, \theta, \phi)]_\text{tang} = \frac{-i^{n-s}}{\sqrt{4\pi}}\,R^{(3)}_{sn}(kA)\,\vec{K}_{smn}(\theta, \phi)$$
 
 and introducing the electric-dipole-probe response constant $P^e_{s1n}(kA)$ (Eq. 3.36) as a normalization:
 
-$$
-P^e_{s1n}(kA) = \tfrac{\sqrt{6}}{8}\,i^{-s}\,\sqrt{2n+1}\,R^{(3)}_{sn}(kA) \tag{3.36}
-$$
+$$P^e_{s1n}(kA) = \tfrac{\sqrt{6}}{8}\,i^{-s}\,\sqrt{2n+1}\,R^{(3)}_{sn}(kA) \tag{3.36}$$
 
 we get the **tangential transmission formula**:
 
-$$
-\boxed{\;w(A, \chi, \theta, \phi) = \frac{\sqrt{6\pi}}{2}\,v\sum_{smn} \frac{P_{s1n}(kA)}{P^e_{s1n}(kA)}\,T_{smn}\,[\vec{F}^{(3)}_{smn}(A, \theta, \phi)]\cdot\hat x'\;} \tag{3.37}
-$$
+$$\boxed{\;w(A, \chi, \theta, \phi) = \frac{\sqrt{6\pi}}{2}\,v\sum_{smn} \frac{P_{s1n}(kA)}{P^e_{s1n}(kA)}\,T_{smn}\,[\vec{F}^{(3)}_{smn}(A, \theta, \phi)]\cdot\hat x'\;} \tag{3.37}$$
 
 Vector form:
 
-$$
-w_\theta\,\hat\theta + w_\phi\,\hat\phi = \frac{\sqrt{6\pi}}{2}\,v\sum_{smn} \frac{P_{s1n}(kA)}{P^e_{s1n}(kA)}\,T_{smn}\,[\vec{F}^{(3)}_{smn}(A, \theta, \phi)]_\text{tang} \tag{3.38}
-$$
+$$w_\theta\,\hat\theta + w_\phi\,\hat\phi = \frac{\sqrt{6\pi}}{2}\,v\sum_{smn} \frac{P_{s1n}(kA)}{P^e_{s1n}(kA)}\,T_{smn}\,[\vec{F}^{(3)}_{smn}(A, \theta, \phi)]_\text{tang} \tag{3.38}$$
 
 > **Interpretation.** The probe acts as a "filter" applying weight $P_{s1n}/P^e_{s1n}$ to each spherical wave function in the tangential expansion of the test-antenna field at the probe location.
 
@@ -332,43 +274,29 @@ Non-zero receiving coefficients: $R^p_{211} = -R^p_{2,-1,1} = -\sqrt{2}/2$ (Eq. 
 
 Response constants:
 
-$$
-P^e_{s1n}(kA) = \tfrac{\sqrt{6}}{8}\,i^{-s}\,\sqrt{2n+1}\,R^{(3)}_{sn}(kA) \tag{3.39}
-$$
+$$P^e_{s1n}(kA) = \tfrac{\sqrt{6}}{8}\,i^{-s}\,\sqrt{2n+1}\,R^{(3)}_{sn}(kA) \tag{3.39}$$
 
-$$
-P^e_{s,-1,n}(kA) = -\tfrac{\sqrt{6}}{8}\,i^s\,\sqrt{2n+1}\,R^{(3)}_{sn}(kA) \tag{3.40}
-$$
+$$P^e_{s,-1,n}(kA) = -\tfrac{\sqrt{6}}{8}\,i^s\,\sqrt{2n+1}\,R^{(3)}_{sn}(kA) \tag{3.40}$$
 
 ### $\hat x'$-directed magnetic dipole (**radiates $\hat y'$-polarized**)
 
 Non-zero receiving coefficients: $R^p_{111} = -R^p_{1,-1,1} = -i\sqrt{2}/2$ (Eq. 2.157).
 
-$$
-P^m_{s1n}(kA) = \tfrac{\sqrt{6}}{8}\,i^s\,\sqrt{2n+1}\,R^{(3)}_{3-s,n}(kA) \tag{3.41}
-$$
+$$P^m_{s1n}(kA) = \tfrac{\sqrt{6}}{8}\,i^s\,\sqrt{2n+1}\,R^{(3)}_{3-s,n}(kA) \tag{3.41}$$
 
-$$
-P^m_{s,-1,n}(kA) = \tfrac{\sqrt{6}}{8}\,i^{-s}\,\sqrt{2n+1}\,R^{(3)}_{3-s,n}(kA) \tag{3.42}
-$$
+$$P^m_{s,-1,n}(kA) = \tfrac{\sqrt{6}}{8}\,i^{-s}\,\sqrt{2n+1}\,R^{(3)}_{3-s,n}(kA) \tag{3.42}$$
 
 ### Received signal for electric dipole
 
-$$
-w^e(A, \chi, \theta, \phi) = \frac{\sqrt{6\pi\eta}}{2k}\Bigl\{\frac{k}{\sqrt\eta}\,v\sum_{smn} T_{smn}\,\vec{F}^{(3)}_{smn}(A, \theta, \phi)\Bigr\}\cdot\hat x' \tag{3.43}
-$$
+$$w^e(A, \chi, \theta, \phi) = \frac{\sqrt{6\pi\eta}}{2k}\Bigl\{\frac{k}{\sqrt\eta}\,v\sum_{smn} T_{smn}\,\vec{F}^{(3)}_{smn}(A, \theta, \phi)\Bigr\}\cdot\hat x' \tag{3.43}$$
 
 The curly bracket equals $\vec{E}(A, \theta, \phi)$ of the test antenna field, so:
 
-$$
-\boxed{\;w^e(A, \chi, \theta, \phi) = \frac{\sqrt{6\pi\eta}}{2k}\,\vec{E}(A, \theta, \phi)\cdot\hat x'\;}
-$$
+$$\boxed{\;w^e(A, \chi, \theta, \phi) = \frac{\sqrt{6\pi\eta}}{2k}\,\vec{E}(A, \theta, \phi)\cdot\hat x'\;}$$
 
 ### Magnetic dipole
 
-$$
-w^m(A, \chi, \theta, \phi) = \frac{\sqrt{6\pi}}{2k\sqrt\eta}\,\vec{H}(A, \theta, \phi)\cdot\hat x' \tag{3.44}
-$$
+$$w^m(A, \chi, \theta, \phi) = \frac{\sqrt{6\pi}}{2k\sqrt\eta}\,\vec{H}(A, \theta, \phi)\cdot\hat x' \tag{3.44}$$
 
 ### On-axis special cases ($\chi = 0$ for $\hat\theta$, $\chi = \pi/2$ for $\hat\phi$)
 
@@ -381,31 +309,21 @@ $$
 
 ### Normalized far-field probe signal
 
-$$
-W^e(\chi, \theta, \phi) = \lim_{kA \to \infty}\Bigl[w^e(A, \chi, \theta, \phi)\,\frac{kA}{e^{ikA}}\Bigr] \tag{3.50}
-$$
+$$W^e(\chi, \theta, \phi) = \lim_{kA \to \infty}\Bigl[w^e(A, \chi, \theta, \phi)\,\frac{kA}{e^{ikA}}\Bigr] \tag{3.50}$$
 
 For electric-dipole probe:
 
-$$
-W^e(\chi, \theta, \phi) = \tfrac{\sqrt{6}}{4}\,v\,\vec{K}(\theta, \phi)\cdot\hat x' \tag{3.51}
-$$
+$$W^e(\chi, \theta, \phi) = \tfrac{\sqrt{6}}{4}\,v\,\vec{K}(\theta, \phi)\cdot\hat x' \tag{3.51}$$
 
-$$
-W^e(0, \theta, \phi) = \tfrac{\sqrt{6}}{4}\,v\,K_\theta(\theta, \phi),\quad W^e(\pi/2, \theta, \phi) = \tfrac{\sqrt{6}}{4}\,v\,K_\phi(\theta, \phi) \tag{3.52, 3.53}
-$$
+$$W^e(0, \theta, \phi) = \tfrac{\sqrt{6}}{4}\,v\,K_\theta(\theta, \phi),\quad W^e(\pi/2, \theta, \phi) = \tfrac{\sqrt{6}}{4}\,v\,K_\phi(\theta, \phi) \tag{3.52, 3.53}$$
 
 ### Test antenna far-field pattern from dipole-probe data
 
-$$
-\boxed{\;\vec{K}(\theta, \phi) = \frac{2\sqrt{6}}{3v}\Bigl\{W^e(0, \theta, \phi)\,\hat\theta + W^e(\pi/2, \theta, \phi)\,\hat\phi\Bigr\}\;} \tag{3.54}
-$$
+$$\boxed{\;\vec{K}(\theta, \phi) = \frac{2\sqrt{6}}{3v}\Bigl\{W^e(0, \theta, \phi)\,\hat\theta + W^e(\pi/2, \theta, \phi)\,\hat\phi\Bigr\}\;} \tag{3.54}$$
 
 ### Gain (matched, lossless test antenna)
 
-$$
-G(\theta, \phi) = |\vec{K}(\theta, \phi)|^2 = \frac{8}{3|v|^2}\bigl\{|W^e(0, \theta, \phi)|^2 + |W^e(\pi/2, \theta, \phi)|^2\bigr\} \tag{3.55}
-$$
+$$G(\theta, \phi) = |\vec{K}(\theta, \phi)|^2 = \frac{8}{3|v|^2}\bigl\{|W^e(0, \theta, \phi)|^2 + |W^e(\pi/2, \theta, \phi)|^2\bigr\} \tag{3.55}$$
 
 ---
 
@@ -415,39 +333,26 @@ $$
 
 For $kA \to \infty$, only $\mu = \pm 1$ terms in (3.10) survive (by A3.22–A3.24). With probe linearly $\hat x'$-polarized ($R^p_{1,-1,\nu} = R^p_{11\nu}$, $R^p_{2,-1,\nu} = -R^p_{2,1,\nu}$, $\chi = 0$) and rotation $d^n_{\mu m}(0) = \delta_{\mu m}$ when probe on $\hat z$ axis ($\theta = \phi = 0$):
 
-$$
-w \to \frac{v\,e^{ikA}}{2kA}\,\{i\vec{K}^p(\pi, \phi)\cdot\hat x\}\,\{\vec{K}(0, \phi)\cdot\hat x\}\quad\text{as } kA \to \infty \tag{3.64}
-$$
+$$w \to \frac{v\,e^{ikA}}{2kA}\,\{i\vec{K}^p(\pi, \phi)\cdot\hat x\}\,\{\vec{K}(0, \phi)\cdot\hat x\}\quad\text{as } kA \to \infty \tag{3.64}$$
 
 ### Friis' formula
 
 Define:
-
-$$
-G_p = |\vec{K}^p(\pi, \phi)\cdot\hat x|^2,\quad G_t = |\vec{K}(0, \phi)\cdot\hat x|^2 \tag{3.65, 3.66}
-$$
+$$G_p = |\vec{K}^p(\pi, \phi)\cdot\hat x|^2,\quad G_t = |\vec{K}(0, \phi)\cdot\hat x|^2 \tag{3.65, 3.66}$$
 
 Taking $|\cdot|^2$ of (3.64):
 
-$$
-\boxed{\;\frac{\tfrac{1}{2}|w|^2}{\tfrac{1}{2}|v|^2} = \frac{G_p\,G_t}{4(kA)^2} = \Bigl(\frac{\lambda}{4\pi A}\Bigr)^2 G_p\,G_t\;} \tag{3.67, 3.57}
-$$
+$$\boxed{\;\frac{\tfrac{1}{2}|w|^2}{\tfrac{1}{2}|v|^2} = \frac{G_p\,G_t}{4(kA)^2} = \Bigl(\frac{\lambda}{4\pi A}\Bigr)^2 G_p\,G_t\;} \tag{3.67, 3.57}$$
 
 Using normalized far-field signal $W = \lim_{kA\to\infty}[w\,kA/e^{ikA}]$ (Eq. 3.68):
 
-$$
-\frac{\tfrac{1}{2}|W|^2}{\tfrac{1}{2}|v|^2} = \frac{G_p\,G_t}{4} \tag{3.69}
-$$
+$$\frac{\tfrac{1}{2}|W|^2}{\tfrac{1}{2}|v|^2} = \frac{G_p\,G_t}{4} \tag{3.69}$$
 
 ### Directivity version (using radiated power instead of accepted power)
 
-$$
-\frac{\tfrac{1}{2}|w|^2}{\tfrac{1}{2}\sum|v T_{smn}|^2} = \frac{G_p\,D_t}{4(kA)^2} \tag{3.70}
-$$
+$$\frac{\tfrac{1}{2}|w|^2}{\tfrac{1}{2}\sum|v T_{smn}|^2} = \frac{G_p\,D_t}{4(kA)^2} \tag{3.70}$$
 
-$$
-\frac{\tfrac{1}{2}|W|^2}{\tfrac{1}{2}\sum|v T_{smn}|^2} = \frac{G_p\,D_t}{4} \tag{3.71}
-$$
+$$\frac{\tfrac{1}{2}|W|^2}{\tfrac{1}{2}\sum|v T_{smn}|^2} = \frac{G_p\,D_t}{4} \tag{3.71}$$
 
 > **Footnote:** The factor $i$ in (3.64) gives a 90° phase shift that also appears in Brown's [15] generalized reciprocity theorem.
 
@@ -459,9 +364,7 @@ $$
 
 Both antennas described by their full scattering matrices (Eqs. 3.72, 3.73):
 
-$$
-\begin{bmatrix}\Gamma_p & \mathbf{R}^p\\\mathbf{T}^p & \mathbf{S}^p\end{bmatrix}\begin{bmatrix}v_p\\\mathbf{a}^p\end{bmatrix} = \begin{bmatrix}w\\\mathbf{b}^p\end{bmatrix},\qquad \begin{bmatrix}\Gamma & \mathbf{R}\\\mathbf{T} & \mathbf{S}\end{bmatrix}\begin{bmatrix}v\\\mathbf{a}\end{bmatrix} = \begin{bmatrix}w_t\\\mathbf{b}\end{bmatrix}
-$$
+$$\begin{bmatrix}\Gamma_p & \mathbf{R}^p\\\mathbf{T}^p & \mathbf{S}^p\end{bmatrix}\begin{bmatrix}v_p\\\mathbf{a}^p\end{bmatrix} = \begin{bmatrix}w\\\mathbf{b}^p\end{bmatrix},\qquad \begin{bmatrix}\Gamma & \mathbf{R}\\\mathbf{T} & \mathbf{S}\end{bmatrix}\begin{bmatrix}v\\\mathbf{a}\end{bmatrix} = \begin{bmatrix}w_t\\\mathbf{b}\end{bmatrix}$$
 
 Truncation: $J = 2N(N+2)$ for test antenna, $J_p = 2N_p(N_p+2)$ for probe.
 
@@ -469,67 +372,44 @@ Truncation: $J = 2N(N+2)$ for test antenna, $J_p = 2N_p(N_p+2)$ for probe.
 
 $\mathbf{G}^+$ takes test-antenna outgoing modes to probe-incoming modes:
 
-$$
-G^+_{\beta i} = \tfrac{1}{2}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA) \tag{3.80}
-$$
+$$G^+_{\beta i} = \tfrac{1}{2}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA) \tag{3.80}$$
 
 (index $i$ ↔ $(s,m,n)$ for test antenna; index $\beta$ ↔ $(\sigma,\mu,\nu)$ for probe)
 
 $\mathbf{G}^-$ takes probe-outgoing modes to test-antenna-incoming modes:
 
-$$
-G^-_{j\alpha} = \tfrac{1}{2}\,C^{\sigma\nu(3)}_{s\mu n}(-kA)\,e^{-im\phi}\,d^n_{m\mu}(-\theta)\,e^{-i\mu\chi} \tag{3.84}
-$$
+$$G^-_{j\alpha} = \tfrac{1}{2}\,C^{\sigma\nu(3)}_{s\mu n}(-kA)\,e^{-im\phi}\,d^n_{m\mu}(-\theta)\,e^{-i\mu\chi} \tag{3.84}$$
 
 Couplings:
+$$\mathbf{a}^p = \mathbf{G}^+(\mathbf{b} - \mathbf{a}) \tag{3.81}$$
 
-$$
-\mathbf{a}^p = \mathbf{G}^+(\mathbf{b} - \mathbf{a}) \tag{3.81}
-$$
-
-$$
-\mathbf{a} = \mathbf{G}^-(\mathbf{b}^p - \mathbf{a}^p) \tag{3.83}
-$$
+$$\mathbf{a} = \mathbf{G}^-(\mathbf{b}^p - \mathbf{a}^p) \tag{3.83}$$
 
 ### Reduced 2-port system
 
 After eliminating $\mathbf{a}^p, \mathbf{b}^p, \mathbf{a}, \mathbf{b}$:
 
-$$
-\begin{bmatrix}M_{11} & M_{12}\\M_{21} & M_{22}\end{bmatrix}\begin{bmatrix}v\\v_p\end{bmatrix} = \begin{bmatrix}w_t\\w\end{bmatrix} \tag{3.85}
-$$
+$$\begin{bmatrix}M_{11} & M_{12}\\M_{21} & M_{22}\end{bmatrix}\begin{bmatrix}v\\v_p\end{bmatrix} = \begin{bmatrix}w_t\\w\end{bmatrix} \tag{3.85}$$
 
 with
 
-$$
-M_{11} = \Gamma + \mathbf{R}\{\mathbf{I} - \mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\}^{-1}\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+\mathbf{T} \tag{3.86}
-$$
+$$M_{11} = \Gamma + \mathbf{R}\{\mathbf{I} - \mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\}^{-1}\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+\mathbf{T} \tag{3.86}$$
 
-$$
-M_{12} = \mathbf{R}\{\mathbf{I} - \mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\}^{-1}\mathbf{G}^-\mathbf{T}^p \tag{3.87}
-$$
+$$M_{12} = \mathbf{R}\{\mathbf{I} - \mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\}^{-1}\mathbf{G}^-\mathbf{T}^p \tag{3.87}$$
 
-$$
-M_{21} = \mathbf{R}^p\{\mathbf{I}^p - \mathbf{G}^+(\mathbf{S} - \mathbf{I})\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\}^{-1}\mathbf{G}^+\mathbf{T} \tag{3.88}
-$$
+$$M_{21} = \mathbf{R}^p\{\mathbf{I}^p - \mathbf{G}^+(\mathbf{S} - \mathbf{I})\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\}^{-1}\mathbf{G}^+\mathbf{T} \tag{3.88}$$
 
-$$
-M_{22} = \Gamma_p + \mathbf{R}^p\{\mathbf{I}^p - \mathbf{G}^+(\mathbf{S} - \mathbf{I})\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\}^{-1}\mathbf{G}^+(\mathbf{S} - \mathbf{I})\mathbf{G}^-\mathbf{T}^p \tag{3.89}
-$$
+$$M_{22} = \Gamma_p + \mathbf{R}^p\{\mathbf{I}^p - \mathbf{G}^+(\mathbf{S} - \mathbf{I})\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\}^{-1}\mathbf{G}^+(\mathbf{S} - \mathbf{I})\mathbf{G}^-\mathbf{T}^p \tag{3.89}$$
 
 ### Full transmission formula with multi-reflection (including generator and load)
 
 Adding generator ($v = v_g + \Gamma_g w_t$) and load ($v_p = \Gamma_l w$):
 
-$$
-\boxed{\;w = \frac{M_{21}}{(1 - M_{11}\Gamma_g)(1 - M_{22}\Gamma_l) - M_{21}M_{12}\Gamma_g\Gamma_l}\,v_g\;} \tag{3.90}
-$$
+$$\boxed{\;w = \frac{M_{21}}{(1 - M_{11}\Gamma_g)(1 - M_{22}\Gamma_l) - M_{21}M_{12}\Gamma_g\Gamma_l}\,v_g\;} \tag{3.90}$$
 
 ### Neumann series expansion
 
-$$
-\{\mathbf{I} - \mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\}^{-1} = \mathbf{I} + \{\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\} + \{\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\}^2 + \dots \tag{3.91}
-$$
+$$\{\mathbf{I} - \mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\}^{-1} = \mathbf{I} + \{\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\} + \{\mathbf{G}^-(\mathbf{S}^p - \mathbf{I}^p)\mathbf{G}^+(\mathbf{S} - \mathbf{I})\}^2 + \dots \tag{3.91}$$
 
 - First term ($\mathbf{I}$): direct path (recovers the no-multi-reflection (3.10))
 - Second term: triply-scattered field (probe → test antenna → probe)
