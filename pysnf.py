@@ -8,7 +8,11 @@ Chapter 4 / Section 4.4.
 References
 ----------
 [1] J.E. Hansen, Spherical Near-Field Antenna Measurements, 1988
-    (IEE Electromagnetic Waves Series, vol. 26)
+    (IEE Electromagnetic Waves Series, vol. 26).  The "Symbol
+    cross-reference" section below maps the principal Hansen symbols
+    (Appendix A5 of [1], summarized in companion markdown
+    A5_List_of_principal_symbols_and_uses.md) onto the array names
+    used in this module.
 
 Conventions
 -----------
@@ -31,6 +35,87 @@ Wave-coefficient array layout
     where ``s in {1, 2}`` (TE / TM coefficient block per Hansen
     Section 2.2.2), ``n in {1, ..., n_max}``, and
     ``m in {-m_max, ..., m_max}``.
+
+Symbol cross-reference (Hansen Appendix A5 -> PySNF)
+    Mapping from Hansen's notation onto the arrays and function returns
+    used in this module.  Shapes use ``n_max``, ``m_max``, ``mu_max``,
+    ``nu_max``, ``T`` (theta-sample count), ``P`` (phi-sample count).
+    Per-function docstrings give full indexing detail.
+
+    T_{smn} (transmitting coefficients) / Q^{(3)}_{smn} (outgoing)
+        ``q_n_m_s``, ``t_n_m_s``; shape (n_max, 2*m_max+1, 2);
+        indexed [n-1, m + m_max, s-1].  Built by `field2wavecoeffs`.
+
+    R_{smn} (receiving coefficients)
+        Same layout as T.  Built by `reciprocity` from a T array
+        via Hansen Eq. (2.104).
+
+    P_{s mu n}(kA) (probe response constants, mu = +/-1 only)
+        ``p_n_mu_s``; shape (n_max, 2, 2); indexed [n-1, mu_idx, s-1]
+        with ``mu_idx = 0`` for mu = -1, ``mu_idx = 1`` for mu = +1.
+        Built by `probe_response_constants` /
+        `dipole_probe_response_constants`.
+
+    R^p_{sigma mu nu} (probe receiving coefficients)
+        ``r_p``; shape (2, 2*mu_max+1, nu_max); odd-length mu axis
+        centered on mu = 0.  (Caller-supplied, or obtained from a
+        probe scan via `field2wavecoeffs` + `reciprocity`.)
+
+    C^{sn(3)}_{sigma mu nu}(kA) (translation coefficients)
+        ``c_s_n_sig_nu_mu``; shape (2, n_max, 2, nu_max, 2);
+        indexed [s-1, n-1, sigma-1, nu-1, mu_idx].  Built by
+        `translation_coefficients`, or by
+        `_translation_coefficients_far_field` for ``ka = INF``.
+
+    d^n_{mu m}(theta) (rotation coefficients, Wigner-d)
+        ``d`` from `rotation_coefficients`; shape
+        (n_max, 2*mu_max+1, 2*m_max+1, T) for ``mu_max > 1``
+        or (n_max, 3, 2*m_max+1, T) for ``mu_max == 1``.
+
+    Delta^n_{m' m} = d^n_{m' m}(pi/2) (delta pyramid)
+        ``deltas`` from `delta_pyramid`; shape
+        (n_max+1, 2*n_max+1, 2*n_max+1); indexed
+        [n, m' + n_max, m + n_max].
+
+    bar{P}_n^|m|(cos theta) (normalized associated Legendre)
+        Returned by `lpmn_norm` along with its theta-derivative;
+        each shape (n_max+1, m_max+1, T).
+
+    h_n^{(1)}(x) (spherical Hankel of the first kind)
+        1-D array of length n+1 from `sph_hankel_first_kind`.
+
+    K_{smn}(theta, phi) (far-field pattern functions, vector)
+        ``(k_n_m_s_theta, k_n_m_s_phi)``; the e^{i*m*phi} factor is
+        absent from the "incomplete" form and present in the full form:
+        shape (n_max, 2*m_max+1, 2, T) from
+        `incomplete_farfield_pattern_functions`, or
+        (n_max, 2*m_max+1, 2, T, P) from `farfield_pattern_functions`.
+
+    K(theta, phi) (absolute far-field pattern, vector)
+        ``(k_theta, k_phi)`` from `wavecoeffs2farfield`; shape matches
+        the input theta / phi pair shapes.
+
+    W(chi, theta, phi) (normalized far-field probe signal)
+        ``theta_pol`` (chi = 0) and ``phi_pol`` (chi = pi/2); shape
+        (numthetas, numphis).  Same layout used in the input/output
+        dicts under the keys ``'E_theta'`` and ``'E_phi'``.
+        Built by `wavecoeffs2farfield_uniform`.
+
+    w (probe-received signal at a single pose)
+        Scalar / broadcasted output of `transmission_formula`.
+
+    A (measurement distance)
+        Passed as ``ka`` (= k * A) throughout; ``np.inf`` selects the
+        far-field limit.
+
+    (chi_o, theta_o, phi_o) Euler / pose angles
+        ``chi``, ``thetas``, ``phis`` arguments to
+        `transmission_formula`, in **radians**, broadcast against
+        each other.
+
+    Upper index limits N, M (Hansen) and per-probe nu_max
+        ``n_max``, ``m_max``, ``mu_max``, ``nu_max``; auto-detected
+        from input array shapes when ``None`` is passed.
 
 DFT / IDFT convention
     Hansen [1] uses the convention (Appendix A4)::
@@ -172,6 +257,44 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
 
 def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
                      n_max=None, m_max=None, nu_max=None, dtype='complex128'):
+    """Recover spherical-wave coefficients ``T_{smn}`` from a probe scan.
+
+    Implements Hansen [1], Eqs. (4.133)-(4.134): given the two-probe
+    decomposition ``w_n_m_mu`` from `field2w_n_m_mu`, invert the per-(n)
+    2x2 system in the mu = +/-1 probe-response constants ``P_{s mu n}``
+    to obtain ``T_{smn}``.
+
+    Parameters
+    ----------
+    uut : dict
+        Test-antenna scan data with keys ``'E_theta'``, ``'E_phi'``,
+        ``'dT'``, ``'dP'``; same layout as the ``nearfield`` argument of
+        `nearfield2farfield`.
+    probe : dict or None
+        Custom probe scan with the same dict layout, or ``None`` for an
+        ideal Hertzian dipole probe.
+    probe_pol : {'x', 'y'}
+        Probe polarization (only ``'x'`` and ``'y'`` are supported, and
+        only at ``ka = INF`` when ``probe is None``).
+    ka : float
+        Probe-to-origin distance ``k*A``; use ``np.inf`` for the
+        far-field limit.
+    n_max, m_max, nu_max : int or None
+        Truncation indices; auto-detected from input array sizes if
+        ``None``.  ``nu_max`` is only used when a custom probe is
+        supplied.
+    dtype : {'complex128', 'complex64'}
+        Storage precision for the returned array; the internal pipeline
+        runs in the same precision (with brief upcasts inside scalar
+        literal arithmetic).
+
+    Returns
+    -------
+    q_n_m_s : ndarray, shape (n_max, 2*m_max+1, 2), complex
+        Test-antenna transmitting coefficients indexed as
+        ``q_n_m_s[n-1, m + m_max, s-1]``.  Out-of-triangle (``|m| > n``)
+        entries are zeroed before return.
+    """
 
     np_dtype = np.dtype(dtype)
 
@@ -220,7 +343,11 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
     p_n_neg1_2 = np.reshape(p_n_mu_s[:, 0, 1], (n_max,1))  # mu = -1 , s = 2
     p_n_pos1_2 = np.reshape(p_n_mu_s[:, 1, 1], (n_max,1))  # mu = +1 , s = 2
 
-    # Solve for q_n_m_s as described in [1],(4.133) and [1],(4.134), AND A FUTURE BLOG POST
+    # Solve for q_n_m_s per Hansen [1], Eqs. (4.133)-(4.134): a per-(n, m)
+    # 2x2 linear system in the mu = +/-1 probe-response constants P_{s mu n},
+    # with right-hand side w_n_m_mu[:, :, mu_idx] (the two probe-polarization
+    # decompositions from field2w_n_m_mu).  Derivation: companion markdown
+    # 04_Data_reduction_in_spherical_near-field_measurements.md, Section 4.
     # Note: Give Jeffrey Hyman developer credit here.
     determinant = p_n_pos1_1*p_n_neg1_2 - p_n_neg1_1*p_n_pos1_2
     q_n_m_s[:, :, 0] = (p_n_neg1_2*w_n_m_mu[:, :, 1] - p_n_pos1_2*w_n_m_mu[:, :, 0])/determinant
@@ -340,6 +467,44 @@ def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128'):
 
 
 def field2w_n_m_mu(uut, n_max=None, m_max=None, probe_pol='x', dtype='complex128'):
+    """Decompose a probe scan into the auxiliary array ``w_n_m_mu``.
+
+    Implements Hansen [1], Eqs. (4.126)-(4.128) and (4.92): builds the
+    intermediate quantity::
+
+        w_{n,m}^{(mu)} = (1/2) * (2n+1) * i^{mu - m}
+                         * sum_{m'} Delta^n_{m', mu} * Delta^n_{m', m} * K(m')
+
+    via the double-sphere symmetry extension (Hansen pg. 192), two
+    inverse DFTs in phi and theta, and the FFT-based ``K(m')``
+    convolution of Eq. (4.89) (note: corrects the typo in (4.89);
+    see code comment).
+
+    Parameters
+    ----------
+    uut : dict
+        Test-antenna scan with keys ``'E_theta'``, ``'E_phi'``,
+        ``'dT'``, ``'dP'``.  ``E_theta`` / ``E_phi`` are *polarization
+        components* of the probe signal (chi = 0 and chi = pi/2), not
+        spherical-coordinate grids.
+    n_max, m_max : int or None
+        Truncation indices; auto-set to ``num_th/2`` and ``num_ph/2``
+        of the double-sphere-extended scan if ``None``.  Must satisfy
+        ``n_max <= num_th/2`` and ``m_max <= num_ph/2``.
+    probe_pol : {'x', 'y'}
+        Probe polarization label.  The decomposition itself is
+        polarization-independent; the label is validated but only the
+        downstream ``P_{s mu n}`` inversion distinguishes the two
+        cases.
+    dtype : {'complex128', 'complex64'}
+        Storage precision.
+
+    Returns
+    -------
+    w_n_m_mu : ndarray, shape (n_max, 2*m_max+1, 2), complex
+        Indexed as ``w_n_m_mu[n-1, m + m_max, mu_idx]`` with
+        ``mu_idx = 0`` for ``mu = -1`` and ``mu_idx = 1`` for ``mu = +1``.
+    """
 
     np_dtype = np.dtype(dtype)
 
@@ -471,6 +636,33 @@ def field2w_n_m_mu(uut, n_max=None, m_max=None, probe_pol='x', dtype='complex128
 
 
 def incomplete_farfield_pattern_functions(n_max, m_max, thetas, delta=1.0e-6):
+    """Phi-independent factor of the far-field pattern functions ``K_{smn}``.
+
+    Returns the per-(n, m, s) factor of ``K_{smn}(theta, phi)`` with the
+    ``e^{i*m*phi}`` azimuthal phase *omitted*, per Hansen [1],
+    Eqs. (A1.59)-(A1.60).  Multiply by ``exp(1j*m*phi)`` to recover the
+    full ``K_{smn}(theta, phi)``; `farfield_pattern_functions` does this.
+
+    Parameters
+    ----------
+    n_max, m_max : int
+        Truncation indices.
+    thetas : array_like, shape (T,)
+        Polar angles in *radians*, in ``[0, pi]``.
+    delta : float, optional
+        Pole-protection nudge in radians.  Theta samples within
+        ``delta/10`` of 0 or pi are shifted by ``delta`` to keep the
+        ``1/sin(theta)`` factor finite; the exact pole values are then
+        overwritten using the closed-form expressions Hansen
+        Eqs. (A1.61)-(A1.64).
+
+    Returns
+    -------
+    k_n_m_s_theta : ndarray, shape (n_max, 2*m_max+1, 2, T), complex128
+        Theta-component, indexed as ``[n-1, m + m_max, s-1, t]``.
+    k_n_m_s_phi : ndarray, same shape and indexing
+        Phi-component.
+    """
 
     # Make a local copy so we don't mutate the caller's array when we
     # nudge values away from the poles.
@@ -538,21 +730,15 @@ def incomplete_farfield_pattern_functions(n_max, m_max, thetas, delta=1.0e-6):
     term_1_2a = term1*term2a
     term_1_2b = term1*term2b
 
-    # Calculate the incomplete farfield pattern function for theta-pol when s = 1, according to [1],(A1.59)
-    # and a FUTURE BLOG POST
-    k_n_m_s_theta[:, :, :, 0] = term_1_2a * term3a
-
-    # Calculate the incomplete farfield pattern function for theta-pol when s = 2, according to [1],(A1.60)
-    # and a FUTURE BLOG POST
-    k_n_m_s_theta[:, :, :, 1] = term_1_2b * term3b
-
-    # Calculate the incomplete farfield pattern function for phi-pol when s = 1, according to [1],(A1.59)
-    # and a FUTURE BLOG POST
-    k_n_m_s_phi[:, :, :, 0] = term_1_2a * -term3b
-
-    # Calculate the incomplete farfield pattern function for phi-pol when s = 2, according to [1],(A1.60)
-    # and a FUTURE BLOG POST
-    k_n_m_s_phi[:, :, :, 1] = term_1_2b * term3a
+    # Assemble K_{smn} per Hansen [1], Eqs. (A1.59) (s = 1) and (A1.60)
+    # (s = 2), split into theta- and phi-polarization components.
+    # Indexed forms and derivation: companion markdown summary
+    # A1_Spherical_wave_functions_notation_and_properties.md, Section 4
+    # (Far-Field Pattern Functions, Hansen §A1.1.3).
+    k_n_m_s_theta[:, :, :, 0] = term_1_2a *  term3a    # theta-pol, s = 1
+    k_n_m_s_theta[:, :, :, 1] = term_1_2b *  term3b    # theta-pol, s = 2
+    k_n_m_s_phi[:,   :, :, 0] = term_1_2a * -term3b    # phi-pol,   s = 1
+    k_n_m_s_phi[:,   :, :, 1] = term_1_2b *  term3a    # phi-pol,   s = 2
 
     # Swap axes
     k_n_m_s_theta = np.swapaxes(k_n_m_s_theta, 2, 3)
@@ -907,7 +1093,24 @@ def _transmission_formula_kbased(t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b,
 
 
 def delta_pyramid(n_max):
-    # Function used to calculate the delta pyramid.
+    """Build the delta pyramid ``Delta^n_{m', m}``.
+
+    Defined in Hansen [1], Section A2.4 (Eqs. A2.35, A2.41 plus the
+    region-symmetry relations A2.26, A2.28, A2.30, A2.32).  Initializes
+    the low-order values at ``n = 0, 1`` (Section A2.6), recurses upward
+    in ``n`` for Region I (``m', m >= 0``), then mirrors into Regions
+    II, III, IV.
+
+    Parameters
+    ----------
+    n_max : int
+        Maximum degree ``n``.
+
+    Returns
+    -------
+    deltas : ndarray, shape (n_max+1, 2*n_max+1, 2*n_max+1), real
+        Indexed as ``deltas[n, m' + n_max, m + n_max]``.
+    """
     # The delta pyramid is defined in [1], Section A2.4
 
     # Region Diagram
@@ -1117,7 +1320,35 @@ def lpmn_norm(n_max, m_max, thetas):
 
 
 def rotation_coefficients(n_max, m_max, mu_max, thetas):
-    # Function used to calculate the rotation coefficients.
+    """Wigner-d rotation coefficients ``d^n_{mu, m}(theta)``.
+
+    Defined in Hansen [1], Section A2.3.  Uses the closed-form
+    expressions (A2.17), (A2.18), (A2.19) for ``mu in {-1, 0, +1}``
+    (computed from normalized associated Legendre functions), and
+    the general Fourier expansion (A2.11) with the delta-pyramid for
+    ``|mu| > 1``.
+
+    Parameters
+    ----------
+    n_max : int
+        Maximum degree ``n``.
+    m_max : int
+        Maximum order ``|m|``.  Must satisfy ``mu_max <= m_max <= n_max``.
+    mu_max : int
+        Maximum probe order ``|mu|``.  Must be at least 1.
+    thetas : float or array_like, shape (T,)
+        Polar angles in *radians*, in ``[0, pi]``.
+
+    Returns
+    -------
+    d : ndarray, real
+        For ``mu_max == 1``: shape ``(n_max, 3, 2*m_max+1, T)`` indexed
+        as ``d[n-1, mu+1, m+m_max, t]``.
+        For ``mu_max > 1``: shape ``(n_max, 2*mu_max+1, 2*m_max+1, T)``
+        indexed as ``d[n-1, mu+mu_max, m+m_max, t]``.
+        Pole values at ``theta in {0, pi}`` are handled by the closed-form
+        special cases (Hansen A2.24, Edmonds 4.6.1 / 8.6.1).
+    """
     # The rotation coefficients are defined in [1],Section A2.3
 
     # Make sure that the thetas variable is a numpy array
@@ -1307,26 +1538,40 @@ def rotation_coefficients(n_max, m_max, mu_max, thetas):
 
 
 def translation_coefficients(n_max, nu_max, ka):
-    # Vectorized computation of the translation coefficients
-    # C^{sn(3)}_{sigma, mu, nu}(kA) per Hansen, Spherical Near-Field
-    # Antenna Measurements, Eq. (3.19) / Appendix A3.
-    #
-    # Returns an array of shape (s, n, sigma, nu, mu) with
-    #   axis 0 (s)     : s in {1, 2}   (s_idx = s - 1)
-    #   axis 1 (n)     : n in {1, ..., n_max}
-    #   axis 2 (sigma) : sigma in {1, 2}
-    #   axis 3 (nu)    : nu in {1, ..., nu_max}
-    #   axis 4 (mu)    : mu in {-1, +1} (mu_idx = 0 for -1, 1 for +1)
-    #
-    # Notes on the (s, sigma) block structure
-    # ---------------------------------------
-    # Only the sigma = 1 columns are computed directly via Eq. (3.19).
-    # The sigma = 2 columns are then filled in via the elementary block
-    # symmetries (Hansen Eqs. A3.8, A3.9):
-    #     C^{2n(3)}_{2, mu, nu} = C^{1n(3)}_{1, mu, nu}     (Eq. A3.8)
-    #     C^{1n(3)}_{2, mu, nu} = C^{2n(3)}_{1, mu, nu}     (Eq. A3.9)
-    # Similarly, only mu = +1 is computed directly; mu = -1 is obtained
-    # by multiplying by the (-1)^(s + sigma) factor from Eq. (A3.21).
+    """Translation coefficients ``C^{sn(3)}_{sigma mu nu}(kA)``.
+
+    Vectorized evaluation of Hansen [1], Eq. (3.19) / Appendix A3.
+    Only ``sigma = 1`` and ``mu = +1`` are computed directly; the other
+    blocks are filled in via the elementary symmetries (Hansen A3.8,
+    A3.9, A3.21).
+
+    Parameters
+    ----------
+    n_max : int
+        Maximum test-antenna degree ``n``.
+    nu_max : int
+        Maximum probe degree ``nu``.
+    ka : float
+        Probe-to-origin distance ``k*A`` (finite; for ``ka = INF`` use
+        `_translation_coefficients_far_field` instead).
+
+    Returns
+    -------
+    c_s_n_sig_nu_mu : ndarray, shape (2, n_max, 2, nu_max, 2), complex
+        Indexed as ``[s-1, n-1, sigma-1, nu-1, mu_idx]`` with
+        ``mu_idx = 0`` for ``mu = -1`` and ``mu_idx = 1`` for ``mu = +1``.
+
+    Notes
+    -----
+    Filled-in block structure:
+
+    * ``sigma = 2`` columns from Eqs. (A3.8), (A3.9)::
+
+        C^{2n(3)}_{2, mu, nu} = C^{1n(3)}_{1, mu, nu}
+        C^{1n(3)}_{2, mu, nu} = C^{2n(3)}_{1, mu, nu}
+
+    * ``mu = -1`` columns from Eq. (A3.21): multiply by ``(-1)^(s + sigma)``.
+    """
 
     p_total_max = n_max + nu_max
 
@@ -1406,11 +1651,13 @@ def translation_coefficients(n_max, nu_max, ka):
 
 
 def sph_hankel_first_kind(n, x):
+    """Spherical Hankel function of the first kind ``h_n^{(1)}(x)``.
 
-    # Returns h_n^{(1)}(x) = j_n(x) + i y_n(x) for orders 0, 1, ..., n
-    # as a 1D array of length n+1, matching the legacy sph_jn/sph_yn API
-    # used previously. (scipy.special.sph_jn / sph_yn were removed in
-    # scipy 1.0; we use the vectorized spherical_jn / spherical_yn instead.)
+    Returns ``h_n^{(1)}(x) = j_n(x) + i * y_n(x)`` for orders
+    ``0, 1, ..., n`` as a 1-D array of length ``n+1``, matching the
+    legacy ``sph_jn`` / ``sph_yn`` API.  Implemented via the modern
+    vectorized ``scipy.special.spherical_jn`` / ``spherical_yn``.
+    """
 
     orders = np.arange(n + 1)
 
@@ -1472,6 +1719,18 @@ def _ifft(c, n=None, axis=-1):
 
 
 def pi_wiggle(n_max):
+    """Periodic extension of the ``pi_l`` coefficients of Hansen (4.84).
+
+    Builds the length-``4*n_max`` array used as one side of the
+    FFT-based ``K(m')`` convolution in `field2w_n_m_mu` (Hansen [1],
+    Eqs. (4.84), (4.86), (4.89))::
+
+        pi_l = 2 / (1 - l^2)  for even l,    0 for odd l
+
+    Returns a shape-``(4*n_max, 1, 1)`` array, pre-rolled so that
+    ``l = 0`` lives at index 0 (FFT layout), with two singleton axes
+    for broadcasting against ``b_l_m_mu_wiggle``.
+    """
 
     jj = np.linspace(-2*n_max+1, 2*n_max, 4*n_max)
 
@@ -1491,6 +1750,14 @@ def pi_wiggle(n_max):
 
 
 def b_wiggle(b_l_m_mu):
+    """Zero-pad and roll ``b_{l, m, mu}`` for the (4.89) FFT convolution.
+
+    Companion to `pi_wiggle`: per Hansen [1], Eq. (4.87), embed the
+    length-``2*n_max+1`` ``b_{l, m, mu}`` array into a length-``4*n_max``
+    sequence (zero-padded, then rolled so that ``l = 0`` lives at index
+    0) suitable for the FFT-based ``K(m')`` convolution of Eq. (4.89).
+    Dtype is inherited from the input array.
+    """
 
     numrows, numcolumns, numpages = np.shape(b_l_m_mu)
     n_max = (numrows-1)//2
@@ -1511,6 +1778,7 @@ def b_wiggle(b_l_m_mu):
 
 
 def db(a):
+    """Return ``20 * log10(|a|)``."""
     return 20*np.log10(np.absolute(a))
 
 # ------------------------------------------------------------------------
@@ -1545,31 +1813,45 @@ def _check_m_le_n(q, name='q'):
 
 
 def plot_spherical_wave_coefficients_mag_db(q_in):
+    """Quick-look plot of spherical-wave-coefficient magnitudes in dB.
 
-        # Lazy import - matplotlib is only needed for plotting.
-        import matplotlib.pyplot as plt
+    Opens two figures:
 
-        q = q_in.copy()
+    1. Two stacked heatmaps of ``|q_n_m_s[:, :, 0]|`` and
+       ``|q_n_m_s[:, :, 1]|`` (the ``s = 1`` and ``s = 2`` mode blocks)
+       on a ``(n, m)`` grid, normalized so that the per-(n, m) total
+       power peak is 0 dB.
+    2. A single heatmap of the total per-mode power
+       ``|q[:, :, 0]|^2 + |q[:, :, 1]|^2`` in dB.
 
-        qmax = np.max((np.absolute(q[:,:,0])**2 +
-                          np.absolute(q[:,:,1])**2).ravel())
-        q = q/qmax
+    The color range is fixed at ``[-120 dB, 0 dB]``.  ``matplotlib`` is
+    lazy-imported here so headless users without it installed pay no
+    cost on the module-level import.
+    """
+    # Lazy import - matplotlib is only needed for plotting.
+    import matplotlib.pyplot as plt
 
-        fig1, (ax1, ax2) = plt.subplots(nrows=2)
+    q = q_in.copy()
 
-        m_max = (np.size(q, 1)-1)//2
-        n_max = np.size(q, 0)
+    qmax = np.max((np.absolute(q[:,:,0])**2 +
+                      np.absolute(q[:,:,1])**2).ravel())
+    q = q/qmax
 
-        ax1.imshow(db(q[:, :, 0]).T,
-                   extent=[1, n_max, -m_max, m_max], aspect='auto', interpolation='none', vmin=-120, vmax=0)
-        ax2.imshow(db(q[:, :, 1]).T,
-                   extent=[1, n_max, -m_max, m_max], aspect='auto', interpolation='none', vmin=-120, vmax=0)
+    fig1, (ax1, ax2) = plt.subplots(nrows=2)
 
-        fig2, ax3 = plt.subplots(nrows=1)
-        ax3.imshow((10*np.log10(np.absolute(q[:,:,0])**2 + np.absolute(q[:,:,1])**2)).T,
-                   extent=[1, n_max, -m_max, m_max], aspect='auto', interpolation='none', vmin=-120, vmax=0)
+    m_max = (np.size(q, 1)-1)//2
+    n_max = np.size(q, 0)
 
-        plt.show()
+    ax1.imshow(db(q[:, :, 0]).T,
+               extent=[1, n_max, -m_max, m_max], aspect='auto', interpolation='none', vmin=-120, vmax=0)
+    ax2.imshow(db(q[:, :, 1]).T,
+               extent=[1, n_max, -m_max, m_max], aspect='auto', interpolation='none', vmin=-120, vmax=0)
+
+    fig2, ax3 = plt.subplots(nrows=1)
+    ax3.imshow((10*np.log10(np.absolute(q[:,:,0])**2 + np.absolute(q[:,:,1])**2)).T,
+               extent=[1, n_max, -m_max, m_max], aspect='auto', interpolation='none', vmin=-120, vmax=0)
+
+    plt.show()
 
 # ------------------------------------------------------------------------
 
@@ -1673,6 +1955,25 @@ def dipole_probe_response_constants(n_max, ka=INF, direction='+x', dipole_type='
 
 
 def reciprocity(trans_coeffs):
+    """Convert transmitting coefficients to receiving coefficients.
+
+    Implements Hansen [1], Eq. (2.104)::
+
+        R_{smn} = (-1)^m * T_{s, -m, n}
+
+    Parameters
+    ----------
+    trans_coeffs : ndarray, complex
+        Either shape ``(n_max, 2*m_max+1, 2)`` indexed as
+        ``[n-1, m + m_max, s-1]``, or the compact ``(n_max, 2, 2)``
+        layout with the second axis representing only mu = -1, +1
+        (e.g. a ``p_n_mu_s``-style array).  In the compact case,
+        ``(-1)^m`` reduces to ``-1`` for both ``m = +/-1``.
+
+    Returns
+    -------
+    receive_coeffs : ndarray, same shape and indexing as input
+    """
 
     # [1],(2.104)
 
@@ -1705,6 +2006,27 @@ def reciprocity(trans_coeffs):
 
 
 def rotate_wavecoeffs_about_axis(q, ax):
+    """Rotate spherical-wave coefficients about a cardinal axis.
+
+    Implements Hansen [1], Eq. (5.67) for the x-axis::
+
+        T_rot[s, m, n] = (-1)^n * T[s, -m, n]
+
+    Parameters
+    ----------
+    q : ndarray, complex
+        Spherical-wave coefficients in either the full
+        ``(n_max, 2*m_max+1, 2)`` layout indexed as
+        ``[n-1, m + m_max, s-1]``, or the compact ``(n_max, 2, 2)``
+        layout (mu = -1, +1 only).
+    ax : {'x'}
+        Rotation axis.  Only the x-axis case is implemented today;
+        ``'y'`` and ``'z'`` raise ``NotImplementedError``.
+
+    Returns
+    -------
+    q_rot : ndarray, same shape and indexing as ``q``
+    """
 
     # [1],(5.67)
 
@@ -1778,14 +2100,44 @@ def _translation_coefficients_far_field(n_max, nu_max):
 
 
 def probe_response_constants(r_p, n_max, ka, c=None):
+    """Combine receiving coefficients with translation coefficients.
 
-    # Assumes that R_p is entered as sig, mu, nu, with the mu axis having an
-    # *odd* number of entries centered on mu=0 (i.e. entries are mu = -mu_max,
-    # ..., 0, ..., +mu_max for a total length 2*mu_max + 1).
-    #
-    # When ka == INF, the returned probe response constants are the normalized
-    # far-field values P_{s, mu, n}^infinity (per Hansen Eqs. (4.100)-(4.102)),
-    # i.e. with the common e^{ikA} / (kA) factor stripped.
+    Implements Hansen [1], Eq. (3.26)::
+
+        P_{s mu n}(kA) = (1/2) sum_{sigma, nu}
+                         C^{sn(3)}_{sigma mu nu}(kA) * R^p_{sigma mu nu}
+
+    Only the ``mu = +/-1`` entries are returned (the linearly-polarized
+    probe convention used throughout the library).
+
+    Parameters
+    ----------
+    r_p : ndarray, shape (2, 2*mu_max+1, nu_max), complex
+        Probe receiving coefficients ``R^p_{sigma mu nu}`` with the mu
+        axis odd-length and centered on ``mu = 0``.  ``mu = 0``
+        entries are silently dropped.  Special-case ``mu_max == 0``
+        with shape ``(2, 2, nu_max)`` is also accepted; the two columns
+        are then taken to be mu = -1, +1 directly.
+    n_max : int
+        Maximum spherical-wave degree ``n``.
+    ka : float
+        Probe-to-origin distance ``k*A``.  Use ``np.inf`` for the
+        far-field limit (per Hansen Eqs. (4.100)-(4.102), with the
+        common ``e^{ikA}/(kA)`` factor stripped).  Finite ``kA > 1e4``
+        is not yet supported.
+    c : ndarray or None
+        Pre-computed translation coefficients
+        ``C^{sn(3)}_{sigma mu nu}(kA)`` with shape
+        ``(2, n_max, 2, nu_max, 2)``.  If ``None``, computed internally
+        via `translation_coefficients` (or its far-field special case).
+
+    Returns
+    -------
+    p_n_mu_s : ndarray, shape (n_max, 2, 2), complex
+        Probe response constants indexed as
+        ``p_n_mu_s[n-1, mu_idx, s-1]`` with ``mu_idx = 0`` for
+        ``mu = -1`` and ``mu_idx = 1`` for ``mu = +1``.
+    """
 
     if (ka != INF) and (ka > 1e4):
         raise NotImplementedError(
@@ -1836,6 +2188,31 @@ def probe_response_constants(r_p, n_max, ka, c=None):
 
 
 def singlesphere2doublesphere(singlesphere, dtype='complex128'):
+    """Symmetry-extend a single-sphere scan to a double-sphere scan.
+
+    Applies the symmetry relation on Hansen [1], pg. 192::
+
+        f(2*pi - theta, phi + pi) = -f(theta, phi)
+
+    to extend a single sphere of measurement data
+    (``0 <= theta <= pi``, ``0 <= phi < 2*pi``) to a double sphere
+    (``0 <= theta < 2*pi``, ``0 <= phi < 2*pi``), which lets the
+    theta-axis decomposition use a uniform FFT rather than a
+    half-range transform.
+
+    Parameters
+    ----------
+    singlesphere : ndarray, shape (numthetas, numphis), complex
+        Single-sphere scan (one polarization component).  ``numphis``
+        is automatically resampled to the nearest even count via
+        `interpft` if odd.
+    dtype : {'complex128', 'complex64'}
+        Output storage precision.
+
+    Returns
+    -------
+    doublesphere : ndarray, shape (2*(numthetas-1), numphis), complex
+    """
 
     np_dtype = np.dtype(dtype)
 
@@ -1860,6 +2237,25 @@ def singlesphere2doublesphere(singlesphere, dtype='complex128'):
 
 
 def interpft(a, ny):
+    """FFT-based resample of a 2-D array along its last axis.
+
+    Equivalent to MATLAB's ``interpft``: interpolates each row of ``a``
+    onto ``ny`` uniformly spaced samples, assuming the original samples
+    are one period of a band-limited periodic function (Hansen [1],
+    Appendix A4.4.3, Whittaker interpolation).  When ``ny`` is smaller
+    than the input length, the helper internally upsamples to a
+    multiple and decimates.
+
+    Parameters
+    ----------
+    a : ndarray, shape (n, m), complex or real
+    ny : int
+        Target sample count along the last axis (must be > 0).
+
+    Returns
+    -------
+    d : ndarray, shape (n, ny), complex
+    """
 
     # Operates on the last axis of a 2D array
     axis = -1

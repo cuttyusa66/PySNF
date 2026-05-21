@@ -141,11 +141,20 @@ defined for `|m| <= n`; out-of-triangle entries of `q_n_m_s` must be zero
 [1] J. E. Hansen (ed.), *Spherical Near-Field Antenna Measurements*,
 IEE Electromagnetic Waves Series, vol. 26, Peter Peregrinus Ltd., 1988.
 
-A set of companion markdown summaries of Hansen Chapters 2-4 and
-Appendices A1-A5 is maintained alongside this code under
-`Hansen_SphericalNearFieldAntennaMeasurements/` (separate repository).
 Cross-references in the source cite Hansen equation numbers (e.g.
-`[1], (4.135)`) that resolve to those summaries.
+`[1], (4.135)`).  Companion markdown summaries of the relevant Hansen
+chapters and appendices ship alongside `pysnf.py` in this repository:
+
+| File | Hansen content |
+|------|----------------|
+| [02_Scattering_matrix_description_of_an_antenna.md](02_Scattering_matrix_description_of_an_antenna.md) | Chapter 2 — scattering-matrix description of a single antenna |
+| [03_Scattering_matrix_description_of_antenna_coupling.md](03_Scattering_matrix_description_of_antenna_coupling.md) | Chapter 3 — antenna coupling, transmission formula (Eq. 3.10), probe response constants |
+| [04_Data_reduction_in_spherical_near-field_measurements.md](04_Data_reduction_in_spherical_near-field_measurements.md) | Chapter 4 — data reduction (Eqs. 4.92, 4.126-4.128, 4.133-4.135); the algorithm `pysnf` implements |
+| [A1_Spherical_wave_functions_notation_and_properties.md](A1_Spherical_wave_functions_notation_and_properties.md) | Appendix A1 — spherical wave functions; far-field pattern functions K_{smn} (Eqs. A1.59-A1.64) |
+| [A2_Rotation_of_spherical_waves.md](A2_Rotation_of_spherical_waves.md) | Appendix A2 — rotation coefficients d^n_{mu m}, delta pyramid Delta^n_{m' m} |
+| [A3_Translation_of_spherical_waves.md](A3_Translation_of_spherical_waves.md) | Appendix A3 — translation coefficients C^{sn(3)}_{sigma mu nu}(kA) |
+| [A4_Data_processing_in_antenna_measurements.md](A4_Data_processing_in_antenna_measurements.md) | Appendix A4 — DFT conventions, sampling, interpolation (interpft basis) |
+| [A5_List_of_principal_symbols_and_uses.md](A5_List_of_principal_symbols_and_uses.md) | Appendix A5 — symbol glossary; see also the cross-reference table in `pysnf.py`'s module docstring |
 
 ## Self-test
 
