@@ -188,11 +188,11 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
 
     # Get the probe response constants
     if (probe is None) and (probe_pol == 'x') and (ka == INF):
-        p_n_mu_s = dipole_probe_response_constants(n_max)
+        p_n_mu_s = dipole_probe_response_constants(n_max, direction='+x',
+                                                    dipole_type='electric')
     elif (probe is None) and (probe_pol == 'y') and (ka == INF):
-        raise NotImplementedError("field2wavecoeffs: the infinitely remote "
-                                  "y-polarized electric dipole option is not "
-                                  "yet implemented.")
+        p_n_mu_s = dipole_probe_response_constants(n_max, direction='+y',
+                                                    dipole_type='electric')
     elif (probe is None) and (probe_pol == 'x') and (ka < INF):
         raise NotImplementedError("field2wavecoeffs: the finitely remote "
                                   "x-polarized electric dipole option is not "
@@ -372,13 +372,13 @@ def field2w_n_m_mu(uut, n_max=None, m_max=None, probe_pol='x', dtype='complex128
         raise ValueError("m_max must be less than or equal to num_ph/2")
 
     # Perform (4.126).  E_theta is the chi=0 probe signal, E_phi is chi=pi/2.
+    # The decomposition is probe-polarization independent: only the P values
+    # carried in the 2x2 inversion at field2wavecoeffs distinguish x-pol from
+    # y-pol (see derivation in transmission_formula's Notes).
     w_th_ph_mu = np.zeros((num_th, num_ph, 2), dtype=np_dtype)
-    if probe_pol == 'x':
+    if probe_pol in ('x', 'y'):
         w_th_ph_mu[:, :, 1] = (1./2.)*(aut['E_theta'] - 1j*aut['E_phi'])  # mu = +1
         w_th_ph_mu[:, :, 0] = (1./2.)*(aut['E_theta'] + 1j*aut['E_phi'])  # mu = -1
-    elif probe_pol == 'y':
-        w_th_ph_mu[:, :, 1] = (1./2.)*(aut['E_phi'] - 1j*-aut['E_theta'])  # mu = +1
-        w_th_ph_mu[:, :, 0] = (1./2.)*(aut['E_phi'] + 1j*-aut['E_theta'])  # mu = -1
     else:
         raise ValueError("probePol must either be 'x' or 'y'")
 
@@ -785,21 +785,24 @@ def transmission_formula(t_n_m_s, chi, thetas, phis,
     in the same probe) on a uniform grid: the chi=0 cut equals the
     theta-pol output and chi=pi/2 equals the phi-pol output, exactly.
 
-    Linearly-polarized probe fast path
-    ---------------------------------
-    When ``p_n_mu_s`` satisfies Hansen Eq. (3.27) -- i.e.
-    ``P_{1,-1,n} == P_{1,+1,n}`` and ``P_{2,-1,n} == -P_{2,+1,n}`` --
-    the probe is linearly polarized with mu = +/-1 only, and this
-    function automatically switches to the reduced Eq. (3.32)
-    formulation: it builds the vector field
-    ``V(theta, phi) = v * sum_{smn} T_{smn} * P_{s,+1,n} * (-2 i^n / sqrt(2n+1)) * K_{smn}(theta, phi)``
-    once via ``incomplete_farfield_pattern_functions`` and then assembles
-    ``w(chi) = cos(chi) * V_theta + sin(chi) * V_phi`` for any chi.  This
-    replaces ``rotation_coefficients`` with the cheaper Legendre-based
-    K-pattern evaluation and drops one contraction axis (no mu sum),
-    giving a noticeable speedup -- typically the common case for SNF
-    measurements (lin-pol horn probes, Hertzian dipoles).  General
-    (non-lin-pol) probes silently fall back to the full Eq. (3.10) path.
+    Implementation: K-based reduction for any mu = +/-1 probe
+    --------------------------------------------------------
+    The library carries probes with mu = +/-1 only (enforced by
+    ``p_n_mu_s.shape[1] == 2``).  Hansen [1] derives a reduced form of
+    Eq. (3.10) for x-polarized probes (Eqs. 3.28, 3.32) in terms of the
+    far-field pattern functions ``K_{smn}(theta, phi)`` -- one fewer
+    contraction axis (no mu sum) and no ``rotation_coefficients`` call.
+    The same reduction extends to y-polarized probes by swapping s = 1
+    and s = 2 (the y-pol bracket equals the x-pol bracket with s
+    swapped), and *any* mu = +/-1 probe decomposes uniquely into an
+    x-pol part plus a y-pol part::
+
+        P_x_{s,+1,n} = (P_{s,+1,n} + (-1)^{s+1} P_{s,-1,n}) / 2     # x-pol
+        P_y_{s,+1,n} = (P_{s,+1,n} - (-1)^{s+1} P_{s,-1,n}) / 2     # y-pol
+
+    so a single K-based contraction with effective weights
+    ``T[n,m,s] * P_x[n,s] + T[n,m,3-s] * P_y[n,3-s]`` handles every
+    mu = +/-1 case.  See ``_transmission_formula_kbased``.
     """
 
     if p_n_mu_s is None:
@@ -836,40 +839,26 @@ def transmission_formula(t_n_m_s, chi, thetas, phis,
             "(linearly-polarized mu = +/-1 probe convention)")
     n_max = n_max_t
 
-    if _is_linpol_probe(p_n_mu_s):
-        w_flat = _transmission_formula_linpol(
-            t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b, v,
-            n_max, m_max)
-    else:
-        w_flat = _transmission_formula_general(
-            t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b, v,
-            n_max, m_max)
+    w_flat = _transmission_formula_kbased(
+        t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b, v, n_max, m_max)
 
     return w_flat.reshape(out_shape)
 
 
-def _is_linpol_probe(p_n_mu_s, atol=1e-12):
-    """Hansen Eq. (3.27) check: P_{s,-1,n} == (-1)^{s+1} P_{s,+1,n}.
-
-    True when the supplied probe response constants belong to a
-    linearly-polarized mu = +/-1 probe.  ``p_n_mu_s`` is indexed
-    ``[n-1, mu_idx, s-1]`` with mu_idx 0 = mu=-1 and 1 = mu=+1.
-    """
-    # s=1: mu=-1 entry must equal mu=+1 entry.
-    s1_diff = p_n_mu_s[:, 0, 0] - p_n_mu_s[:, 1, 0]
-    # s=2: mu=-1 entry must equal -(mu=+1 entry).
-    s2_diff = p_n_mu_s[:, 0, 1] + p_n_mu_s[:, 1, 1]
-    scale = max(np.max(np.abs(p_n_mu_s)), 1.0)
-    return (np.max(np.abs(s1_diff)) < atol * scale and
-            np.max(np.abs(s2_diff)) < atol * scale)
-
-
-def _transmission_formula_linpol(t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b,
+def _transmission_formula_kbased(t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b,
                                  v, n_max, m_max):
-    """Hansen Eq. (3.32) reduction for mu = +/-1 linearly-polarized probes.
+    """K-based reduction of Hansen Eq. (3.10) for any mu = +/-1 probe.
 
-    Builds ``V_theta`` and ``V_phi`` once at every pose, then combines
-    them as ``w(chi) = cos(chi) * V_theta + sin(chi) * V_phi``.
+    Decomposes the probe into x-pol and y-pol components, builds the
+    combined effective T*P array, and evaluates::
+
+        V_theta(theta,phi) = v * sum_{n,m,s} (effective T*P)[n,m,s]
+                              * (-2 i^n / sqrt(2n+1)) * K_{smn,theta}(theta,phi)
+        V_phi  (theta,phi) = ... same with K_{smn,phi} ...
+        w(chi, theta, phi) = cos(chi) * V_theta + sin(chi) * V_phi
+
+    Equivalent to Eq. (3.10) for any mu = +/-1 probe; see
+    ``transmission_formula`` docstring for the derivation.
     """
     n_points = thetas_b.size
 
@@ -878,57 +867,41 @@ def _transmission_formula_linpol(t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b,
     k_th_inc, k_ph_inc = incomplete_farfield_pattern_functions(
         n_max, m_max, thetas_b)
 
-    # e^{i m phi}: shape (1, 2*m_max+1, 1, N)
-    m_vec = np.arange(-m_max, m_max + 1).reshape(1, 2*m_max + 1, 1, 1)
-    phi_factor = np.exp(1j * m_vec * phis_b.reshape(1, 1, 1, n_points))
+    # e^{i m phi}: shape (2*m_max+1, N)
+    m_vec = np.arange(-m_max, m_max + 1)
+    phi_factor = np.exp(1j * m_vec[:, None] * phis_b[None, :])
 
-    # Per-mode weight: T_{smn} * P_{s,+1,n} * (-2 * i^n / sqrt(2n+1))
-    # Shape (n_max, 2*m_max+1, 2).
+    # Per-n weight (Hansen 3.32 / 3.36 prefactor): -2 * i^n / sqrt(2n+1)
     n_arr = np.arange(1, n_max + 1, dtype=float)
-    n_factor = (-2.0 * (1j ** n_arr) / np.sqrt(2.0*n_arr + 1.0))[:, None]  # (n,1)
-    P_s_pos1_n = p_n_mu_s[:, 1, :]                                          # (n,2)
-    weight = (P_s_pos1_n * n_factor)[:, None, :]                            # (n,1,2)
-    weighted_T = t_n_m_s * weight                                            # (n,m,2)
+    n_factor = (-2.0 * (1j ** n_arr) / np.sqrt(2.0*n_arr + 1.0))    # (n,)
 
-    # V_theta, V_phi at every pose -- single contraction over (n, m, s).
+    # Decompose P into x-pol (P satisfies Hansen 3.27) and y-pol parts.
+    # s_sign = (-1)^{s+1} for s in {1, 2} -> [+1, -1].
+    P_pos1 = p_n_mu_s[:, 1, :]                  # (n, 2)  axis 1 = s-1
+    P_neg1 = p_n_mu_s[:, 0, :]
+    s_sign = np.array([+1.0, -1.0])
+    P_x_pos1 = (P_pos1 + s_sign * P_neg1) / 2.0
+    P_y_pos1 = (P_pos1 - s_sign * P_neg1) / 2.0
+
+    # Effective (T * P) per-mode array.  The y-pol contribution swaps s
+    # in both T and P_y -- see docstring of transmission_formula for the
+    # derivation.  Build it once, then reuse for V_theta and V_phi.
+    n_factor_col = n_factor[:, None]                                  # (n, 1)
+    weight_x = (P_x_pos1 * n_factor_col)[:, None, :]                  # (n, 1, 2)
+    weight_y_swapped = (P_y_pos1[:, ::-1] * n_factor_col)[:, None, :] # (n, 1, 2)
+    T_eff = t_n_m_s * weight_x + t_n_m_s[:, :, ::-1] * weight_y_swapped
+
+    # Two einsums share the same T_eff and phi_factor and only differ in
+    # K_inc; einsum's optimizer keeps the largest intermediate at
+    # (n_max, 2*m_max+1, N) rather than the full 4-D product.
     V_theta = v * np.einsum('nms,nmsk,mk->k',
-                              weighted_T, k_th_inc, phi_factor[0, :, 0, :],
+                              T_eff, k_th_inc, phi_factor,
                               optimize='greedy')
     V_phi   = v * np.einsum('nms,nmsk,mk->k',
-                              weighted_T, k_ph_inc, phi_factor[0, :, 0, :],
+                              T_eff, k_ph_inc, phi_factor,
                               optimize='greedy')
 
-    # Assemble w(chi) for arbitrary chi.  Falls out from the e^{+/- i chi}
-    # pair contracted against the (-1)^{s+1} P symmetry; for any
-    # lin-pol mu = +/-1 probe this collapses to a sin/cos linear combination.
     return np.cos(chi_b) * V_theta + np.sin(chi_b) * V_phi
-
-
-def _transmission_formula_general(t_n_m_s, p_n_mu_s, chi_b, thetas_b, phis_b,
-                                  v, n_max, m_max):
-    """Full Hansen Eq. (3.10) path -- works for any mu = +/-1 probe,
-    including those that aren't linearly polarized."""
-    # d^n_{mu, m}(theta) from rotation_coefficients returns the full
-    # mu = {-1, 0, +1} layout at indices {0, 1, 2}; slice out mu = +/-1
-    # only to match the 2-entry p_n_mu_s layout.
-    d_full = rotation_coefficients(n_max, m_max, 1, thetas_b)  # (n, 3, 2m+1, N)
-    d = d_full[:, [0, 2], :, :]                                # (n, 2, 2m+1, N)
-
-    # Phase factors.  mu_vec matches the 2-entry layout: idx 0 -> mu=-1,
-    # idx 1 -> mu=+1.
-    m_vec = np.arange(-m_max, m_max + 1)
-    mu_vec = np.array([-1.0, 1.0])
-    phi_factor = np.exp(1j * m_vec[:, None] * phis_b[None, :])
-    chi_factor = np.exp(1j * mu_vec[:, None] * chi_b[None, :])
-
-    # Eq. (3.10) assembled in one contraction.  einsum's optimizer picks
-    # an order that keeps the intermediates small (largest is shape
-    # (n_max, 2, 2, N), not the full 5-D product).
-    # Axes: n, m, s, u (= mu, length 2), k (= flattened pose index).
-    return v * np.einsum(
-        'nms,nus,numk,mk,uk->k',
-        t_n_m_s, p_n_mu_s, d, phi_factor, chi_factor,
-        optimize='greedy')
 
 # ------------------------------------------------------------------------
 
@@ -1604,39 +1577,96 @@ def plot_spherical_wave_coefficients_mag_db(q_in):
 def dipole_probe_response_constants(n_max, ka=INF, direction='+x', dipole_type='electric'):
     """Return the probe response constants for an ideal Hertzian dipole.
 
-    Currently only the (``direction='+x'``, ``dipole_type='electric'``,
-    ``ka=INF``) configuration is implemented; any other combination
-    raises ``NotImplementedError``.
+    Parameters
+    ----------
+    n_max : int
+        Maximum spherical-wave degree n.
+    ka : float, optional
+        Probe-to-origin distance k*A.  Only ``ka = np.inf`` (far-field)
+        is currently implemented.
+    direction : {'+x', '-x', '+y', '-y'}, optional
+        Cardinal direction of the dipole moment.  Defaults to '+x'.
+        ``'+z'`` / ``'-z'`` raise ``NotImplementedError``: a z-oriented
+        dipole excites only mu = 0 modes, but ``translation_coefficients``,
+        ``probe_response_constants``, ``transmission_formula``, and the
+        ``p_n_mu_s`` storage layout itself all carry mu = +/-1 only
+        (the linearly-polarized probe convention).  Supporting a
+        z-direction probe requires widening those to mu in {-1, 0, +1}.
+    dipole_type : {'electric', 'magnetic'}, optional
+        Electric Hertzian dipole (couples to s=2 source modes) or
+        magnetic Hertzian dipole (couples to s=1).  Defaults to 'electric'.
+
+    Returns
+    -------
+    p_n_mu_s : ndarray, shape (n_max, 2, 2), complex
+        Probe response constants ``P_{s, mu, n}(kA)``, indexed as
+        ``p_n_mu_s[n-1, mu_idx, s-1]`` with ``mu_idx = 0`` for mu = -1
+        and ``mu_idx = 1`` for mu = +1.
+
+    Notes
+    -----
+    Implementation builds the dipole's R^p coefficients per Hansen [1]
+    Eqs. (2.154), (2.155), (2.157), (2.158) (with sign flips for the
+    negative directions) and then routes through ``probe_response_constants``
+    to apply C * R^p.  At ``ka = np.inf`` the result matches the closed-form
+    +x electric values in Hansen Eqs. (4.103)-(4.104) to machine precision.
     """
 
-    # Validate inputs.  Only one (direction, dipole_type, ka) combination
-    # is implemented today; raise immediately for everything else so the
-    # caller doesn't get a silent zero array.  The detailed error tells
-    # the caller exactly which parameter(s) are out of range.
-    unsupported = []
-    if direction != '+x':
-        unsupported.append("direction={!r} (only '+x' is implemented)".format(direction))
-    if dipole_type != 'electric':
-        unsupported.append("dipole_type={!r} (only 'electric' is implemented)".format(dipole_type))
-    if ka != INF:
-        unsupported.append("ka={!r} (only INF is implemented; use INF for the "
-                           "far-field limit)".format(ka))
-    if unsupported:
+    if direction in ('+z', '-z'):
         raise NotImplementedError(
-            "dipole_probe_response_constants: unsupported parameter(s): "
-            + "; ".join(unsupported))
+            "dipole_probe_response_constants: direction={!r} requires "
+            "mu = 0 probe entries.  The library currently propagates only "
+            "mu = +/-1 (translation_coefficients, probe_response_constants, "
+            "transmission_formula, and the p_n_mu_s storage layout all "
+            "share this assumption).  Supporting z-oriented dipoles would "
+            "need those to carry mu = 0 throughout.".format(direction))
+    if direction not in ('+x', '-x', '+y', '-y'):
+        raise ValueError(
+            "direction must be one of '+x', '-x', '+y', '-y' (or '+z'/'-z' "
+            "for future support); got {!r}".format(direction))
+    if dipole_type not in ('electric', 'magnetic'):
+        raise ValueError(
+            "dipole_type must be 'electric' or 'magnetic'; got {!r}".format(
+                dipole_type))
+    if ka != INF:
+        raise NotImplementedError(
+            "dipole_probe_response_constants: finite ka is not yet "
+            "implemented; use ka = np.inf (far-field limit).")
 
-    # Far-field, +x-directed, electric Hertzian dipole probe.
-    # See Hansen, Spherical Near-Field Antenna Measurements, Eqs. (4.103)-(4.104).
-    p_n_mu_s = np.zeros((n_max, 2, 2), dtype='complex128')
-    n_array = np.linspace(1, n_max, n_max)
-    temp = -np.sqrt(6.0)/8.0 * np.sqrt(2.0*n_array + 1.0) * 1j**(-n_array)
-    p_n_mu_s[:, 1, 0] = temp     # mu=+1, s=1
-    p_n_mu_s[:, 1, 1] = temp     # mu=+1, s=2
-    p_n_mu_s[:, 0, 0] = temp     # mu=-1, s=1
-    p_n_mu_s[:, 0, 1] = -temp    # mu=-1, s=2
+    # Build R^p for the requested dipole at nu = 1 (Hertzian -> n = 1 only).
+    # Layout: (sigma, mu_axis, nu) with mu_axis = [-1, 0, +1] at idx [0, 1, 2].
+    # probe_response_constants accepts this odd-length-3 layout and extracts
+    # mu = +/-1 (mu = 0 entries are dropped, which is fine here since all of
+    # our supported directions have zero mu = 0 contribution anyway).
+    r_p = np.zeros((2, 3, 1), dtype='complex128')
 
-    return p_n_mu_s
+    # Sign on the negative direction is just an overall dipole-moment flip.
+    sign = +1.0 if direction in ('+x', '+y') else -1.0
+    sig_idx = 1 if dipole_type == 'electric' else 0   # electric -> s=2, magnetic -> s=1
+    sqrt_half = np.sqrt(2.0) / 2.0
+
+    if dipole_type == 'electric':
+        if direction in ('+x', '-x'):
+            # Hansen (2.154):  R_{2,-1,1} = +sqrt(2)/2, R_{2,+1,1} = -sqrt(2)/2
+            r_p[sig_idx, 0, 0] = sign * (+sqrt_half)
+            r_p[sig_idx, 2, 0] = sign * (-sqrt_half)
+        else:  # +y / -y
+            # Hansen (2.155):  R_{2,-1,1} = -i*sqrt(2)/2, R_{2,+1,1} = -i*sqrt(2)/2
+            r_p[sig_idx, 0, 0] = sign * (-1j*sqrt_half)
+            r_p[sig_idx, 2, 0] = sign * (-1j*sqrt_half)
+    else:  # magnetic
+        if direction in ('+x', '-x'):
+            # Hansen (2.157), column 0 of the scattering matrix:
+            # R_{1,-1,1} = -i*sqrt(2)/2, R_{1,+1,1} = +i*sqrt(2)/2
+            r_p[sig_idx, 0, 0] = sign * (-1j*sqrt_half)
+            r_p[sig_idx, 2, 0] = sign * (+1j*sqrt_half)
+        else:  # +y / -y
+            # Hansen (2.158), column 0:
+            # R_{1,-1,1} = +sqrt(2)/2, R_{1,+1,1} = +sqrt(2)/2
+            r_p[sig_idx, 0, 0] = sign * (+sqrt_half)
+            r_p[sig_idx, 2, 0] = sign * (+sqrt_half)
+
+    return probe_response_constants(r_p, n_max, ka)
 
 
 # ------------------------------------------------------------------------
