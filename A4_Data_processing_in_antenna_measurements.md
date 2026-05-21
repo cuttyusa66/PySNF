@@ -32,13 +32,13 @@ Let $g(m)$, $m = 0, 1, \dots, J-1$, be a complex sequence of length $J$ and defi
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.1) | $\boxed{\;G(l) = \text{DFT}\{g(m)\}_l = \sum_{m=0}^{J-1} g(m)\,\varepsilon_J^{ml},\quad l = 0, 1, \dots, J-1\;}$ |
+| (A4.1) | $\\boxed{\\;G(l) = \\text{DFT}\\{g(m)\\}_l = \\sum_{m=0}^{J-1} g(m)\\,\\varepsilon_J^{ml},\\quad l = 0, 1, \\dots, J-1\\;}$ |
 
 **Inverse Discrete Fourier Transform (IDFT):**
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.4) | $\boxed{\;g(m) = \text{IDFT}\{G(l)\}_m = \frac{1}{J}\sum_{l=0}^{J-1} G(l)\,\varepsilon_J^{-lm},\quad m = 0, 1, \dots, J-1\;}$ |
+| (A4.4) | $\\boxed{\\;g(m) = \\text{IDFT}\\{G(l)\\}_m = \\frac{1}{J}\\sum_{l=0}^{J-1} G(l)\\,\\varepsilon_J^{-lm},\\quad m = 0, 1, \\dots, J-1\\;}$ |
 
 ### ⚠️ Sign convention — critical for Python interop
 
@@ -62,7 +62,7 @@ Let $g(m)$, $m = 0, 1, \dots, J-1$, be a complex sequence of length $J$ and defi
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.3) | $\sum_{l=0}^{J-1}\varepsilon_J^{l(s-m)} = \begin{cases}J, & s \equiv m \pmod J \\ 0, & s \not\equiv m \pmod J\end{cases}$ |
+| (A4.3) | $\\sum_{l=0}^{J-1}\\varepsilon_J^{l(s-m)} = \\begin{cases}J, & s \\equiv m \\pmod J \\\\ 0, & s \\not\\equiv m \\pmod J\\end{cases}$ |
 
 ### Periodic extension
 
@@ -70,7 +70,7 @@ Both $G(l)$ and $g(m)$ are implicitly $J$-periodic:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.5, A4.6) | $G(l) = G(kJ + l),\quad g(m) = g(kJ + m),\quad k \in \mathbb{Z}$ |
+| (A4.5, A4.6) | $G(l) = G(kJ + l),\\quad g(m) = g(kJ + m),\\quad k \\in \\mathbb{Z}$ |
 
 ### Even / odd sequences
 
@@ -81,8 +81,8 @@ Decomposition $g = g^e + g^o$ (A4.9, A4.10):
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $g^e(m) = \begin{cases} g(0), & m = 0 \\ \tfrac{1}{2}(g(m) + g(J-m)), & m \ge 1\end{cases}$ |
-|  | $g^o(m) = \begin{cases} 0, & m = 0 \\ \tfrac{1}{2}(g(m) - g(J-m)), & m \ge 1\end{cases}$ |
+|  | $g^e(m) = \\begin{cases} g(0), & m = 0 \\\\ \\tfrac{1}{2}(g(m) + g(J-m)), & m \\ge 1\\end{cases}$ |
+|  | $g^o(m) = \\begin{cases} 0, & m = 0 \\\\ \\tfrac{1}{2}(g(m) - g(J-m)), & m \\ge 1\\end{cases}$ |
 
 ---
 
@@ -112,7 +112,7 @@ Decomposition $g = g^e + g^o$ (A4.9, A4.10):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.11, A4.12) | $f(\phi) = \sum_{k=-\infty}^{\infty} c_k\,e^{ik\phi},\quad c_k = \frac{1}{2\pi}\int_0^{2\pi} f(\phi)\,e^{-ik\phi}\,d\phi$ |
+| (A4.11, A4.12) | $f(\\phi) = \\sum_{k=-\\infty}^{\\infty} c_k\\,e^{ik\\phi},\\quad c_k = \\frac{1}{2\\pi}\\int_0^{2\\pi} f(\\phi)\\,e^{-ik\\phi}\\,d\\phi$ |
 
 Sample at $\phi = l\Delta\phi$, $\Delta\phi = 2\pi/J$.
 
@@ -120,19 +120,19 @@ Sample at $\phi = l\Delta\phi$, $\Delta\phi = 2\pi/J$.
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.20, A4.27) | $\boxed{\;\bar{c}_n = \sum_{r=-\infty}^{\infty} c_{n+rJ},\quad n = 0, 1, \dots, J-1\;}$ |
+| (A4.20, A4.27) | $\\boxed{\\;\\bar{c}_n = \\sum_{r=-\\infty}^{\\infty} c_{n+rJ},\\quad n = 0, 1, \\dots, J-1\\;}$ |
 
 Samples expressed via aliased coefficients:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.21) | $f(l\Delta\phi) = \sum_{n=0}^{J-1}\bar{c}_n\,\varepsilon_J^{nl} = \text{DFT}\{\bar{c}_n\}_l$ |
+| (A4.21) | $f(l\\Delta\\phi) = \\sum_{n=0}^{J-1}\\bar{c}_n\\,\\varepsilon_J^{nl} = \\text{DFT}\\{\\bar{c}_n\\}_l$ |
 
 Solving for $\bar{c}_n$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.22) | $\boxed{\;\bar{c}_n = \frac{1}{J}\sum_{l=0}^{J-1} f(l\Delta\phi)\,\varepsilon_J^{-ln} = \text{IDFT}\{f(l\Delta\phi)\}_n\;}$ |
+| (A4.22) | $\\boxed{\\;\\bar{c}_n = \\frac{1}{J}\\sum_{l=0}^{J-1} f(l\\Delta\\phi)\\,\\varepsilon_J^{-ln} = \\text{IDFT}\\{f(l\\Delta\\phi)\\}_n\\;}$ |
 
 ### 4.1. Quasi-band-limited case (§A4.3.2)
 
@@ -140,19 +140,19 @@ If $c_k$ decays for $|k| > N$ but isn't strictly zero:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.23) | $c_k \approx \begin{cases} \bar{c}_k, & 0 \le k \le N \\ \bar{c}_{k+J}, & -N \le k < 0 \\ 0, & \|k\| > N\end{cases} \quad (J \ge 2N + 1)$ |
+| (A4.23) | $c_k \\approx \\begin{cases} \\bar{c}_k, & 0 \\le k \\le N \\\\ \\bar{c}_{k+J}, & -N \\le k < 0 \\\\ 0, & \\|k\\| > N\\end{cases} \\quad (J \\ge 2N + 1)$ |
 
 Approximate reconstruction:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.24) | $f(\phi) \approx \sum_{k=-N}^{N} c'_k\,e^{ik\phi}$ |
+| (A4.24) | $f(\\phi) \\approx \\sum_{k=-N}^{N} c'_k\\,e^{ik\\phi}$ |
 
 with $c'_k$ given by the **zero-stuffed** sequence:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.25) | $\boxed{\;\{c'_0, c'_1, \dots, c'_N, 0, \dots, 0, c'_{-N}, \dots, c'_{-1}\} = \text{IDFT}\{f(l\Delta\phi) \mid l = 0, \dots, J-1\}\;}$ |
+| (A4.25) | $\\boxed{\\;\\{c'_0, c'_1, \\dots, c'_N, 0, \\dots, 0, c'_{-N}, \\dots, c'_{-1}\\} = \\text{IDFT}\\{f(l\\Delta\\phi) \\mid l = 0, \\dots, J-1\\}\\;}$ |
 
 (Both sequences are length $J$.)
 
@@ -164,13 +164,13 @@ If $c_k = 0$ strictly for $|k| > N$ **and** $J \ge 2N+1$, (A4.23) becomes exact 
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.29) | $f(\phi) = \sum_{k=-N}^{N} c_k\,e^{ik\phi}$ |
+| (A4.29) | $f(\\phi) = \\sum_{k=-N}^{N} c_k\\,e^{ik\\phi}$ |
 
 with $c_k$ from (A4.30):
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\{c_0, c_1, \dots, c_N, 0, \dots, 0, c_{-N}, \dots, c_{-1}\} = \text{IDFT}\{f(l\Delta\phi)\}$ |
+|  | $\\{c_0, c_1, \\dots, c_N, 0, \\dots, 0, c_{-N}, \\dots, c_{-1}\\} = \\text{IDFT}\\{f(l\\Delta\\phi)\\}$ |
 
 ### 4.3. Undersampling (§A4.3.3.2)
 
@@ -180,7 +180,7 @@ If $J \le 2N$, aliasing fills the middle bins. From (A4.31):
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $c_k = \begin{cases} \bar{c}_k, & k = 0, 1, \dots, J - N - 1 \\ \bar{c}_{k+J}, & k = -(J - N - 1), \dots, -2, -1 \\ \text{undetermined}, & \|k\| = J - N, J - N + 1, \dots, N\end{cases}$ |
+|  | $c_k = \\begin{cases} \\bar{c}_k, & k = 0, 1, \\dots, J - N - 1 \\\\ \\bar{c}_{k+J}, & k = -(J - N - 1), \\dots, -2, -1 \\\\ \\text{undetermined}, & \\|k\\| = J - N, J - N + 1, \\dots, N\\end{cases}$ |
 
 **Case $J \le N$:** all $c_k$ are undetermined.
 
@@ -190,7 +190,7 @@ If you know a priori that $c_N = c_{-N}$ (e.g. from a symmetry), $J = 2N$ sample
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $c_k = \begin{cases} \bar{c}_k, & k = 0, 1, \dots, N - 1 \\ \tfrac{1}{2}\bar{c}_k, & k = N \\ \tfrac{1}{2}\bar{c}_{k+J}, & k = -N \\ \bar{c}_{k+J}, & k = -(N-1), \dots, -2, -1 \end{cases}$ |
+|  | $c_k = \\begin{cases} \\bar{c}_k, & k = 0, 1, \\dots, N - 1 \\\\ \\tfrac{1}{2}\\bar{c}_k, & k = N \\\\ \\tfrac{1}{2}\\bar{c}_{k+J}, & k = -N \\\\ \\bar{c}_{k+J}, & k = -(N-1), \\dots, -2, -1 \\end{cases}$ |
 
 ---
 
@@ -207,14 +207,14 @@ To obtain shifted samples $f(l\Delta\phi + \phi_o)$ from $\{f(l\Delta\phi)\}$:
 
    |  Eq.  |   |
    | :---: | :-- |
-   |  | $\{\bar{e}_k\} = \{e^{i\cdot 0\cdot \phi_o}, e^{i\cdot 1\cdot \phi_o}, \dots, e^{iN\phi_o}, 0, \dots, 0, e^{-iN\phi_o}, \dots, e^{-i\phi_o}\}$ |
+   |  | $\\{\\bar{e}_k\\} = \\{e^{i\\cdot 0\\cdot \\phi_o}, e^{i\\cdot 1\\cdot \\phi_o}, \\dots, e^{iN\\phi_o}, 0, \\dots, 0, e^{-iN\\phi_o}, \\dots, e^{-i\\phi_o}\\}$ |
 
 3. Term-by-term multiply: $\bar{e}_k \bar{c}_k$.
 4. Forward DFT to get the shifted samples:
 
    |  Eq.  |   |
    | :---: | :-- |
-   | (A4.38) | $\boxed{\;\{f(l\Delta\phi + \phi_o)\} = \text{DFT}\{\bar{e}_k \bar{c}_k\}\;}$ |
+   | (A4.38) | $\\boxed{\\;\\{f(l\\Delta\\phi + \\phi_o)\\} = \\text{DFT}\\{\\bar{e}_k \\bar{c}_k\\}\\;}$ |
 
 > **Tip.** If $|\phi_o| \gg \Delta\phi$, first apply a cyclic shift of the samples (an integer number of $\Delta\phi$ steps) to reduce $|\phi_o|$ — this is numerically cleaner.
 
@@ -227,14 +227,14 @@ To obtain samples at finer spacing $\Delta'\phi = 2\pi/J'$ with $J' > J \ge 2N +
 
    |  Eq.  |   |
    | :---: | :-- |
-   |  | $\{\bar{b}_k\} = \{\bar{c}_0, \bar{c}_1, \dots, \bar{c}_N, \underbrace{0, 0, \dots, 0}_{J' - J \text{ zeros}}, \bar{c}_{-N}, \dots, \bar{c}_{-1}\}$ |
+   |  | $\\{\\bar{b}_k\\} = \\{\\bar{c}_0, \\bar{c}_1, \\dots, \\bar{c}_N, \\underbrace{0, 0, \\dots, 0}_{J' - J \\text{ zeros}}, \\bar{c}_{-N}, \\dots, \\bar{c}_{-1}\\}$ |
 
    (Length $J'$.)
 3. DFT to get fine samples:
 
    |  Eq.  |   |
    | :---: | :-- |
-   | (A4.40) | $\boxed{\;\{f(l\Delta'\phi)\} = \text{DFT}\{\bar{b}_k \mid k = 0, \dots, J'-1\}\;}$ |
+   | (A4.40) | $\\boxed{\\;\\{f(l\\Delta'\\phi)\\} = \\text{DFT}\\{\\bar{b}_k \\mid k = 0, \\dots, J'-1\\}\\;}$ |
 
 > **Edge case (footnote on p. 370):** If $J$ is even and $N$ is uncertain, the original middle element $\bar{c}_{J/2}$ should be **split** into two elements of $\tfrac{1}{2}\bar{c}_{J/2}$ each, with $(J' - J - 1)$ zeros inserted between them — preserves spectral symmetry for non-strict bandlimits.
 
@@ -248,7 +248,7 @@ Used when $J \gg 2N + 1$ and the samples carry additive noise:
 
    |  Eq.  |   |
    | :---: | :-- |
-   | (A4.42) | $\{f''(l\Delta\phi)\} = \text{DFT}\{\bar{c}''_k\}$ |
+   | (A4.42) | $\\{f''(l\\Delta\\phi)\\} = \\text{DFT}\\{\\bar{c}''_k\\}$ |
 
 > Effective noise reduction ratio scales with $J / (2N+1)$ for white noise. Works because the signal occupies only $2N + 1$ bins by hypothesis; the remaining bins are "noise only."
 
@@ -262,7 +262,7 @@ To obtain samples at coarser spacing $\Delta'\phi = 2\pi/J'$ with $J' < J$:
 
    |  Eq.  |   |
    | :---: | :-- |
-   | (A4.44) | $\{f(l\Delta'\phi)\} = \text{DFT}\{\bar{c}'_k\mid k = 0, \dots, J'-1\}$ |
+   | (A4.44) | $\\{f(l\\Delta'\\phi)\\} = \\text{DFT}\\{\\bar{c}'_k\\mid k = 0, \\dots, J'-1\\}$ |
 
 Valid for any $J' \in [1, J]$, including the trivial $J' = 1$ (the mean value).
 
@@ -276,13 +276,13 @@ For a band-limited $f$ with $2N + 1$ Fourier coefficients:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.45) | $I_0 = \frac{1}{2\pi}\int_0^{2\pi} f(\phi)\,d\phi = c_0$ |
+| (A4.45) | $I_0 = \\frac{1}{2\\pi}\\int_0^{2\\pi} f(\\phi)\\,d\\phi = c_0$ |
 
 **With $J \ge N + 1$** samples in $[0, 2\pi)$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.46) | $\boxed{\;I_0 = c_0 = \frac{1}{J}\sum_{l=0}^{J-1} f(l\Delta\phi)\;}$ |
+| (A4.46) | $\\boxed{\\;I_0 = c_0 = \\frac{1}{J}\\sum_{l=0}^{J-1} f(l\\Delta\\phi)\\;}$ |
 
 This is the **trapezoidal rule** with equal weights — it is **exact** for periodic band-limited functions. Higher-order rules (Simpson, Romberg) do **not** improve accuracy for this class.
 
@@ -292,19 +292,19 @@ For the $2N+1$ moment integrals:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.47) | $I_m = \frac{1}{2\pi}\int_0^{2\pi} f(\phi)\,e^{-im\phi}\,d\phi,\quad m = -N, \dots, 0, \dots, N$ |
+| (A4.47) | $I_m = \\frac{1}{2\\pi}\\int_0^{2\\pi} f(\\phi)\\,e^{-im\\phi}\\,d\\phi,\\quad m = -N, \\dots, 0, \\dots, N$ |
 
 the integrand has highest harmonics $e^{\pm i 2N\phi}$, so **$J \ge 2N + 1$** samples suffice (and the trapezoidal rule remains exact):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.48) | $I_m = \frac{1}{J}\sum_{l=0}^{J-1} f(l\Delta\phi)\,e^{-iml\Delta\phi}$ |
+| (A4.48) | $I_m = \\frac{1}{J}\\sum_{l=0}^{J-1} f(l\\Delta\\phi)\\,e^{-iml\\Delta\\phi}$ |
 
 Recognising the sums as an IDFT:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A4.49) | $\boxed{\;\{I_0, I_1, \dots, I_N, I_{-N}, \dots, I_{-1}\} = \text{IDFT}\{f(l\Delta\phi) \mid l = 0, \dots, J-1\}\;}$ |
+| (A4.49) | $\\boxed{\\;\\{I_0, I_1, \\dots, I_N, I_{-N}, \\dots, I_{-1}\\} = \\text{IDFT}\\{f(l\\Delta\\phi) \\mid l = 0, \\dots, J-1\\}\\;}$ |
 
 > **Implementation power-tool.** A single IDFT computes all $2N+1$ moment integrals at once. Excellent for batch-extracting Fourier coefficients of measured probe-output signals.
 

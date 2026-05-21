@@ -32,8 +32,8 @@ In a source-free region bounded by spheres centred at the origin:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.1) | $\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{csmn} Q^{(c)}_{smn}\,\vec{F}^{(c)}_{smn}(r,\theta,\phi)$ |
-| (A1.2) | $\vec{H}(r,\theta,\phi) = -ik\sqrt{\eta}\sum_{csmn} Q^{(c)}_{smn}\,\vec{F}^{(c)}_{3-s,m,n}(r,\theta,\phi)$ |
+| (A1.1) | $\\vec{E}(r,\\theta,\\phi) = \\frac{k}{\\sqrt{\\eta}}\\sum_{csmn} Q^{(c)}_{smn}\\,\\vec{F}^{(c)}_{smn}(r,\\theta,\\phi)$ |
+| (A1.2) | $\\vec{H}(r,\\theta,\\phi) = -ik\\sqrt{\\eta}\\sum_{csmn} Q^{(c)}_{smn}\\,\\vec{F}^{(c)}_{3-s,m,n}(r,\\theta,\\phi)$ |
 
 - $\vec{F}^{(c)}_{smn}$ are **dimensionless**.
 - $[Q^{(c)}_{smn}] = \text{W}^{1/2}$.
@@ -43,7 +43,7 @@ Outgoing-wave radiated power:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.3) | $P = \tfrac{1}{2}\sum_{smn}\|Q^{(3)}_{smn}\|^2 \quad\text{[W]}$ |
+| (A1.3) | $P = \\tfrac{1}{2}\\sum_{smn}\\|Q^{(3)}_{smn}\\|^2 \\quad\\text{[W]}$ |
 
 ---
 
@@ -53,7 +53,7 @@ Outgoing-wave radiated power:
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\boxed{\;j = 2\{n(n+1) + m - 1\} + s\;}$ |
+|  | $\\boxed{\\;j = 2\\{n(n+1) + m - 1\\} + s\\;}$ |
 
 with $j = 1, 2, \dots, J$ and $J = 2N(N+2)$.
 
@@ -61,7 +61,7 @@ Two equivalent triple summation orders:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.4) | $\sum_{smn} = \sum_{s=1}^{2}\sum_{m=-N}^{N}\sum_{\substack{n=\|m\|\\ n \ne 0}}^{N} = \sum_{s=1}^{2}\sum_{n=1}^{N}\sum_{m=-n}^{n}$ |
+| (A1.4) | $\\sum_{smn} = \\sum_{s=1}^{2}\\sum_{m=-N}^{N}\\sum_{\\substack{n=\\|m\\|\\\\ n \\ne 0}}^{N} = \\sum_{s=1}^{2}\\sum_{n=1}^{N}\\sum_{m=-n}^{n}$ |
 
 ### Inverse: $j \to (s,m,n)$ — three-step algorithm
 
@@ -93,7 +93,7 @@ Two equivalent triple summation orders:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.5) | $\vec{K}_{smn}(\theta,\phi) = \lim_{kr\to\infty}\left\{\sqrt{4\pi}\,\frac{kr}{e^{ikr}}\,\vec{F}^{(3)}_{smn}(r,\theta,\phi)\right\}$ |
+| (A1.5) | $\\vec{K}_{smn}(\\theta,\\phi) = \\lim_{kr\\to\\infty}\\left\\{\\sqrt{4\\pi}\\,\\frac{kr}{e^{ikr}}\\,\\vec{F}^{(3)}_{smn}(r,\\theta,\\phi)\\right\\}$ |
 
 The $\sqrt{4\pi}$ factor simplifies the gain/directivity formulas.
 
@@ -105,7 +105,7 @@ The $\sqrt{4\pi}$ factor simplifies the gain/directivity formulas.
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.6) | $R^{(c)}_{sn}(kr) = \begin{cases} z_n^{(c)}(kr), & s = 1 \\[6pt] \dfrac{1}{kr}\dfrac{d}{d(kr)}\{kr\,z_n^{(c)}(kr)\}, & s = 2 \end{cases}$ |
+| (A1.6) | $R^{(c)}_{sn}(kr) = \\begin{cases} z_n^{(c)}(kr), & s = 1 \\\\[6pt] \\dfrac{1}{kr}\\dfrac{d}{d(kr)}\\{kr\\,z_n^{(c)}(kr)\\}, & s = 2 \\end{cases}$ |
 
 with
 
@@ -120,14 +120,14 @@ with
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.7) | $\frac{z_n^{(c)}}{x} = \frac{1}{2n+1}\bigl\{z_{n-1}^{(c)} + z_{n+1}^{(c)}\bigr\}$ |
-| (A1.8), (A1.9), (A1.10) | $\frac{1}{x}\frac{d}{dx}\bigl\{x\,z_n^{(c)}\bigr\} = z_{n-1}^{(c)} - n\,\frac{z_n^{(c)}}{x} = (n+1)\,\frac{z_n^{(c)}}{x} - z_{n+1}^{(c)} = \frac{1}{2n+1}\bigl\{(n+1)\,z_{n-1}^{(c)} - n\,z_{n+1}^{(c)}\bigr\}$ |
+| (A1.7) | $\\frac{z_n^{(c)}}{x} = \\frac{1}{2n+1}\\bigl\\{z_{n-1}^{(c)} + z_{n+1}^{(c)}\\bigr\\}$ |
+| (A1.8), (A1.9), (A1.10) | $\\frac{1}{x}\\frac{d}{dx}\\bigl\\{x\\,z_n^{(c)}\\bigr\\} = z_{n-1}^{(c)} - n\\,\\frac{z_n^{(c)}}{x} = (n+1)\\,\\frac{z_n^{(c)}}{x} - z_{n+1}^{(c)} = \\frac{1}{2n+1}\\bigl\\{(n+1)\\,z_{n-1}^{(c)} - n\\,z_{n+1}^{(c)}\\bigr\\}$ |
 
 ### Wronskian
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.11) | $R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{3-s,n}(kr) - R^{(\gamma)}_{sn}(kr)\,R^{(c)}_{3-s,n}(kr) = -(-1)^s\,\frac{A^{(c,\gamma)}}{(kr)^2}$ |
+| (A1.11) | $R^{(c)}_{sn}(kr)\\,R^{(\\gamma)}_{3-s,n}(kr) - R^{(\\gamma)}_{sn}(kr)\\,R^{(c)}_{3-s,n}(kr) = -(-1)^s\\,\\frac{A^{(c,\\gamma)}}{(kr)^2}$ |
 
 The $A^{(c,\gamma)}$ table:
 
@@ -144,24 +144,24 @@ The $A^{(c,\gamma)}$ table:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.13) | $R^{(1)}_{1n}(kr)\,R^{(1)}_{2n}(kr) + R^{(2)}_{1n}(kr)\,R^{(2)}_{2n}(kr) = \Bigl\{\frac{1}{kr} + \frac{1}{2}\frac{d}{d(kr)}\Bigr\}\|h_n^{(1)}(kr)\|^2$ |
+| (A1.13) | $R^{(1)}_{1n}(kr)\\,R^{(1)}_{2n}(kr) + R^{(2)}_{1n}(kr)\\,R^{(2)}_{2n}(kr) = \\Bigl\\{\\frac{1}{kr} + \\frac{1}{2}\\frac{d}{d(kr)}\\Bigr\\}\\|h_n^{(1)}(kr)\\|^2$ |
 
 ### Asymptotic ($kr \to \infty$, $kr \gg n$)
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.14) | $R^{(3)}_{1n}(kr) = z_n^{(3)}(kr) \to (-i)^{n+1}\,\frac{e^{ikr}}{kr}$ |
-| (A1.15) | $R^{(4)}_{1n}(kr) = z_n^{(4)}(kr) \to i^{n+1}\,\frac{e^{-ikr}}{kr}$ |
-| (A1.16) | $R^{(3)}_{2n}(kr) = \frac{1}{kr}\frac{d}{d(kr)}\{kr\,z_n^{(3)}\} \to (-i)^{n}\,\frac{e^{ikr}}{kr}$ |
-| (A1.17) | $R^{(4)}_{2n}(kr) = \frac{1}{kr}\frac{d}{d(kr)}\{kr\,z_n^{(4)}\} \to i^{n}\,\frac{e^{-ikr}}{kr}$ |
+| (A1.14) | $R^{(3)}_{1n}(kr) = z_n^{(3)}(kr) \\to (-i)^{n+1}\\,\\frac{e^{ikr}}{kr}$ |
+| (A1.15) | $R^{(4)}_{1n}(kr) = z_n^{(4)}(kr) \\to i^{n+1}\\,\\frac{e^{-ikr}}{kr}$ |
+| (A1.16) | $R^{(3)}_{2n}(kr) = \\frac{1}{kr}\\frac{d}{d(kr)}\\{kr\\,z_n^{(3)}\\} \\to (-i)^{n}\\,\\frac{e^{ikr}}{kr}$ |
+| (A1.17) | $R^{(4)}_{2n}(kr) = \\frac{1}{kr}\\frac{d}{d(kr)}\\{kr\\,z_n^{(4)}\\} \\to i^{n}\\,\\frac{e^{-ikr}}{kr}$ |
 
 ### Special values at $x = 0$
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.18) | $j_n(0) = 0,\quad n \ge 1$ |
-| (A1.19) | $\lim_{x\to 0}\frac{j_n(x)}{x} = \begin{cases} 1/3, & n = 1 \\ 0, & n > 1\end{cases}$ |
-| (A1.20) | $\lim_{x\to 0}\frac{1}{x}\frac{d}{dx}\{x\,j_n(x)\} = \begin{cases} 2/3, & n = 1 \\ 0, & n > 1\end{cases}$ |
+| (A1.18) | $j_n(0) = 0,\\quad n \\ge 1$ |
+| (A1.19) | $\\lim_{x\\to 0}\\frac{j_n(x)}{x} = \\begin{cases} 1/3, & n = 1 \\\\ 0, & n > 1\\end{cases}$ |
+| (A1.20) | $\\lim_{x\\to 0}\\frac{1}{x}\\frac{d}{dx}\\{x\\,j_n(x)\\} = \\begin{cases} 2/3, & n = 1 \\\\ 0, & n > 1\\end{cases}$ |
 
 ### Low-order $j_n(x)$ ($s = 1$) — Eq. (A1.21)
 
@@ -217,14 +217,14 @@ Normalized associated Legendre function (Belousov [2] convention):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.25) | $\bar{P}_n^m(\cos\theta) = \sqrt{\frac{2n+1}{2}\cdot\frac{(n-m)!}{(n+m)!}}\,P_n^m(\cos\theta)$ |
+| (A1.25) | $\\bar{P}_n^m(\\cos\\theta) = \\sqrt{\\frac{2n+1}{2}\\cdot\\frac{(n-m)!}{(n+m)!}}\\,P_n^m(\\cos\\theta)$ |
 
 Unnormalized Stratton/Hansen convention:
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $P_n^m(\cos\theta) = (\sin\theta)^m\,\frac{d^m P_n(\cos\theta)}{d(\cos\theta)^m}$ |
-|  | $P_n(\cos\theta) = \frac{1}{2^n n!}\,\frac{d^n}{d(\cos\theta)^n}(\cos^2\theta - 1)^n$ |
+|  | $P_n^m(\\cos\\theta) = (\\sin\\theta)^m\\,\\frac{d^m P_n(\\cos\\theta)}{d(\\cos\\theta)^m}$ |
+|  | $P_n(\\cos\\theta) = \\frac{1}{2^n n!}\\,\\frac{d^n}{d(\\cos\\theta)^n}(\\cos^2\\theta - 1)^n$ |
 
 > **Sign convention warning.** Abramowitz & Stegun [3] and Harrington [4] include an extra $(-1)^m$ — Hansen and Stratton [1] do **not**. **scipy's `scipy.special.lpmv` follows the Hansen/Stratton convention; `scipy.special.sph_harm` does NOT.** Always check before use.
 
@@ -234,21 +234,21 @@ Hansen uses only $|m| \ge 0$ in $\bar{P}_n^{|m|}$.
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.26) | $\int_{-1}^{1} P_k^m(\mu)\,P_n^m(\mu)\,d\mu = \frac{2}{2n+1}\,\frac{(n+m)!}{(n-m)!}\,\delta_{nk}$ |
-| (A1.27) | $\int_{-1}^{1} \bar{P}_k^m(\mu)\,\bar{P}_n^m(\mu)\,d\mu = \delta_{nk}$ |
-| (A1.28) | $\int_{-1}^{1} P_n^m(\mu)\,P_n^k(\mu)\,\sin^{-2}\theta\,d\mu = \frac{1}{m}\,\frac{(n+m)!}{(n-m)!}\,\delta_{mk},\quad (m,k) \ne (0,0)$ |
-| (A1.29) | $\int_{-1}^{1}\Bigl\{\frac{dP_n^m}{d\theta}\frac{dP_k^m}{d\theta} + \frac{m^2}{\sin^2\theta}P_n^m P_k^m\Bigr\}d\mu = \frac{2}{2n+1}\frac{(n+m)!}{(n-m)!}\,n(n+1)\,\delta_{nk}$ |
-| (A1.30) | $\int_{-1}^{1}\Bigl\{\frac{P_n^m}{\sin\theta}\frac{dP_k^m}{d\theta} + \frac{P_k^m}{\sin\theta}\frac{dP_n^m}{d\theta}\Bigr\}\sin\theta\,d\mu = 0$ |
+| (A1.26) | $\\int_{-1}^{1} P_k^m(\\mu)\\,P_n^m(\\mu)\\,d\\mu = \\frac{2}{2n+1}\\,\\frac{(n+m)!}{(n-m)!}\\,\\delta_{nk}$ |
+| (A1.27) | $\\int_{-1}^{1} \\bar{P}_k^m(\\mu)\\,\\bar{P}_n^m(\\mu)\\,d\\mu = \\delta_{nk}$ |
+| (A1.28) | $\\int_{-1}^{1} P_n^m(\\mu)\\,P_n^k(\\mu)\\,\\sin^{-2}\\theta\\,d\\mu = \\frac{1}{m}\\,\\frac{(n+m)!}{(n-m)!}\\,\\delta_{mk},\\quad (m,k) \\ne (0,0)$ |
+| (A1.29) | $\\int_{-1}^{1}\\Bigl\\{\\frac{dP_n^m}{d\\theta}\\frac{dP_k^m}{d\\theta} + \\frac{m^2}{\\sin^2\\theta}P_n^m P_k^m\\Bigr\\}d\\mu = \\frac{2}{2n+1}\\frac{(n+m)!}{(n-m)!}\\,n(n+1)\\,\\delta_{nk}$ |
+| (A1.30) | $\\int_{-1}^{1}\\Bigl\\{\\frac{P_n^m}{\\sin\\theta}\\frac{dP_k^m}{d\\theta} + \\frac{P_k^m}{\\sin\\theta}\\frac{dP_n^m}{d\\theta}\\Bigr\\}\\sin\\theta\\,d\\mu = 0$ |
 
 ### Recurrence relations
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.31) | $(n-m+1)P_{n+1}^m - (2n+1)\cos\theta\,P_n^m + (n+m)P_{n-1}^m = 0$ |
-| (A1.32) | $\sin\theta\,P_n^{m+1} - 2m\cos\theta\,P_n^m + (n+m)(n-m+1)\sin\theta\,P_n^{m-1} = 0$ |
-| (A1.33) | $P_n^n(\cos\theta) - (2n-1)\sin\theta\,P_{n-1}^{n-1}(\cos\theta) = 0$ |
-| (A1.34a) | $\frac{m\,P_n^m(\cos\theta)}{\sin\theta} = \begin{cases} 0, & m = 0 \\ \tfrac{1}{2}\cos\theta\{(n-m+1)(n+m)P_n^{m-1} + P_n^{m+1}\} + m\sin\theta\,P_n^m, & m > 0\end{cases}$ |
-| (A1.34b) | $\frac{dP_n^m(\cos\theta)}{d\theta} = \begin{cases} -P_n^1(\cos\theta), & m = 0 \\ \tfrac{1}{2}\{(n-m+1)(n+m)P_n^{m-1} - P_n^{m+1}\}, & m > 0\end{cases}$ |
+| (A1.31) | $(n-m+1)P_{n+1}^m - (2n+1)\\cos\\theta\\,P_n^m + (n+m)P_{n-1}^m = 0$ |
+| (A1.32) | $\\sin\\theta\\,P_n^{m+1} - 2m\\cos\\theta\\,P_n^m + (n+m)(n-m+1)\\sin\\theta\\,P_n^{m-1} = 0$ |
+| (A1.33) | $P_n^n(\\cos\\theta) - (2n-1)\\sin\\theta\\,P_{n-1}^{n-1}(\\cos\\theta) = 0$ |
+| (A1.34a) | $\\frac{m\\,P_n^m(\\cos\\theta)}{\\sin\\theta} = \\begin{cases} 0, & m = 0 \\\\ \\tfrac{1}{2}\\cos\\theta\\{(n-m+1)(n+m)P_n^{m-1} + P_n^{m+1}\\} + m\\sin\\theta\\,P_n^m, & m > 0\\end{cases}$ |
+| (A1.34b) | $\\frac{dP_n^m(\\cos\\theta)}{d\\theta} = \\begin{cases} -P_n^1(\\cos\\theta), & m = 0 \\\\ \\tfrac{1}{2}\\{(n-m+1)(n+m)P_n^{m-1} - P_n^{m+1}\\}, & m > 0\\end{cases}$ |
 
 > **OCR note.** Eq. (A1.34a) as printed includes a curious $+m\sin\theta\,P_n^m$ tail; check carefully against `scipy.special.lpmv` before relying on it for code.
 
@@ -256,19 +256,19 @@ Hansen uses only $|m| \ge 0$ in $\bar{P}_n^{|m|}$.
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.35a) | $P_n^m(\cos\theta) = \sum_{m'=-n}^{n} c_{m'}\,e^{im'\theta}$ |
+| (A1.35a) | $P_n^m(\\cos\\theta) = \\sum_{m'=-n}^{n} c_{m'}\\,e^{im'\\theta}$ |
 
 with $c_{m'} = 0$ when $(m'+n)$ is odd. Recurrence (see Eq. A2.37):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.35b) | $(n+m'+2)(n-m'-1)c_{m'+2} - 2(n^2 - m'^2 + n - 2m^2)\,c_{m'} + (n+m'-1)(n-m'+2)\,c_{m'-2} = 0$ |
+| (A1.35b) | $(n+m'+2)(n-m'-1)c_{m'+2} - 2(n^2 - m'^2 + n - 2m^2)\\,c_{m'} + (n+m'-1)(n-m'+2)\\,c_{m'-2} = 0$ |
 
 Initial values:
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $c_n = \Bigl(-i\,\frac{m}{\|m\|}\Bigr)^m\,\frac{1}{2^{2n}}\,\frac{(2n)!}{(n-m)!\,n!},\quad c_{n-2} = \frac{n - 2m^2}{2n - 1}\,c_n$ |
+|  | $c_n = \\Bigl(-i\\,\\frac{m}{\\|m\\|}\\Bigr)^m\\,\\frac{1}{2^{2n}}\\,\\frac{(2n)!}{(n-m)!\\,n!},\\quad c_{n-2} = \\frac{n - 2m^2}{2n - 1}\\,c_n$ |
 
 For $m = 0$ the recurrence simplifies to:
 
@@ -282,15 +282,15 @@ Define $n!! = n(n-2)(n-4)\cdots$ (terminating at 1 or 2).
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.36) | $P_n^{\|m\|}(\cos\theta)\bigm\|_{\theta=0} = \begin{cases} 1, & \|m\| = 0 \\ 0, & \|m\| > 0\end{cases}$ |
-| (A1.37) | $P_n^{\|m\|}(\cos\theta)\bigm\|_{\theta=\pi/2} = \begin{cases} (-1)^{(n-\|m\|)/2}\,\dfrac{(n+\|m\|-1)!!}{(n-\|m\|)!!}, & (n+\|m\|)\text{ even} \\ 0, & (n+\|m\|)\text{ odd}\end{cases}$ |
-| (A1.38) | $P_n^{\|m\|}(\cos\theta)\bigm\|_{\theta=\pi} = \begin{cases} (-1)^n, & \|m\| = 0 \\ 0, & \|m\| > 0\end{cases}$ |
-| (A1.39) | $\frac{m\,P_n^{\|m\|}(\cos\theta)}{\sin\theta}\biggm\|_{\theta=0} = \begin{cases} 0, & m \ne \pm 1 \\ \pm\,\dfrac{n(n+1)}{2}, & m = \pm 1\end{cases}$ |
-| (A1.40) | $\frac{m\,P_n^{\|m\|}(\cos\theta)}{\sin\theta}\biggm\|_{\theta=\pi/2} = \begin{cases} m\,(-1)^{(n-\|m\|)/2}\,\dfrac{(n+\|m\|-1)!!}{(n-\|m\|)!!}, & (n+\|m\|)\text{ even} \\ 0, & (n+\|m\|)\text{ odd}\end{cases}$ |
-| (A1.41) | $\frac{m\,P_n^{\|m\|}(\cos\theta)}{\sin\theta}\biggm\|_{\theta=\pi} = \begin{cases} 0, & m \ne \pm 1 \\ \pm(-1)^{n+1}\,\dfrac{n(n+1)}{2}, & m = \pm 1\end{cases}$ |
-| (A1.42) | $\frac{dP_n^{\|m\|}(\cos\theta)}{d\theta}\biggm\|_{\theta=0} = \begin{cases} 0, & \|m\| \ne 1 \\ \dfrac{n(n+1)}{2}, & \|m\| = 1\end{cases}$ |
-| (A1.43) | $\frac{dP_n^{\|m\|}(\cos\theta)}{d\theta}\biggm\|_{\theta=\pi/2} = \begin{cases} 0, & (n+\|m\|)\text{ even} \\ (-1)^{(n-\|m\|+1)/2}\,\dfrac{(n+\|m\|)!!}{(n-\|m\|-1)!!}, & (n+\|m\|)\text{ odd}\end{cases}$ |
-| (A1.44) | $\frac{dP_n^{\|m\|}(\cos\theta)}{d\theta}\biggm\|_{\theta=\pi} = \begin{cases} 0, & \|m\| \ne 1 \\ (-1)^n\,\dfrac{n(n+1)}{2}, & \|m\| = 1\end{cases}$ |
+| (A1.36) | $P_n^{\\|m\\|}(\\cos\\theta)\\bigm\\|_{\\theta=0} = \\begin{cases} 1, & \\|m\\| = 0 \\\\ 0, & \\|m\\| > 0\\end{cases}$ |
+| (A1.37) | $P_n^{\\|m\\|}(\\cos\\theta)\\bigm\\|_{\\theta=\\pi/2} = \\begin{cases} (-1)^{(n-\\|m\\|)/2}\\,\\dfrac{(n+\\|m\\|-1)!!}{(n-\\|m\\|)!!}, & (n+\\|m\\|)\\text{ even} \\\\ 0, & (n+\\|m\\|)\\text{ odd}\\end{cases}$ |
+| (A1.38) | $P_n^{\\|m\\|}(\\cos\\theta)\\bigm\\|_{\\theta=\\pi} = \\begin{cases} (-1)^n, & \\|m\\| = 0 \\\\ 0, & \\|m\\| > 0\\end{cases}$ |
+| (A1.39) | $\\frac{m\\,P_n^{\\|m\\|}(\\cos\\theta)}{\\sin\\theta}\\biggm\\|_{\\theta=0} = \\begin{cases} 0, & m \\ne \\pm 1 \\\\ \\pm\\,\\dfrac{n(n+1)}{2}, & m = \\pm 1\\end{cases}$ |
+| (A1.40) | $\\frac{m\\,P_n^{\\|m\\|}(\\cos\\theta)}{\\sin\\theta}\\biggm\\|_{\\theta=\\pi/2} = \\begin{cases} m\\,(-1)^{(n-\\|m\\|)/2}\\,\\dfrac{(n+\\|m\\|-1)!!}{(n-\\|m\\|)!!}, & (n+\\|m\\|)\\text{ even} \\\\ 0, & (n+\\|m\\|)\\text{ odd}\\end{cases}$ |
+| (A1.41) | $\\frac{m\\,P_n^{\\|m\\|}(\\cos\\theta)}{\\sin\\theta}\\biggm\\|_{\\theta=\\pi} = \\begin{cases} 0, & m \\ne \\pm 1 \\\\ \\pm(-1)^{n+1}\\,\\dfrac{n(n+1)}{2}, & m = \\pm 1\\end{cases}$ |
+| (A1.42) | $\\frac{dP_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=0} = \\begin{cases} 0, & \\|m\\| \\ne 1 \\\\ \\dfrac{n(n+1)}{2}, & \\|m\\| = 1\\end{cases}$ |
+| (A1.43) | $\\frac{dP_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=\\pi/2} = \\begin{cases} 0, & (n+\\|m\\|)\\text{ even} \\\\ (-1)^{(n-\\|m\\|+1)/2}\\,\\dfrac{(n+\\|m\\|)!!}{(n-\\|m\\|-1)!!}, & (n+\\|m\\|)\\text{ odd}\\end{cases}$ |
+| (A1.44) | $\\frac{dP_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=\\pi} = \\begin{cases} 0, & \\|m\\| \\ne 1 \\\\ (-1)^n\\,\\dfrac{n(n+1)}{2}, & \\|m\\| = 1\\end{cases}$ |
 
 ### Low-order $\bar{P}_n^{|m|}(\cos\theta)$ table
 
@@ -333,8 +333,8 @@ Define $n!! = n(n-2)(n-4)\cdots$ (terminating at 1 or 2).
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.45) | $\boxed{\;\vec{F}^{(c)}_{1mn}(r,\theta,\phi) = \frac{1}{\sqrt{2\pi}}\,\frac{1}{\sqrt{n(n+1)}}\,\Bigl(-\frac{m}{\|m\|}\Bigr)^m \times \left[ z_n^{(c)}(kr)\,\frac{im\,\bar{P}_n^{\|m\|}(\cos\theta)}{\sin\theta}\,e^{im\phi}\,\hat{\theta} - z_n^{(c)}(kr)\,\frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\,e^{im\phi}\,\hat{\phi}\right]\;}$ |
-| (A1.46) | $\boxed{\;\vec{F}^{(c)}_{2mn}(r,\theta,\phi) = \frac{1}{\sqrt{2\pi}}\,\frac{1}{\sqrt{n(n+1)}}\,\Bigl(-\frac{m}{\|m\|}\Bigr)^m \times \left[\frac{n(n+1)}{kr}\,z_n^{(c)}(kr)\,\bar{P}_n^{\|m\|}(\cos\theta)\,e^{im\phi}\,\hat{r} + \frac{1}{kr}\frac{d}{d(kr)}\{kr\,z_n^{(c)}(kr)\}\,\frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\,e^{im\phi}\,\hat{\theta} + \frac{1}{kr}\frac{d}{d(kr)}\{kr\,z_n^{(c)}(kr)\}\,\frac{im\,\bar{P}_n^{\|m\|}(\cos\theta)}{\sin\theta}\,e^{im\phi}\,\hat{\phi}\right]\;}$ |
+| (A1.45) | $\\boxed{\\;\\vec{F}^{(c)}_{1mn}(r,\\theta,\\phi) = \\frac{1}{\\sqrt{2\\pi}}\\,\\frac{1}{\\sqrt{n(n+1)}}\\,\\Bigl(-\\frac{m}{\\|m\\|}\\Bigr)^m \\times \\left[ z_n^{(c)}(kr)\\,\\frac{im\\,\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{\\sin\\theta}\\,e^{im\\phi}\\,\\hat{\\theta} - z_n^{(c)}(kr)\\,\\frac{d\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\,e^{im\\phi}\\,\\hat{\\phi}\\right]\\;}$ |
+| (A1.46) | $\\boxed{\\;\\vec{F}^{(c)}_{2mn}(r,\\theta,\\phi) = \\frac{1}{\\sqrt{2\\pi}}\\,\\frac{1}{\\sqrt{n(n+1)}}\\,\\Bigl(-\\frac{m}{\\|m\\|}\\Bigr)^m \\times \\left[\\frac{n(n+1)}{kr}\\,z_n^{(c)}(kr)\\,\\bar{P}_n^{\\|m\\|}(\\cos\\theta)\\,e^{im\\phi}\\,\\hat{r} + \\frac{1}{kr}\\frac{d}{d(kr)}\\{kr\\,z_n^{(c)}(kr)\\}\\,\\frac{d\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\,e^{im\\phi}\\,\\hat{\\theta} + \\frac{1}{kr}\\frac{d}{d(kr)}\\{kr\\,z_n^{(c)}(kr)\\}\\,\\frac{im\\,\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{\\sin\\theta}\\,e^{im\\phi}\\,\\hat{\\phi}\\right]\\;}$ |
 
 Convention: $(-m/|m|)^m = 1$ when $m = 0$.
 
@@ -344,13 +344,13 @@ For $\vec{F}^{(c)}_{1mn}$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.47) | $\vec{F}^{(c)}_{1mn}(r,0,\phi) = \begin{cases} 0, & m > 1 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\ 0, & m = 0 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}$ |
+| (A1.47) | $\\vec{F}^{(c)}_{1mn}(r,0,\\phi) = \\begin{cases} 0, & m > 1 \\\\ -\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,z_n^{(c)}(kr)\\,i\\,e^{i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & m = 1 \\\\ 0, & m = 0 \\\\ -\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,z_n^{(c)}(kr)\\,i\\,e^{-i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & m = -1 \\\\ 0, & m < -1 \\end{cases}$ |
 
 For $\vec{F}^{(c)}_{2mn}$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.48) | $\vec{F}^{(c)}_{2mn}(r,0,\phi) = \begin{cases} 0, & m > 1 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\ \sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\ \tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}$ |
+| (A1.48) | $\\vec{F}^{(c)}_{2mn}(r,0,\\phi) = \\begin{cases} 0, & m > 1 \\\\ -\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,\\tfrac{1}{kr}\\tfrac{d}{d(kr)}\\{kr\\,z_n^{(c)}\\}\\,e^{i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & m = 1 \\\\ \\sqrt{\\tfrac{n(n+1)(2n+1)}{4\\pi}}\\,\\dfrac{z_n^{(c)}(kr)}{kr}\\,\\hat{r}, & m = 0 \\\\ \\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,\\tfrac{1}{kr}\\tfrac{d}{d(kr)}\\{kr\\,z_n^{(c)}\\}\\,e^{-i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & m = -1 \\\\ 0, & m < -1 \\end{cases}$ |
 
 ### Special values at $\theta = \pi$ (A1.49, A1.50)
 
@@ -358,29 +358,29 @@ For $\vec{F}^{(c)}_{1mn}$ (same structure as A1.47 but with $(-1)^n$ prefactor a
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.49) | $\vec{F}^{(c)}_{1mn}(r,\pi,\phi) = \begin{cases} 0, & m > 1 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & m = 1 \\ 0, & m = 0 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}$ |
+| (A1.49) | $\\vec{F}^{(c)}_{1mn}(r,\\pi,\\phi) = \\begin{cases} 0, & m > 1 \\\\ (-1)^n\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,z_n^{(c)}(kr)\\,i\\,e^{i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & m = 1 \\\\ 0, & m = 0 \\\\ (-1)^n\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,z_n^{(c)}(kr)\\,i\\,e^{-i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & m = -1 \\\\ 0, & m < -1 \\end{cases}$ |
 
 For $\vec{F}^{(c)}_{2mn}$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.50) | $\vec{F}^{(c)}_{2mn}(r,\pi,\phi) = \begin{cases} 0, & m > 1 \\ -(-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & m = 1 \\ (-1)^n\sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}$ |
+| (A1.50) | $\\vec{F}^{(c)}_{2mn}(r,\\pi,\\phi) = \\begin{cases} 0, & m > 1 \\\\ -(-1)^n\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,\\tfrac{1}{kr}\\tfrac{d}{d(kr)}\\{kr\\,z_n^{(c)}\\}\\,e^{i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & m = 1 \\\\ (-1)^n\\sqrt{\\tfrac{n(n+1)(2n+1)}{4\\pi}}\\,\\dfrac{z_n^{(c)}(kr)}{kr}\\,\\hat{r}, & m = 0 \\\\ (-1)^n\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,\\tfrac{1}{kr}\\tfrac{d}{d(kr)}\\{kr\\,z_n^{(c)}\\}\\,e^{-i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & m = -1 \\\\ 0, & m < -1 \\end{cases}$ |
 
 ### Value at the origin $r = 0$ — only $n = 1$, $s = 2$ survives
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.51) | $\vec{F}^{(1)}_{1,1,1}(0,\theta,\phi) = 0,\quad \vec{F}^{(1)}_{1,0,1}(0,\theta,\phi) = 0,\quad \vec{F}^{(1)}_{1,-1,1}(0,\theta,\phi) = 0$ |
-| (A1.52a) | $\vec{F}^{(1)}_{2,1,1}(0,\theta,\phi) = -\tfrac{\sqrt{3}}{6\sqrt{\pi}}\,e^{i\phi}(\sin\theta\,\hat{r} + \cos\theta\,\hat{\theta} + i\hat{\phi}) = -\tfrac{\sqrt{3}}{6\sqrt{\pi}}(\hat{x} + i\hat{y})$ |
-| (A1.52b) | $\vec{F}^{(1)}_{2,0,1}(0,\theta,\phi) = \tfrac{\sqrt{6}}{6\sqrt{\pi}}(\cos\theta\,\hat{r} - \sin\theta\,\hat{\theta}) = \tfrac{\sqrt{6}}{6\sqrt{\pi}}\,\hat{z}$ |
-| (A1.52c) | $\vec{F}^{(1)}_{2,-1,1}(0,\theta,\phi) = \tfrac{\sqrt{3}}{6\sqrt{\pi}}\,e^{-i\phi}(\sin\theta\,\hat{r} + \cos\theta\,\hat{\theta} - i\hat{\phi}) = \tfrac{\sqrt{3}}{6\sqrt{\pi}}(\hat{x} - i\hat{y})$ |
-| (A1.53) | $\vec{F}^{(1)}_{smn}(0,\theta,\phi) = 0,\quad n \ne 1$ |
+| (A1.51) | $\\vec{F}^{(1)}_{1,1,1}(0,\\theta,\\phi) = 0,\\quad \\vec{F}^{(1)}_{1,0,1}(0,\\theta,\\phi) = 0,\\quad \\vec{F}^{(1)}_{1,-1,1}(0,\\theta,\\phi) = 0$ |
+| (A1.52a) | $\\vec{F}^{(1)}_{2,1,1}(0,\\theta,\\phi) = -\\tfrac{\\sqrt{3}}{6\\sqrt{\\pi}}\\,e^{i\\phi}(\\sin\\theta\\,\\hat{r} + \\cos\\theta\\,\\hat{\\theta} + i\\hat{\\phi}) = -\\tfrac{\\sqrt{3}}{6\\sqrt{\\pi}}(\\hat{x} + i\\hat{y})$ |
+| (A1.52b) | $\\vec{F}^{(1)}_{2,0,1}(0,\\theta,\\phi) = \\tfrac{\\sqrt{6}}{6\\sqrt{\\pi}}(\\cos\\theta\\,\\hat{r} - \\sin\\theta\\,\\hat{\\theta}) = \\tfrac{\\sqrt{6}}{6\\sqrt{\\pi}}\\,\\hat{z}$ |
+| (A1.52c) | $\\vec{F}^{(1)}_{2,-1,1}(0,\\theta,\\phi) = \\tfrac{\\sqrt{3}}{6\\sqrt{\\pi}}\\,e^{-i\\phi}(\\sin\\theta\\,\\hat{r} + \\cos\\theta\\,\\hat{\\theta} - i\\hat{\\phi}) = \\tfrac{\\sqrt{3}}{6\\sqrt{\\pi}}(\\hat{x} - i\\hat{y})$ |
+| (A1.53) | $\\vec{F}^{(1)}_{smn}(0,\\theta,\\phi) = 0,\\quad n \\ne 1$ |
 
 ### Conjugation identity
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.54) | $\boxed{\;\vec{F}^{(3)*}_{smn}(r,\theta,\phi) = (-1)^m\,\vec{F}^{(4)}_{s,-m,n}(r,\theta,\phi)\;}$ |
+| (A1.54) | $\\boxed{\\;\\vec{F}^{(3)*}_{smn}(r,\\theta,\\phi) = (-1)^m\\,\\vec{F}^{(4)}_{s,-m,n}(r,\\theta,\\phi)\\;}$ |
 
 ### Explicit $n = 1$ wave functions
 
@@ -388,33 +388,33 @@ For $\vec{F}^{(c)}_{2mn}$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.55a) | $\vec{F}^{(1)}_{1,1,1} = \frac{-\sqrt{3}}{4\sqrt{\pi}}\,e^{i\phi}\,\frac{1}{kr}\Bigl\{-\cos(kr) + \frac{\sin(kr)}{kr}\Bigr\}(i\hat{\theta} - \cos\theta\,\hat{\phi})$ |
-| (A1.55b) | $\vec{F}^{(1)}_{1,0,1} = \frac{\sqrt{6}}{4\sqrt{\pi}}\,\frac{1}{kr}\Bigl\{-\cos(kr) + \frac{\sin(kr)}{kr}\Bigr\}\sin\theta\,\hat{\phi}$ |
-| (A1.55c) | $\vec{F}^{(1)}_{1,-1,1} = \frac{-\sqrt{3}}{4\sqrt{\pi}}\,e^{-i\phi}\,\frac{1}{kr}\Bigl\{-\cos(kr) + \frac{\sin(kr)}{kr}\Bigr\}(i\hat{\theta} + \cos\theta\,\hat{\phi})$ |
+| (A1.55a) | $\\vec{F}^{(1)}_{1,1,1} = \\frac{-\\sqrt{3}}{4\\sqrt{\\pi}}\\,e^{i\\phi}\\,\\frac{1}{kr}\\Bigl\\{-\\cos(kr) + \\frac{\\sin(kr)}{kr}\\Bigr\\}(i\\hat{\\theta} - \\cos\\theta\\,\\hat{\\phi})$ |
+| (A1.55b) | $\\vec{F}^{(1)}_{1,0,1} = \\frac{\\sqrt{6}}{4\\sqrt{\\pi}}\\,\\frac{1}{kr}\\Bigl\\{-\\cos(kr) + \\frac{\\sin(kr)}{kr}\\Bigr\\}\\sin\\theta\\,\\hat{\\phi}$ |
+| (A1.55c) | $\\vec{F}^{(1)}_{1,-1,1} = \\frac{-\\sqrt{3}}{4\\sqrt{\\pi}}\\,e^{-i\\phi}\\,\\frac{1}{kr}\\Bigl\\{-\\cos(kr) + \\frac{\\sin(kr)}{kr}\\Bigr\\}(i\\hat{\\theta} + \\cos\\theta\\,\\hat{\\phi})$ |
 
 **$\vec{F}^{(1)}_{2,m,1}$:**
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.56a) | $\vec{F}^{(1)}_{2,1,1} = \frac{-\sqrt{3}}{2\sqrt{\pi}}\,e^{i\phi}\,\frac{1}{(kr)^2}\Bigl\{-\cos(kr) + \frac{\sin(kr)}{kr}\Bigr\}\sin\theta\,\hat{r} - \frac{\sqrt{3}}{4\sqrt{\pi}}\,e^{i\phi}\,\frac{1}{kr}\Bigl\{\sin(kr) + \frac{\cos(kr)}{kr} - \frac{\sin(kr)}{(kr)^2}\Bigr\}(\cos\theta\,\hat{\theta} + i\hat{\phi})$ |
-| (A1.56b) | $\vec{F}^{(1)}_{2,0,1} = \frac{\sqrt{6}}{2\sqrt{\pi}}\,\frac{1}{(kr)^2}\Bigl\{-\cos(kr) + \frac{\sin(kr)}{kr}\Bigr\}\cos\theta\,\hat{r} - \frac{\sqrt{6}}{4\sqrt{\pi}}\,\frac{1}{kr}\Bigl\{\sin(kr) + \frac{\cos(kr)}{kr} - \frac{\sin(kr)}{(kr)^2}\Bigr\}\sin\theta\,\hat{\theta}$ |
-| (A1.56c) | $\vec{F}^{(1)}_{2,-1,1} = \frac{\sqrt{3}}{2\sqrt{\pi}}\,e^{-i\phi}\,\frac{1}{(kr)^2}\Bigl\{-\cos(kr) + \frac{\sin(kr)}{kr}\Bigr\}\sin\theta\,\hat{r} + \frac{\sqrt{3}}{4\sqrt{\pi}}\,e^{-i\phi}\,\frac{1}{kr}\Bigl\{\sin(kr) + \frac{\cos(kr)}{kr} - \frac{\sin(kr)}{(kr)^2}\Bigr\}(\cos\theta\,\hat{\theta} - i\hat{\phi})$ |
+| (A1.56a) | $\\vec{F}^{(1)}_{2,1,1} = \\frac{-\\sqrt{3}}{2\\sqrt{\\pi}}\\,e^{i\\phi}\\,\\frac{1}{(kr)^2}\\Bigl\\{-\\cos(kr) + \\frac{\\sin(kr)}{kr}\\Bigr\\}\\sin\\theta\\,\\hat{r} - \\frac{\\sqrt{3}}{4\\sqrt{\\pi}}\\,e^{i\\phi}\\,\\frac{1}{kr}\\Bigl\\{\\sin(kr) + \\frac{\\cos(kr)}{kr} - \\frac{\\sin(kr)}{(kr)^2}\\Bigr\\}(\\cos\\theta\\,\\hat{\\theta} + i\\hat{\\phi})$ |
+| (A1.56b) | $\\vec{F}^{(1)}_{2,0,1} = \\frac{\\sqrt{6}}{2\\sqrt{\\pi}}\\,\\frac{1}{(kr)^2}\\Bigl\\{-\\cos(kr) + \\frac{\\sin(kr)}{kr}\\Bigr\\}\\cos\\theta\\,\\hat{r} - \\frac{\\sqrt{6}}{4\\sqrt{\\pi}}\\,\\frac{1}{kr}\\Bigl\\{\\sin(kr) + \\frac{\\cos(kr)}{kr} - \\frac{\\sin(kr)}{(kr)^2}\\Bigr\\}\\sin\\theta\\,\\hat{\\theta}$ |
+| (A1.56c) | $\\vec{F}^{(1)}_{2,-1,1} = \\frac{\\sqrt{3}}{2\\sqrt{\\pi}}\\,e^{-i\\phi}\\,\\frac{1}{(kr)^2}\\Bigl\\{-\\cos(kr) + \\frac{\\sin(kr)}{kr}\\Bigr\\}\\sin\\theta\\,\\hat{r} + \\frac{\\sqrt{3}}{4\\sqrt{\\pi}}\\,e^{-i\\phi}\\,\\frac{1}{kr}\\Bigl\\{\\sin(kr) + \\frac{\\cos(kr)}{kr} - \\frac{\\sin(kr)}{(kr)^2}\\Bigr\\}(\\cos\\theta\\,\\hat{\\theta} - i\\hat{\\phi})$ |
 
 **$\vec{F}^{(3)}_{1,m,1}$** (outgoing Hankel):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.57a) | $\vec{F}^{(3)}_{1,1,1} = \frac{\sqrt{3}}{4\sqrt{\pi}}\,e^{i\phi}\,\frac{e^{ikr}}{kr}\Bigl(1 + \frac{i}{kr}\Bigr)(i\hat{\theta} - \cos\theta\,\hat{\phi})$ |
-| (A1.57b) | $\vec{F}^{(3)}_{1,0,1} = -\frac{\sqrt{6}}{4\sqrt{\pi}}\,\frac{e^{ikr}}{kr}\Bigl(1 + \frac{i}{kr}\Bigr)\sin\theta\,\hat{\phi}$ |
-| (A1.57c) | $\vec{F}^{(3)}_{1,-1,1} = \frac{\sqrt{3}}{4\sqrt{\pi}}\,e^{-i\phi}\,\frac{e^{ikr}}{kr}\Bigl(1 + \frac{i}{kr}\Bigr)(i\hat{\theta} + \cos\theta\,\hat{\phi})$ |
+| (A1.57a) | $\\vec{F}^{(3)}_{1,1,1} = \\frac{\\sqrt{3}}{4\\sqrt{\\pi}}\\,e^{i\\phi}\\,\\frac{e^{ikr}}{kr}\\Bigl(1 + \\frac{i}{kr}\\Bigr)(i\\hat{\\theta} - \\cos\\theta\\,\\hat{\\phi})$ |
+| (A1.57b) | $\\vec{F}^{(3)}_{1,0,1} = -\\frac{\\sqrt{6}}{4\\sqrt{\\pi}}\\,\\frac{e^{ikr}}{kr}\\Bigl(1 + \\frac{i}{kr}\\Bigr)\\sin\\theta\\,\\hat{\\phi}$ |
+| (A1.57c) | $\\vec{F}^{(3)}_{1,-1,1} = \\frac{\\sqrt{3}}{4\\sqrt{\\pi}}\\,e^{-i\\phi}\\,\\frac{e^{ikr}}{kr}\\Bigl(1 + \\frac{i}{kr}\\Bigr)(i\\hat{\\theta} + \\cos\\theta\\,\\hat{\\phi})$ |
 
 **$\vec{F}^{(3)}_{2,m,1}$** (outgoing Hankel):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.58a) | $\vec{F}^{(3)}_{2,1,1} = \frac{\sqrt{3}}{2\sqrt{\pi}}\,e^{i\phi}\,\frac{e^{ikr}}{(kr)^2}\Bigl(1 + \frac{i}{kr}\Bigr)\sin\theta\,\hat{r} - \frac{\sqrt{3}}{4\sqrt{\pi}}\,e^{i\phi}\,\frac{e^{ikr}}{kr}\Bigl(-i + \frac{1}{kr} + \frac{i}{(kr)^2}\Bigr)(\cos\theta\,\hat{\theta} + i\hat{\phi})$ |
-| (A1.58b) | $\vec{F}^{(3)}_{2,0,1} = -\frac{\sqrt{6}}{2\sqrt{\pi}}\,\frac{e^{ikr}}{(kr)^2}\Bigl(1 + \frac{i}{kr}\Bigr)\cos\theta\,\hat{r} - \frac{\sqrt{6}}{4\sqrt{\pi}}\,\frac{e^{ikr}}{kr}\Bigl(-i + \frac{1}{kr} + \frac{i}{(kr)^2}\Bigr)\sin\theta\,\hat{\theta}$ |
-| (A1.58c) | $\vec{F}^{(3)}_{2,-1,1} = -\frac{\sqrt{3}}{2\sqrt{\pi}}\,e^{-i\phi}\,\frac{e^{ikr}}{(kr)^2}\Bigl(1 + \frac{i}{kr}\Bigr)\sin\theta\,\hat{r} + \frac{\sqrt{3}}{4\sqrt{\pi}}\,e^{-i\phi}\,\frac{e^{ikr}}{kr}\Bigl(-i + \frac{1}{kr} + \frac{i}{(kr)^2}\Bigr)(\cos\theta\,\hat{\theta} - i\hat{\phi})$ |
+| (A1.58a) | $\\vec{F}^{(3)}_{2,1,1} = \\frac{\\sqrt{3}}{2\\sqrt{\\pi}}\\,e^{i\\phi}\\,\\frac{e^{ikr}}{(kr)^2}\\Bigl(1 + \\frac{i}{kr}\\Bigr)\\sin\\theta\\,\\hat{r} - \\frac{\\sqrt{3}}{4\\sqrt{\\pi}}\\,e^{i\\phi}\\,\\frac{e^{ikr}}{kr}\\Bigl(-i + \\frac{1}{kr} + \\frac{i}{(kr)^2}\\Bigr)(\\cos\\theta\\,\\hat{\\theta} + i\\hat{\\phi})$ |
+| (A1.58b) | $\\vec{F}^{(3)}_{2,0,1} = -\\frac{\\sqrt{6}}{2\\sqrt{\\pi}}\\,\\frac{e^{ikr}}{(kr)^2}\\Bigl(1 + \\frac{i}{kr}\\Bigr)\\cos\\theta\\,\\hat{r} - \\frac{\\sqrt{6}}{4\\sqrt{\\pi}}\\,\\frac{e^{ikr}}{kr}\\Bigl(-i + \\frac{1}{kr} + \\frac{i}{(kr)^2}\\Bigr)\\sin\\theta\\,\\hat{\\theta}$ |
+| (A1.58c) | $\\vec{F}^{(3)}_{2,-1,1} = -\\frac{\\sqrt{3}}{2\\sqrt{\\pi}}\\,e^{-i\\phi}\\,\\frac{e^{ikr}}{(kr)^2}\\Bigl(1 + \\frac{i}{kr}\\Bigr)\\sin\\theta\\,\\hat{r} + \\frac{\\sqrt{3}}{4\\sqrt{\\pi}}\\,e^{-i\\phi}\\,\\frac{e^{ikr}}{kr}\\Bigl(-i + \\frac{1}{kr} + \\frac{i}{(kr)^2}\\Bigr)(\\cos\\theta\\,\\hat{\\theta} - i\\hat{\\phi})$ |
 
 ---
 
@@ -424,8 +424,8 @@ For $\vec{F}^{(c)}_{2mn}$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.59) | $\boxed{\;\vec{K}_{1mn}(\theta,\phi) = \sqrt{\frac{2}{n(n+1)}}\Bigl(-\frac{m}{\|m\|}\Bigr)^m e^{im\phi}(-i)^{n+1}\left[\frac{im\bar{P}_n^{\|m\|}(\cos\theta)}{\sin\theta}\hat{\theta} - \frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\hat{\phi}\right]\;}$ |
-| (A1.60) | $\boxed{\;\vec{K}_{2mn}(\theta,\phi) = \sqrt{\frac{2}{n(n+1)}}\Bigl(-\frac{m}{\|m\|}\Bigr)^m e^{im\phi}(-i)^{n}\left[\frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\hat{\theta} + \frac{im\bar{P}_n^{\|m\|}(\cos\theta)}{\sin\theta}\hat{\phi}\right]\;}$ |
+| (A1.59) | $\\boxed{\\;\\vec{K}_{1mn}(\\theta,\\phi) = \\sqrt{\\frac{2}{n(n+1)}}\\Bigl(-\\frac{m}{\\|m\\|}\\Bigr)^m e^{im\\phi}(-i)^{n+1}\\left[\\frac{im\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{\\sin\\theta}\\hat{\\theta} - \\frac{d\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\hat{\\phi}\\right]\\;}$ |
+| (A1.60) | $\\boxed{\\;\\vec{K}_{2mn}(\\theta,\\phi) = \\sqrt{\\frac{2}{n(n+1)}}\\Bigl(-\\frac{m}{\\|m\\|}\\Bigr)^m e^{im\\phi}(-i)^{n}\\left[\\frac{d\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\hat{\\theta} + \\frac{im\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{\\sin\\theta}\\hat{\\phi}\\right]\\;}$ |
 
 ### Special values
 
@@ -433,30 +433,30 @@ For $\vec{F}^{(c)}_{2mn}$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.61, A1.62) | $\vec{K}_{smn}(0,\phi) = \begin{cases} 0, & \|m\| > 1 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & s=1,\,m=+1 \\ 0, & s=1,\,m=0 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & s=1,\,m=-1 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & s=2,\,m=+1 \\ 0, & s=2,\,m=0 \\ (-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & s=2,\,m=-1 \end{cases}$ |
+| (A1.61, A1.62) | $\\vec{K}_{smn}(0,\\phi) = \\begin{cases} 0, & \\|m\\| > 1 \\\\ -(-i)^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & s=1,\\,m=+1 \\\\ 0, & s=1,\\,m=0 \\\\ -(-i)^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{-i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & s=1,\\,m=-1 \\\\ -(-i)^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & s=2,\\,m=+1 \\\\ 0, & s=2,\\,m=0 \\\\ (-i)^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{-i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & s=2,\\,m=-1 \\end{cases}$ |
 
 **At $\theta = \pi$:**
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.63, A1.64) | $\vec{K}_{smn}(\pi,\phi) = \begin{cases} 0, & \|m\| > 1 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & s=1,\,m=+1 \\ 0, & s=1,\,m=0 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & s=1,\,m=-1 \\ -i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & s=2,\,m=+1 \\ 0, & s=2,\,m=0 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & s=2,\,m=-1 \end{cases}$ |
+| (A1.63, A1.64) | $\\vec{K}_{smn}(\\pi,\\phi) = \\begin{cases} 0, & \\|m\\| > 1 \\\\ i^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & s=1,\\,m=+1 \\\\ 0, & s=1,\\,m=0 \\\\ i^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{-i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & s=1,\\,m=-1 \\\\ -i^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & s=2,\\,m=+1 \\\\ 0, & s=2,\\,m=0 \\\\ i^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{-i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & s=2,\\,m=-1 \\end{cases}$ |
 
 ### Squared magnitude on z-axis
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.65) | $\|\vec{K}_{smn}(0,\phi)\|^2 = \begin{cases} \dfrac{2n+1}{2}, & m = \pm 1 \\ 0, & m \ne \pm 1\end{cases}$ |
+| (A1.65) | $\\|\\vec{K}_{smn}(0,\\phi)\\|^2 = \\begin{cases} \\dfrac{2n+1}{2}, & m = \\pm 1 \\\\ 0, & m \\ne \\pm 1\\end{cases}$ |
 
 ### Explicit $n = 1$ patterns
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.66a) | $\vec{K}_{1,1,1} = \tfrac{\sqrt{3}}{2}\,e^{i\phi}(i\hat{\theta} - \cos\theta\,\hat{\phi})$ |
-| (A1.66b) | $\vec{K}_{1,0,1} = -\tfrac{\sqrt{6}}{2}\sin\theta\,\hat{\phi}$ |
-| (A1.66c) | $\vec{K}_{1,-1,1} = \tfrac{\sqrt{3}}{2}\,e^{-i\phi}(i\hat{\theta} + \cos\theta\,\hat{\phi})$ |
-| (A1.67a) | $\vec{K}_{2,1,1} = i\tfrac{\sqrt{3}}{2}\,e^{i\phi}(\cos\theta\,\hat{\theta} + i\hat{\phi})$ |
-| (A1.67b) | $\vec{K}_{2,0,1} = i\tfrac{\sqrt{6}}{2}\sin\theta\,\hat{\theta}$ |
-| (A1.67c) | $\vec{K}_{2,-1,1} = i\tfrac{\sqrt{3}}{2}\,e^{-i\phi}(-\cos\theta\,\hat{\theta} + i\hat{\phi})$ |
+| (A1.66a) | $\\vec{K}_{1,1,1} = \\tfrac{\\sqrt{3}}{2}\\,e^{i\\phi}(i\\hat{\\theta} - \\cos\\theta\\,\\hat{\\phi})$ |
+| (A1.66b) | $\\vec{K}_{1,0,1} = -\\tfrac{\\sqrt{6}}{2}\\sin\\theta\\,\\hat{\\phi}$ |
+| (A1.66c) | $\\vec{K}_{1,-1,1} = \\tfrac{\\sqrt{3}}{2}\\,e^{-i\\phi}(i\\hat{\\theta} + \\cos\\theta\\,\\hat{\\phi})$ |
+| (A1.67a) | $\\vec{K}_{2,1,1} = i\\tfrac{\\sqrt{3}}{2}\\,e^{i\\phi}(\\cos\\theta\\,\\hat{\\theta} + i\\hat{\\phi})$ |
+| (A1.67b) | $\\vec{K}_{2,0,1} = i\\tfrac{\\sqrt{6}}{2}\\sin\\theta\\,\\hat{\\theta}$ |
+| (A1.67c) | $\\vec{K}_{2,-1,1} = i\\tfrac{\\sqrt{3}}{2}\\,e^{-i\\phi}(-\\cos\\theta\\,\\hat{\\theta} + i\\hat{\\phi})$ |
 
 ---
 
@@ -468,25 +468,25 @@ Notation: $\delta_{ij} = 1$ if $i=j$, else $0$. Integration is over the unit sph
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\{\vec{F}^{(c)}_{smn}\cdot\hat{r}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{r}\}\sin\theta\,d\theta\,d\phi = \delta_{s\sigma}\,\delta_{s2}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,n(n+1)\,\frac{z_n^{(c)}(kr)}{kr}\,\frac{z_n^{(\gamma)}(kr)}{kr}$ |
+|  | $\\int_0^{2\\pi}\\!\\!\\int_0^{\\pi}\\{\\vec{F}^{(c)}_{smn}\\cdot\\hat{r}\\}\\{\\vec{F}^{(\\gamma)}_{\\sigma\\mu\\nu}\\cdot\\hat{r}\\}\\sin\\theta\\,d\\theta\\,d\\phi = \\delta_{s\\sigma}\\,\\delta_{s2}\\,\\delta_{m,-\\mu}\\,\\delta_{n\\nu}\\,(-1)^m\\,n(n+1)\\,\\frac{z_n^{(c)}(kr)}{kr}\\,\\frac{z_n^{(\\gamma)}(kr)}{kr}$ |
 
 ### Tangential-component products (A1.69)
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\bigl[\{\vec{F}^{(c)}_{smn}\cdot\hat{\theta}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{\theta}\} + \{\vec{F}^{(c)}_{smn}\cdot\hat{\phi}\}\{\vec{F}^{(\gamma)}_{\sigma\mu\nu}\cdot\hat{\phi}\}\bigr]\sin\theta\,d\theta\,d\phi = \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{sn}(kr)$ |
+|  | $\\int_0^{2\\pi}\\!\\!\\int_0^{\\pi}\\bigl[\\{\\vec{F}^{(c)}_{smn}\\cdot\\hat{\\theta}\\}\\{\\vec{F}^{(\\gamma)}_{\\sigma\\mu\\nu}\\cdot\\hat{\\theta}\\} + \\{\\vec{F}^{(c)}_{smn}\\cdot\\hat{\\phi}\\}\\{\\vec{F}^{(\\gamma)}_{\\sigma\\mu\\nu}\\cdot\\hat{\\phi}\\}\\bigr]\\sin\\theta\\,d\\theta\\,d\\phi = \\delta_{s\\sigma}\\,\\delta_{m,-\\mu}\\,\\delta_{n\\nu}\\,(-1)^m\\,R^{(c)}_{sn}(kr)\\,R^{(\\gamma)}_{sn}(kr)$ |
 
 ### Scalar product (A1.70)
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\vec{F}^{(c)}_{smn}\cdot\vec{F}^{(\gamma)}_{\sigma\mu\nu}\,\sin\theta\,d\theta\,d\phi = \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\left\{R^{(c)}_{sn}(kr)R^{(\gamma)}_{sn}(kr) + \delta_{s2}\,n(n+1)\,\frac{z_n^{(c)}(kr)}{kr}\,\frac{z_n^{(\gamma)}(kr)}{kr}\right\}$ |
+|  | $\\int_0^{2\\pi}\\!\\!\\int_0^{\\pi}\\vec{F}^{(c)}_{smn}\\cdot\\vec{F}^{(\\gamma)}_{\\sigma\\mu\\nu}\\,\\sin\\theta\\,d\\theta\\,d\\phi = \\delta_{s\\sigma}\\,\\delta_{m,-\\mu}\\,\\delta_{n\\nu}\\,(-1)^m\\left\\{R^{(c)}_{sn}(kr)R^{(\\gamma)}_{sn}(kr) + \\delta_{s2}\\,n(n+1)\\,\\frac{z_n^{(c)}(kr)}{kr}\\,\\frac{z_n^{(\\gamma)}(kr)}{kr}\\right\\}$ |
 
 ### Vector (cross) product — used for power flux (A1.71)
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_0^{2\pi}\!\!\int_0^{\pi}\{\vec{F}^{(c)}_{smn}\times\vec{F}^{(\gamma)}_{\sigma\mu\nu}\}\cdot\hat{r}\,\sin\theta\,d\theta\,d\phi = -\delta_{s,3-\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^{m+s}\,R^{(c)}_{sn}(kr)\,R^{(\gamma)}_{3-s,n}(kr)$ |
+|  | $\\int_0^{2\\pi}\\!\\!\\int_0^{\\pi}\\{\\vec{F}^{(c)}_{smn}\\times\\vec{F}^{(\\gamma)}_{\\sigma\\mu\\nu}\\}\\cdot\\hat{r}\\,\\sin\\theta\\,d\\theta\\,d\\phi = -\\delta_{s,3-\\sigma}\\,\\delta_{m,-\\mu}\\,\\delta_{n\\nu}\\,(-1)^{m+s}\\,R^{(c)}_{sn}(kr)\\,R^{(\\gamma)}_{3-s,n}(kr)$ |
 
 > **Sign discrepancy note.** Chapter 2 (Eq. 2.46) wrote this with $(-1)^{3-s}(-1)^m$ — equivalent to $(-1)^{m+s+1}$, which differs from the $(-1)^{m+s}$ here by an overall sign. Both forms appear in the book; resolve by checking against power-flow (must give $+\tfrac{1}{2}|Q^{(3)}|^2$ for outgoing modes). **Recommended unit test:** integrate the cross-product for a single outgoing mode and require $P > 0$.
 
@@ -496,8 +496,8 @@ For two single-mode fields each carrying $1\text{ W}^{1/2}$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.72) | $(\vec{E}^{(c)}_{smn},\vec{H}^{(c)}_{smn}) = \Bigl(\tfrac{k}{\sqrt{\eta}}\,\vec{F}^{(c)}_{smn},\,-ik\sqrt{\eta}\,\vec{F}^{(c)}_{3-s,m,n}\Bigr)$ |
-| (A1.74) | $\int_S\{\vec{E}^{(c)}_{smn}\times\vec{H}^{(\gamma)}_{\sigma\mu\nu} - \vec{E}^{(\gamma)}_{\sigma\mu\nu}\times\vec{H}^{(c)}_{smn}\}\cdot d\vec{S} = \delta_{s\sigma}\,\delta_{m,-\mu}\,\delta_{n\nu}\,(-1)^m\,(-i)\,A^{(c,\gamma)}$ |
+| (A1.72) | $(\\vec{E}^{(c)}_{smn},\\vec{H}^{(c)}_{smn}) = \\Bigl(\\tfrac{k}{\\sqrt{\\eta}}\\,\\vec{F}^{(c)}_{smn},\\,-ik\\sqrt{\\eta}\\,\\vec{F}^{(c)}_{3-s,m,n}\\Bigr)$ |
+| (A1.74) | $\\int_S\\{\\vec{E}^{(c)}_{smn}\\times\\vec{H}^{(\\gamma)}_{\\sigma\\mu\\nu} - \\vec{E}^{(\\gamma)}_{\\sigma\\mu\\nu}\\times\\vec{H}^{(c)}_{smn}\\}\\cdot d\\vec{S} = \\delta_{s\\sigma}\\,\\delta_{m,-\\mu}\\,\\delta_{n\\nu}\\,(-1)^m\\,(-i)\\,A^{(c,\\gamma)}$ |
 
 $A^{(c,\gamma)}$ from the table in §5. The surface $S$ can be deformed across any source-free region.
 
@@ -511,21 +511,21 @@ For source pairs $(\vec{J}_1,\vec{M}_1)$ and $(\vec{J}_2,\vec{M}_2)$ producing $
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\int_S(\vec{E}_1\times\vec{H}_2 - \vec{E}_2\times\vec{H}_1)\cdot d\vec{S} = \int_V(\vec{E}_2\cdot\vec{J}_1 - \vec{E}_1\cdot\vec{J}_2 - \vec{H}_2\cdot\vec{M}_1 + \vec{H}_1\cdot\vec{M}_2)\,dV$ |
+|  | $\\int_S(\\vec{E}_1\\times\\vec{H}_2 - \\vec{E}_2\\times\\vec{H}_1)\\cdot d\\vec{S} = \\int_V(\\vec{E}_2\\cdot\\vec{J}_1 - \\vec{E}_1\\cdot\\vec{J}_2 - \\vec{H}_2\\cdot\\vec{M}_1 + \\vec{H}_1\\cdot\\vec{M}_2)\\,dV$ |
 
 ### Exterior field (sources inside $S$, field outside)
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.76) | $\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{smn} Q^{(3)}_{smn}\,\vec{F}^{(3)}_{smn}(r,\theta,\phi)$ |
-| (A1.78) | $\boxed{\;Q^{(3)}_{smn} = (-1)^{m+1}\int_V\left(\frac{k}{\sqrt{\eta}}\,\vec{F}^{(1)}_{s,-m,n}\cdot\vec{J} + ik\sqrt{\eta}\,\vec{F}^{(1)}_{3-s,-m,n}\cdot\vec{M}\right)dV\;}$ |
+| (A1.76) | $\\vec{E}(r,\\theta,\\phi) = \\frac{k}{\\sqrt{\\eta}}\\sum_{smn} Q^{(3)}_{smn}\\,\\vec{F}^{(3)}_{smn}(r,\\theta,\\phi)$ |
+| (A1.78) | $\\boxed{\\;Q^{(3)}_{smn} = (-1)^{m+1}\\int_V\\left(\\frac{k}{\\sqrt{\\eta}}\\,\\vec{F}^{(1)}_{s,-m,n}\\cdot\\vec{J} + ik\\sqrt{\\eta}\\,\\vec{F}^{(1)}_{3-s,-m,n}\\cdot\\vec{M}\\right)dV\\;}$ |
 
 ### Interior field (sources outside, field inside)
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.79) | $\vec{E}(r,\theta,\phi) = \frac{k}{\sqrt{\eta}}\sum_{smn} Q^{(1)}_{smn}\,\vec{F}^{(1)}_{smn}(r,\theta,\phi)$ |
-| (A1.81) | $\boxed{\;Q^{(1)}_{smn} = (-1)^{m+1}\int_V\left(\frac{k}{\sqrt{\eta}}\,\vec{F}^{(3)}_{s,-m,n}\cdot\vec{J} + ik\sqrt{\eta}\,\vec{F}^{(3)}_{3-s,-m,n}\cdot\vec{M}\right)dV\;}$ |
+| (A1.79) | $\\vec{E}(r,\\theta,\\phi) = \\frac{k}{\\sqrt{\\eta}}\\sum_{smn} Q^{(1)}_{smn}\\,\\vec{F}^{(1)}_{smn}(r,\\theta,\\phi)$ |
+| (A1.81) | $\\boxed{\\;Q^{(1)}_{smn} = (-1)^{m+1}\\int_V\\left(\\frac{k}{\\sqrt{\\eta}}\\,\\vec{F}^{(3)}_{s,-m,n}\\cdot\\vec{J} + ik\\sqrt{\\eta}\\,\\vec{F}^{(3)}_{3-s,-m,n}\\cdot\\vec{M}\\right)dV\\;}$ |
 
 ### Source symmetries (§A1.5.2) — electric currents only
 
@@ -533,33 +533,33 @@ For source pairs $(\vec{J}_1,\vec{M}_1)$ and $(\vec{J}_2,\vec{M}_2)$ producing $
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.83) | $\vec{J}(r,\theta,\phi) = e^{im\phi}\{J_r(r,\theta)\hat{r} + J_\theta(r,\theta)\hat{\theta} + J_\phi(r,\theta)\hat{\phi}\} \;\Longrightarrow\; Q^{(c)}_{sm'n} = 0 \text{ for } m' \ne m$ |
+| (A1.83) | $\\vec{J}(r,\\theta,\\phi) = e^{im\\phi}\\{J_r(r,\\theta)\\hat{r} + J_\\theta(r,\\theta)\\hat{\\theta} + J_\\phi(r,\\theta)\\hat{\\phi}\\} \\;\\Longrightarrow\\; Q^{(c)}_{sm'n} = 0 \\text{ for } m' \\ne m$ |
 
 **Planar image** in plane $\phi = w$, $\phi = w + \pi$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.87) | $\vec{J}^w(r,\theta,\phi) = J_r(r,\theta,2w-\phi)\hat{r} + J_\theta(r,\theta,2w-\phi)\hat{\theta} - J_\phi(r,\theta,2w-\phi)\hat{\phi}$ |
-| (A1.88) | $Q^{(c)w}_{smn} = (-1)^{m+s}\,e^{-im2w}\,Q^{(c)}_{s,-m,n}$ |
+| (A1.87) | $\\vec{J}^w(r,\\theta,\\phi) = J_r(r,\\theta,2w-\\phi)\\hat{r} + J_\\theta(r,\\theta,2w-\\phi)\\hat{\\theta} - J_\\phi(r,\\theta,2w-\\phi)\\hat{\\phi}$ |
+| (A1.88) | $Q^{(c)w}_{smn} = (-1)^{m+s}\\,e^{-im2w}\\,Q^{(c)}_{s,-m,n}$ |
 
 If $\phi = u$ is a symmetry plane:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.89) | $Q^{(c)}_{s,-m,n} = (-1)^{m+s}\,e^{im2u}\,Q^{(c)}_{smn}$ |
+| (A1.89) | $Q^{(c)}_{s,-m,n} = (-1)^{m+s}\\,e^{im2u}\\,Q^{(c)}_{smn}$ |
 
 If $\phi = v$ is an anti-symmetry plane:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.90) | $Q^{(c)}_{s,-m,n} = (-1)^{m+s+1}\,e^{im2v}\,Q^{(c)}_{smn}$ |
+| (A1.90) | $Q^{(c)}_{s,-m,n} = (-1)^{m+s+1}\\,e^{im2v}\\,Q^{(c)}_{smn}$ |
 
 **Both symmetries simultaneously** (requires $v = u + \pi/2 + p\pi$ for integer $p$):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.91a) | $Q^{(c)}_{smn} = 0 \text{ for } m \text{ even}$ |
-| (A1.91b) | $Q^{(c)}_{s,-m,n} = (-1)^{s+1}\,e^{im2u}\,Q^{(c)}_{smn} \text{ for } m \text{ odd}$ |
+| (A1.91a) | $Q^{(c)}_{smn} = 0 \\text{ for } m \\text{ even}$ |
+| (A1.91b) | $Q^{(c)}_{s,-m,n} = (-1)^{s+1}\\,e^{im2u}\\,Q^{(c)}_{smn} \\text{ for } m \\text{ odd}$ |
 
 This is the symmetry of a linearly polarized plane wave on the $z$-axis.
 
@@ -567,7 +567,7 @@ This is the symmetry of a linearly polarized plane wave on the $z$-axis.
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.94) | $\boxed{\;Q^{(c)}_{smn,\phi_o} = e^{-im\phi_o}\,Q^{(c)}_{smn}\;}$ |
+| (A1.94) | $\\boxed{\\;Q^{(c)}_{smn,\\phi_o} = e^{-im\\phi_o}\\,Q^{(c)}_{smn}\\;}$ |
 
 ### Continuous x-polarized planar current ring (§A1.5.3)
 
@@ -575,7 +575,7 @@ Position: ring of radius $r_o$ in plane $z = r_o\cos\theta_o$, $\theta = \theta_
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.95) | $\vec{J}(r,\theta,\phi) = J_o(r,\theta)\,\hat{x},\quad J_o(r,\theta) = \frac{\delta(r-r_o)\,\delta(\theta - \theta_o)}{2\pi r_o^2 \sin\theta_o}\,d_e$ |
+| (A1.95) | $\\vec{J}(r,\\theta,\\phi) = J_o(r,\\theta)\\,\\hat{x},\\quad J_o(r,\\theta) = \\frac{\\delta(r-r_o)\\,\\delta(\\theta - \\theta_o)}{2\\pi r_o^2 \\sin\\theta_o}\\,d_e$ |
 
 Normalized so that $\int_V \vec{J}\,dV = d_e\,\hat{x}$. As $\theta_o \to 0$ or $\pi$, it becomes a short dipole on the $z$-axis.
 
@@ -585,9 +585,9 @@ Normalized so that $\int_V \vec{J}\,dV = d_e\,\hat{x}$. As $\theta_o \to 0$ or $
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.97a) | $Q^{(c)}_{smn} = 0 \text{ for } m \ne \pm 1$ |
-| (A1.97b) | $Q^{(c)}_{1mn} = \frac{-ik\,d_e}{\sqrt{8\pi n(n+1)\eta}}\,R^{(4-c)}_{1n}(kr_o)\left\{\cos\theta_o\,\frac{\bar{P}_n^1(\cos\theta_o)}{\sin\theta_o} + \frac{d\bar{P}_n^1(\cos\theta)}{d\theta}\biggm\|_{\theta=\theta_o}\right\},\quad m = \pm 1$ |
-| (A1.97c) | $Q^{(c)}_{2mn} = \frac{m\,k\,d_e}{\sqrt{8\pi n(n+1)\eta}}\Bigl[\frac{n(n+1)}{kr_o}R^{(4-c)}_{1n}(kr_o)\,\bar{P}_n^1(\cos\theta_o)\,\sin\theta_o + R^{(4-c)}_{2n}(kr_o)\Bigl\{\cos\theta_o\,\frac{d\bar{P}_n^1(\cos\theta)}{d\theta}\biggm\|_{\theta=\theta_o} + \frac{\bar{P}_n^1(\cos\theta_o)}{\sin\theta_o}\Bigr\}\Bigr],\quad m = \pm 1$ |
+| (A1.97a) | $Q^{(c)}_{smn} = 0 \\text{ for } m \\ne \\pm 1$ |
+| (A1.97b) | $Q^{(c)}_{1mn} = \\frac{-ik\\,d_e}{\\sqrt{8\\pi n(n+1)\\eta}}\\,R^{(4-c)}_{1n}(kr_o)\\left\\{\\cos\\theta_o\\,\\frac{\\bar{P}_n^1(\\cos\\theta_o)}{\\sin\\theta_o} + \\frac{d\\bar{P}_n^1(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=\\theta_o}\\right\\},\\quad m = \\pm 1$ |
+| (A1.97c) | $Q^{(c)}_{2mn} = \\frac{m\\,k\\,d_e}{\\sqrt{8\\pi n(n+1)\\eta}}\\Bigl[\\frac{n(n+1)}{kr_o}R^{(4-c)}_{1n}(kr_o)\\,\\bar{P}_n^1(\\cos\\theta_o)\\,\\sin\\theta_o + R^{(4-c)}_{2n}(kr_o)\\Bigl\\{\\cos\\theta_o\\,\\frac{d\\bar{P}_n^1(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=\\theta_o} + \\frac{\\bar{P}_n^1(\\cos\\theta_o)}{\\sin\\theta_o}\\Bigr\\}\\Bigr],\\quad m = \\pm 1$ |
 
 ### Sampled x-polarized planar current ring (§A1.5.4)
 
@@ -595,7 +595,7 @@ $L$ equally-spaced samples (uniform ring array) at $\phi_l = \phi_o + (l-1)\,2\p
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.98) | $\vec{J}^L(r,\theta,\phi) = \frac{2\pi}{L}\sum_{l=1}^{L}\delta(\phi - \phi_l)\,\vec{J}(r,\theta,\phi)$ |
+| (A1.98) | $\\vec{J}^L(r,\\theta,\\phi) = \\frac{2\\pi}{L}\\sum_{l=1}^{L}\\delta(\\phi - \\phi_l)\\,\\vec{J}(r,\\theta,\\phi)$ |
 
 Each sample is a short dipole of moment $d_e/L$ — total moment $\int_V\vec{J}^L\,dV = d_e\,\hat{x}$.
 
@@ -605,14 +605,14 @@ Each sample is a short dipole of moment $d_e/L$ — total moment $\int_V\vec{J}^
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.100a) | $Q^{(c)}_{1mn} = \frac{ik\,d_e}{\sqrt{8\pi n(n+1)\eta}}\Bigl(-\frac{m}{\|m\|}\Bigr)^m\,R^{(4-c)}_{1n}(kr_o)\Bigl\{\frac{m\bar{P}_n^{\|m\|}(\cos\theta_o)}{\sin\theta_o}\cos\theta_o\,(\delta^{L}_{m1} + \delta^{L}_{m,-1}) + \frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\biggm\|_{\theta=\theta_o}(\delta^{L}_{m1} - \delta^{L}_{m,-1})\Bigr\}$ |
-| (A1.100b) | $Q^{(c)}_{2mn} = \frac{-k\,d_e}{\sqrt{8\pi n(n+1)\eta}}\Bigl(-\frac{m}{\|m\|}\Bigr)^m\Bigl[\frac{n(n+1)}{kr_o}R^{(4-c)}_{1n}(kr_o)\bar{P}_n^{\|m\|}(\cos\theta_o)\sin\theta_o\,(\delta^{L}_{m1} + \delta^{L}_{m,-1}) + R^{(4-c)}_{2n}(kr_o)\Bigl\{\frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\biggm\|_{\theta=\theta_o}\cos\theta_o\,(\delta^{L}_{m1} + \delta^{L}_{m,-1}) + \frac{m\bar{P}_n^{\|m\|}(\cos\theta_o)}{\sin\theta_o}(\delta^{L}_{m1} - \delta^{L}_{m,-1})\Bigr\}\Bigr]$ |
+| (A1.100a) | $Q^{(c)}_{1mn} = \\frac{ik\\,d_e}{\\sqrt{8\\pi n(n+1)\\eta}}\\Bigl(-\\frac{m}{\\|m\\|}\\Bigr)^m\\,R^{(4-c)}_{1n}(kr_o)\\Bigl\\{\\frac{m\\bar{P}_n^{\\|m\\|}(\\cos\\theta_o)}{\\sin\\theta_o}\\cos\\theta_o\\,(\\delta^{L}_{m1} + \\delta^{L}_{m,-1}) + \\frac{d\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=\\theta_o}(\\delta^{L}_{m1} - \\delta^{L}_{m,-1})\\Bigr\\}$ |
+| (A1.100b) | $Q^{(c)}_{2mn} = \\frac{-k\\,d_e}{\\sqrt{8\\pi n(n+1)\\eta}}\\Bigl(-\\frac{m}{\\|m\\|}\\Bigr)^m\\Bigl[\\frac{n(n+1)}{kr_o}R^{(4-c)}_{1n}(kr_o)\\bar{P}_n^{\\|m\\|}(\\cos\\theta_o)\\sin\\theta_o\\,(\\delta^{L}_{m1} + \\delta^{L}_{m,-1}) + R^{(4-c)}_{2n}(kr_o)\\Bigl\\{\\frac{d\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=\\theta_o}\\cos\\theta_o\\,(\\delta^{L}_{m1} + \\delta^{L}_{m,-1}) + \\frac{m\\bar{P}_n^{\\|m\\|}(\\cos\\theta_o)}{\\sin\\theta_o}(\\delta^{L}_{m1} - \\delta^{L}_{m,-1})\\Bigr\\}\\Bigr]$ |
 
 with the **periodic Kronecker delta**:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.101) | $\delta^{L}_{m\mu} = \begin{cases} 1, & m \equiv \mu \pmod L \\ 0, & \text{otherwise}\end{cases}$ |
+| (A1.101) | $\\delta^{L}_{m\\mu} = \\begin{cases} 1, & m \\equiv \\mu \\pmod L \\\\ 0, & \\text{otherwise}\\end{cases}$ |
 
 > **Sampling sidebands:** the sampled ring excites $m = \pm 1 + jL$ for $j = \pm 1, \pm 2, \dots$. If $L \ge 3$, sidebands do not interfere with the $m = \pm 1$ "main band," and the main-band coefficients are identical to the continuous-ring values.
 
@@ -624,7 +624,7 @@ Approximate $x$-polarization for $\theta_o$ near $\pi$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.102) | $\vec{J}_t(r,\theta,\phi) = J_o(r,\theta)\,\hat{p}_t,\quad \hat{p}_t = -\cos\phi\,\hat{\theta} - \sin\phi\,\hat{\phi}$ |
+| (A1.102) | $\\vec{J}_t(r,\\theta,\\phi) = J_o(r,\\theta)\\,\\hat{p}_t,\\quad \\hat{p}_t = -\\cos\\phi\\,\\hat{\\theta} - \\sin\\phi\\,\\hat{\\phi}$ |
 
 (Approaches $\hat{x}$-polarized short dipole on the negative $z$-axis as $\theta \to \pi$.)
 
@@ -632,8 +632,8 @@ Approximate $x$-polarization for $\theta_o$ near $\pi$:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.103a) | $Q^{(c)}_{1mn} = \frac{ik\,d_e}{\sqrt{8\pi n(n+1)\eta}}\Bigl(-\frac{m}{\|m\|}\Bigr)^m R^{(4-c)}_{1n}(kr_o)\Bigl\{\frac{-m\bar{P}_n^{\|m\|}(\cos\theta_o)}{\sin\theta_o}(\delta^{L}_{m1} + \delta^{L}_{m,-1}) + \frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\biggm\|_{\theta=\theta_o}(\delta^{L}_{m1} - \delta^{L}_{m,-1})\Bigr\}$ |
-| (A1.103b) | $Q^{(c)}_{2mn} = \frac{-k\,d_e}{\sqrt{8\pi n(n+1)\eta}}\Bigl(-\frac{m}{\|m\|}\Bigr)^m R^{(4-c)}_{2n}(kr_o)\Bigl\{-\frac{d\bar{P}_n^{\|m\|}(\cos\theta)}{d\theta}\biggm\|_{\theta=\theta_o}(\delta^{L}_{m1} + \delta^{L}_{m,-1}) + \frac{m\bar{P}_n^{\|m\|}(\cos\theta_o)}{\sin\theta_o}(\delta^{L}_{m1} - \delta^{L}_{m,-1})\Bigr\}$ |
+| (A1.103a) | $Q^{(c)}_{1mn} = \\frac{ik\\,d_e}{\\sqrt{8\\pi n(n+1)\\eta}}\\Bigl(-\\frac{m}{\\|m\\|}\\Bigr)^m R^{(4-c)}_{1n}(kr_o)\\Bigl\\{\\frac{-m\\bar{P}_n^{\\|m\\|}(\\cos\\theta_o)}{\\sin\\theta_o}(\\delta^{L}_{m1} + \\delta^{L}_{m,-1}) + \\frac{d\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=\\theta_o}(\\delta^{L}_{m1} - \\delta^{L}_{m,-1})\\Bigr\\}$ |
+| (A1.103b) | $Q^{(c)}_{2mn} = \\frac{-k\\,d_e}{\\sqrt{8\\pi n(n+1)\\eta}}\\Bigl(-\\frac{m}{\\|m\\|}\\Bigr)^m R^{(4-c)}_{2n}(kr_o)\\Bigl\\{-\\frac{d\\bar{P}_n^{\\|m\\|}(\\cos\\theta)}{d\\theta}\\biggm\\|_{\\theta=\\theta_o}(\\delta^{L}_{m1} + \\delta^{L}_{m,-1}) + \\frac{m\\bar{P}_n^{\\|m\\|}(\\cos\\theta_o)}{\\sin\\theta_o}(\\delta^{L}_{m1} - \\delta^{L}_{m,-1})\\Bigr\\}$ |
 
 ---
 
@@ -643,31 +643,31 @@ A plane wave $\vec{E}_o\,e^{i\vec{k}_o\cdot\vec{r}}$ arriving from direction $(\
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.104) | $\vec{k}_o = -k\sin\theta_o\cos\phi_o\,\hat{x} - k\sin\theta_o\sin\phi_o\,\hat{y} - k\cos\theta_o\,\hat{z}$ |
+| (A1.104) | $\\vec{k}_o = -k\\sin\\theta_o\\cos\\phi_o\\,\\hat{x} - k\\sin\\theta_o\\sin\\phi_o\\,\\hat{y} - k\\cos\\theta_o\\,\\hat{z}$ |
 
 **Standing-wave expansion** (valid for $r < R \approx N/k$):
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.105) | $\vec{E}_o\,e^{i\vec{k}_o\cdot\vec{r}} = \frac{k}{\sqrt{\eta}}\sum_{s=1}^{2}\sum_{n=1}^{N}\sum_{m=-n}^{n}Q_{smn}\,\vec{F}^{(1)}_{smn}(r,\theta,\phi)$ |
+| (A1.105) | $\\vec{E}_o\\,e^{i\\vec{k}_o\\cdot\\vec{r}} = \\frac{k}{\\sqrt{\\eta}}\\sum_{s=1}^{2}\\sum_{n=1}^{N}\\sum_{m=-n}^{n}Q_{smn}\\,\\vec{F}^{(1)}_{smn}(r,\\theta,\\phi)$ |
 
 **Coefficient formula:**
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.106) | $\boxed{\;Q_{smn} = \frac{\sqrt{\eta}}{k}\,(-1)^m\sqrt{4\pi}\,i\,\vec{E}_o\cdot\vec{K}_{s,-m,n}(\theta_o,\phi_o)\;}$ |
+| (A1.106) | $\\boxed{\\;Q_{smn} = \\frac{\\sqrt{\\eta}}{k}\\,(-1)^m\\sqrt{4\\pi}\\,i\\,\\vec{E}_o\\cdot\\vec{K}_{s,-m,n}(\\theta_o,\\phi_o)\\;}$ |
 
 ### Validation example: $\hat{x}$-polarized plane wave traveling along $+\hat{z}$
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.107) | $\hat{x}\,E_o\,e^{ikz} = \frac{k}{\sqrt{\eta}}\sum_{s,n,m}Q_{smn}\,\vec{F}^{(1)}_{smn}(r,\theta,\phi)$ |
+| (A1.107) | $\\hat{x}\\,E_o\\,e^{ikz} = \\frac{k}{\\sqrt{\\eta}}\\sum_{s,n,m}Q_{smn}\\,\\vec{F}^{(1)}_{smn}(r,\\theta,\\phi)$ |
 
 All coefficients vanish except:
 
 |  Eq.  |   |
 | :---: | :-- |
-| (A1.108) | $\boxed{\;Q_{1,1,n} = Q_{1,-1,n} = Q_{2,1,n} = -Q_{2,-1,n} = \frac{\sqrt{\eta}}{k}\,E_o\,\sqrt{4\pi}\,i^{n+1}\,\tfrac{1}{2}\sqrt{2n+1}\;}$ |
+| (A1.108) | $\\boxed{\\;Q_{1,1,n} = Q_{1,-1,n} = Q_{2,1,n} = -Q_{2,-1,n} = \\frac{\\sqrt{\\eta}}{k}\\,E_o\\,\\sqrt{4\\pi}\\,i^{n+1}\\,\\tfrac{1}{2}\\sqrt{2n+1}\\;}$ |
 
 Use this as a **golden test** in code: build an $\hat{x}$-polarized plane wave by other means (Cartesian expansion of $e^{ikz}$) and verify the spherical-mode expansion matches.
 
