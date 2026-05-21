@@ -16,13 +16,17 @@
 
 Two right-handed Cartesian frames, initially coincident. The **primed** frame's origin $O'$ is translated a distance $A$ along the **positive $z$-axis** of the unprimed frame.
 
-$$A = |\overrightarrow{OO'}|$$
+$$
+A = |\overrightarrow{OO'}|
+$$
 
 with **$A > 0$** when $O'$ lies on the positive-$z$ side of $O$, and **$A < 0$** otherwise.
 
 Only **axial translation** (along $\hat{z}$) is covered. A general translation in an arbitrary direction is decomposed as:
 
-$$\boxed{\text{general translation} = (\text{rotation}) \to (\text{axial translation}) \to (\text{inverse rotation})}$$
+$$
+\boxed{\text{general translation} = (\text{rotation}) \to (\text{axial translation}) \to (\text{inverse rotation})}
+$$
 
 > See Stein [1] and Cruzan [2] for direct (non-axial) formulations; Hansen prefers the decomposition for numerical efficiency.
 
@@ -34,11 +38,15 @@ A wave function defined in the *unprimed* frame is re-expressed in the *primed* 
 
 ### Near-region $r' < |A|$ (use $c = 1$ basis in primed frame)
 
-$$\boxed{\;\vec{F}^{(c)}_{s\mu n}(r,\theta,\phi) = \sum_{\sigma=1}^{2}\sum_{\substack{\nu=|\mu|\\ \nu \ne 0}}^{\infty} C^{sn(c)}_{\sigma\mu\nu}(kA)\,\vec{F}^{(1)}_{\sigma\mu\nu}(r',\theta',\phi'),\quad r' < |A|\;} \tag{A3.1}$$
+$$
+\boxed{\;\vec{F}^{(c)}_{s\mu n}(r,\theta,\phi) = \sum_{\sigma=1}^{2}\sum_{\substack{\nu=|\mu|\\ \nu \ne 0}}^{\infty} C^{sn(c)}_{\sigma\mu\nu}(kA)\,\vec{F}^{(1)}_{\sigma\mu\nu}(r',\theta',\phi'),\quad r' < |A|\;} \tag{A3.1}
+$$
 
 ### Far-region $r' > |A|$ (preserve $c$ in primed frame)
 
-$$\boxed{\;\vec{F}^{(c)}_{s\mu n}(r,\theta,\phi) = \sum_{\sigma=1}^{2}\sum_{\substack{\nu=|\mu|\\ \nu \ne 0}}^{\infty} C^{sn(1)}_{\sigma\mu\nu}(kA)\,\vec{F}^{(c)}_{\sigma\mu\nu}(r',\theta',\phi'),\quad r' > |A|\;} \tag{A3.2}$$
+$$
+\boxed{\;\vec{F}^{(c)}_{s\mu n}(r,\theta,\phi) = \sum_{\sigma=1}^{2}\sum_{\substack{\nu=|\mu|\\ \nu \ne 0}}^{\infty} C^{sn(1)}_{\sigma\mu\nu}(kA)\,\vec{F}^{(c)}_{\sigma\mu\nu}(r',\theta',\phi'),\quad r' > |A|\;} \tag{A3.2}
+$$
 
 > **Why two regions.** Wave functions of type $c \in \{2,3,4\}$ are singular at their origin. In (A3.1), the primed-frame expansion sees the original source as "external" (it's outside the sphere $r' < |A|$ that contains the new origin), so we use the regular $c=1$ Bessel basis. In (A3.2), the primed-frame expansion sees the original source as "internal" — so we keep the original character $c$.
 
@@ -59,12 +67,19 @@ $$\boxed{\;\vec{F}^{(c)}_{s\mu n}(r,\theta,\phi) = \sum_{\sigma=1}^{2}\sum_{\sub
 
 Bruning & Lo [3]; Larsen [4]. For $kA > 0$:
 
-$$\boxed{\;C^{sn(c)}_{\sigma\mu\nu}(kA) = \sqrt{\frac{(2n+1)(2\nu+1)}{n(n+1)\,\nu(\nu+1)}}\,\sqrt{\frac{(\nu+\mu)!\,(n-\mu)!}{(\nu-\mu)!\,(n+\mu)!}}\,(-1)^{\mu}\,\tfrac{1}{2}\,i^{n-\nu}\;}$$
-$$\boxed{\;\times \sum_{p=|n-\nu|}^{n+\nu} i^{-p}\Bigl[\delta_{s\sigma}\{n(n+1) + \nu(\nu+1) - p(p+1)\} + \delta_{3-s,\sigma}\{2i\mu kA\}\Bigr]\,a(\mu,\, n,\, -\mu,\, \nu,\, p)\,z_p^{(c)}(kA)\;} \tag{A3.3}$$
+$$
+\boxed{\;C^{sn(c)}_{\sigma\mu\nu}(kA) = \sqrt{\frac{(2n+1)(2\nu+1)}{n(n+1)\,\nu(\nu+1)}}\,\sqrt{\frac{(\nu+\mu)!\,(n-\mu)!}{(\nu-\mu)!\,(n+\mu)!}}\,(-1)^{\mu}\,\tfrac{1}{2}\,i^{n-\nu}\;}
+$$
+
+$$
+\boxed{\;\times \sum_{p=|n-\nu|}^{n+\nu} i^{-p}\Bigl[\delta_{s\sigma}\{n(n+1) + \nu(\nu+1) - p(p+1)\} + \delta_{3-s,\sigma}\{2i\mu kA\}\Bigr]\,a(\mu,\, n,\, -\mu,\, \nu,\, p)\,z_p^{(c)}(kA)\;} \tag{A3.3}
+$$
 
 **Parity rule (A3.7):** the linearization coefficient $a(\mu, n, -\mu, \nu, p)$ vanishes when $(n + \nu + p)$ is odd. Therefore the summation in (A3.3) effectively runs only over
 
-$$p = |n-\nu|,\, |n-\nu|+2,\, |n-\nu|+4,\, \dots,\, n+\nu-2,\, n+\nu$$
+$$
+p = |n-\nu|,\, |n-\nu|+2,\, |n-\nu|+4,\, \dots,\, n+\nu-2,\, n+\nu
+$$
 
 > $C^{sn(c)}_{\sigma\mu\nu}(kA)$ for $kA < 0$ is obtained from the symmetry relation (A3.13) — never recompute from scratch.
 
@@ -74,19 +89,27 @@ $$p = |n-\nu|,\, |n-\nu|+2,\, |n-\nu|+4,\, \dots,\, n+\nu-2,\, n+\nu$$
 
 Defined by the expansion of a product of two unnormalized associated Legendre functions:
 
-$$P_n^m(x)\,P_\nu^\mu(x) = \sum_{p=|n-\nu|}^{n+\nu} a(m, n, \mu, \nu, p)\,P_p^{m+\mu}(x) \tag{A3.4}$$
+$$
+P_n^m(x)\,P_\nu^\mu(x) = \sum_{p=|n-\nu|}^{n+\nu} a(m, n, \mu, \nu, p)\,P_p^{m+\mu}(x) \tag{A3.4}
+$$
 
 The form needed in (A3.3) is the special case $m \to \mu, \mu \to -\mu$:
 
-$$P_n^\mu(x)\,P_\nu^{-\mu}(x) = \sum_{p=|n-\nu|}^{n+\nu} a(\mu, n, -\mu, \nu, p)\,P_p(x) \tag{A3.5}$$
+$$
+P_n^\mu(x)\,P_\nu^{-\mu}(x) = \sum_{p=|n-\nu|}^{n+\nu} a(\mu, n, -\mu, \nu, p)\,P_p(x) \tag{A3.5}
+$$
 
 ### Wigner-3j form
 
-$$a(\mu, n, -\mu, \nu, p) = (2p + 1)\sqrt{\frac{(n+\mu)!\,(\nu-\mu)!}{(n-\mu)!\,(\nu+\mu)!}}\,\begin{pmatrix}n & \nu & p\\ 0 & 0 & 0\end{pmatrix}\begin{pmatrix}n & \nu & p\\ \mu & -\mu & 0\end{pmatrix} \tag{A3.6}$$
+$$
+a(\mu, n, -\mu, \nu, p) = (2p + 1)\sqrt{\frac{(n+\mu)!\,(\nu-\mu)!}{(n-\mu)!\,(\nu+\mu)!}}\,\begin{pmatrix}n & \nu & p\\ 0 & 0 & 0\end{pmatrix}\begin{pmatrix}n & \nu & p\\ \mu & -\mu & 0\end{pmatrix} \tag{A3.6}
+$$
 
 ### Parity selection rule
 
-$$\begin{pmatrix}n & \nu & p\\ 0 & 0 & 0\end{pmatrix} = 0 \quad\text{for } (n+\nu+p)\text{ odd} \tag{A3.7}$$
+$$
+\begin{pmatrix}n & \nu & p\\ 0 & 0 & 0\end{pmatrix} = 0 \quad\text{for } (n+\nu+p)\text{ odd} \tag{A3.7}
+$$
 
 So $p$ steps in 2's, halving the work.
 
@@ -98,31 +121,49 @@ So $p$ steps in 2's, halving the work.
 
 ### Elementary block symmetries
 
-$$C^{1n(c)}_{1\mu\nu}(kA) = C^{2n(c)}_{2\mu\nu}(kA) \tag{A3.8}$$
+$$
+C^{1n(c)}_{1\mu\nu}(kA) = C^{2n(c)}_{2\mu\nu}(kA) \tag{A3.8}
+$$
 
-$$C^{1n(c)}_{2\mu\nu}(kA) = C^{2n(c)}_{1\mu\nu}(kA) \tag{A3.9}$$
+$$
+C^{1n(c)}_{2\mu\nu}(kA) = C^{2n(c)}_{1\mu\nu}(kA) \tag{A3.9}
+$$
 
 > So the $2\times 2$ "s-σ" block has only **two** independent entries: "same" ($s=\sigma$) and "swap" ($s \ne \sigma$).
 
 ### Index-permutation symmetries (power-normalized form)
 
-$$C^{sn(c)}_{\sigma\mu\nu}(kA) = (-1)^{n+\nu}\,C^{s\nu(c)}_{\sigma\mu n}(kA) \tag{A3.10}$$
+$$
+C^{sn(c)}_{\sigma\mu\nu}(kA) = (-1)^{n+\nu}\,C^{s\nu(c)}_{\sigma\mu n}(kA) \tag{A3.10}
+$$
 
-$$= (-1)^{s+\sigma}\,(-1)^{n+\nu}\,C^{\sigma\nu(c)}_{s,-\mu,n}(kA) \tag{A3.11}$$
+$$
+= (-1)^{s+\sigma}\,(-1)^{n+\nu}\,C^{\sigma\nu(c)}_{s,-\mu,n}(kA) \tag{A3.11}
+$$
 
-$$= (-1)^{s+\sigma}\,C^{sn(c)}_{\sigma,-\mu,\nu}(kA) \tag{A3.12}$$
+$$
+= (-1)^{s+\sigma}\,C^{sn(c)}_{\sigma,-\mu,\nu}(kA) \tag{A3.12}
+$$
 
 ### Sign of $A$
 
-$$C^{sn(c)}_{\sigma\mu\nu}(-kA) = (-1)^{s+\sigma}\,(-1)^{n+\nu}\,C^{sn(c)}_{\sigma\mu\nu}(kA) \tag{A3.13}$$
+$$
+C^{sn(c)}_{\sigma\mu\nu}(-kA) = (-1)^{s+\sigma}\,(-1)^{n+\nu}\,C^{sn(c)}_{\sigma\mu\nu}(kA) \tag{A3.13}
+$$
 
-$$= (-1)^{s+\sigma}\,C^{s\nu(c)}_{\sigma\mu n}(kA) \tag{A3.14}$$
+$$
+= (-1)^{s+\sigma}\,C^{s\nu(c)}_{\sigma\mu n}(kA) \tag{A3.14}
+$$
 
-$$= C^{\sigma\nu(c)}_{s,-\mu,n}(kA) \tag{A3.15}$$
+$$
+= C^{\sigma\nu(c)}_{s,-\mu,n}(kA) \tag{A3.15}
+$$
 
 ### Complex conjugation
 
-$$\bigl[C^{sn(3)}_{\sigma\mu\nu}(kA)\bigr]^{*} = (-1)^{s+\sigma}\,C^{sn(4)}_{\sigma\mu\nu}(kA) \tag{A3.16}$$
+$$
+\bigl[C^{sn(3)}_{\sigma\mu\nu}(kA)\bigr]^{*} = (-1)^{s+\sigma}\,C^{sn(4)}_{\sigma\mu\nu}(kA) \tag{A3.16}
+$$
 
 > Use to translate **incoming** waves (c=4) without rewriting; in particular, only $c = 1, 3$ ever need explicit evaluation.
 
@@ -138,32 +179,51 @@ $$\bigl[C^{sn(3)}_{\sigma\mu\nu}(kA)\bigr]^{*} = (-1)^{s+\sigma}\,C^{sn(4)}_{\si
 
 ### 1. $\mu = 0$, $\nu \ge 1$  — Eq. (A3.17)
 
-$$C^{sn(3)}_{\sigma 0 \nu}(kA) = \delta_{s\sigma}\,\tfrac{1}{2}\,i^{n}\sqrt{\frac{2n+1}{n(n+1)}}\,i^{-\nu}\sqrt{\frac{2\nu+1}{\nu(\nu+1)}}$$
-$$\times \sum_{p=|n-\nu|,\,\text{step }2}^{n+\nu}\Biggl[\frac{n(n+1)+\nu(\nu+1)-p(p+1)}{n+\nu+p+1}\cdot \frac{\dbinom{-n+\nu+p}{(-n+\nu+p)/2}\,\dbinom{n-\nu+p}{(n-\nu+p)/2}\,\dbinom{n+\nu-p}{(n+\nu-p)/2}}{\dbinom{n+\nu+p}{(n+\nu+p)/2}}\,i^{-p}\,(2p+1)\,h_p^{(1)}(kA)\Biggr]$$
+$$
+C^{sn(3)}_{\sigma 0 \nu}(kA) = \delta_{s\sigma}\,\tfrac{1}{2}\,i^{n}\sqrt{\frac{2n+1}{n(n+1)}}\,i^{-\nu}\sqrt{\frac{2\nu+1}{\nu(\nu+1)}}
+$$
+
+$$
+\times \sum_{p=|n-\nu|,\,\text{step }2}^{n+\nu}\Biggl[\frac{n(n+1)+\nu(\nu+1)-p(p+1)}{n+\nu+p+1}\cdot \frac{\dbinom{-n+\nu+p}{(-n+\nu+p)/2}\,\dbinom{n-\nu+p}{(n-\nu+p)/2}\,\dbinom{n+\nu-p}{(n+\nu-p)/2}}{\dbinom{n+\nu+p}{(n+\nu+p)/2}}\,i^{-p}\,(2p+1)\,h_p^{(1)}(kA)\Biggr]
+$$
 
 Note: the $\delta_{s\sigma}$ prefactor means **only diagonal blocks ($s = \sigma$) survive** for $\mu = 0$.
 
 ### 2. $\mu = 0$, $\nu = 1$  — Eq. (A3.18)
 
-$$\boxed{\;C^{sn(3)}_{\sigma 0 1}(kA) = \delta_{s\sigma}\,\sqrt{\tfrac{3}{2}}\,\sqrt{n(n+1)(2n+1)}\,\frac{h_n^{(1)}(kA)}{kA}\;} \tag{A3.18}$$
+$$
+\boxed{\;C^{sn(3)}_{\sigma 0 1}(kA) = \delta_{s\sigma}\,\sqrt{\tfrac{3}{2}}\,\sqrt{n(n+1)(2n+1)}\,\frac{h_n^{(1)}(kA)}{kA}\;} \tag{A3.18}
+$$
 
 ### 3. $\mu = 1$, $\nu \ge 1$  — Eq. (A3.19)
 
-$$C^{sn(3)}_{\sigma 1 \nu}(kA) = \tfrac{1}{4}\,i^{n}\,\frac{\sqrt{2n+1}}{n(n+1)}\,i^{-\nu}\,\frac{\sqrt{2\nu+1}}{\nu(\nu+1)}$$
-$$\times \sum_{p=|n-\nu|,\,\text{step }2}^{n+\nu}\Biggl[\Bigl\{\delta_{s\sigma}\,\frac{(n(n+1)+\nu(\nu+1)-p(p+1))^2}{n+\nu+p+1} + \delta_{3-s,\sigma}\,2ikA\,\frac{n(n+1)+\nu(\nu+1)-p(p+1)}{n+\nu+p+1}\Bigr\}$$
-$$\times\,\frac{\dbinom{-n+\nu+p}{(-n+\nu+p)/2}\,\dbinom{n-\nu+p}{(n-\nu+p)/2}\,\dbinom{n+\nu-p}{(n+\nu-p)/2}}{\dbinom{n+\nu+p}{(n+\nu+p)/2}}\,i^{-p}\,(2p+1)\,h_p^{(1)}(kA)\Biggr] \tag{A3.19}$$
+$$
+C^{sn(3)}_{\sigma 1 \nu}(kA) = \tfrac{1}{4}\,i^{n}\,\frac{\sqrt{2n+1}}{n(n+1)}\,i^{-\nu}\,\frac{\sqrt{2\nu+1}}{\nu(\nu+1)}
+$$
+
+$$
+\times \sum_{p=|n-\nu|,\,\text{step }2}^{n+\nu}\Biggl[\Bigl\{\delta_{s\sigma}\,\frac{(n(n+1)+\nu(\nu+1)-p(p+1))^2}{n+\nu+p+1} + \delta_{3-s,\sigma}\,2ikA\,\frac{n(n+1)+\nu(\nu+1)-p(p+1)}{n+\nu+p+1}\Bigr\}
+$$
+
+$$
+\times\,\frac{\dbinom{-n+\nu+p}{(-n+\nu+p)/2}\,\dbinom{n-\nu+p}{(n-\nu+p)/2}\,\dbinom{n+\nu-p}{(n+\nu-p)/2}}{\dbinom{n+\nu+p}{(n+\nu+p)/2}}\,i^{-p}\,(2p+1)\,h_p^{(1)}(kA)\Biggr] \tag{A3.19}
+$$
 
 Both diagonal ($\delta_{s\sigma}$) and **off-diagonal** ($\delta_{3-s,\sigma}$) blocks contribute when $\mu \ne 0$.
 
 ### 4. $\mu = 1$, $\nu = 1$  — Eq. (A3.20)
 
-$$\boxed{\;C^{sn(3)}_{\sigma 1 1}(kA) = \tfrac{\sqrt{3}}{2}\,\sqrt{2n+1}\,\bigl\{\delta_{s\sigma}\,R^{(3)}_{2n}(kA) + \delta_{3-s,\sigma}\,i\,R^{(3)}_{1n}(kA)\bigr\}\;} \tag{A3.20}$$
+$$
+\boxed{\;C^{sn(3)}_{\sigma 1 1}(kA) = \tfrac{\sqrt{3}}{2}\,\sqrt{2n+1}\,\bigl\{\delta_{s\sigma}\,R^{(3)}_{2n}(kA) + \delta_{3-s,\sigma}\,i\,R^{(3)}_{1n}(kA)\bigr\}\;} \tag{A3.20}
+$$
 
 (Using $R^{(c)}_{sn}$ from Eq. A1.6: $R^{(3)}_{1n} = h_n^{(1)}$, $R^{(3)}_{2n} = (kr)^{-1}\,d/d(kr)\{kr\,h_n^{(1)}\}$.)
 
 ### 5. $\mu = -1$, $\nu \ge 1$  — Eq. (A3.21)
 
-$$\boxed{\;C^{sn(3)}_{\sigma,-1,\nu}(kA) = (-1)^{s+\sigma}\,C^{sn(3)}_{\sigma 1 \nu}(kA)\;} \tag{A3.21}$$
+$$
+\boxed{\;C^{sn(3)}_{\sigma,-1,\nu}(kA) = (-1)^{s+\sigma}\,C^{sn(3)}_{\sigma 1 \nu}(kA)\;} \tag{A3.21}
+$$
 
 > So $\mu = -1$ doesn't need a separate computation — apply (A3.21) after evaluating $\mu = +1$. By (A3.12) more generally, any $-\mu$ entry follows from $+\mu$.
 
@@ -173,11 +233,17 @@ $$\boxed{\;C^{sn(3)}_{\sigma,-1,\nu}(kA) = (-1)^{s+\sigma}\,C^{sn(3)}_{\sigma 1 
 
 For $kA \to \infty$:
 
-$$C^{sn(3)}_{\sigma\mu\nu}(kA) = o\!\Bigl(\frac{1}{kA}\Bigr)\quad\text{for } \mu \ne \pm 1 \tag{A3.22}$$
+$$
+C^{sn(3)}_{\sigma\mu\nu}(kA) = o\!\Bigl(\frac{1}{kA}\Bigr)\quad\text{for } \mu \ne \pm 1 \tag{A3.22}
+$$
 
-$$C^{sn(3)}_{\sigma 1 \nu}(kA) = \frac{\sqrt{(2n+1)(2\nu+1)}}{2}\,i^{\nu - n - 1}\,\frac{e^{ikA}}{kA} + o\!\Bigl(\frac{1}{kA}\Bigr) \tag{A3.23}$$
+$$
+C^{sn(3)}_{\sigma 1 \nu}(kA) = \frac{\sqrt{(2n+1)(2\nu+1)}}{2}\,i^{\nu - n - 1}\,\frac{e^{ikA}}{kA} + o\!\Bigl(\frac{1}{kA}\Bigr) \tag{A3.23}
+$$
 
-$$C^{sn(3)}_{\sigma,-1,\nu}(kA) = \frac{\sqrt{(2n+1)(2\nu+1)}}{2}\,i^{\nu - n - 1}\,(-1)^{s+\sigma}\,\frac{e^{ikA}}{kA} + o\!\Bigl(\frac{1}{kA}\Bigr) \tag{A3.24}$$
+$$
+C^{sn(3)}_{\sigma,-1,\nu}(kA) = \frac{\sqrt{(2n+1)(2\nu+1)}}{2}\,i^{\nu - n - 1}\,(-1)^{s+\sigma}\,\frac{e^{ikA}}{kA} + o\!\Bigl(\frac{1}{kA}\Bigr) \tag{A3.24}
+$$
 
 > **Practical implication.** Far-field probe correction depends primarily on the $\mu = \pm 1$ translation coefficients. Other $\mu$ contributions vanish faster than $1/(kA)$ at large probe distance — useful for sanity-checking truncations.
 
@@ -189,7 +255,9 @@ The combination of four central binomials in (A3.17) and (A3.19) involves $B(J) 
 
 **Replace each $B(J)$ with**
 
-$$B'(J) = \binom{J}{J/2}\,2^{-J} \tag{A3.26}$$
+$$
+B'(J) = \binom{J}{J/2}\,2^{-J} \tag{A3.26}
+$$
 
 The four-binomial **ratio is invariant** under this scaling (all four factors gain $2^{-J_i}$ and the four $J_i$ cancel pairwise — verify: in the (A3.17) combination, the exponents are $(-n+\nu+p) + (n-\nu+p) + (n+\nu-p) - (n+\nu+p) = 0$).
 
@@ -197,7 +265,9 @@ The four-binomial **ratio is invariant** under this scaling (all four factors ga
 
 **Recurrence** (initial $B'(0) = 1$):
 
-$$\boxed{\;B'(J+2) = \frac{J+1}{J+2}\,B'(J)\;} \tag{A3.27}$$
+$$
+\boxed{\;B'(J+2) = \frac{J+1}{J+2}\,B'(J)\;} \tag{A3.27}
+$$
 
 > So $B'(2) = 1/2$, $B'(4) = 3/8$, $B'(6) = 5/16$, $B'(8) = 35/128$, ... — verify against $\binom{2}{1}/4 = 1/2$, $\binom{4}{2}/16 = 6/16 = 3/8$, $\binom{6}{3}/64 = 20/64 = 5/16$, $\binom{8}{4}/256 = 70/256 = 35/128$. ✓
 
@@ -236,7 +306,11 @@ $$\boxed{\;B'(J+2) = \frac{J+1}{J+2}\,B'(J)\;} \tag{A3.27}$$
 ### Round-trip / consistency
 18. **Translation by zero.** $C^{sn(c)}_{\sigma\mu\nu}(0)$ should reduce to $\delta_{s\sigma}\,\delta_{n\nu}$ (identity) — confirms normalization. Caveat: $z_p^{(3)}(0)$ is singular for $p \ge 1$, so use the analytic $kA \to 0$ limit, not direct evaluation of (A3.3) at $kA = 0$.
 19. **Translation then inverse.** Translating by $+A$ and then $-A$ should compose to identity:
-    $$\sum_{\sigma',\nu'} C^{sn(1)}_{\sigma'\mu\nu'}(+kA)\,C^{\sigma'\nu'(1)}_{\sigma\mu\nu}(-kA) = \delta_{s\sigma}\,\delta_{n\nu}$$
+
+    $$
+    \sum_{\sigma',\nu'} C^{sn(1)}_{\sigma'\mu\nu'}(+kA)\,C^{\sigma'\nu'(1)}_{\sigma\mu\nu}(-kA) = \delta_{s\sigma}\,\delta_{n\nu}
+    $$
+
     Truncate $\nu'$ generously (rule of thumb: $\nu' = N + \lceil kA \rceil$) and check residual.
 20. **Wave-function reconstruction.** Synthesize $\vec{F}^{(3)}_{2,0,1}(r,\theta,\phi)$ centered at $O$ via direct evaluation, then via (A3.2) applied at a $z$-translated frame with chosen $A = \lambda/4$ and $\nu_{\max} = 20$. Compare values at $r = 5\lambda$, $\theta = \pi/3$, $\phi = \pi/4$ — should match to 4+ digits.
 

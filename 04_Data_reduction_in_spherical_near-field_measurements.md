@@ -45,9 +45,13 @@ These methods assume the probe is an ideal dipole — signal is **proportional**
 
 ### 2.1 Setup
 
-$$\vec{E}(A, \theta, \phi) = \frac{k}{\sqrt\eta}\sum_{s=1}^2\sum_{n=1}^N\sum_{m=-n}^n v\,T_{smn}\,\vec{F}^{(3)}_{smn}(A, \theta, \phi),\quad A > r_0 \tag{4.2}$$
+$$
+\vec{E}(A, \theta, \phi) = \frac{k}{\sqrt\eta}\sum_{s=1}^2\sum_{n=1}^N\sum_{m=-n}^n v\,T_{smn}\,\vec{F}^{(3)}_{smn}(A, \theta, \phi),\quad A > r_0 \tag{4.2}
+$$
 
-$$\vec{H}(A, \theta, \phi) = -ik\sqrt\eta\sum v\,T_{smn}\,\vec{F}^{(3)}_{3-s,m,n}(A, \theta, \phi) \tag{4.3}$$
+$$
+\vec{H}(A, \theta, \phi) = -ik\sqrt\eta\sum v\,T_{smn}\,\vec{F}^{(3)}_{3-s,m,n}(A, \theta, \phi) \tag{4.3}
+$$
 
 ### 2.2 What you can recover from full-sphere $\vec{E}$ or $\vec{H}$ measurements (§4.2.2, Table 4.1)
 
@@ -66,11 +70,15 @@ Using orthogonality (A1.70) applied to the appropriate region/wave-type:
 
 Radial electric dipole probe:
 
-$$\boxed{\;v\,T_{2mn} = \frac{2}{\sqrt{6\pi}}\,(-1)^m\,\frac{1}{n(n+1)}\,\Bigl(\frac{kA}{h_n^{(1)}(kA)}\Bigr)^2\int_0^{2\pi}\!\!\int_0^\pi w_r^e(A, 0, \theta, \phi)\,\vec{F}^{(3)}_{2,-m,n}(A,\theta,\phi)\cdot\hat r\,\sin\theta\,d\theta\,d\phi\;} \tag{4.24}$$
+$$
+\boxed{\;v\,T_{2mn} = \frac{2}{\sqrt{6\pi}}\,(-1)^m\,\frac{1}{n(n+1)}\,\Bigl(\frac{kA}{h_n^{(1)}(kA)}\Bigr)^2\int_0^{2\pi}\!\!\int_0^\pi w_r^e(A, 0, \theta, \phi)\,\vec{F}^{(3)}_{2,-m,n}(A,\theta,\phi)\cdot\hat r\,\sin\theta\,d\theta\,d\phi\;} \tag{4.24}
+$$
 
 Radial magnetic dipole probe (recovers TE):
 
-$$v\,T_{1mn} = \frac{2i}{\sqrt{6\pi}}\,(-1)^m\,\frac{1}{n(n+1)}\,\Bigl(\frac{kA}{h_n^{(1)}(kA)}\Bigr)^2\int w_r^m\,\vec{F}^{(3)}_{2,-m,n}\cdot\hat r\,\sin\theta\,d\theta\,d\phi \tag{4.26}$$
+$$
+v\,T_{1mn} = \frac{2i}{\sqrt{6\pi}}\,(-1)^m\,\frac{1}{n(n+1)}\,\Bigl(\frac{kA}{h_n^{(1)}(kA)}\Bigr)^2\int w_r^m\,\vec{F}^{(3)}_{2,-m,n}\cdot\hat r\,\sin\theta\,d\theta\,d\phi \tag{4.26}
+$$
 
 > **Drawback.** Radial field components decay as $r^{-2}$ while tangential decay as $r^{-1}$. At large measurement distances, the radial measurement is dominated by tangential leakage — **probe-alignment-sensitive**.
 
@@ -78,17 +86,23 @@ $$v\,T_{1mn} = \frac{2i}{\sqrt{6\pi}}\,(-1)^m\,\frac{1}{n(n+1)}\,\Bigl(\frac{kA}
 
 $\hat\theta$ and $\hat\phi$ dipole probes:
 
-$$\boxed{\;v\,T_{smn} = \frac{2}{\sqrt{6\pi}}\,(-1)^m\,\{R^{(3)}_{sn}(kA)\}^{-2}\int_0^{2\pi}\!\!\int_0^\pi \{w^e_\theta\,\hat\theta + w^e_\phi\,\hat\phi\}\cdot\vec{F}^{(3)}_{s,-m,n}(A,\theta,\phi)\,\sin\theta\,d\theta\,d\phi\;} \tag{4.30}$$
+$$
+\boxed{\;v\,T_{smn} = \frac{2}{\sqrt{6\pi}}\,(-1)^m\,\{R^{(3)}_{sn}(kA)\}^{-2}\int_0^{2\pi}\!\!\int_0^\pi \{w^e_\theta\,\hat\theta + w^e_\phi\,\hat\phi\}\cdot\vec{F}^{(3)}_{s,-m,n}(A,\theta,\phi)\,\sin\theta\,d\theta\,d\phi\;} \tag{4.30}
+$$
 
 Magnetic-dipole version:
 
-$$v\,T_{smn} = \frac{2i}{\sqrt{6\pi}}\,(-1)^m\,\{R^{(3)}_{3-s,n}(kA)\}^{-2}\int \{w^m_\theta\,\hat\theta + w^m_\phi\,\hat\phi\}\cdot\vec{F}^{(3)}_{3-s,-m,n}\,\sin\theta\,d\theta\,d\phi \tag{4.31}$$
+$$
+v\,T_{smn} = \frac{2i}{\sqrt{6\pi}}\,(-1)^m\,\{R^{(3)}_{3-s,n}(kA)\}^{-2}\int \{w^m_\theta\,\hat\theta + w^m_\phi\,\hat\phi\}\cdot\vec{F}^{(3)}_{3-s,-m,n}\,\sin\theta\,d\theta\,d\phi \tag{4.31}
+$$
 
 ### 2.5 Wood's method (§4.2.5) — eccentric measurement sphere
 
 Based on reciprocity integral (A1.74). Allows test-antenna minimum sphere to be offset from measurement-sphere center:
 
-$$v\,T_{smn} = \frac{ik^2}{\sqrt{6\pi}}\,(-1)^m\int_S\Bigl\{[w_\theta^e \hat\phi - w_\phi^e \hat\theta]\cdot\vec{F}^{(4)}_{3-s,-m,n}(r,\theta,\phi) + i[w_\theta^m \hat\phi - w_\phi^m \hat\theta]\cdot\vec{F}^{(4)}_{s,-m,n}(r,\theta,\phi)\Bigr\}\,A^2\sin\theta'\,d\theta'\,d\phi' \tag{4.36, 4.37}$$
+$$
+v\,T_{smn} = \frac{ik^2}{\sqrt{6\pi}}\,(-1)^m\int_S\Bigl\{[w_\theta^e \hat\phi - w_\phi^e \hat\theta]\cdot\vec{F}^{(4)}_{3-s,-m,n}(r,\theta,\phi) + i[w_\theta^m \hat\phi - w_\phi^m \hat\theta]\cdot\vec{F}^{(4)}_{s,-m,n}(r,\theta,\phi)\Bigr\}\,A^2\sin\theta'\,d\theta'\,d\phi' \tag{4.36, 4.37}
+$$
 
 > **Requires** simultaneous measurement of two electric and two magnetic tangential components — practically replaced by Huygens-source approximations.
 
@@ -98,15 +112,21 @@ $$v\,T_{smn} = \frac{ik^2}{\sqrt{6\pi}}\,(-1)^m\int_S\Bigl\{[w_\theta^e \hat\phi
 
 ### 3.1 Starting point — transmission formula
 
-$$\boxed{\;w(A, \chi, \theta, \phi) = \frac{v}{2}\sum_{smn,\sigma\mu\nu} T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}\;} \tag{4.1}$$
+$$
+\boxed{\;w(A, \chi, \theta, \phi) = \frac{v}{2}\sum_{smn,\sigma\mu\nu} T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}\;} \tag{4.1}
+$$
 
 ### 3.2 Compactification via probe response constants
 
-$$\boxed{\;P_{s\mu n}(kA) = \frac{1}{2}\sum_{\sigma\nu} C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}\;} \tag{4.39}$$
+$$
+\boxed{\;P_{s\mu n}(kA) = \frac{1}{2}\sum_{\sigma\nu} C^{sn(3)}_{\sigma\mu\nu}(kA)\,R^p_{\sigma\mu\nu}\;} \tag{4.39}
+$$
 
 Transmission formula becomes:
 
-$$\boxed{\;w(A, \chi, \theta, \phi) = v\sum_{smn,\mu} T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,P_{s\mu n}(kA)\;} \tag{4.40}$$
+$$
+\boxed{\;w(A, \chi, \theta, \phi) = v\sum_{smn,\mu} T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,P_{s\mu n}(kA)\;} \tag{4.40}
+$$
 
 > **Implementation.** Precompute $P_{s\mu n}(kA)$ once per probe/distance; it doesn't depend on $(\chi, \theta, \phi)$. **Major speedup.**
 
@@ -118,41 +138,61 @@ Three orthogonalities are used in sequence:
 
 **Step 1: $\chi$ integral.** Write the transmission formula as a Fourier series in $\chi$:
 
-$$w(A, \chi, \theta, \phi) = \sum_{\mu = -\nu_{\max}}^{\nu_{\max}} w_\mu(A, \theta, \phi)\,e^{i\mu\chi} \tag{4.42}$$
+$$
+w(A, \chi, \theta, \phi) = \sum_{\mu = -\nu_{\max}}^{\nu_{\max}} w_\mu(A, \theta, \phi)\,e^{i\mu\chi} \tag{4.42}
+$$
 
-$$w_\mu(A, \theta, \phi) = v\sum_{s=1}^2 \sum_{n=1}^N \sum_{m=-n}^n T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,P_{s\mu n}(kA) \tag{4.43}$$
+$$
+w_\mu(A, \theta, \phi) = v\sum_{s=1}^2 \sum_{n=1}^N \sum_{m=-n}^n T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,P_{s\mu n}(kA) \tag{4.43}
+$$
 
 Inversion:
 
-$$\boxed{\;w_\mu(A, \theta, \phi) = \frac{1}{2\pi}\int_0^{2\pi} w(A, \chi, \theta, \phi)\,e^{-i\mu\chi}\,d\chi\;} \tag{4.45}$$
+$$
+\boxed{\;w_\mu(A, \theta, \phi) = \frac{1}{2\pi}\int_0^{2\pi} w(A, \chi, \theta, \phi)\,e^{-i\mu\chi}\,d\chi\;} \tag{4.45}
+$$
 
 **Step 2: $\phi$ integral.** Now $w_\mu(A, \theta, \phi) = \sum_{m=-N}^N w_{\mu m}(A, \theta)\,e^{im\phi}$ (4.46), with:
 
-$$w_{\mu m}(A, \theta) = v\sum_{s=1}^2 \sum_{\substack{n=|m|\\ n \ne 0}}^N T_{smn}\,d^n_{\mu m}(\theta)\,P_{s\mu n}(kA) \tag{4.47}$$
+$$
+w_{\mu m}(A, \theta) = v\sum_{s=1}^2 \sum_{\substack{n=|m|\\ n \ne 0}}^N T_{smn}\,d^n_{\mu m}(\theta)\,P_{s\mu n}(kA) \tag{4.47}
+$$
 
 Inversion:
 
-$$\boxed{\;w_{\mu m}(A, \theta) = \frac{1}{2\pi}\int_0^{2\pi} w_\mu(A, \theta, \phi)\,e^{-im\phi}\,d\phi\;} \tag{4.48}$$
+$$
+\boxed{\;w_{\mu m}(A, \theta) = \frac{1}{2\pi}\int_0^{2\pi} w_\mu(A, \theta, \phi)\,e^{-im\phi}\,d\phi\;} \tag{4.48}
+$$
 
 **Step 3: $\theta$ integral.** Now $w_{\mu m}(A, \theta) = \sum_{n = |m|, n \ne 0}^N w^n_{\mu m}(A)\,d^n_{\mu m}(\theta)$ (4.49), with:
 
-$$w^n_{\mu m}(A) = v\sum_{s=1}^2 T_{smn}\,P_{s\mu n}(kA) \tag{4.50}$$
+$$
+w^n_{\mu m}(A) = v\sum_{s=1}^2 T_{smn}\,P_{s\mu n}(kA) \tag{4.50}
+$$
 
 Inversion via (A2.10):
 
-$$\boxed{\;w^n_{\mu m}(A) = \frac{2n+1}{2}\int_0^\pi w_{\mu m}(A, \theta)\,d^n_{\mu m}(\theta)\,\sin\theta\,d\theta\;} \tag{4.51}$$
+$$
+\boxed{\;w^n_{\mu m}(A) = \frac{2n+1}{2}\int_0^\pi w_{\mu m}(A, \theta)\,d^n_{\mu m}(\theta)\,\sin\theta\,d\theta\;} \tag{4.51}
+$$
 
 ### 3.4 Final solve for $T_{smn}$
 
 For each $(m, n)$, write (4.50) explicitly:
 
-$$v\,T_{1mn}\,P_{1\mu n}(kA) + v\,T_{2mn}\,P_{2\mu n}(kA) = w^n_{\mu m}(A) \tag{4.52}$$
+$$
+v\,T_{1mn}\,P_{1\mu n}(kA) + v\,T_{2mn}\,P_{2\mu n}(kA) = w^n_{\mu m}(A) \tag{4.52}
+$$
 
 For a **$\mu = \pm 1$ probe** (the standard case), this gives a 2×2 system:
 
-$$\boxed{\;v\,T_{1mn}\,P_{11n}(kA) + v\,T_{2mn}\,P_{21n}(kA) = w^n_{1m}(A)\;} \tag{4.53}$$
+$$
+\boxed{\;v\,T_{1mn}\,P_{11n}(kA) + v\,T_{2mn}\,P_{21n}(kA) = w^n_{1m}(A)\;} \tag{4.53}
+$$
 
-$$\boxed{\;v\,T_{1mn}\,P_{1,-1,n}(kA) + v\,T_{2mn}\,P_{2,-1,n}(kA) = w^n_{-1, m}(A)\;} \tag{4.54}$$
+$$
+\boxed{\;v\,T_{1mn}\,P_{1,-1,n}(kA) + v\,T_{2mn}\,P_{2,-1,n}(kA) = w^n_{-1, m}(A)\;} \tag{4.54}
+$$
 
 Solved by Cramer's rule (or direct 2×2 inverse) for each $(m, n)$ pair.
 
@@ -164,7 +204,9 @@ Solved by Cramer's rule (or direct 2×2 inverse) for each $(m, n)$ pair.
 
 For a $\mu = \pm 1$ probe, only $w_1$ and $w_{-1}$ are non-zero. Two samples $\chi = 0$ and $\chi = \pi/2$ suffice:
 
-$$\boxed{\;w_{\pm 1}(A, \theta, \phi) = \frac{1}{2}\Bigl\{w(A, 0, \theta, \phi) \mp i\,w\Bigl(A, \frac{\pi}{2}, \theta, \phi\Bigr)\Bigr\}\;} \tag{4.65, 4.66}$$
+$$
+\boxed{\;w_{\pm 1}(A, \theta, \phi) = \frac{1}{2}\Bigl\{w(A, 0, \theta, \phi) \mp i\,w\Bigl(A, \frac{\pi}{2}, \theta, \phi\Bigr)\Bigr\}\;} \tag{4.65, 4.66}
+$$
 
 (Verify: $\chi = 0$ value gives $w_1 + w_{-1}$; $\chi = \pi/2$ gives $i(w_1 - w_{-1})$; solve.)
 
@@ -176,7 +218,9 @@ Alternative four-sample DFT scheme (Eq. 4.62) — slight oversampling, but explo
 
 $J_\phi$ equispaced samples in $0 \le \phi < 2\pi$, $\Delta\phi = 2\pi/J_\phi$, $J_\phi \ge 2N+1$:
 
-$$\boxed{\;\{w_{\mu m}(A, \theta) \mid m = 0, 1, \dots, N, -N, \dots, -1\} = \text{IDFT}\{w_\mu(A, \theta, j\Delta\phi) \mid j = 0, 1, \dots, J_\phi - 1\}\;} \tag{4.68}$$
+$$
+\boxed{\;\{w_{\mu m}(A, \theta) \mid m = 0, 1, \dots, N, -N, \dots, -1\} = \text{IDFT}\{w_\mu(A, \theta, j\Delta\phi) \mid j = 0, 1, \dots, J_\phi - 1\}\;} \tag{4.68}
+$$
 
 **Layout convention** (per Appendix A4): IDFT output places positive $m$ in bins $0, 1, \dots, N$ and negative $m$ in bins $J_\phi - N, \dots, J_\phi - 1$. **The IDFT here is Hansen's IDFT (numpy's FFT / $J$).**
 
@@ -184,41 +228,57 @@ $$\boxed{\;\{w_{\mu m}(A, \theta) \mid m = 0, 1, \dots, N, -N, \dots, -1\} = \te
 
 Theta integrand is **not periodic** on $[0, \pi]$. Trick: extend $w_{\mu m}(A, \theta)$ to $[0, 2\pi]$ with matching parity:
 
-$$\tilde w_{\mu m}(A, \theta) = \begin{cases} w_{\mu m}(A, \theta), & 0 \le \theta \le \pi \\ w_{\mu m}(A, 2\pi - \theta), & \pi < \theta < 2\pi,\ (\mu - m)\text{ even} \\ -w_{\mu m}(A, 2\pi - \theta), & \pi < \theta < 2\pi,\ (\mu - m)\text{ odd}\end{cases} \tag{4.72}$$
+$$
+\tilde w_{\mu m}(A, \theta) = \begin{cases} w_{\mu m}(A, \theta), & 0 \le \theta \le \pi \\ w_{\mu m}(A, 2\pi - \theta), & \pi < \theta < 2\pi,\ (\mu - m)\text{ even} \\ -w_{\mu m}(A, 2\pi - \theta), & \pi < \theta < 2\pi,\ (\mu - m)\text{ odd}\end{cases} \tag{4.72}
+$$
 
 > **Parity rule.** Each $w_{\mu m}$ sequence has parity $(\mu - m)$ under $\theta \to 2\pi - \theta$. This follows from the parity of $d^n_{\mu m}$ about $\pi$ (Appendix A2 — same parity as $\mu + m$, which matches $\mu - m$ mod 2).
 
 Now expand into a Fourier series:
 
-$$\tilde w_{\mu m}(A, \theta) = \sum_{l=-N}^N b_l^{\mu m}\,e^{il\theta},\quad 0 \le \theta < 2\pi \tag{4.73}$$
+$$
+\tilde w_{\mu m}(A, \theta) = \sum_{l=-N}^N b_l^{\mu m}\,e^{il\theta},\quad 0 \le \theta < 2\pi \tag{4.73}
+$$
 
 Compute coefficients via IDFT with $J_\theta \ge 2N + 1$ samples:
 
-$$\boxed{\;\{b_l^{\mu m} \mid l = 0, 1, \dots, N, -N, \dots, -1\} = \text{IDFT}\{\tilde w_{\mu m}(A, j\Delta\theta) \mid j = 0, 1, \dots, J_\theta - 1\}\;} \tag{4.77}$$
+$$
+\boxed{\;\{b_l^{\mu m} \mid l = 0, 1, \dots, N, -N, \dots, -1\} = \text{IDFT}\{\tilde w_{\mu m}(A, j\Delta\theta) \mid j = 0, 1, \dots, J_\theta - 1\}\;} \tag{4.77}
+$$
 
 ### 4.4 Closed-form theta integral via $\Pi(l - m')$ (§4.3.3.5)
 
 Substituting (4.73) and the Fourier expansion (4.70) of $d^n_{\mu m}$:
 
-$$d^n_{\mu m}(\theta) = i^{\mu - m}\sum_{m'=-n}^n \Delta^n_{m'\mu}\,\Delta^n_{m'm}\,e^{-im'\theta} \tag{4.70}$$
+$$
+d^n_{\mu m}(\theta) = i^{\mu - m}\sum_{m'=-n}^n \Delta^n_{m'\mu}\,\Delta^n_{m'm}\,e^{-im'\theta} \tag{4.70}
+$$
 
 into (4.51), the theta integral becomes algebraic:
 
-$$w^n_{\mu m}(A) = \frac{2n+1}{2}\,i^{\mu-m}\sum_{l=-N}^N b_l^{\mu m}\sum_{m'=-n}^n \Delta^n_{m'\mu}\,\Delta^n_{m'm}\,G(l - m') \tag{4.75}$$
+$$
+w^n_{\mu m}(A) = \frac{2n+1}{2}\,i^{\mu-m}\sum_{l=-N}^N b_l^{\mu m}\sum_{m'=-n}^n \Delta^n_{m'\mu}\,\Delta^n_{m'm}\,G(l - m') \tag{4.75}
+$$
 
 where:
 
-$$G(l - m') = \int_0^\pi e^{i(l-m')\theta}\sin\theta\,d\theta = \begin{cases} \pm i\pi/2, & l - m' = \pm 1 \\ 0, & |l - m'| = 3, 5, 7, \dots \\ 2/[1 - (l-m')^2], & |l - m'| = 0, 2, 4, \dots\end{cases} \tag{4.76}$$
+$$
+G(l - m') = \int_0^\pi e^{i(l-m')\theta}\sin\theta\,d\theta = \begin{cases} \pm i\pi/2, & l - m' = \pm 1 \\ 0, & |l - m'| = 3, 5, 7, \dots \\ 2/[1 - (l-m')^2], & |l - m'| = 0, 2, 4, \dots\end{cases} \tag{4.76}
+$$
 
 ### 4.5 Parity reduction and final form (§4.3.3.5)
 
 Using $b_l^{\mu m} = (-1)^{\mu + m}\,b_{-l}^{\mu m}$ (Eq. 4.79) and $\Delta^n_{m'\mu}\Delta^n_{m'm} = (-1)^{\mu+m}\Delta^n_{-m',\mu}\Delta^n_{-m',m}$ (Eq. 4.80, 4.81), the $l = \pm 1$ terms in $G$ **cancel**, giving:
 
-$$\boxed{\;w^n_{\mu m}(A) = \frac{2n+1}{2}\,i^{\mu-m}\sum_{m'=-n}^n \Delta^n_{m'\mu}\,\Delta^n_{m'm}\,\sum_{l=-N}^N \Pi(l - m')\,b_l^{\mu m}\;} \tag{4.83}$$
+$$
+\boxed{\;w^n_{\mu m}(A) = \frac{2n+1}{2}\,i^{\mu-m}\sum_{m'=-n}^n \Delta^n_{m'\mu}\,\Delta^n_{m'm}\,\sum_{l=-N}^N \Pi(l - m')\,b_l^{\mu m}\;} \tag{4.83}
+$$
 
 with:
 
-$$\Pi(l - m') = \begin{cases} 0, & (l - m')\text{ odd} \\ 2 / [1 - (l-m')^2], & (l - m')\text{ even}\end{cases} \tag{4.84}$$
+$$
+\Pi(l - m') = \begin{cases} 0, & (l - m')\text{ odd} \\ 2 / [1 - (l-m')^2], & (l - m')\text{ even}\end{cases} \tag{4.84}
+$$
 
 > $\Pi(l - m') = \Pi(m' - l)$ — even function of its argument.
 
@@ -226,21 +286,31 @@ $$\Pi(l - m') = \begin{cases} 0, & (l - m')\text{ odd} \\ 2 / [1 - (l-m')^2], & 
 
 Define the inner $l$-sum:
 
-$$K(m') = \sum_{l=-N}^N \Pi(l - m')\,b_l^{\mu m},\quad -N \le m' \le N \tag{4.85}$$
+$$
+K(m') = \sum_{l=-N}^N \Pi(l - m')\,b_l^{\mu m},\quad -N \le m' \le N \tag{4.85}
+$$
 
 This is a **convolution**. To use FFT, extend both sequences to period $4N$:
 
-$$\tilde\Pi(j) = \Pi(j),\quad -2N < j \le 2N,\quad \tilde\Pi(j) = \tilde\Pi(j + c\cdot 4N) \tag{4.86}$$
+$$
+\tilde\Pi(j) = \Pi(j),\quad -2N < j \le 2N,\quad \tilde\Pi(j) = \tilde\Pi(j + c\cdot 4N) \tag{4.86}
+$$
 
-$$\tilde b_l^{\mu m} = \begin{cases} b_l^{\mu m}, & -N \le l \le N \\ 0, & -2N < l < -N\text{ and }N < l \le 2N\end{cases},\quad \tilde b_l^{\mu m} = \tilde b_{l + c\cdot 4N}^{\mu m} \tag{4.87}$$
+$$
+\tilde b_l^{\mu m} = \begin{cases} b_l^{\mu m}, & -N \le l \le N \\ 0, & -2N < l < -N\text{ and }N < l \le 2N\end{cases},\quad \tilde b_l^{\mu m} = \tilde b_{l + c\cdot 4N}^{\mu m} \tag{4.87}
+$$
 
 Then:
 
-$$K(m') = \sum_{l=0}^{4N-1} \tilde\Pi(l - m')\,\tilde b_l^{\mu m} \tag{4.88}$$
+$$
+K(m') = \sum_{l=0}^{4N-1} \tilde\Pi(l - m')\,\tilde b_l^{\mu m} \tag{4.88}
+$$
 
 Computed via DFT:
 
-$$\boxed{\;K(m') = \text{IDFT}\{\text{DFT}\{\tilde\Pi(i)\}\cdot \text{DFT}\{\tilde b_j^{\mu m}\}\}\;} \tag{4.89}$$
+$$
+\boxed{\;K(m') = \text{IDFT}\{\text{DFT}\{\tilde\Pi(i)\}\cdot \text{DFT}\{\tilde b_j^{\mu m}\}\}\;} \tag{4.89}
+$$
 
 (Both sequences of length $4N$. $\text{DFT}\{\tilde\Pi\}$ is precomputed **once** per $N$.)
 
@@ -248,17 +318,23 @@ $$\boxed{\;K(m') = \text{IDFT}\{\text{DFT}\{\tilde\Pi(i)\}\cdot \text{DFT}\{\til
 
 ### 4.7 Final $m'$ summation
 
-$$w^n_{\mu m}(A) = \frac{2n+1}{2}\,i^{\mu - m}\sum_{m'=-n}^n \Delta^n_{m'\mu}\,\Delta^n_{m'm}\,K(m'),\quad \mu = \pm 1 \tag{4.92}$$
+$$
+w^n_{\mu m}(A) = \frac{2n+1}{2}\,i^{\mu - m}\sum_{m'=-n}^n \Delta^n_{m'\mu}\,\Delta^n_{m'm}\,K(m'),\quad \mu = \pm 1 \tag{4.92}
+$$
 
 Using $\Delta^n_{-m',\mu}\Delta^n_{-m',m}\,K(-m') = \Delta^n_{m'\mu}\Delta^n_{m'm}\,K(m')$ (Eq. 4.93), reduce the sum to $0 \le m' \le n$ (multiply by 2 for $m' > 0$).
 
 ### 4.8 Delta recurrence
 
-$$\sqrt{(n+m'+1)(n-m')}\,\Delta^n_{m'+1,m} + \sqrt{(n+m')(n-m'+1)}\,\Delta^n_{m'-1, m} + 2m\,\Delta^n_{m'm} = 0 \tag{4.94}$$
+$$
+\sqrt{(n+m'+1)(n-m')}\,\Delta^n_{m'+1,m} + \sqrt{(n+m')(n-m'+1)}\,\Delta^n_{m'-1, m} + 2m\,\Delta^n_{m'm} = 0 \tag{4.94}
+$$
 
 **Run backwards from $m' = n$ to $m' = 0$** (stable; see Appendix A2 §5). Seed value:
 
-$$\Delta^n_{nm} = 2^{-n}\sqrt{\frac{2n(2n-1)\cdots(n-m+1)}{(n-m)!}} \tag{4.95}$$
+$$
+\Delta^n_{nm} = 2^{-n}\sqrt{\frac{2n(2n-1)\cdots(n-m+1)}{(n-m)!}} \tag{4.95}
+$$
 
 Compute $\Delta^n_{m'\mu}$ and $\Delta^n_{m'm}$ **simultaneously** (same square roots) — saves ~half the work.
 
@@ -270,7 +346,9 @@ Compute $\Delta^n_{m'\mu}$ and $\Delta^n_{m'm}$ **simultaneously** (same square 
 
 Once $T_{smn}$ is recovered, the transmission formula (4.40) re-applied with a new probe and distance $A'$ computes the field on any other sphere:
 
-$$w'(A', \chi, \theta, \phi) = \sum_{smn,\mu=\pm 1} v\,T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,P'_{s\mu n}(kA') \tag{4.97}$$
+$$
+w'(A', \chi, \theta, \phi) = \sum_{smn,\mu=\pm 1} v\,T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,P'_{s\mu n}(kA') \tag{4.97}
+$$
 
 | Probe role | Symbol | Purpose |
 |---|---|---|
@@ -281,13 +359,19 @@ $$w'(A', \chi, \theta, \phi) = \sum_{smn,\mu=\pm 1} v\,T_{smn}\,e^{im\phi}\,d^n_
 
 For $kA \to \infty$, the translation coefficient asymptotics (A3.22–A3.24) give:
 
-$$P_{s,\pm 1, n}(kA) \to \frac{e^{ikA}}{kA}\,P^\infty_{s,\pm 1, n},\quad kA \to \infty \tag{4.100}$$
+$$
+P_{s,\pm 1, n}(kA) \to \frac{e^{ikA}}{kA}\,P^\infty_{s,\pm 1, n},\quad kA \to \infty \tag{4.100}
+$$
 
 **General linearly-polarized $\hat x'$ probe:**
 
-$$P^\infty_{s1n} = \tfrac{1}{4}\sqrt{2n+1}\,i^{-n-1}\sum_{\nu=1}^{\nu_{\max}}\sqrt{2\nu+1}\,i^\nu\,\{R^p_{11\nu} + R^p_{21\nu}\} \tag{4.101}$$
+$$
+P^\infty_{s1n} = \tfrac{1}{4}\sqrt{2n+1}\,i^{-n-1}\sum_{\nu=1}^{\nu_{\max}}\sqrt{2\nu+1}\,i^\nu\,\{R^p_{11\nu} + R^p_{21\nu}\} \tag{4.101}
+$$
 
-$$P^\infty_{s,-1,n} = (-1)^{s+1}\,P^\infty_{s1n} \tag{4.102}$$
+$$
+P^\infty_{s,-1,n} = (-1)^{s+1}\,P^\infty_{s1n} \tag{4.102}
+$$
 
 **Closed forms for electric and magnetic Hertzian-dipole probes:**
 
@@ -298,13 +382,19 @@ $$P^\infty_{s,-1,n} = (-1)^{s+1}\,P^\infty_{s1n} \tag{4.102}$$
 
 **Normalized far-field signal:**
 
-$$W(\chi, \theta, \phi) = \lim_{kA\to\infty}\Bigl[w(A, \chi, \theta, \phi)\,\frac{kA}{e^{ikA}}\Bigr] \tag{4.107}$$
+$$
+W(\chi, \theta, \phi) = \lim_{kA\to\infty}\Bigl[w(A, \chi, \theta, \phi)\,\frac{kA}{e^{ikA}}\Bigr] \tag{4.107}
+$$
 
 Far-field transmission formula:
 
-$$W(\chi, \theta, \phi) = \sum_{smn, \mu=\pm 1} v\,T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,P^\infty_{s\mu n} \tag{4.108}$$
+$$
+W(\chi, \theta, \phi) = \sum_{smn, \mu=\pm 1} v\,T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,P^\infty_{s\mu n} \tag{4.108}
+$$
 
-$$W'(\chi, \theta, \phi) = \sum_{smn, \mu=\pm 1} v\,T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,P'^\infty_{s\mu n} \tag{4.109}$$
+$$
+W'(\chi, \theta, \phi) = \sum_{smn, \mu=\pm 1} v\,T_{smn}\,e^{im\phi}\,d^n_{\mu m}(\theta)\,e^{i\mu\chi}\,P'^\infty_{s\mu n} \tag{4.109}
+$$
 
 ### 5.3 Relative measurements (§4.3.4.3) — propagation of unknown constants
 
@@ -321,35 +411,51 @@ $$W'(\chi, \theta, \phi) = \sum_{smn, \mu=\pm 1} v\,T_{smn}\,e^{im\phi}\,d^n_{\m
 
 **Directivity (relative measurement, output = far-field $\hat x'$ electric dipole):**
 
-$$\boxed{\;D_t(\theta, \phi) = \frac{8}{3}\cdot\frac{|W'\,c_1/c_2|^2}{\sum_{smn}|v T_{smn}\,c_1/c_2|^2}\;} \tag{4.112}$$
+$$
+\boxed{\;D_t(\theta, \phi) = \frac{8}{3}\cdot\frac{|W'\,c_1/c_2|^2}{\sum_{smn}|v T_{smn}\,c_1/c_2|^2}\;} \tag{4.112}
+$$
 
 The unknown $c_1/c_2$ **cancels** — directivity is recoverable from purely relative measurements.
 
 **Gain (requires measurement of $c_1 v$ separately):**
 
-$$\boxed{\;G_t = \frac{8}{3}\cdot\frac{|c_1 W'|^2}{|c_1 v|^2}\;} \tag{4.115}$$
+$$
+\boxed{\;G_t = \frac{8}{3}\cdot\frac{|c_1 W'|^2}{|c_1 v|^2}\;} \tag{4.115}
+$$
 
 **EIRP:**
 
-$$\text{EIRP}(\theta, \phi) = \tfrac{1}{2}|v|^2\,G_t(\theta, \phi) \tag{4.116}$$
+$$
+\text{EIRP}(\theta, \phi) = \tfrac{1}{2}|v|^2\,G_t(\theta, \phi) \tag{4.116}
+$$
 
 **Absolute far-field pattern:**
 
-$$\boxed{\;\vec K(\theta, \phi) = \frac{2\sqrt 6}{3v}\bigl\{W'(0, \theta, \phi)\,\hat\theta + W'(\pi/2, \theta, \phi)\,\hat\phi\bigr\}\;} \tag{4.117}$$
+$$
+\boxed{\;\vec K(\theta, \phi) = \frac{2\sqrt 6}{3v}\bigl\{W'(0, \theta, \phi)\,\hat\theta + W'(\pi/2, \theta, \phi)\,\hat\phi\bigr\}\;} \tag{4.117}
+$$
 
 With a general directive output probe of gain $G_p$:
 
-$$\vec K(\theta, \phi) = \frac{2\sqrt 6}{3v}\bigl\{W'(0)\,\hat\theta + W'(\pi/2)\,\hat\phi\bigr\}\sqrt{G_e/G_p},\quad G_e = 3/2 \tag{4.118}$$
+$$
+\vec K(\theta, \phi) = \frac{2\sqrt 6}{3v}\bigl\{W'(0)\,\hat\theta + W'(\pi/2)\,\hat\phi\bigr\}\sqrt{G_e/G_p},\quad G_e = 3/2 \tag{4.118}
+$$
 
 **Relative far-field pattern** (no $v$ knowledge needed):
 
-$$\vec K_\text{rel}(\theta, \phi) = c\,\{W'(0, \theta, \phi)\,\hat\theta + W'(\pi/2, \theta, \phi)\,\hat\phi\} \tag{4.119}$$
+$$
+\vec K_\text{rel}(\theta, \phi) = c\,\{W'(0, \theta, \phi)\,\hat\theta + W'(\pi/2, \theta, \phi)\,\hat\phi\} \tag{4.119}
+$$
 
 **Tangential field at radius $A'$:**
 
-$$\vec E_\text{tang}(A', \theta, \phi) = \frac{2k}{\sqrt{6\pi\eta}}\bigl\{w'^e(A', 0)\,\hat\theta + w'^e(A', \pi/2)\,\hat\phi\bigr\} \tag{4.120}$$
+$$
+\vec E_\text{tang}(A', \theta, \phi) = \frac{2k}{\sqrt{6\pi\eta}}\bigl\{w'^e(A', 0)\,\hat\theta + w'^e(A', \pi/2)\,\hat\phi\bigr\} \tag{4.120}
+$$
 
-$$\vec H_\text{tang}(A', \theta, \phi) = \frac{2k\sqrt\eta}{\sqrt{6\pi}}\bigl\{w'^m(A', 0)\,\hat\theta + w'^m(A', \pi/2)\,\hat\phi\bigr\} \tag{4.121}$$
+$$
+\vec H_\text{tang}(A', \theta, \phi) = \frac{2k\sqrt\eta}{\sqrt{6\pi}}\bigl\{w'^m(A', 0)\,\hat\theta + w'^m(A', \pi/2)\,\hat\phi\bigr\} \tag{4.121}
+$$
 
 ---
 
@@ -382,7 +488,9 @@ Pipeline:
 
 Reverse pipeline using already-computed delta products:
 
-$$w'(A', \chi, \theta, \phi) = \sum_{\mu = \pm 1} e^{i\mu\chi}\sum_{m=-N}^N e^{im\phi}\sum_{m'=-N}^N e^{im'\theta}\sum_{n=\max(|m'|, |m|, 1)}^N \Delta^n_{m'\mu}\Delta^n_{m'm}\,i^{m-\mu}\sum_{s=1}^2 v\,T_{smn}\,P'_{s\mu n}(kA') \tag{4.135}$$
+$$
+w'(A', \chi, \theta, \phi) = \sum_{\mu = \pm 1} e^{i\mu\chi}\sum_{m=-N}^N e^{im\phi}\sum_{m'=-N}^N e^{im'\theta}\sum_{n=\max(|m'|, |m|, 1)}^N \Delta^n_{m'\mu}\Delta^n_{m'm}\,i^{m-\mu}\sum_{s=1}^2 v\,T_{smn}\,P'_{s\mu n}(kA') \tag{4.135}
+$$
 
 | Step | Operation |
 |---|---|
@@ -429,14 +537,27 @@ Total modes $N_0 = 2N(N+2)$ (Eq. 4.136). Uniform sampling is ~50% efficient; thi
 
 **Probe response constants** (Eq. 4.151):
 
-$$P^\infty_{111} = P^\infty_{211} = P^\infty_{1,-1,1} = -\frac{\sqrt 6}{2}i,\quad P^\infty_{2,-1,1} = \frac{\sqrt 6}{2}i$$
-$$P^\infty_{112} = P^\infty_{212} = P^\infty_{1,-1,2} = -\frac{\sqrt{10}}{2},\quad P^\infty_{2,-1,2} = \frac{\sqrt{10}}{2}$$
+$$
+P^\infty_{111} = P^\infty_{211} = P^\infty_{1,-1,1} = -\frac{\sqrt 6}{2}i,\quad P^\infty_{2,-1,1} = \frac{\sqrt 6}{2}i
+$$
+
+$$
+P^\infty_{112} = P^\infty_{212} = P^\infty_{1,-1,2} = -\frac{\sqrt{10}}{2},\quad P^\infty_{2,-1,2} = \frac{\sqrt{10}}{2}
+$$
 
 **Delta products** (Eq. 4.152):
 
-$$\Delta^1_{01}\Delta^1_{01} = \tfrac{1}{2},\ \Delta^2_{01}\Delta^2_{01} = 0$$
-$$\Delta^1_{11}\Delta^1_{11} = \tfrac{1}{4},\ \Delta^2_{11}\Delta^2_{11} = \tfrac{1}{4}$$
-$$\Delta^2_{21}\Delta^2_{21} = \tfrac{1}{4}$$
+$$
+\Delta^1_{01}\Delta^1_{01} = \tfrac{1}{2},\ \Delta^2_{01}\Delta^2_{01} = 0
+$$
+
+$$
+\Delta^1_{11}\Delta^1_{11} = \tfrac{1}{4},\ \Delta^2_{11}\Delta^2_{11} = \tfrac{1}{4}
+$$
+
+$$
+\Delta^2_{21}\Delta^2_{21} = \tfrac{1}{4}
+$$
 
 **Step 1 — χ integration** (Table 4.5b — partial):
 
@@ -458,19 +579,27 @@ $$\Delta^2_{21}\Delta^2_{21} = \tfrac{1}{4}$$
 
 **Step 3 — extend and IDFT** (with parity reasoning):
 
-$$\tilde W_{11} = \{32, 9, -7, 0, -7, 9\}\quad\Rightarrow\quad b_l^{11} = \{6, 8, 5, 0, 5, 8\} \tag{4.143}$$
+$$
+\tilde W_{11} = \{32, 9, -7, 0, -7, 9\}\quad\Rightarrow\quad b_l^{11} = \{6, 8, 5, 0, 5, 8\} \tag{4.143}
+$$
 
 Zero-padded to length 12:
 
-$$\tilde b_l^{11} = \{6, 8, 5, 0, 0, 0, 0, 0, 0, 0, 5, 8\} \tag{4.144}$$
+$$
+\tilde b_l^{11} = \{6, 8, 5, 0, 0, 0, 0, 0, 0, 0, 5, 8\} \tag{4.144}
+$$
 
 **Step 12 — Π sequence (length 12)**:
 
-$$\tilde\Pi = \{2, 0, -\tfrac{2}{3}, 0, -\tfrac{2}{15}, 0, -\tfrac{2}{35}, 0, -\tfrac{2}{15}, 0, -\tfrac{2}{3}, 0\} \tag{4.145}$$
+$$
+\tilde\Pi = \{2, 0, -\tfrac{2}{3}, 0, -\tfrac{2}{15}, 0, -\tfrac{2}{35}, 0, -\tfrac{2}{15}, 0, -\tfrac{2}{3}, 0\} \tag{4.145}
+$$
 
 **Step 4 — Convolution via FFT:**
 
-$$K(m') \to \{K(0), K(1), K(2)\} = \{\tfrac{16}{3}, \tfrac{64}{3}, \tfrac{32}{3}\}\quad\text{(after doubling for } m' > 0\text{)} \tag{4.150}$$
+$$
+K(m') \to \{K(0), K(1), K(2)\} = \{\tfrac{16}{3}, \tfrac{64}{3}, \tfrac{32}{3}\}\quad\text{(after doubling for } m' > 0\text{)} \tag{4.150}
+$$
 
 **Step 5–7 — solve for $T_{smn}$** at each $n$:
 
