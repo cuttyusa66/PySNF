@@ -4,8 +4,7 @@
 spherical near-field to far-field transformation of antenna measurement
 data, implementing the SNIFT-style algorithm from Hansen [1].
 
-Version 0.1 — early release; the public API is stable for the headline
-entry points but several helper functions are still lightly documented.
+Version 1.0.0 — initial release.
 
 ## Installation
 

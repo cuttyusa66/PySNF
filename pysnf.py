@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-""" PySNF Version 0.1
+""" PySNF Version 1.0.0
 
 A spherical near-field antenna measurement data-reduction library
 implementing the SNIFT-style transformation algorithm from Hansen [1],
@@ -158,6 +158,8 @@ import fractions
 # lazy-imported inside ``plot_spherical_wave_coefficients_mag_db`` so that
 # users on headless systems (or those who never plot) don't pay the
 # matplotlib import cost or need it installed.
+
+__version__ = "1.0.0"
 
 # ---------------------
 # GLOBAL VARIABLES
