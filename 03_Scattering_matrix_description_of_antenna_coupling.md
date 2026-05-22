@@ -71,7 +71,7 @@ The probe sees $\\vec{F}^{(4)}\_{\\sigma\\mu\\nu}$ as incoming with amplitude:
 | :---: | :-- |
 | (3.9) | $a\_{\\sigma\\mu\\nu} = \\frac{v}{2}\\sum\_{smn} T\_{smn}\\,e^{im\\phi\_o}\\,d^n\_{\\mu m}(\\theta\_o)\\,e^{i\\mu\\chi\_o}\\,C^{sn(3)}\_{\\sigma\\mu\\nu}(kA)$ |
 
-### Probe-received signal (matched load: $\\Gamma\_l = 0$)
+### Probe-received signal (matched load: $\Gamma_l = 0$)
 
 Using $w = \\mathbf{R}^p\\,\\mathbf{a}$ (Eq. 2.71 with $\\Gamma\_l = 0$) and dropping the $o$-subscript on probe angles:
 
@@ -108,7 +108,7 @@ Apply the same four-step cascade in **reverse order with negated angles** $(-A, 
 | :---: | :-- |
 | (3.12) | $\\vec{E}\_p = \\frac{k}{\\sqrt{\\eta}}\\sum\_{\\substack{\\sigma\\mu\\nu\\\\smn}} v\_p\\,T^p\_{\\sigma\\mu\\nu}\\,C^{\\sigma\\nu(3)}\_{s\\mu n}(-kA)\\,e^{-i\\mu\\chi\_o}\\,d^n\_{m\\mu}(-\\theta\_o)\\,e^{-im\\phi\_o}\\,\\tfrac{1}{2}\\{\\vec{F}^{(3)}\_{smn} + \\vec{F}^{(4)}\_{smn}\\}$ |
 
-### Test antenna received signal (matched load: $\\Gamma = 0$)
+### Test antenna received signal (matched load: $\Gamma = 0$)
 
 Initial form:
 
@@ -225,7 +225,7 @@ Process converges in **~2 steps** if $c\_0$ has correct on-axis polarization. Th
 
 ---
 
-## 7. Special Case: Linearly Polarized $\\mu = \\pm 1$ Probe (§3.3.1)
+## 7. Special Case: Linearly Polarized $\mu = \pm 1$ Probe (§3.3.1)
 
 The most common probe class — conical horn fed by circular waveguide with only $\\text{TE}\_{11}$. Probe axis along $\\hat z'$, linear polarization in the $x'z'$-plane.
 
@@ -237,7 +237,7 @@ Only $\\mu = \\pm 1$ entries are non-zero, with:
 | :---: | :-- |
 | (Eqs. 5.8, 5.9) | $R^p\_{1,-1,\\nu} = R^p\_{1,1,\\nu},\\quad R^p\_{2,-1,\\nu} = -R^p\_{2,1,\\nu}$ |
 
-### Probe response constants $P\_{s\\mu n}(kA)$
+### Probe response constants $P_{s\mu n}(kA)$
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -267,7 +267,7 @@ Vanishes for $\\mu \\ne \\pm 1$ (since the probe coefficients do).
 
 with $\\hat x' = \\hat\\theta$ when $\\chi = 0$ and $\\hat x' = \\hat\\phi$ when $\\chi = \\pi/2$.
 
-### Vector form (two-$\\chi$ measurement)
+### Vector form (two-$\chi$ measurement)
 
 Let $w\_\\theta = w(A, 0, \\theta, \\phi)$, $w\_\\phi = w(A, \\pi/2, \\theta, \\phi)$:
 
@@ -317,7 +317,7 @@ Vector form:
 
 ## 8. Hertzian Dipole Probes (§3.3.2)
 
-### $\\hat x'$-directed electric dipole
+### $\hat x'$-directed electric dipole
 
 Non-zero receiving coefficients: $R^p\_{211} = -R^p\_{2,-1,1} = -\\sqrt{2}/2$ (Eq. 2.154).
 
@@ -328,7 +328,7 @@ Response constants:
 | (3.39) | $P^e\_{s1n}(kA) = \\tfrac{\\sqrt{6}}{8}\\,i^{-s}\\,\\sqrt{2n+1}\\,R^{(3)}\_{sn}(kA)$ |
 | (3.40) | $P^e\_{s,-1,n}(kA) = -\\tfrac{\\sqrt{6}}{8}\\,i^s\\,\\sqrt{2n+1}\\,R^{(3)}\_{sn}(kA)$ |
 
-### $\\hat x'$-directed magnetic dipole (**radiates $\\hat y'$-polarized**)
+### $\hat x'$-directed magnetic dipole (**radiates $\hat y'$-polarized**)
 
 Non-zero receiving coefficients: $R^p\_{111} = -R^p\_{1,-1,1} = -i\\sqrt{2}/2$ (Eq. 2.157).
 
@@ -355,7 +355,7 @@ The curly bracket equals $\\vec{E}(A, \\theta, \\phi)$ of the test antenna field
 | :---: | :-- |
 | (3.44) | $w^m(A, \\chi, \\theta, \\phi) = \\frac{\\sqrt{6\\pi}}{2k\\sqrt\\eta}\\,\\vec{H}(A, \\theta, \\phi)\\cdot\\hat x'$ |
 
-### On-axis special cases ($\\chi = 0$ for $\\hat\\theta$, $\\chi = \\pi/2$ for $\\hat\\phi$)
+### On-axis special cases ($\chi = 0$ for $\hat\theta$, $\chi = \pi/2$ for $\hat\phi$)
 
 | Equation | Component |
 |---|---|

@@ -63,14 +63,13 @@ A wave function defined in the *unprimed* frame is re-expressed in the *primed* 
 
 ---
 
-## 3. General Formula for $C^{sn(c)}\_{\\sigma\\mu\\nu}(kA)$ (§A3.2)
+## 3. General Formula for $C^{sn(c)}_{\sigma\mu\nu}(kA)$ (§A3.2)
 
 Bruning & Lo [3]; Larsen [4]. For $kA > 0$:
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $\\boxed{\\;C^{sn(c)}\_{\\sigma\\mu\\nu}(kA) = \\sqrt{\\frac{(2n+1)(2\\nu+1)}{n(n+1)\\,\\nu(\\nu+1)}}\\,\\sqrt{\\frac{(\\nu+\\mu)!\\,(n-\\mu)!}{(\\nu-\\mu)!\\,(n+\\mu)!}}\\,(-1)^{\\mu}\\,\\tfrac{1}{2}\\,i^{n-\\nu}\\;}$ |
-| (A3.3) | $\\boxed{\\;\\times \\sum\_{p=\|n-\\nu\|}^{n+\\nu} i^{-p}\\Bigl[\\delta\_{s\\sigma}\\{n(n+1) + \\nu(\\nu+1) - p(p+1)\\} + \\delta\_{3-s,\\sigma}\\{2i\\mu kA\\}\\Bigr]\\,a(\\mu,\\, n,\\, -\\mu,\\, \\nu,\\, p)\\,z\_p^{(c)}(kA)\\;}$ |
+| (A3.3) | $\\boxed{\\;C^{sn(c)}\_{\\sigma\\mu\\nu}(kA) = \\sqrt{\\frac{(2n+1)(2\\nu+1)}{n(n+1)\\,\\nu(\\nu+1)}}\\,\\sqrt{\\frac{(\\nu+\\mu)!\\,(n-\\mu)!}{(\\nu-\\mu)!\\,(n+\\mu)!}}\\,(-1)^{\\mu}\\,\\tfrac{1}{2}\\,i^{n-\\nu} \\times \\sum\_{p=\|n-\\nu\|}^{n+\\nu} i^{-p}\\Bigl[\\delta\_{s\\sigma}\\{n(n+1) + \\nu(\\nu+1) - p(p+1)\\} + \\delta\_{3-s,\\sigma}\\{2i\\mu kA\\}\\Bigr]\\,a(\\mu,\\, n,\\, -\\mu,\\, \\nu,\\, p)\\,z\_p^{(c)}(kA)\\;}$ |
 
 **Parity rule (A3.7):** the linearization coefficient $a(\\mu, n, -\\mu, \\nu, p)$ vanishes when $(n + \\nu + p)$ is odd. Therefore the summation in (A3.3) effectively runs only over
 
@@ -82,7 +81,7 @@ Bruning & Lo [3]; Larsen [4]. For $kA > 0$:
 
 ---
 
-## 4. Linearization Coefficients $a(m, n, \\mu, \\nu, p)$
+## 4. Linearization Coefficients $a(m, n, \mu, \nu, p)$
 
 Defined by the expansion of a product of two unnormalized associated Legendre functions:
 
@@ -159,32 +158,29 @@ So $p$ steps in 2's, halving the work.
 >
 > arising from explicit 3-j evaluation. The four binomials are all $\\binom{J}{J/2}$ with even $J$ — replace each by $B'(J) = \\binom{J}{J/2}\\,2^{-J}$ to avoid overflow (see §8).
 
-### 1. $\\mu = 0$, $\\nu \\ge 1$  — Eq. (A3.17)
+### 1. $\mu = 0$, $\nu \ge 1$  — Eq. (A3.17)
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $C^{sn(3)}\_{\\sigma 0 \\nu}(kA) = \\delta\_{s\\sigma}\\,\\tfrac{1}{2}\\,i^{n}\\sqrt{\\frac{2n+1}{n(n+1)}}\\,i^{-\\nu}\\sqrt{\\frac{2\\nu+1}{\\nu(\\nu+1)}}$ |
-|  | $\\times \\sum\_{p=\|n-\\nu\|,\\,\\text{step }2}^{n+\\nu}\\Biggl[\\frac{n(n+1)+\\nu(\\nu+1)-p(p+1)}{n+\\nu+p+1}\\cdot \\frac{\\dbinom{-n+\\nu+p}{(-n+\\nu+p)/2}\\,\\dbinom{n-\\nu+p}{(n-\\nu+p)/2}\\,\\dbinom{n+\\nu-p}{(n+\\nu-p)/2}}{\\dbinom{n+\\nu+p}{(n+\\nu+p)/2}}\\,i^{-p}\\,(2p+1)\\,h\_p^{(1)}(kA)\\Biggr]$ |
+|  | $C^{sn(3)}\_{\\sigma 0 \\nu}(kA) = \\delta\_{s\\sigma}\\,\\tfrac{1}{2}\\,i^{n}\\sqrt{\\frac{2n+1}{n(n+1)}}\\,i^{-\\nu}\\sqrt{\\frac{2\\nu+1}{\\nu(\\nu+1)}} \\times \\sum\_{p=\|n-\\nu\|,\\,\\text{step }2}^{n+\\nu}\\Biggl[\\frac{n(n+1)+\\nu(\\nu+1)-p(p+1)}{n+\\nu+p+1}\\cdot \\frac{\\dbinom{-n+\\nu+p}{(-n+\\nu+p)/2}\\,\\dbinom{n-\\nu+p}{(n-\\nu+p)/2}\\,\\dbinom{n+\\nu-p}{(n+\\nu-p)/2}}{\\dbinom{n+\\nu+p}{(n+\\nu+p)/2}}\\,i^{-p}\\,(2p+1)\\,h\_p^{(1)}(kA)\\Biggr]$ |
 
 Note: the $\\delta\_{s\\sigma}$ prefactor means **only diagonal blocks ($s = \\sigma$) survive** for $\\mu = 0$.
 
-### 2. $\\mu = 0$, $\\nu = 1$  — Eq. (A3.18)
+### 2. $\mu = 0$, $\nu = 1$  — Eq. (A3.18)
 
 |  Eq.  |   |
 | :---: | :-- |
 | (A3.18) | $\\boxed{\\;C^{sn(3)}\_{\\sigma 0 1}(kA) = \\delta\_{s\\sigma}\\,\\sqrt{\\tfrac{3}{2}}\\,\\sqrt{n(n+1)(2n+1)}\\,\\frac{h\_n^{(1)}(kA)}{kA}\\;}$ |
 
-### 3. $\\mu = 1$, $\\nu \\ge 1$  — Eq. (A3.19)
+### 3. $\mu = 1$, $\nu \ge 1$  — Eq. (A3.19)
 
 |  Eq.  |   |
 | :---: | :-- |
-|  | $C^{sn(3)}\_{\\sigma 1 \\nu}(kA) = \\tfrac{1}{4}\\,i^{n}\\,\\frac{\\sqrt{2n+1}}{n(n+1)}\\,i^{-\\nu}\\,\\frac{\\sqrt{2\\nu+1}}{\\nu(\\nu+1)}$ |
-|  | $\\times \\sum\_{p=\|n-\\nu\|,\\,\\text{step }2}^{n+\\nu}\\Biggl[\\Bigl\\{\\delta\_{s\\sigma}\\,\\frac{(n(n+1)+\\nu(\\nu+1)-p(p+1))^2}{n+\\nu+p+1} + \\delta\_{3-s,\\sigma}\\,2ikA\\,\\frac{n(n+1)+\\nu(\\nu+1)-p(p+1)}{n+\\nu+p+1}\\Bigr\\}$ |
-| (A3.19) | $\\times\\,\\frac{\\dbinom{-n+\\nu+p}{(-n+\\nu+p)/2}\\,\\dbinom{n-\\nu+p}{(n-\\nu+p)/2}\\,\\dbinom{n+\\nu-p}{(n+\\nu-p)/2}}{\\dbinom{n+\\nu+p}{(n+\\nu+p)/2}}\\,i^{-p}\\,(2p+1)\\,h\_p^{(1)}(kA)\\Biggr]$ |
+| (A3.19) | $C^{sn(3)}\_{\\sigma 1 \\nu}(kA) = \\tfrac{1}{4}\\,i^{n}\\,\\frac{\\sqrt{2n+1}}{n(n+1)}\\,i^{-\\nu}\\,\\frac{\\sqrt{2\\nu+1}}{\\nu(\\nu+1)} \\times \\sum\_{p=\|n-\\nu\|,\\,\\text{step }2}^{n+\\nu}\\Biggl[\\Bigl\\{\\delta\_{s\\sigma}\\,\\frac{(n(n+1)+\\nu(\\nu+1)-p(p+1))^2}{n+\\nu+p+1} + \\delta\_{3-s,\\sigma}\\,2ikA\\,\\frac{n(n+1)+\\nu(\\nu+1)-p(p+1)}{n+\\nu+p+1}\\Bigr\\} \\times\\,\\frac{\\dbinom{-n+\\nu+p}{(-n+\\nu+p)/2}\\,\\dbinom{n-\\nu+p}{(n-\\nu+p)/2}\\,\\dbinom{n+\\nu-p}{(n+\\nu-p)/2}}{\\dbinom{n+\\nu+p}{(n+\\nu+p)/2}}\\,i^{-p}\\,(2p+1)\\,h\_p^{(1)}(kA)\\Biggr]$ |
 
 Both diagonal ($\\delta\_{s\\sigma}$) and **off-diagonal** ($\\delta\_{3-s,\\sigma}$) blocks contribute when $\\mu \\ne 0$.
 
-### 4. $\\mu = 1$, $\\nu = 1$  — Eq. (A3.20)
+### 4. $\mu = 1$, $\nu = 1$  — Eq. (A3.20)
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -192,7 +188,7 @@ Both diagonal ($\\delta\_{s\\sigma}$) and **off-diagonal** ($\\delta\_{3-s,\\sig
 
 (Using $R^{(c)}\_{sn}$ from Eq. A1.6: $R^{(3)}\_{1n} = h\_n^{(1)}$, $R^{(3)}\_{2n} = (kr)^{-1}\\,d/d(kr)\\{kr\\,h\_n^{(1)}\\}$.)
 
-### 5. $\\mu = -1$, $\\nu \\ge 1$  — Eq. (A3.21)
+### 5. $\mu = -1$, $\nu \ge 1$  — Eq. (A3.21)
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -246,13 +242,13 @@ The four-binomial **ratio is invariant** under this scaling (all four factors ga
 1. **Sign of $A$.** Always pass signed $A$ (or $kA$). Use (A3.13) internally if you need $kA < 0$ — never recompute (A3.3) for negative arguments.
 2. **Region split.** Implement two separate methods: `translate_near(r' < |A|)` returning $C^{sn(c)}\_{\\sigma\\mu\\nu}$ with the LHS $c$, and `translate_far(r' > |A|)` returning $C^{sn(1)}\_{\\sigma\\mu\\nu}$.
 
-### Linearization coefficients $a(\\mu, n, -\\mu, \\nu, p)$
+### Linearization coefficients $a(\mu, n, -\mu, \nu, p)$
 3. **Parity selection.** $a = 0$ for $(n + \\nu + p)$ odd — Eq. (A3.7). Skip those $p$ values.
 4. **Wigner-3j check.** Compare your $a$ implementation to the explicit 3-j form (A3.6) using `sympy.physics.wigner.wigner_3j(n, ν, p, 0, 0, 0)` and `wigner_3j(n, ν, p, μ, -μ, 0)`. Match for $n, \\nu \\le 5$ and all valid $p$.
 5. **Recurrence in $p$.** For production code, implement Bruning & Lo's $p$-recurrence (their 1969 report [6]); test it against the 3-j path.
 6. **Product identity.** $P\_n^\\mu(x)\\,P\_\\nu^{-\\mu}(x) = \\sum\_p a(\\mu, n, -\\mu, \\nu, p)\\,P\_p(x)$ — Eq. (A3.5). Numerically verify at $x = 0.3, 0.7$ for $n, \\nu \\le 4$ using `scipy.special.lpmv`.
 
-### Translation coefficient $C^{sn(c)}\_{\\sigma\\mu\\nu}(kA)$
+### Translation coefficient $C^{sn(c)}_{\sigma\mu\nu}(kA)$
 7. **Block structure.** Only two independent $(s,\\sigma)$ blocks exist (A3.8, A3.9). Compute only "same" ($s=\\sigma$) and "swap" ($s \\ne \\sigma$); fill the other entries by symmetry.
 8. **$\\mu = -\\mu$ reduction.** Use (A3.12) to get $\\mu < 0$ from $\\mu > 0$. Equivalent to (A3.21) for the special case $\\mu = \\pm 1$.
 9. **Symmetry $(A3.10)$:** $C^{sn(c)}\_{\\sigma\\mu\\nu}(kA) = (-1)^{n+\\nu}\\,C^{s\\nu(c)}\_{\\sigma\\mu n}(kA)$. Halves the (n, ν) table.

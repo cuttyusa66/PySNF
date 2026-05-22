@@ -71,7 +71,7 @@ f^{(c)}_{\sigma mn}(r,\theta,\phi) = z^{(c)}_n(kr)\, P_n^m(\cos\theta)\, \begin{
 
 (With $\\sigma \\in \\{e, o\\}$ for even/odd trig.) $P\_n^m$ is the unnormalized associated Legendre function.
 
-### Radial functions $z\_n^{(c)}(kr)$
+### Radial functions $z_n^{(c)}(kr)$
 
 | $c$ | $z\_n^{(c)}$ | Wave type |
 |---|---|---|
@@ -86,7 +86,7 @@ f^{(c)}_{\sigma mn}(r,\theta,\phi) = z^{(c)}_n(kr)\, P_n^m(\cos\theta)\, \begin{
 | :---: | :-- |
 | (2.30) | $j\_n(kr) = \\tfrac{1}{2}\\bigl(h\_n^{(1)}(kr) + h\_n^{(2)}(kr)\\bigr)$ |
 
-### Large-argument (far-field) asymptotics for $kr \\to \\infty$, $kr \\gg n$
+### Large-argument (far-field) asymptotics for $kr \to \infty$, $kr \gg n$
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -243,7 +243,7 @@ For a TE mode ($s=1$): $W\_m > W\_e$. For a TM mode ($s=2$): $W\_e > W\_m$.
 | (2.41) | $\\vec{S} = \\tfrac{1}{2}\\eta\|\\vec{E}\|^2\\,\\hat{r} \\quad\\text{[W/m²]}$ |
 | (2.42) | $P\_1(\\theta,\\phi) = \\tfrac{1}{2}\\eta\|\\vec{E}\|^2 r^2 \\quad\\text{[W/sr]}$ |
 
-### Complex-conjugate identity for $\\vec{F}^{(c)}\_{smn}$
+### Complex-conjugate identity for $\vec{F}^{(c)}_{smn}$
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -417,7 +417,7 @@ Matched load ($\\Gamma\_l = 0$): $\\mathbf{b}' = (\\mathbf{S} - \\mathbf{I})\\ma
 | :---: | :-- |
 | (2.93) | $vw' - v'w = \\sum\_{smn}(-1)^m\\bigl(b\_{smn}\\,a'\_{s,-m,n} - a\_{smn}\\,b'\_{s,-m,n}\\bigr)$ |
 
-### Adjoint-antenna relations (with $\\mathbf{R}'$, $\\mathbf{T}$, etc.)
+### Adjoint-antenna relations (with $\mathbf{R}'$, $\mathbf{T}$, etc.)
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -479,7 +479,7 @@ If $d\_m = -\\zeta d\_e$ (2.139):
 | (2.140, 2.141) | $\\vec{E}\_m = \\zeta\\vec{H}\_e,\\quad \\vec{H}\_m = -\\eta\\vec{E}\_e$ |
 | (2.142) | $Q\_{101} = -i\\,Q\_{201}$ |
 
-### Rotation result for x-directed dipole (Euler angles $(0,-\\pi/2,0)$)
+### Rotation result for x-directed dipole (Euler angles $(0,-\pi/2,0)$)
 
 Rotation coefficients used:
 
@@ -610,7 +610,7 @@ Only $T\_6$ and $R\_2$ are non-zero; corresponds to far field $\\vec{F}\_6 = \\v
 
 Receiving/transmitting elements of an antenna built from multiple dipoles = sum of the individual elements weighted by excitation. Scattering elements **cannot** be simply summed — must be derived from incident-field considerations.
 
-### Receiving-formula special case (z-electric dipole, matched load, $\\Gamma\_l = 0$)
+### Receiving-formula special case (z-electric dipole, matched load, $\Gamma_l = 0$)
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -701,7 +701,7 @@ with $\\hat{i}\_{co}\\cdot\\hat{i}\_{\\text{cross}}^{\*} = 0$ (2.184).
 | (2.187, 2.188) | $K\_{\\text{cross}}(\\theta,\\phi) = \\vec{K}\\cdot\\hat{i}\_{\\text{cross}}^{\*}$ |
 | (2.189) | $\\vec{K} = K\_{co}\\,\\hat{i}\_{co} + K\_{\\text{cross}}\\,\\hat{i}\_{\\text{cross}}$ |
 
-### Ludwig's "Definition 3" — Linear (boresight along $+z$, reference angle $\\phi\_o$)
+### Ludwig's "Definition 3" — Linear (boresight along $+z$, reference angle $\phi_o$)
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -710,7 +710,7 @@ with $\\hat{i}\_{co}\\cdot\\hat{i}\_{\\text{cross}}^{\*} = 0$ (2.184).
 
 With $\\phi\_o = 0$: identical to a $\\hat{x}$-electric + $\\hat{y}$-magnetic Huygens source.
 
-### Circular polarization unit vectors ($\\phi\_o = 0$)
+### Circular polarization unit vectors ($\phi_o = 0$)
 
 **Right-hand (RCP):**
 
@@ -830,7 +830,7 @@ For $\\hat{i}\_{co} = \\alpha\\hat{\\theta} + \\beta\\hat{\\phi}$, $|\\alpha|^2 
 
 where $N$ is the truncation in $n$.
 
-### Coefficients for $\\hat{x}$-polarized peak at $(\\theta',\\phi')=(0,0)$
+### Coefficients for $\hat{x}$-polarized peak at $(\theta',\phi')=(0,0)$
 
 |  Eq.  |   |
 | :---: | :-- |

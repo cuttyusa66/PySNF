@@ -191,7 +191,7 @@ c_k = \begin{cases} \bar{c}_k, & k = 0, 1, \dots, J - N - 1 \\ \bar{c}_{k+J}, & 
 
 **Case $J \\le N$:** all $c\_k$ are undetermined.
 
-### 4.4. Special case $J = 2N$ with $c\_N = c\_{-N}$ — Eq. (A4.32)
+### 4.4. Special case $J = 2N$ with $c_N = c_{-N}$ — Eq. (A4.32)
 
 If you know a priori that $c\_N = c\_{-N}$ (e.g. from a symmetry), $J = 2N$ samples suffice:
 

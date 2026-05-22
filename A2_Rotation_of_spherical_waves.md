@@ -78,7 +78,7 @@ If the unrotated antenna has coefficients $Q^{(c)}\_{smn}$, then after rotating 
 
 ---
 
-## 3. The Rotation Coefficient $d^n\_{\\mu m}(\\theta)$ (§A2.3)
+## 3. The Rotation Coefficient $d^n_{\mu m}(\theta)$ (§A2.3)
 
 ### General expression (Edmonds [1], Eq. 4.1.15)
 
@@ -132,7 +132,7 @@ The Fourier coefficient is a product of "deltas":
 | :---: | :-- |
 | (A2.13) | $\\boxed{\\;\\Delta^{n}\_{m'm} \\equiv d^{n}\_{m'm}(\\pi/2)\\;}$ |
 
-### Three-term recurrence in $\\mu$ (Fano & Racah [3])
+### Three-term recurrence in $\mu$ (Fano & Racah [3])
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -162,7 +162,7 @@ Combinations relevant for $m = \\pm 1$:
 | (A2.18) | $d^{n}\_{1m}(\\theta) + d^{n}\_{-1,m}(\\theta) = -\\frac{2}{\\sqrt{n(n+1)}}\\,\\frac{m\\,d^{n}\_{0m}(\\theta)}{\\sin\\theta}$ |
 | (A2.19) | $d^{n}\_{1m}(\\theta) - d^{n}\_{-1,m}(\\theta) = -\\frac{2}{\\sqrt{n(n+1)}}\\,\\frac{d}{d\\theta}\\{d^{n}\_{0m}(\\theta)\\}$ |
 
-### Direct link to far-field pattern components $\\vec{K}\_{smn}$
+### Direct link to far-field pattern components $\vec{K}_{smn}$
 
 Inserting (A2.17) into (A2.18)/(A2.19) and using the $\\vec{K}\_{smn}$ definitions of (A1.59)/(A1.60):
 
@@ -175,7 +175,7 @@ Inserting (A2.17) into (A2.18)/(A2.19) and using the $\\vec{K}\_{smn}$ definitio
 
 ---
 
-## 4. The Deltas $\\Delta^{n}\_{m'm}$ (§A2.4)
+## 4. The Deltas $\Delta^{n}_{m'm}$ (§A2.4)
 
 $\\Delta^{n}\_{m'm} = d^{n}\_{m'm}(\\pi/2)$ for $-n \\le m', m \\le n$. Indexed inside a "delta pyramid" with $0 \\le n \\le N$.
 
@@ -376,7 +376,7 @@ Tables show the $(m \\ge 0,\\,m' \\ge 0)$ block. Use the symmetries in §4 to ex
 1. **Euler-angle tuple order.** The printed triple is $(\\chi\_o, \\theta\_o, \\phi\_o)$, but the rotations apply $\\phi\_o$ first (about $z$), then $\\theta\_o$ (about $y\_1$), then $\\chi\_o$ (about $z\_2$). When using `scipy.spatial.transform.Rotation.from_euler("ZYZ", [phi_o, theta_o, chi_o])`, **reverse the printed tuple** to match scipy's listed order.
 2. **Right-hand rule.** Positive $\\phi$-rotation about $\\hat{z}$: $\\hat{x} \\to \\hat{y}$. Verify by rotating $\\hat{x}$ by $\\pi/2$ about $\\hat{z}$ and asserting the result is $\\hat{y}$.
 
-### $d^n\_{\\mu m}(\\theta)$
+### $d^n_{\mu m}(\theta)$
 3. **Edmonds formula (A2.3).** Implement and verify against the Jacobi form (A2.5). Spot-check at $\\theta = \\pi/2$ against the §6 tables for $n \\le 5$.
 4. **Realness.** $d^n\_{\\mu m}(\\theta) \\in \\mathbb{R}$ for real $\\theta$. Imaginary part must be zero to machine precision.
 5. **Parity.** $d^n\_{\\mu m}(-\\theta) = d^n\_{m\\mu}(\\theta)$ — Eq. (A2.7). Spot-check with random $(\\mu, m, n, \\theta)$.
@@ -387,7 +387,7 @@ Tables show the $(m \\ge 0,\\,m' \\ge 0)$ block. Use the symmetries in §4 to ex
 10. **Chapter-2 dipole regression.** $d^1\_{-1,0}(-\\pi/2) = \\sqrt{2}/2$, $d^1\_{0,0}(-\\pi/2) = 0$, $d^1\_{1,0}(-\\pi/2) = -\\sqrt{2}/2$ (Eqs. 2.120–2.122).
 11. **Orthogonality integral.** Eq. (A2.10): $\\int\_0^\\pi d^n\_{\\mu m} d^{n'}\_{\\mu m} \\sin\\theta\\,d\\theta = 2/(2n+1)\\cdot\\delta\_{nn'}$ for fixed $\\mu, m$. Use Gauss–Legendre quadrature with order $\\ge n + n' + 1$.
 
-### Deltas $\\Delta^n\_{m'm}$
+### Deltas $\Delta^n_{m'm}$
 12. **Tables.** For $n = 0\\dots 5$, build all $\\Delta^n\_{m'm}$ and compare to §6 tables exactly (rationals + surds).
 13. **Symmetries.** Eqs. (A2.26)–(A2.32). All seven must hold for arbitrary $(n, m', m)$.
 14. **Parity in $\\Delta^n\_{m'0}$, $\\Delta^n\_{0m}$.** Eqs. (A2.38)/(A2.39): zero when $(n + m')$ (or $(n+m)$) is odd. Inspect the n=3 and n=5 columns/rows in the tables.

@@ -50,7 +50,7 @@ These methods assume the probe is an ideal dipole — signal is **proportional**
 | (4.2) | $\\vec{E}(A, \\theta, \\phi) = \\frac{k}{\\sqrt\\eta}\\sum\_{s=1}^2\\sum\_{n=1}^N\\sum\_{m=-n}^n v\\,T\_{smn}\\,\\vec{F}^{(3)}\_{smn}(A, \\theta, \\phi),\\quad A > r\_0$ |
 | (4.3) | $\\vec{H}(A, \\theta, \\phi) = -ik\\sqrt\\eta\\sum v\\,T\_{smn}\\,\\vec{F}^{(3)}\_{3-s,m,n}(A, \\theta, \\phi)$ |
 
-### 2.2 What you can recover from full-sphere $\\vec{E}$ or $\\vec{H}$ measurements (§4.2.2, Table 4.1)
+### 2.2 What you can recover from full-sphere $\vec{E}$ or $\vec{H}$ measurements (§4.2.2, Table 4.1)
 
 Using orthogonality (A1.70) applied to the appropriate region/wave-type:
 
@@ -170,7 +170,7 @@ Inversion via (A2.10):
 | :---: | :-- |
 | (4.51) | $\\boxed{\\;w^n\_{\\mu m}(A) = \\frac{2n+1}{2}\\int\_0^\\pi w\_{\\mu m}(A, \\theta)\\,d^n\_{\\mu m}(\\theta)\\,\\sin\\theta\\,d\\theta\\;}$ |
 
-### 3.4 Final solve for $T\_{smn}$
+### 3.4 Final solve for $T_{smn}$
 
 For each $(m, n)$, write (4.50) explicitly:
 
@@ -239,7 +239,7 @@ Compute coefficients via IDFT with $J\_\\theta \\ge 2N + 1$ samples:
 | :---: | :-- |
 | (4.77) | $\\boxed{\\;\\{b\_l^{\\mu m} \\mid l = 0, 1, \\dots, N, -N, \\dots, -1\\} = \\text{IDFT}\\{\\tilde w\_{\\mu m}(A, j\\Delta\\theta) \\mid j = 0, 1, \\dots, J\_\\theta - 1\\}\\;}$ |
 
-### 4.4 Closed-form theta integral via $\\Pi(l - m')$ (§4.3.3.5)
+### 4.4 Closed-form theta integral via $\Pi(l - m')$ (§4.3.3.5)
 
 Substituting (4.73) and the Fourier expansion (4.70) of $d^n\_{\\mu m}$:
 
@@ -460,7 +460,7 @@ With a general directive output probe of gain $G\_p$:
 | (3) $W \\to w'$ | Far-field samples | Near-field at $A'$ | FF-to-NF |
 | (4) $W \\to W'$ | Far-field samples | Far-field pattern | Coordinate/polarization filtering |
 
-### 6.2 First part — recovery of $T\_{smn}$ (Steps 1–7)
+### 6.2 First part — recovery of $T_{smn}$ (Steps 1–7)
 
 Pipeline:
 

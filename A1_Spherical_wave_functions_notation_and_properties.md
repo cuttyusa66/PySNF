@@ -49,7 +49,7 @@ Outgoing-wave radiated power:
 
 ## 3. Single-Index Convention (§A1.1.2)
 
-### Forward: $(s,m,n) \\to j$
+### Forward: $(s,m,n) \to j$
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -63,7 +63,7 @@ Two equivalent triple summation orders:
 | :---: | :-- |
 | (A1.4) | $\\sum\_{smn} = \\sum\_{s=1}^{2}\\sum\_{m=-N}^{N}\\sum\_{\\substack{n=\|m\|\\\\ n \\ne 0}}^{N} = \\sum\_{s=1}^{2}\\sum\_{n=1}^{N}\\sum\_{m=-n}^{n}$ |
 
-### Inverse: $j \\to (s,m,n)$ — three-step algorithm
+### Inverse: $j \to (s,m,n)$ — three-step algorithm
 
 1. $s = \\begin{cases} 1, & j \\text{ odd} \\\\ 2, & j \\text{ even}\\end{cases}$
 2. $n = \\left\\lfloor \\sqrt{(j-s)/2 + 1\\,} \\right\\rfloor$
@@ -99,7 +99,7 @@ The $\\sqrt{4\\pi}$ factor simplifies the gain/directivity formulas.
 
 ---
 
-## 5. Radial Functions $R^{(c)}\_{sn}(kr)$ (§A1.2.1)
+## 5. Radial Functions $R^{(c)}_{sn}(kr)$ (§A1.2.1)
 
 ### Definition
 
@@ -148,7 +148,7 @@ The $A^{(c,\\gamma)}$ table:
 | :---: | :-- |
 | (A1.13) | $R^{(1)}\_{1n}(kr)\\,R^{(1)}\_{2n}(kr) + R^{(2)}\_{1n}(kr)\\,R^{(2)}\_{2n}(kr) = \\Bigl\\{\\frac{1}{kr} + \\frac{1}{2}\\frac{d}{d(kr)}\\Bigr\\}\|h\_n^{(1)}(kr)\|^2$ |
 
-### Asymptotic ($kr \\to \\infty$, $kr \\gg n$)
+### Asymptotic ($kr \to \infty$, $kr \gg n$)
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -175,7 +175,7 @@ The $A^{(c,\\gamma)}$ table:
 \lim_{x\to 0}\frac{1}{x}\frac{d}{dx}\{x\,j_n(x)\} = \begin{cases} 2/3, & n = 1 \\ 0, & n > 1\end{cases}
 ```
 
-### Low-order $j\_n(x)$ ($s = 1$) — Eq. (A1.21)
+### Low-order $j_n(x)$ ($s = 1$) — Eq. (A1.21)
 
 | $n$ | $j\_n(x)$ |
 |---|---|
@@ -186,7 +186,7 @@ The $A^{(c,\\gamma)}$ table:
 | 4 | $x^{-1}\\{(10x^{-1} - 105x^{-3})\\cos x + (1 - 45x^{-2} + 105x^{-4})\\sin x\\}$ |
 | 5 | $x^{-1}\\{(-1 + 105x^{-2} - 945x^{-4})\\cos x + (15x^{-1} - 420x^{-3} + 945x^{-5})\\sin x\\}$ |
 
-### Low-order $h\_n^{(1)}(x)$ ($s = 1$) — Eq. (A1.22)
+### Low-order $h_n^{(1)}(x)$ ($s = 1$) — Eq. (A1.22)
 
 | $n$ | $h\_n^{(1)}(x)$ |
 |---|---|
@@ -197,7 +197,7 @@ The $A^{(c,\\gamma)}$ table:
 | 4 | $x^{-1}e^{ix}\\{(10x^{-1} - 105x^{-3}) + i(-1 + 45x^{-2} - 105x^{-4})\\}$ |
 | 5 | $x^{-1}e^{ix}\\{(-1 + 105x^{-2} - 945x^{-4}) + i(-15x^{-1} + 420x^{-3} - 945x^{-5})\\}$ |
 
-### Low-order $R^{(1)}\_{2n}(x) = \\dfrac{1}{x}\\dfrac{d}{dx}\\{x\\,j\_n(x)\\}$ — Eq. (A1.23)
+### Low-order $R^{(1)}_{2n}(x) = \dfrac{1}{x}\dfrac{d}{dx}\{x\,j_n(x)\}$ — Eq. (A1.23)
 
 | $n$ | $R^{(1)}\_{2n}(x)$ |
 |---|---|
@@ -208,7 +208,7 @@ The $A^{(c,\\gamma)}$ table:
 | 4 | $x^{-1}\\{(1 - 55x^{-2} + 420x^{-4})\\cos x + (-10x^{-1} + 195x^{-3} - 420x^{-5})\\sin x\\}$ |
 | 5 | $x^{-1}\\{(15x^{-1} - 630x^{-3} + 4725x^{-5})\\cos x + (1 - 120x^{-2} + 2205x^{-4} - 4725x^{-6})\\sin x\\}$ |
 
-### Low-order $R^{(3)}\_{2n}(x) = \\dfrac{1}{x}\\dfrac{d}{dx}\\{x\\,h\_n^{(1)}(x)\\}$ — Eq. (A1.24)
+### Low-order $R^{(3)}_{2n}(x) = \dfrac{1}{x}\dfrac{d}{dx}\{x\,h_n^{(1)}(x)\}$ — Eq. (A1.24)
 
 | $n$ | $R^{(3)}\_{2n}(x)$ |
 |---|---|
@@ -274,7 +274,7 @@ Hansen uses only $|m| \\ge 0$ in $\\bar{P}\_n^{|m|}$.
 
 > **OCR note.** Eq. (A1.34a) as printed includes a curious $+m\\sin\\theta\\,P\_n^m$ tail; check carefully against `scipy.special.lpmv` before relying on it for code.
 
-### Fourier expansion in $\\theta$
+### Fourier expansion in $\theta$
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -356,7 +356,7 @@ P_n^{|m|}(\cos\theta)\bigm|_{\theta=\pi} = \begin{cases} (-1)^n, & |m| = 0 \\ 0,
 \frac{dP_n^{|m|}(\cos\theta)}{d\theta}\biggm|_{\theta=\pi} = \begin{cases} 0, & |m| \ne 1 \\ (-1)^n\,\dfrac{n(n+1)}{2}, & |m| = 1\end{cases}
 ```
 
-### Low-order $\\bar{P}\_n^{|m|}(\\cos\\theta)$ table
+### Low-order $\bar{P}_n^{|m|}(\cos\theta)$ table
 
 |  | $n=1$ | $n=2$ | $n=3$ | $n=4$ | $n=5$ |
 |---|---|---|---|---|---|
@@ -367,7 +367,7 @@ P_n^{|m|}(\cos\theta)\bigm|_{\theta=\pi} = \begin{cases} (-1)^n, & |m| = 0 \\ 0,
 | $|m|=4$ |  |  |  | $\\tfrac{3\\sqrt{35}}{128}(\\cos 4\\theta - 4\\cos 2\\theta + 3)$ | $\\tfrac{3\\sqrt{385}}{256}(\\cos 5\\theta - 3\\cos 3\\theta + 2\\cos\\theta)$ |
 | $|m|=5$ |  |  |  |  | $\\tfrac{3\\sqrt{154}}{512}(\\sin 5\\theta - 5\\sin 3\\theta + 10\\sin\\theta)$ |
 
-### Low-order $\\dfrac{m}{\\sin\\theta}\\bar{P}\_n^{|m|}(\\cos\\theta)$ — used in the $\\hat{\\theta}$ component of $\\vec{F}^{(c)}\_{1mn}$
+### Low-order $\dfrac{m}{\sin\theta}\bar{P}_n^{|m|}(\cos\theta)$ — used in the $\hat{\theta}$ component of $\vec{F}^{(c)}_{1mn}$
 
 |  | $n=1$ | $n=2$ | $n=3$ | $n=4$ | $n=5$ |
 |---|---|---|---|---|---|
@@ -378,7 +378,7 @@ P_n^{|m|}(\cos\theta)\bigm|_{\theta=\pi} = \begin{cases} (-1)^n, & |m| = 0 \\ 0,
 | $m=4$ |  |  |  | $-\\tfrac{3\\sqrt{35}}{16}(\\sin 3\\theta - 3\\sin\\theta)$ | $-\\tfrac{3\\sqrt{385}}{32}(\\sin 4\\theta - 2\\sin 2\\theta)$ |
 | $m=5$ |  |  |  |  | $\\tfrac{15\\sqrt{154}}{256}(\\cos 4\\theta - 4\\cos 2\\theta + 3)$ |
 
-### Low-order $\\dfrac{d}{d\\theta}\\bar{P}\_n^{|m|}(\\cos\\theta)$
+### Low-order $\dfrac{d}{d\theta}\bar{P}_n^{|m|}(\cos\theta)$
 
 |  | $n=1$ | $n=2$ | $n=3$ | $n=4$ | $n=5$ |
 |---|---|---|---|---|---|
@@ -391,7 +391,7 @@ P_n^{|m|}(\cos\theta)\bigm|_{\theta=\pi} = \begin{cases} (-1)^n, & |m| = 0 \\ 0,
 
 ---
 
-## 7. Spherical Wave Functions $\\vec{F}^{(c)}\_{smn}$ (§A1.3.1)
+## 7. Spherical Wave Functions $\vec{F}^{(c)}_{smn}$ (§A1.3.1)
 
 ### General expressions
 
@@ -402,7 +402,7 @@ P_n^{|m|}(\cos\theta)\bigm|_{\theta=\pi} = \begin{cases} (-1)^n, & |m| = 0 \\ 0,
 
 Convention: $(-m/|m|)^m = 1$ when $m = 0$.
 
-### Special values at $\\theta = 0$ (A1.47, A1.48)
+### Special values at $\theta = 0$ (A1.47, A1.48)
 
 For $\\vec{F}^{(c)}\_{1mn}$:
 
@@ -420,7 +420,7 @@ For $\\vec{F}^{(c)}\_{2mn}$:
 \vec{F}^{(c)}_{2mn}(r,0,\phi) = \begin{cases} 0, & m > 1 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\ \sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\ \tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}
 ```
 
-### Special values at $\\theta = \\pi$ (A1.49, A1.50)
+### Special values at $\theta = \pi$ (A1.49, A1.50)
 
 For $\\vec{F}^{(c)}\_{1mn}$ (same structure as A1.47 but with $(-1)^n$ prefactor and sign flip in second component):
 
@@ -490,7 +490,7 @@ For $\\vec{F}^{(c)}\_{2mn}$:
 
 ---
 
-## 8. Far-Field Pattern Functions $\\vec{K}\_{smn}$ (§A1.3.2)
+## 8. Far-Field Pattern Functions $\vec{K}_{smn}$ (§A1.3.2)
 
 ### General expressions
 
@@ -737,7 +737,7 @@ A plane wave $\\vec{E}\_o\\,e^{i\\vec{k}\_o\\cdot\\vec{r}}$ arriving from direct
 | :---: | :-- |
 | (A1.106) | $\\boxed{\\;Q\_{smn} = \\frac{\\sqrt{\\eta}}{k}\\,(-1)^m\\sqrt{4\\pi}\\,i\\,\\vec{E}\_o\\cdot\\vec{K}\_{s,-m,n}(\\theta\_o,\\phi\_o)\\;}$ |
 
-### Validation example: $\\hat{x}$-polarized plane wave traveling along $+\\hat{z}$
+### Validation example: $\hat{x}$-polarized plane wave traveling along $+\hat{z}$
 
 |  Eq.  |   |
 | :---: | :-- |
@@ -771,7 +771,7 @@ Use this as a **golden test** in code: build an $\\hat{x}$-polarized plane wave 
 | $\\hat{\\theta}$ | $\\cos\\theta\\cos\\phi$ | $\\cos\\theta\\sin\\phi$ | $-\\sin\\theta$ |
 | $\\hat{\\phi}$ | $-\\sin\\phi$ | $\\cos\\phi$ | 0 |
 
-### Behaviour of vector distributions at $\\theta = 0$ and $\\theta = \\pi$
+### Behaviour of vector distributions at $\theta = 0$ and $\theta = \pi$
 
 | Distribution on sphere | $\\theta = 0$ | $\\theta = \\pi$ |
 |---|---|---|
