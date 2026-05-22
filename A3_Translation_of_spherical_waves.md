@@ -98,15 +98,19 @@ The form needed in (A3.3) is the special case $m \\to \\mu, \\mu \\to -\\mu$:
 
 ### Wigner-3j form
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A3.6) | $a(\\mu, n, -\\mu, \\nu, p) = (2p + 1)\\sqrt{\\frac{(n+\\mu)!\\,(\\nu-\\mu)!}{(n-\\mu)!\\,(\\nu+\\mu)!}}\\,\\begin{pmatrix}n & \\nu & p\\\\ 0 & 0 & 0\\end{pmatrix}\\begin{pmatrix}n & \\nu & p\\\\ \\mu & -\\mu & 0\\end{pmatrix}$ |
+**(A3.6)**
+
+```math
+a(\mu, n, -\mu, \nu, p) = (2p + 1)\sqrt{\frac{(n+\mu)!\,(\nu-\mu)!}{(n-\mu)!\,(\nu+\mu)!}}\,\begin{pmatrix}n & \nu & p\\ 0 & 0 & 0\end{pmatrix}\begin{pmatrix}n & \nu & p\\ \mu & -\mu & 0\end{pmatrix}
+```
 
 ### Parity selection rule
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A3.7) | $\\begin{pmatrix}n & \\nu & p\\\\ 0 & 0 & 0\\end{pmatrix} = 0 \\quad\\text{for } (n+\\nu+p)\\text{ odd}$ |
+**(A3.7)**
+
+```math
+\begin{pmatrix}n & \nu & p\\ 0 & 0 & 0\end{pmatrix} = 0 \quad\text{for } (n+\nu+p)\text{ odd}
+```
 
 So $p$ steps in 2's, halving the work.
 

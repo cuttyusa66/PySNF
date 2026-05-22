@@ -219,9 +219,11 @@ $J\_\\phi$ equispaced samples in $0 \\le \\phi < 2\\pi$, $\\Delta\\phi = 2\\pi/J
 
 Theta integrand is **not periodic** on $[0, \\pi]$. Trick: extend $w\_{\\mu m}(A, \\theta)$ to $[0, 2\\pi]$ with matching parity:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (4.72) | $\\tilde w\_{\\mu m}(A, \\theta) = \\begin{cases} w\_{\\mu m}(A, \\theta), & 0 \\le \\theta \\le \\pi \\\\ w\_{\\mu m}(A, 2\\pi - \\theta), & \\pi < \\theta < 2\\pi,\\ (\\mu - m)\\text{ even} \\\\ -w\_{\\mu m}(A, 2\\pi - \\theta), & \\pi < \\theta < 2\\pi,\\ (\\mu - m)\\text{ odd}\\end{cases}$ |
+**(4.72)**
+
+```math
+\tilde w_{\mu m}(A, \theta) = \begin{cases} w_{\mu m}(A, \theta), & 0 \le \theta \le \pi \\ w_{\mu m}(A, 2\pi - \theta), & \pi < \theta < 2\pi,\ (\mu - m)\text{ even} \\ -w_{\mu m}(A, 2\pi - \theta), & \pi < \theta < 2\pi,\ (\mu - m)\text{ odd}\end{cases}
+```
 
 > **Parity rule.** Each $w\_{\\mu m}$ sequence has parity $(\\mu - m)$ under $\\theta \\to 2\\pi - \\theta$. This follows from the parity of $d^n\_{\\mu m}$ about $\\pi$ (Appendix A2 — same parity as $\\mu + m$, which matches $\\mu - m$ mod 2).
 
@@ -253,9 +255,11 @@ into (4.51), the theta integral becomes algebraic:
 
 where:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (4.76) | $G(l - m') = \\int\_0^\\pi e^{i(l-m')\\theta}\\sin\\theta\\,d\\theta = \\begin{cases} \\pm i\\pi/2, & l - m' = \\pm 1 \\\\ 0, & \|l - m'\| = 3, 5, 7, \\dots \\\\ 2/[1 - (l-m')^2], & \|l - m'\| = 0, 2, 4, \\dots\\end{cases}$ |
+**(4.76)**
+
+```math
+G(l - m') = \int_0^\pi e^{i(l-m')\theta}\sin\theta\,d\theta = \begin{cases} \pm i\pi/2, & l - m' = \pm 1 \\ 0, & |l - m'| = 3, 5, 7, \dots \\ 2/[1 - (l-m')^2], & |l - m'| = 0, 2, 4, \dots\end{cases}
+```
 
 ### 4.5 Parity reduction and final form (§4.3.3.5)
 
@@ -267,9 +271,11 @@ Using $b\_l^{\\mu m} = (-1)^{\\mu + m}\\,b\_{-l}^{\\mu m}$ (Eq. 4.79) and $\\Del
 
 with:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (4.84) | $\\Pi(l - m') = \\begin{cases} 0, & (l - m')\\text{ odd} \\\\ 2 / [1 - (l-m')^2], & (l - m')\\text{ even}\\end{cases}$ |
+**(4.84)**
+
+```math
+\Pi(l - m') = \begin{cases} 0, & (l - m')\text{ odd} \\ 2 / [1 - (l-m')^2], & (l - m')\text{ even}\end{cases}
+```
 
 > $\\Pi(l - m') = \\Pi(m' - l)$ — even function of its argument.
 
@@ -286,7 +292,12 @@ This is a **convolution**. To use FFT, extend both sequences to period $4N$:
 |  Eq.  |   |
 | :---: | :-- |
 | (4.86) | $\\tilde\\Pi(j) = \\Pi(j),\\quad -2N < j \\le 2N,\\quad \\tilde\\Pi(j) = \\tilde\\Pi(j + c\\cdot 4N)$ |
-| (4.87) | $\\tilde b\_l^{\\mu m} = \\begin{cases} b\_l^{\\mu m}, & -N \\le l \\le N \\\\ 0, & -2N < l < -N\\text{ and }N < l \\le 2N\\end{cases},\\quad \\tilde b\_l^{\\mu m} = \\tilde b\_{l + c\\cdot 4N}^{\\mu m}$ |
+
+**(4.87)**
+
+```math
+\tilde b_l^{\mu m} = \begin{cases} b_l^{\mu m}, & -N \le l \le N \\ 0, & -2N < l < -N\text{ and }N < l \le 2N\end{cases},\quad \tilde b_l^{\mu m} = \tilde b_{l + c\cdot 4N}^{\mu m}
+```
 
 Then:
 

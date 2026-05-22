@@ -438,9 +438,9 @@ Using normalized far-field signal $W = \\lim\_{kA\\to\\infty}[w\\,kA/e^{ikA}]$ (
 
 Both antennas described by their full scattering matrices (Eqs. 3.72, 3.73):
 
-|  Eq.  |   |
-| :---: | :-- |
-|  | $\\begin{bmatrix}\\Gamma\_p & \\mathbf{R}^p\\\\\\mathbf{T}^p & \\mathbf{S}^p\\end{bmatrix}\\begin{bmatrix}v\_p\\\\\\mathbf{a}^p\\end{bmatrix} = \\begin{bmatrix}w\\\\\\mathbf{b}^p\\end{bmatrix},\\qquad \\begin{bmatrix}\\Gamma & \\mathbf{R}\\\\\\mathbf{T} & \\mathbf{S}\\end{bmatrix}\\begin{bmatrix}v\\\\\\mathbf{a}\\end{bmatrix} = \\begin{bmatrix}w\_t\\\\\\mathbf{b}\\end{bmatrix}$ |
+```math
+\begin{bmatrix}\Gamma_p & \mathbf{R}^p\\\mathbf{T}^p & \mathbf{S}^p\end{bmatrix}\begin{bmatrix}v_p\\\mathbf{a}^p\end{bmatrix} = \begin{bmatrix}w\\\mathbf{b}^p\end{bmatrix},\qquad \begin{bmatrix}\Gamma & \mathbf{R}\\\mathbf{T} & \mathbf{S}\end{bmatrix}\begin{bmatrix}v\\\mathbf{a}\end{bmatrix} = \begin{bmatrix}w_t\\\mathbf{b}\end{bmatrix}
+```
 
 Truncation: $J = 2N(N+2)$ for test antenna, $J\_p = 2N\_p(N\_p+2)$ for probe.
 
@@ -471,9 +471,11 @@ Couplings:
 
 After eliminating $\\mathbf{a}^p, \\mathbf{b}^p, \\mathbf{a}, \\mathbf{b}$:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (3.85) | $\\begin{bmatrix}M\_{11} & M\_{12}\\\\M\_{21} & M\_{22}\\end{bmatrix}\\begin{bmatrix}v\\\\v\_p\\end{bmatrix} = \\begin{bmatrix}w\_t\\\\w\\end{bmatrix}$ |
+**(3.85)**
+
+```math
+\begin{bmatrix}M_{11} & M_{12}\\M_{21} & M_{22}\end{bmatrix}\begin{bmatrix}v\\v_p\end{bmatrix} = \begin{bmatrix}w_t\\w\end{bmatrix}
+```
 
 with
 

@@ -60,9 +60,11 @@ Let $g(m)$, $m = 0, 1, \\dots, J-1$, be a complex sequence of length $J$ and def
 
 ### Orthogonality (used to derive A4.4)
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A4.3) | $\\sum\_{l=0}^{J-1}\\varepsilon\_J^{l(s-m)} = \\begin{cases}J, & s \\equiv m \\pmod J \\\\ 0, & s \\not\\equiv m \\pmod J\\end{cases}$ |
+**(A4.3)**
+
+```math
+\sum_{l=0}^{J-1}\varepsilon_J^{l(s-m)} = \begin{cases}J, & s \equiv m \pmod J \\ 0, & s \not\equiv m \pmod J\end{cases}
+```
 
 ### Periodic extension
 
@@ -79,10 +81,13 @@ A sequence is **odd** if $g(0) = 0$ and $g(m) = -g(J-m)$ for $m = 1,\\dots,J-1$ 
 
 Decomposition $g = g^e + g^o$ (A4.9, A4.10):
 
-|  Eq.  |   |
-| :---: | :-- |
-|  | $g^e(m) = \\begin{cases} g(0), & m = 0 \\\\ \\tfrac{1}{2}(g(m) + g(J-m)), & m \\ge 1\\end{cases}$ |
-|  | $g^o(m) = \\begin{cases} 0, & m = 0 \\\\ \\tfrac{1}{2}(g(m) - g(J-m)), & m \\ge 1\\end{cases}$ |
+```math
+g^e(m) = \begin{cases} g(0), & m = 0 \\ \tfrac{1}{2}(g(m) + g(J-m)), & m \ge 1\end{cases}
+```
+
+```math
+g^o(m) = \begin{cases} 0, & m = 0 \\ \tfrac{1}{2}(g(m) - g(J-m)), & m \ge 1\end{cases}
+```
 
 ---
 
@@ -138,9 +143,11 @@ Solving for $\\bar{c}\_n$:
 
 If $c\_k$ decays for $|k| > N$ but isn't strictly zero:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A4.23) | $c\_k \\approx \\begin{cases} \\bar{c}\_k, & 0 \\le k \\le N \\\\ \\bar{c}\_{k+J}, & -N \\le k < 0 \\\\ 0, & \|k\| > N\\end{cases} \\quad (J \\ge 2N + 1)$ |
+**(A4.23)**
+
+```math
+c_k \approx \begin{cases} \bar{c}_k, & 0 \le k \le N \\ \bar{c}_{k+J}, & -N \le k < 0 \\ 0, & |k| > N\end{cases} \quad (J \ge 2N + 1)
+```
 
 Approximate reconstruction:
 
@@ -178,9 +185,9 @@ If $J \\le 2N$, aliasing fills the middle bins. From (A4.31):
 
 **Case $N < J \\le 2N$:**
 
-|  Eq.  |   |
-| :---: | :-- |
-|  | $c\_k = \\begin{cases} \\bar{c}\_k, & k = 0, 1, \\dots, J - N - 1 \\\\ \\bar{c}\_{k+J}, & k = -(J - N - 1), \\dots, -2, -1 \\\\ \\text{undetermined}, & \|k\| = J - N, J - N + 1, \\dots, N\\end{cases}$ |
+```math
+c_k = \begin{cases} \bar{c}_k, & k = 0, 1, \dots, J - N - 1 \\ \bar{c}_{k+J}, & k = -(J - N - 1), \dots, -2, -1 \\ \text{undetermined}, & |k| = J - N, J - N + 1, \dots, N\end{cases}
+```
 
 **Case $J \\le N$:** all $c\_k$ are undetermined.
 
@@ -188,9 +195,9 @@ If $J \\le 2N$, aliasing fills the middle bins. From (A4.31):
 
 If you know a priori that $c\_N = c\_{-N}$ (e.g. from a symmetry), $J = 2N$ samples suffice:
 
-|  Eq.  |   |
-| :---: | :-- |
-|  | $c\_k = \\begin{cases} \\bar{c}\_k, & k = 0, 1, \\dots, N - 1 \\\\ \\tfrac{1}{2}\\bar{c}\_k, & k = N \\\\ \\tfrac{1}{2}\\bar{c}\_{k+J}, & k = -N \\\\ \\bar{c}\_{k+J}, & k = -(N-1), \\dots, -2, -1 \\end{cases}$ |
+```math
+c_k = \begin{cases} \bar{c}_k, & k = 0, 1, \dots, N - 1 \\ \tfrac{1}{2}\bar{c}_k, & k = N \\ \tfrac{1}{2}\bar{c}_{k+J}, & k = -N \\ \bar{c}_{k+J}, & k = -(N-1), \dots, -2, -1 \end{cases}
+```
 
 ---
 

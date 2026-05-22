@@ -243,10 +243,17 @@ These reduce storage to the $(m \\ge 0,\\,m' \\ge 0,\\,m' \\ge m)$ triangle.
 
 **Column at $m = 0$ or $m' = 0$:**
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A2.38) | $\\Delta^{n}\_{m'0} = \\begin{cases} 0, & (n+m')\\text{ odd} \\\\ (-1)^{(n-m')/2}\\,\\dfrac{1}{2^n}\\,\\sqrt{\\dbinom{n+m'}{(n+m')/2}\\dbinom{n-m'}{(n-m')/2}}, & (n+m')\\text{ even}\\end{cases}$ |
-| (A2.39) | $\\Delta^{n}\_{0m} = \\begin{cases} 0, & (n+m)\\text{ odd} \\\\ (-1)^{(n+m)/2}\\,\\dfrac{1}{2^n}\\,\\sqrt{\\dbinom{n+m}{(n+m)/2}\\dbinom{n-m}{(n-m)/2}}, & (n+m)\\text{ even}\\end{cases}$ |
+**(A2.38)**
+
+```math
+\Delta^{n}_{m'0} = \begin{cases} 0, & (n+m')\text{ odd} \\ (-1)^{(n-m')/2}\,\dfrac{1}{2^n}\,\sqrt{\dbinom{n+m'}{(n+m')/2}\dbinom{n-m'}{(n-m')/2}}, & (n+m')\text{ even}\end{cases}
+```
+
+**(A2.39)**
+
+```math
+\Delta^{n}_{0m} = \begin{cases} 0, & (n+m)\text{ odd} \\ (-1)^{(n+m)/2}\,\dfrac{1}{2^n}\,\sqrt{\dbinom{n+m}{(n+m)/2}\dbinom{n-m}{(n-m)/2}}, & (n+m)\text{ even}\end{cases}
+```
 
 **Diagonal at $m = n$ or $m' = n$ (corner of the layer):**
 

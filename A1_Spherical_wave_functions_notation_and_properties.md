@@ -103,9 +103,11 @@ The $\\sqrt{4\\pi}$ factor simplifies the gain/directivity formulas.
 
 ### Definition
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.6) | $R^{(c)}\_{sn}(kr) = \\begin{cases} z\_n^{(c)}(kr), & s = 1 \\\\[6pt] \\dfrac{1}{kr}\\dfrac{d}{d(kr)}\\{kr\\,z\_n^{(c)}(kr)\\}, & s = 2 \\end{cases}$ |
+**(A1.6)**
+
+```math
+R^{(c)}_{sn}(kr) = \begin{cases} z_n^{(c)}(kr), & s = 1 \\[6pt] \dfrac{1}{kr}\dfrac{d}{d(kr)}\{kr\,z_n^{(c)}(kr)\}, & s = 2 \end{cases}
+```
 
 with
 
@@ -160,8 +162,18 @@ The $A^{(c,\\gamma)}$ table:
 |  Eq.  |   |
 | :---: | :-- |
 | (A1.18) | $j\_n(0) = 0,\\quad n \\ge 1$ |
-| (A1.19) | $\\lim\_{x\\to 0}\\frac{j\_n(x)}{x} = \\begin{cases} 1/3, & n = 1 \\\\ 0, & n > 1\\end{cases}$ |
-| (A1.20) | $\\lim\_{x\\to 0}\\frac{1}{x}\\frac{d}{dx}\\{x\\,j\_n(x)\\} = \\begin{cases} 2/3, & n = 1 \\\\ 0, & n > 1\\end{cases}$ |
+
+**(A1.19)**
+
+```math
+\lim_{x\to 0}\frac{j_n(x)}{x} = \begin{cases} 1/3, & n = 1 \\ 0, & n > 1\end{cases}
+```
+
+**(A1.20)**
+
+```math
+\lim_{x\to 0}\frac{1}{x}\frac{d}{dx}\{x\,j_n(x)\} = \begin{cases} 2/3, & n = 1 \\ 0, & n > 1\end{cases}
+```
 
 ### Low-order $j\_n(x)$ ($s = 1$) — Eq. (A1.21)
 
@@ -247,8 +259,18 @@ Hansen uses only $|m| \\ge 0$ in $\\bar{P}\_n^{|m|}$.
 | (A1.31) | $(n-m+1)P\_{n+1}^m - (2n+1)\\cos\\theta\\,P\_n^m + (n+m)P\_{n-1}^m = 0$ |
 | (A1.32) | $\\sin\\theta\\,P\_n^{m+1} - 2m\\cos\\theta\\,P\_n^m + (n+m)(n-m+1)\\sin\\theta\\,P\_n^{m-1} = 0$ |
 | (A1.33) | $P\_n^n(\\cos\\theta) - (2n-1)\\sin\\theta\\,P\_{n-1}^{n-1}(\\cos\\theta) = 0$ |
-| (A1.34a) | $\\frac{m\\,P\_n^m(\\cos\\theta)}{\\sin\\theta} = \\begin{cases} 0, & m = 0 \\\\ \\tfrac{1}{2}\\cos\\theta\\{(n-m+1)(n+m)P\_n^{m-1} + P\_n^{m+1}\\} + m\\sin\\theta\\,P\_n^m, & m > 0\\end{cases}$ |
-| (A1.34b) | $\\frac{dP\_n^m(\\cos\\theta)}{d\\theta} = \\begin{cases} -P\_n^1(\\cos\\theta), & m = 0 \\\\ \\tfrac{1}{2}\\{(n-m+1)(n+m)P\_n^{m-1} - P\_n^{m+1}\\}, & m > 0\\end{cases}$ |
+
+**(A1.34a)**
+
+```math
+\frac{m\,P_n^m(\cos\theta)}{\sin\theta} = \begin{cases} 0, & m = 0 \\ \tfrac{1}{2}\cos\theta\{(n-m+1)(n+m)P_n^{m-1} + P_n^{m+1}\} + m\sin\theta\,P_n^m, & m > 0\end{cases}
+```
+
+**(A1.34b)**
+
+```math
+\frac{dP_n^m(\cos\theta)}{d\theta} = \begin{cases} -P_n^1(\cos\theta), & m = 0 \\ \tfrac{1}{2}\{(n-m+1)(n+m)P_n^{m-1} - P_n^{m+1}\}, & m > 0\end{cases}
+```
 
 > **OCR note.** Eq. (A1.34a) as printed includes a curious $+m\\sin\\theta\\,P\_n^m$ tail; check carefully against `scipy.special.lpmv` before relying on it for code.
 
@@ -280,17 +302,59 @@ For $m = 0$ the recurrence simplifies to:
 
 Define $n!! = n(n-2)(n-4)\\cdots$ (terminating at 1 or 2).
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.36) | $P\_n^{\|m\|}(\\cos\\theta)\\bigm\|\_{\\theta=0} = \\begin{cases} 1, & \|m\| = 0 \\\\ 0, & \|m\| > 0\\end{cases}$ |
-| (A1.37) | $P\_n^{\|m\|}(\\cos\\theta)\\bigm\|\_{\\theta=\\pi/2} = \\begin{cases} (-1)^{(n-\|m\|)/2}\\,\\dfrac{(n+\|m\|-1)!!}{(n-\|m\|)!!}, & (n+\|m\|)\\text{ even} \\\\ 0, & (n+\|m\|)\\text{ odd}\\end{cases}$ |
-| (A1.38) | $P\_n^{\|m\|}(\\cos\\theta)\\bigm\|\_{\\theta=\\pi} = \\begin{cases} (-1)^n, & \|m\| = 0 \\\\ 0, & \|m\| > 0\\end{cases}$ |
-| (A1.39) | $\\frac{m\\,P\_n^{\|m\|}(\\cos\\theta)}{\\sin\\theta}\\biggm\|\_{\\theta=0} = \\begin{cases} 0, & m \\ne \\pm 1 \\\\ \\pm\\,\\dfrac{n(n+1)}{2}, & m = \\pm 1\\end{cases}$ |
-| (A1.40) | $\\frac{m\\,P\_n^{\|m\|}(\\cos\\theta)}{\\sin\\theta}\\biggm\|\_{\\theta=\\pi/2} = \\begin{cases} m\\,(-1)^{(n-\|m\|)/2}\\,\\dfrac{(n+\|m\|-1)!!}{(n-\|m\|)!!}, & (n+\|m\|)\\text{ even} \\\\ 0, & (n+\|m\|)\\text{ odd}\\end{cases}$ |
-| (A1.41) | $\\frac{m\\,P\_n^{\|m\|}(\\cos\\theta)}{\\sin\\theta}\\biggm\|\_{\\theta=\\pi} = \\begin{cases} 0, & m \\ne \\pm 1 \\\\ \\pm(-1)^{n+1}\\,\\dfrac{n(n+1)}{2}, & m = \\pm 1\\end{cases}$ |
-| (A1.42) | $\\frac{dP\_n^{\|m\|}(\\cos\\theta)}{d\\theta}\\biggm\|\_{\\theta=0} = \\begin{cases} 0, & \|m\| \\ne 1 \\\\ \\dfrac{n(n+1)}{2}, & \|m\| = 1\\end{cases}$ |
-| (A1.43) | $\\frac{dP\_n^{\|m\|}(\\cos\\theta)}{d\\theta}\\biggm\|\_{\\theta=\\pi/2} = \\begin{cases} 0, & (n+\|m\|)\\text{ even} \\\\ (-1)^{(n-\|m\|+1)/2}\\,\\dfrac{(n+\|m\|)!!}{(n-\|m\|-1)!!}, & (n+\|m\|)\\text{ odd}\\end{cases}$ |
-| (A1.44) | $\\frac{dP\_n^{\|m\|}(\\cos\\theta)}{d\\theta}\\biggm\|\_{\\theta=\\pi} = \\begin{cases} 0, & \|m\| \\ne 1 \\\\ (-1)^n\\,\\dfrac{n(n+1)}{2}, & \|m\| = 1\\end{cases}$ |
+**(A1.36)**
+
+```math
+P_n^{|m|}(\cos\theta)\bigm|_{\theta=0} = \begin{cases} 1, & |m| = 0 \\ 0, & |m| > 0\end{cases}
+```
+
+**(A1.37)**
+
+```math
+P_n^{|m|}(\cos\theta)\bigm|_{\theta=\pi/2} = \begin{cases} (-1)^{(n-|m|)/2}\,\dfrac{(n+|m|-1)!!}{(n-|m|)!!}, & (n+|m|)\text{ even} \\ 0, & (n+|m|)\text{ odd}\end{cases}
+```
+
+**(A1.38)**
+
+```math
+P_n^{|m|}(\cos\theta)\bigm|_{\theta=\pi} = \begin{cases} (-1)^n, & |m| = 0 \\ 0, & |m| > 0\end{cases}
+```
+
+**(A1.39)**
+
+```math
+\frac{m\,P_n^{|m|}(\cos\theta)}{\sin\theta}\biggm|_{\theta=0} = \begin{cases} 0, & m \ne \pm 1 \\ \pm\,\dfrac{n(n+1)}{2}, & m = \pm 1\end{cases}
+```
+
+**(A1.40)**
+
+```math
+\frac{m\,P_n^{|m|}(\cos\theta)}{\sin\theta}\biggm|_{\theta=\pi/2} = \begin{cases} m\,(-1)^{(n-|m|)/2}\,\dfrac{(n+|m|-1)!!}{(n-|m|)!!}, & (n+|m|)\text{ even} \\ 0, & (n+|m|)\text{ odd}\end{cases}
+```
+
+**(A1.41)**
+
+```math
+\frac{m\,P_n^{|m|}(\cos\theta)}{\sin\theta}\biggm|_{\theta=\pi} = \begin{cases} 0, & m \ne \pm 1 \\ \pm(-1)^{n+1}\,\dfrac{n(n+1)}{2}, & m = \pm 1\end{cases}
+```
+
+**(A1.42)**
+
+```math
+\frac{dP_n^{|m|}(\cos\theta)}{d\theta}\biggm|_{\theta=0} = \begin{cases} 0, & |m| \ne 1 \\ \dfrac{n(n+1)}{2}, & |m| = 1\end{cases}
+```
+
+**(A1.43)**
+
+```math
+\frac{dP_n^{|m|}(\cos\theta)}{d\theta}\biggm|_{\theta=\pi/2} = \begin{cases} 0, & (n+|m|)\text{ even} \\ (-1)^{(n-|m|+1)/2}\,\dfrac{(n+|m|)!!}{(n-|m|-1)!!}, & (n+|m|)\text{ odd}\end{cases}
+```
+
+**(A1.44)**
+
+```math
+\frac{dP_n^{|m|}(\cos\theta)}{d\theta}\biggm|_{\theta=\pi} = \begin{cases} 0, & |m| \ne 1 \\ (-1)^n\,\dfrac{n(n+1)}{2}, & |m| = 1\end{cases}
+```
 
 ### Low-order $\\bar{P}\_n^{|m|}(\\cos\\theta)$ table
 
@@ -342,29 +406,37 @@ Convention: $(-m/|m|)^m = 1$ when $m = 0$.
 
 For $\\vec{F}^{(c)}\_{1mn}$:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.47) | $\\vec{F}^{(c)}\_{1mn}(r,0,\\phi) = \\begin{cases} 0, & m > 1 \\\\ -\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,z\_n^{(c)}(kr)\\,i\\,e^{i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & m = 1 \\\\ 0, & m = 0 \\\\ -\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,z\_n^{(c)}(kr)\\,i\\,e^{-i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & m = -1 \\\\ 0, & m < -1 \\end{cases}$ |
+**(A1.47)**
+
+```math
+\vec{F}^{(c)}_{1mn}(r,0,\phi) = \begin{cases} 0, & m > 1 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\ 0, & m = 0 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}
+```
 
 For $\\vec{F}^{(c)}\_{2mn}$:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.48) | $\\vec{F}^{(c)}\_{2mn}(r,0,\\phi) = \\begin{cases} 0, & m > 1 \\\\ -\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,\\tfrac{1}{kr}\\tfrac{d}{d(kr)}\\{kr\\,z\_n^{(c)}\\}\\,e^{i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & m = 1 \\\\ \\sqrt{\\tfrac{n(n+1)(2n+1)}{4\\pi}}\\,\\dfrac{z\_n^{(c)}(kr)}{kr}\\,\\hat{r}, & m = 0 \\\\ \\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,\\tfrac{1}{kr}\\tfrac{d}{d(kr)}\\{kr\\,z\_n^{(c)}\\}\\,e^{-i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & m = -1 \\\\ 0, & m < -1 \\end{cases}$ |
+**(A1.48)**
+
+```math
+\vec{F}^{(c)}_{2mn}(r,0,\phi) = \begin{cases} 0, & m > 1 \\ -\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & m = 1 \\ \sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\ \tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}
+```
 
 ### Special values at $\\theta = \\pi$ (A1.49, A1.50)
 
 For $\\vec{F}^{(c)}\_{1mn}$ (same structure as A1.47 but with $(-1)^n$ prefactor and sign flip in second component):
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.49) | $\\vec{F}^{(c)}\_{1mn}(r,\\pi,\\phi) = \\begin{cases} 0, & m > 1 \\\\ (-1)^n\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,z\_n^{(c)}(kr)\\,i\\,e^{i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & m = 1 \\\\ 0, & m = 0 \\\\ (-1)^n\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,z\_n^{(c)}(kr)\\,i\\,e^{-i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & m = -1 \\\\ 0, & m < -1 \\end{cases}$ |
+**(A1.49)**
+
+```math
+\vec{F}^{(c)}_{1mn}(r,\pi,\phi) = \begin{cases} 0, & m > 1 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & m = 1 \\ 0, & m = 0 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,z_n^{(c)}(kr)\,i\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}
+```
 
 For $\\vec{F}^{(c)}\_{2mn}$:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.50) | $\\vec{F}^{(c)}\_{2mn}(r,\\pi,\\phi) = \\begin{cases} 0, & m > 1 \\\\ -(-1)^n\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,\\tfrac{1}{kr}\\tfrac{d}{d(kr)}\\{kr\\,z\_n^{(c)}\\}\\,e^{i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & m = 1 \\\\ (-1)^n\\sqrt{\\tfrac{n(n+1)(2n+1)}{4\\pi}}\\,\\dfrac{z\_n^{(c)}(kr)}{kr}\\,\\hat{r}, & m = 0 \\\\ (-1)^n\\tfrac{1}{4}\\sqrt{\\tfrac{2n+1}{\\pi}}\\,\\tfrac{1}{kr}\\tfrac{d}{d(kr)}\\{kr\\,z\_n^{(c)}\\}\\,e^{-i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & m = -1 \\\\ 0, & m < -1 \\end{cases}$ |
+**(A1.50)**
+
+```math
+\vec{F}^{(c)}_{2mn}(r,\pi,\phi) = \begin{cases} 0, & m > 1 \\ -(-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & m = 1 \\ (-1)^n\sqrt{\tfrac{n(n+1)(2n+1)}{4\pi}}\,\dfrac{z_n^{(c)}(kr)}{kr}\,\hat{r}, & m = 0 \\ (-1)^n\tfrac{1}{4}\sqrt{\tfrac{2n+1}{\pi}}\,\tfrac{1}{kr}\tfrac{d}{d(kr)}\{kr\,z_n^{(c)}\}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & m = -1 \\ 0, & m < -1 \end{cases}
+```
 
 ### Value at the origin $r = 0$ — only $n = 1$, $s = 2$ survives
 
@@ -431,21 +503,27 @@ For $\\vec{F}^{(c)}\_{2mn}$:
 
 **At $\\theta = 0$:**
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.61, A1.62) | $\\vec{K}\_{smn}(0,\\phi) = \\begin{cases} 0, & \|m\| > 1 \\\\ -(-i)^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & s=1,\\,m=+1 \\\\ 0, & s=1,\\,m=0 \\\\ -(-i)^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{-i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & s=1,\\,m=-1 \\\\ -(-i)^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & s=2,\\,m=+1 \\\\ 0, & s=2,\\,m=0 \\\\ (-i)^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{-i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & s=2,\\,m=-1 \\end{cases}$ |
+**(A1.61, A1.62)**
+
+```math
+\vec{K}_{smn}(0,\phi) = \begin{cases} 0, & |m| > 1 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & s=1,\,m=+1 \\ 0, & s=1,\,m=0 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & s=1,\,m=-1 \\ -(-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} + i\hat{\phi}), & s=2,\,m=+1 \\ 0, & s=2,\,m=0 \\ (-i)^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} - i\hat{\phi}), & s=2,\,m=-1 \end{cases}
+```
 
 **At $\\theta = \\pi$:**
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.63, A1.64) | $\\vec{K}\_{smn}(\\pi,\\phi) = \\begin{cases} 0, & \|m\| > 1 \\\\ i^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & s=1,\\,m=+1 \\\\ 0, & s=1,\\,m=0 \\\\ i^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{-i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & s=1,\\,m=-1 \\\\ -i^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{i\\phi}(\\hat{\\theta} - i\\hat{\\phi}), & s=2,\\,m=+1 \\\\ 0, & s=2,\\,m=0 \\\\ i^n\\tfrac{1}{2}\\sqrt{2n+1}\\,e^{-i\\phi}(\\hat{\\theta} + i\\hat{\\phi}), & s=2,\\,m=-1 \\end{cases}$ |
+**(A1.63, A1.64)**
+
+```math
+\vec{K}_{smn}(\pi,\phi) = \begin{cases} 0, & |m| > 1 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & s=1,\,m=+1 \\ 0, & s=1,\,m=0 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & s=1,\,m=-1 \\ -i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{i\phi}(\hat{\theta} - i\hat{\phi}), & s=2,\,m=+1 \\ 0, & s=2,\,m=0 \\ i^n\tfrac{1}{2}\sqrt{2n+1}\,e^{-i\phi}(\hat{\theta} + i\hat{\phi}), & s=2,\,m=-1 \end{cases}
+```
 
 ### Squared magnitude on z-axis
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.65) | $\|\\vec{K}\_{smn}(0,\\phi)\|^2 = \\begin{cases} \\dfrac{2n+1}{2}, & m = \\pm 1 \\\\ 0, & m \\ne \\pm 1\\end{cases}$ |
+**(A1.65)**
+
+```math
+|\vec{K}_{smn}(0,\phi)|^2 = \begin{cases} \dfrac{2n+1}{2}, & m = \pm 1 \\ 0, & m \ne \pm 1\end{cases}
+```
 
 ### Explicit $n = 1$ patterns
 
@@ -610,9 +688,11 @@ Each sample is a short dipole of moment $d\_e/L$ — total moment $\\int\_V\\vec
 
 with the **periodic Kronecker delta**:
 
-|  Eq.  |   |
-| :---: | :-- |
-| (A1.101) | $\\delta^{L}\_{m\\mu} = \\begin{cases} 1, & m \\equiv \\mu \\pmod L \\\\ 0, & \\text{otherwise}\\end{cases}$ |
+**(A1.101)**
+
+```math
+\delta^{L}_{m\mu} = \begin{cases} 1, & m \equiv \mu \pmod L \\ 0, & \text{otherwise}\end{cases}
+```
 
 > **Sampling sidebands:** the sampled ring excites $m = \\pm 1 + jL$ for $j = \\pm 1, \\pm 2, \\dots$. If $L \\ge 3$, sidebands do not interfere with the $m = \\pm 1$ "main band," and the main-band coefficients are identical to the continuous-ring values.
 
