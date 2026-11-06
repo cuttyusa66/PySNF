@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# SPDX-License-Identifier: MIT
 """ PySNF Version 1.0.0
 
 A spherical near-field antenna measurement data-reduction library
@@ -10,9 +11,8 @@ References
 [1] J.E. Hansen, Spherical Near-Field Antenna Measurements, 1988
     (IEE Electromagnetic Waves Series, vol. 26).  The "Symbol
     cross-reference" section below maps the principal Hansen symbols
-    (Appendix A5 of [1], summarized in companion markdown
-    A5_List_of_principal_symbols_and_uses.md) onto the array names
-    used in this module.
+    (Appendix A5 of [1]) onto the array names used in this module.
+    See HANSEN_INDEX.md for an equation-number -> function lookup.
 
 Conventions
 -----------
