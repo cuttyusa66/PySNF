@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: MIT
-""" PySNF Version 1.0.0
+""" PySNF Version 1.0.1
 
 A spherical near-field antenna measurement data-reduction library
 implementing the SNIFT-style transformation algorithm from Hansen [1],
@@ -159,7 +159,7 @@ import fractions
 # users on headless systems (or those who never plot) don't pay the
 # matplotlib import cost or need it installed.
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 # ---------------------
 # GLOBAL VARIABLES
