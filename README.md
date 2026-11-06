@@ -4,7 +4,7 @@
 spherical near-field to far-field transformation of antenna measurement
 data, implementing the SNIFT-style algorithm from Hansen [1].
 
-Version 1.0.0 — initial release.
+Version 1.0.1 — adds the MIT license and the Hansen equation index; no functional changes since 1.0.0.
 
 ## Installation
 
