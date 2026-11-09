@@ -22,45 +22,81 @@ Dependencies:
 
 ## Quick start
 
-The minimum round-trip — synthesize a far-field from known spherical-wave
-coefficients, then recover the coefficients back from that far-field
-(this mirrors the self-test at the bottom of `pysnf.py`):
+Full probe-corrected round trip on a realistic antenna: load the
+spherical-wave coefficients of a WR-284 standard-gain pyramidal horn
+at 3.95 GHz (shipped as [wr284_horn_Tsmn.csv](wr284_horn_Tsmn.csv),
+obtained via full-wave electromagnetic simulation), simulate the
+probe signal at a finite measurement radius via the SNF transmission
+formula, then recover the antenna coefficients with the
+probe-corrected inverse transform:
 
 ```python
 import numpy as np
 import pysnf as sf
 
-# Build T_{smn} for a small antenna (x-directed electric dipole +
-# z-directed magnetic dipole, n_max = 2, m_max = 1).
-n_max, m_max = 2, 1
-T_in = np.zeros((n_max, 2*m_max+1, 2), dtype='complex128')
-T_in[0, m_max + (-1), 1] = +np.sqrt(2.0)/2.0   # T_{s=2, m=-1, n=1}
-T_in[0, m_max + (+1), 1] = -np.sqrt(2.0)/2.0   # T_{s=2, m=+1, n=1}
-T_in[0, m_max + 0,    0] = 1.0                 # T_{s=1, m= 0, n=1}
+# ---- Antenna T_smn: load the WR-284 horn from CSV --------------------
+# Columns in the CSV: n, m, s, Re_T, Im_T (triangle-valid modes only).
+raw = np.loadtxt('wr284_horn_Tsmn.csv', delimiter=',', skiprows=5)
+n_idx, m_idx, s_idx = raw[:, 0].astype(int), raw[:, 1].astype(int), raw[:, 2].astype(int)
+n_max = int(n_idx.max())
+m_max = n_max                                       # triangle storage: |m| <= n
+T_ant = np.zeros((n_max, 2*m_max + 1, 2), dtype='complex128')
+T_ant[n_idx - 1, m_idx + m_max, s_idx - 1] = raw[:, 3] + 1j*raw[:, 4]
 
-# Synthesize a far-field pattern on a 5-degree grid (dipole output probe).
-dT = dP = 5.0   # degrees
-E_theta, E_phi = sf.wavecoeffs2farfield_uniform(T_in, dT, dP)
+# ---- Probe T_smn: short +x electric Hertzian dipole ------------------
+T_probe = np.zeros((1, 3, 2), dtype='complex128')
+T_probe[0, 1 + (-1), 1] = +np.sqrt(2.0)/2.0
+T_probe[0, 1 + (+1), 1] = -np.sqrt(2.0)/2.0
 
-# Recover T_{smn} from the synthesized pattern (dipole input probe, ka = inf).
-ff = {'E_theta': E_theta, 'E_phi': E_phi, 'dT': dT, 'dP': dP}
-T_out = sf.field2wavecoeffs(ff, probe=None, probe_pol='x', ka=np.inf,
-                            n_max=n_max, m_max=m_max)
+# Convert the probe's transmitting T to receiving R_p (Hansen (5.67),
+# (2.104)); transmission_formula wants the (sigma, mu, nu) layout.
+R_probe = sf.reciprocity(sf.rotate_wavecoeffs_about_axis(T_probe, 'x'))
+r_p = np.swapaxes(R_probe, 0, 2)
 
-print('max |T_out - T_in| =', np.max(np.abs(T_out - T_in)))
+# ---- Forward SNF transmission at a realistic measurement radius -----
+kA = 100.0                       # probe-to-origin distance * wavenumber
+dT = dP = 2.0                    # scan grid, degrees
+thetas = np.linspace(0.0, np.pi, int(180.0/dT + 1))
+phis = np.linspace(0.0, 2.0*np.pi, int(360.0/dP), endpoint=False)
+T_grid, P_grid = np.meshgrid(thetas, phis, indexing='ij')
+
+# Probe signal at chi = 0 (theta-pol arm) and chi = pi/2 (phi-pol arm).
+E_theta = sf.transmission_formula(T_ant, 0.0,     T_grid, P_grid, r_p=r_p, ka=kA)
+E_phi   = sf.transmission_formula(T_ant, np.pi/2, T_grid, P_grid, r_p=r_p, ka=kA)
+scan = {'E_theta': E_theta, 'E_phi': E_phi, 'dT': dT, 'dP': dP}
+
+# ---- Probe-corrected recovery of the antenna coefficients ------------
+# field2wavecoeffs takes the probe as its own measured far-field pattern.
+pE_theta, pE_phi = sf.wavecoeffs2farfield_uniform(T_probe, dT, dP)
+probe_scan = {'E_theta': pE_theta, 'E_phi': pE_phi, 'dT': dT, 'dP': dP}
+
+T_ant_recovered = sf.field2wavecoeffs(scan, probe=probe_scan, probe_pol='x',
+                                      ka=kA, n_max=n_max, m_max=m_max)
+
+print('relative max error =',
+      np.max(np.abs(T_ant_recovered - T_ant)) / np.max(np.abs(T_ant)))
 ```
 
-For a measured (or simulated) scan with a non-ideal probe, swap the
-two-call sequence above for the one-shot helper:
+Expected output: `relative max error ~ 1e-15` — the round trip
+recovers the horn's modes to numerical precision.
+
+For the end-to-end **measurement** path — go from a measured scan on
+a sphere of radius A directly to the test antenna's far field — use
+the one-shot helper:
 
 ```python
 farfield = sf.nearfield2farfield(nearfield, dtheta_out, dphi_out,
-                                 probe=probe, probe_pol='x', ka=k*A)
+                                 probe=probe_scan, probe_pol='x', ka=k*A)
 ```
 
-where `nearfield` and `probe` are dicts with keys
+where `nearfield` is the measured probe signal and `probe_scan` is the
+probe's own measured far-field pattern, both as dicts with keys
 `'E_theta'`, `'E_phi'`, `'dT'`, `'dP'` (probe signal at chi = 0 and
 chi = pi/2, plus theta/phi sampling intervals in degrees).
+
+For the ideal dipole-probe limit (no custom probe, `ka = inf`), the
+minimum synthesize + recover round trip in the self-test at the bottom
+of `pysnf.py` remains the shortest example.
 
 ## Conventions
 
