@@ -1,0 +1,6 @@
+.claude/
+__pycache__/
+commitmessage.txt
+build/
+dist/
+*.egg-info/

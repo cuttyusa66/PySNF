@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pysnf"
+dynamic = ["version"]
+description = "Python Spherical Near-Field: probe-corrected spherical near-field to far-field transformation for antenna measurements (Hansen 1988)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Ryan Cutshall" }]
+keywords = [
+    "antenna",
+    "antenna measurements",
+    "spherical near-field",
+    "near-field to far-field",
+    "spherical wave expansion",
+    "probe correction",
+    "SNIFT",
+    "Hansen",
+    "G/T",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "numpy",
+    "scipy>=1.15",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib"]
+
+[project.urls]
+Homepage = "https://github.com/cuttyusa66/PySNF"
+Repository = "https://github.com/cuttyusa66/PySNF"
+Issues = "https://github.com/cuttyusa66/PySNF/issues"
+Changelog = "https://github.com/cuttyusa66/PySNF/releases"
+
+[tool.setuptools]
+py-modules = ["pysnf", "pysnf_gt"]
+
+[tool.setuptools.dynamic]
+version = { attr = "pysnf.__version__" }
