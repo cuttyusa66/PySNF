@@ -14,7 +14,9 @@ sampling grids, and fixed a loss of accuracy above N ≈ 86 (see
 ## Installation
 
 PySNF is a single module (`pysnf.py`).  Drop it into your project, or
-add the containing directory to `PYTHONPATH`.
+add the containing directory to `PYTHONPATH`.  The optional G/T helpers
+live in a second file, `pysnf_gt.py`, which imports `pysnf`; copy it
+alongside if you need them.
 
 Dependencies:
 
@@ -345,6 +347,11 @@ defined for `|m| <= n`; out-of-triangle entries of `q_n_m_s` must be zero
 - `wavecoeffs2farfield` — `T_{smn}` -> far-field at arbitrary paired
   (theta, phi) directions (no probe normalization).
 
+**G/T (`pysnf_gt.py`)**
+- `g_over_t` — G/T of an active unit under test by the CW-Ambient
+  technique of [3].
+- `near_zone_correction` — the near-zone factor N_SNF of [3] Eq. (24).
+
 **Sampling grids**
 - `sampling_grid` — sample locations of an MFC, latitude (sin θ) or
   uniform grid.
@@ -388,7 +395,8 @@ Measurement Grids," *AMTA 2015 Proceedings*.
 
 [3] R. T. Cutshall, J. Dobbins and M. N. Barr, "Measuring G/T with a
 Spherical Near-Field Antenna Measurement System via the CW-Ambient
-Technique," *AMTA 2020 Proceedings*.
+Technique," *2020 Antenna Measurement Techniques Association Symposium
+(AMTA)*, Newport, RI, USA, 2020, pp. 1-6.
 
 Cross-references in the source cite Hansen equation numbers (e.g.
 `[1], (4.135)`).  See [HANSEN_INDEX.md](HANSEN_INDEX.md) for a
@@ -402,7 +410,7 @@ Hansen-equation → PySNF-function lookup table.
   `field2wavecoeffs` and `nearfield2farfield` take
   `probe_normalization='gain'` to accept a gain-normalized probe pattern.
   Both default to `'dipole'`, so existing results are unchanged.
-- **Self-test.** Four checks added, including the closed-form
+- **Self-test.** Six checks added, including the closed-form
   Hertzian-dipole case of [3].
 - **G/T helpers.** New companion module `pysnf_gt.py` with `g_over_t`
   and `near_zone_correction`, implementing the CW-Ambient technique of
@@ -437,13 +445,16 @@ Hansen-equation → PySNF-function lookup table.
 python pysnf.py
 ```
 
-runs 25 checks and ends with `=== 25 of 25 checks passed ===` (exit
+runs 27 checks and ends with `=== 27 of 27 checks passed ===` (exit
 code 1 otherwise).  They cover the original round-trip and single-mode
 tests, the normalized Legendre functions against Hansen's formulas, a
 uniform round trip at N = 180, the latitude / MFC grids — including
 the worst-case antenna of [2] at N = 40 and N = 180 — and the
 gain-normalized Hertzian-dipole case of [3].  It takes a few
 seconds and needs about 1.6 GB of memory for the N = 180 cases.
+
+The G/T module has its own, separate self-test: `python pysnf_gt.py`
+runs 4 checks and ends with `=== 4 of 4 checks passed ===`.
 
 ## License
 

@@ -6,7 +6,8 @@ Helpers built on `pysnf` for the method of
 
     R. T. Cutshall, J. Dobbins and M. N. Barr, "Measuring G/T with a
     Spherical Near-Field Antenna Measurement System via the CW-Ambient
-    Technique," AMTA Proceedings.                       (cited as [GT])
+    Technique," 2020 Antenna Measurement Techniques Association Symposium
+    (AMTA), Newport, RI, USA, 2020, pp. 1-6.            (cited as [GT])
 
 Functions
 ---------

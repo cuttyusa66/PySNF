@@ -3221,7 +3221,9 @@ if __name__ == '__main__':
     # ===================================================================
     # Closed-form case from the Appendix of R. T. Cutshall, J. Dobbins and
     # M. N. Barr, "Measuring G/T with a Spherical Near-Field Antenna
-    # Measurement System via the CW-Ambient Technique," AMTA 2020.
+    # Measurement System via the CW-Ambient Technique," 2020 Antenna
+    # Measurement Techniques Association Symposium (AMTA), Newport, RI,
+    # USA, 2020, pp. 1-6.
     # AUT: z-directed Hertzian dipole, gain 1.5 (1.76 dBi).  Probe: Hertzian
     # dipole, gain 1.5.  Their Eq. (26) is the probe signal at distance A for
     # an x'-polarized probe; Eqs. (27) and (28) are the gain-normalized
@@ -3287,6 +3289,26 @@ if __name__ == '__main__':
     _check('Gain output == K', (err_def < 1e-12) and (err_k < 1e-10),
            "normalization='gain': vs default/(sqrt(6)/4) = {:.2e}, "
            "vs wavecoeffs2farfield = {:.2e}".format(err_def, err_k))
+
+    # complex64 storage must survive the gain rescaling.
+    s_th, s_ph = wavecoeffs2farfield_uniform(T_g, dT_g, dP_g, dtype='complex64',
+                                             normalization='gain')
+    err_c64 = float(max(np.max(np.abs(s_th - g_th)), np.max(np.abs(s_ph - g_ph)))/scale)
+    is_c64 = (s_th.dtype == np.complex64) and (s_ph.dtype == np.complex64)
+    _check('Gain output, complex64', is_c64 and (err_c64 < 1e-5),
+           "normalization='gain', dtype='complex64': output dtype {}, "
+           "vs complex128 = {:.2e}  (tolerance 1e-5)".format(s_th.dtype, err_c64))
+
+    # probe_normalization='gain' rescales a copy, never the caller's dict.
+    probe_keep = {'E_theta': probe_x['E_theta'].copy(), 'E_phi': probe_x['E_phi'].copy()}
+    w_keep = 0.75*np.exp(10.0j)*(-0.1j + 0.01 + 0.001j)*np.sin(TH_g)     # Eq. (26), kA = 10
+    field2wavecoeffs({'E_theta': w_keep, 'E_phi': np.zeros_like(w_keep),
+                      'dT': dT_g, 'dP': dP_g}, probe=probe_x, ka=10.0,
+                     n_max=3, m_max=3, nu_max=1, probe_normalization='gain')
+    untouched = (np.array_equal(probe_x['E_theta'], probe_keep['E_theta'])
+                 and np.array_equal(probe_x['E_phi'], probe_keep['E_phi']))
+    _check('Probe dict not modified', untouched,
+           "probe_normalization='gain' leaves the caller's probe arrays unchanged")
 
     raised = 0
     for call in (lambda: wavecoeffs2farfield_uniform(T_g, dT_g, dP_g, normalization='db'),
