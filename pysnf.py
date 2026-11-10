@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: MIT
-""" PySNF Version 1.1.0
+""" PySNF Version 1.2.0
 
 A spherical near-field antenna measurement data-reduction library
 implementing the SNIFT-style transformation algorithm from Hansen [1],
@@ -150,6 +150,17 @@ Probe convention
     a custom probe is supplied.  See ``dipole_probe_response_constants``
     and ``probe_response_constants`` for the precise definitions.
 
+Normalization
+    By default every far-field array in a scan / probe / output dict is
+    the signal of an infinitely remote Hertzian-dipole probe,
+    ``W = (sqrt(6)/4) K``, not the absolute far-field pattern ``K``
+    (``|K|^2`` = gain for power-normalized coefficients).  Two opt-in
+    arguments switch to ``K``: ``normalization='gain'`` for the output of
+    `wavecoeffs2farfield_uniform` / `nearfield2farfield`, and
+    ``probe_normalization='gain'`` for the probe pattern supplied to
+    `field2wavecoeffs` / `nearfield2farfield`.  With both set, the
+    transform adds no scaling of its own to the measured data.
+
 Sampling grids
     A scan is taken on theta rings equally spaced from 0 to 180 degrees
     (poles included).  Three grids are supported, selected by the
@@ -186,13 +197,25 @@ import scipy.special as sps
 # users on headless systems (or those who never plot) don't pay the
 # matplotlib import cost or need it installed.
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 # ---------------------
 # GLOBAL VARIABLES
 # ---------------------
 INF = np.inf
 PI = np.pi
+
+# Ratio between the signal received by an infinitely remote Hertzian-dipole
+# probe and the absolute far-field pattern K(theta, phi):  W = (sqrt(6)/4) K.
+# It is the sum over mu = +/-1 of the -sqrt(6)/8 dipole probe response
+# constants of [1], (4.103)-(4.104).  |K|^2 is gain; |W|^2 is gain - 4.26 dB.
+_DIPOLE_SIGNAL_FACTOR = np.sqrt(6.0)/4.0
+
+
+def _check_normalization(value, name):
+    """Validate a ``normalization`` / ``probe_normalization`` argument."""
+    if value not in ('dipole', 'gain'):
+        raise ValueError("{} must be 'dipole' or 'gain'; got {!r}".format(name, value))
 
 # ---------------------
 # FUNCTIONS AND METHODS
@@ -202,7 +225,8 @@ PI = np.pi
 
 def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x', ka=INF,
                        n_max=None, m_max=None, nu_max=None, dtype='complex128',
-                       sampling='uniform'):
+                       sampling='uniform', normalization='dipole',
+                       probe_normalization='dipole'):
     """Compute the far-field of the UUT from a sampled near-field scan.
 
     Parameters
@@ -241,6 +265,18 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
         the dict instead holds flat 1-D arrays ``'theta'``, ``'phi'``
         (degrees), ``'E_theta'`` and ``'E_phi'``, one entry per sample
         point; see `field2wavecoeffs`.  The output is always uniform.
+    normalization : {'dipole', 'gain'}
+        Scaling of the returned far field; see
+        `wavecoeffs2farfield_uniform`.  ``'dipole'`` (default) returns the
+        signal of an ideal dipole probe, ``sqrt(6)/4 * K``.  ``'gain'``
+        returns ``K`` itself, so ``|E_theta|^2 + |E_phi|^2`` is the gain
+        when ``nearfield`` and ``probe`` are power-normalized.
+    probe_normalization : {'dipole', 'gain'}
+        Scaling of the supplied ``probe`` pattern; see `field2wavecoeffs`.
+        Use ``'gain'`` for a gain-normalized probe pattern.
+
+        With both set to ``'gain'`` the transform adds no scaling of its
+        own to the measured data (an "ideal" SNF-to-FF transform).
 
     Returns
     -------
@@ -255,6 +291,9 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
     theta-axis grid is determined implicitly by ``dT`` (and the number
     of rows of E_theta); similarly for the phi-axis grid and ``dP``.
     """
+
+    _check_normalization(normalization, 'normalization')
+    _check_normalization(probe_normalization, 'probe_normalization')
 
     np_dtype = np.dtype(dtype)
     if np_dtype not in (np.dtype('complex64'), np.dtype('complex128')):
@@ -276,11 +315,13 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
     # Calculate the spherical wave coefficients of the UUT
     q_n_m_s = field2wavecoeffs(nearfield_internal, probe, probe_pol, ka,
                                n_max, m_max, nu_max, dtype=dtype,
-                               sampling=sampling)
+                               sampling=sampling,
+                               probe_normalization=probe_normalization)
 
     # From the spherical wave coefficients, calculate the far-field
     E_theta, E_phi = wavecoeffs2farfield_uniform(q_n_m_s, dtheta_out, dphi_out,
-                                                 dtype=dtype)
+                                                 dtype=dtype,
+                                                 normalization=normalization)
 
     # Organize into a dictionary
     farfield = {'E_theta': E_theta, 'E_phi': E_phi,
@@ -294,7 +335,7 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
 
 def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
                      n_max=None, m_max=None, nu_max=None, dtype='complex128',
-                     sampling='uniform'):
+                     sampling='uniform', probe_normalization='dipole'):
     """Recover spherical-wave coefficients ``T_{smn}`` from a probe scan.
 
     Implements Hansen [1], Eqs. (4.133)-(4.134): given the two-probe
@@ -355,6 +396,20 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
         grid ([1] A4.4.3) and the standard transform is then applied.
         ``n_max`` then defaults to ``numthetas - 2`` and ``m_max`` to
         ``min(n_max, (largest ring - 1)//2)``.
+    probe_normalization : {'dipole', 'gain'}
+        Scaling of the custom ``probe`` pattern.
+
+        ``'dipole'`` (default) -- the pattern is the signal an ideal
+        dipole probe would receive from the probe, ``sqrt(6)/4 * K_p``;
+        this is what `wavecoeffs2farfield_uniform` returns by default.
+
+        ``'gain'`` -- the pattern is the probe's absolute far-field
+        pattern ``K_p`` (``|K_p|^2`` = probe gain).  Use this for a
+        gain-normalized probe pattern; the recovered ``T_{smn}`` are then
+        power-normalized without any further scaling.
+
+        Ignored when ``probe is None``.  The scan ``uut`` is never
+        rescaled.
 
     Returns
     -------
@@ -365,6 +420,7 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
     """
 
     np_dtype = np.dtype(dtype)
+    _check_normalization(probe_normalization, 'probe_normalization')
 
     if sampling in ('latitude', 'mfc'):
         # Bring the thinned scan back to a uniform grid; everything below
@@ -404,6 +460,13 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
         # If nu_max was passed into this function as None, determine nu_max
         if nu_max is None:
             nu_max = np.size(probe['E_theta'], axis=0)//2
+        if probe_normalization == 'gain':
+            # Bring a gain-normalized pattern K_p to the dipole-signal
+            # scaling the extraction below assumes.  Copy; the caller's
+            # dict is left untouched.
+            probe = dict(probe)
+            probe['E_theta'] = _DIPOLE_SIGNAL_FACTOR*np.asarray(probe['E_theta'])
+            probe['E_phi']   = _DIPOLE_SIGNAL_FACTOR*np.asarray(probe['E_phi'])
         t_p = field2wavecoeffs(probe, n_max=nu_max, m_max=1)  # t_p is nu, mu, sig
         t_p_rot = rotate_wavecoeffs_about_axis(t_p,'x')  # t_p_rot is nu, mu, sig
         r_p = reciprocity(t_p_rot)  # r_p is nu, mu, sig
@@ -442,7 +505,8 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
 # ------------------------------------------------------------------------
 
 
-def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128'):
+def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128',
+                                normalization='dipole'):
     """Synthesize the test-antenna far field from spherical wave coefficients.
 
     Limitation
@@ -453,7 +517,10 @@ def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128'):
     chi = 0) and `phi_pol` (the same for a phi-oriented short electric
     dipole, chi = pi/2).  Per Hansen, Spherical Near-Field Antenna
     Measurements, Eqs. (3.52)-(3.53) and Eq. (3.54), this is equivalent to
-    sampling the test antenna's absolute far-field pattern K(theta, phi).
+    sampling the test antenna's absolute far-field pattern K(theta, phi),
+    up to the constant dipole factor ``sqrt(6)/4``:  the default output is
+    ``sqrt(6)/4 * K``.  Pass ``normalization='gain'`` to remove the factor
+    and get ``K`` itself.
 
     If you need to predict the signal that would be measured by a different
     output probe (e.g. a calibrated horn), use the lower-level transmission
@@ -466,6 +533,12 @@ def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128'):
         q[n-1, m + m_max, s-1].
     dtheta, dphi : float
         Output sampling intervals in *degrees*.
+    normalization : {'dipole', 'gain'}
+        ``'dipole'`` (default) -- the dipole-probe signal,
+        ``sqrt(6)/4 * K``.  ``'gain'`` -- the absolute far-field pattern
+        ``K``, equal to `wavecoeffs2farfield` on the same grid; for
+        power-normalized coefficients ``|theta_pol|^2 + |phi_pol|^2`` is
+        then the gain.
 
     Returns
     -------
@@ -475,6 +548,7 @@ def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128'):
         inclusive and numphis = round(360/dphi) phi samples in [0, 2*pi).
     """
 
+    _check_normalization(normalization, 'normalization')
     np_dtype = np.dtype(dtype)
 
     # Determine n_max and m_max from q_n_m_s
@@ -533,6 +607,10 @@ def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128'):
     temp[:, :, 0:m_max+1] = n_sums[:, :, 0:m_max+1]
     temp[:, :, numphis-m_max:] = n_sums[:, :, m_max+1:]
     fft_out = _fft(temp, axis=2)   # (2, numthetas, numphis)
+
+    if normalization == 'gain':
+        # Remove the dipole output-probe factor: W = (sqrt(6)/4) K.
+        fft_out = (fft_out/_DIPOLE_SIGNAL_FACTOR).astype(np_dtype, copy=False)
 
     theta_pol = fft_out[0]
     phi_pol   = fft_out[1]
@@ -958,7 +1036,9 @@ def wavecoeffs2farfield(q_n_m_s, thetas, phis, delta=1.0e-6):
     factor arises from the ``-sqrt(6)/8`` per-pole Hertzian-dipole probe
     response constants in ``dipole_probe_response_constants`` (Hansen [1],
     Eqs. (4.103)-(4.104)), summed over mu = +/-1.  Multiply this function's
-    output by ``sqrt(6)/4`` to match the uniform-grid helper's convention.
+    output by ``sqrt(6)/4`` to match the uniform-grid helper's default
+    convention, or call that helper with ``normalization='gain'``, which
+    returns exactly this function's output.
     """
 
     thetas = np.atleast_1d(np.asarray(thetas, dtype=float))
@@ -3135,6 +3215,112 @@ if __name__ == '__main__':
            '({:.0f} dB; target -100 dB)  [{:.1f} s]'.format(
                grid_big['n_points'], 100.0*grid_big['n_points']/n_uniform_big,
                n_uniform_big, err_hor_big, db(err_hor_big), time.perf_counter() - t0))
+
+    # ===================================================================
+    # Tests added in 1.2.0: gain normalization ("ideal" SNF-to-FF transform)
+    # ===================================================================
+    # Closed-form case from the Appendix of R. T. Cutshall, J. Dobbins and
+    # M. N. Barr, "Measuring G/T with a Spherical Near-Field Antenna
+    # Measurement System via the CW-Ambient Technique," 2020 Antenna
+    # Measurement Techniques Association Symposium (AMTA), Newport, RI,
+    # USA, 2020, pp. 1-6.
+    # AUT: z-directed Hertzian dipole, gain 1.5 (1.76 dBi).  Probe: Hertzian
+    # dipole, gain 1.5.  Their Eq. (26) is the probe signal at distance A for
+    # an x'-polarized probe; Eqs. (27) and (28) are the gain-normalized
+    # far-field patterns of the x'- and y'-polarized probes.  A transform
+    # that adds no scaling of its own must return a peak gain of exactly 1.5
+    # at theta = 90 deg, independent of kA.
+    print('--- Gain normalization: Hertzian-dipole case with a known answer ---')
+    dT_g = dP_g = 5.0
+    th_g = np.linspace(0.0, PI, int(round(180.0/dT_g)) + 1)
+    ph_g = np.linspace(0.0, 2.0*PI, int(round(360.0/dP_g)), endpoint=False)
+    TH_g, PH_g = np.meshgrid(th_g, ph_g, indexing='ij')
+    root6_2 = np.sqrt(6.0)/2.0
+    probe_x = {'E_theta': root6_2*np.cos(TH_g)*np.cos(PH_g),       # Eq. (27)
+               'E_phi':  -root6_2*np.sin(PH_g), 'dT': dT_g, 'dP': dP_g}
+    probe_y = {'E_theta': root6_2*np.cos(TH_g)*np.sin(PH_g),       # Eq. (28)
+               'E_phi':   root6_2*np.cos(PH_g), 'dT': dT_g, 'dP': dP_g}
+    i_eq = int(np.argmin(np.abs(th_g - PI/2.0)))                   # theta = 90 deg row
+
+    def _dipole_case(probe, pol, ka):
+        """Peak-gain error, peak row, and coefficient error for one case."""
+        w = 0.75*np.exp(1j*ka)*(-1j/ka + 1.0/ka**2 + 1j/ka**3)*np.sin(TH_g)  # Eq. (26)
+        zero = np.zeros_like(w)
+        if pol == 'x':
+            # chi = 0: probe x' along theta-hat.
+            nf = {'E_theta': w, 'E_phi': zero, 'dT': dT_g, 'dP': dP_g}
+        else:
+            # A y'-polarized probe sees nothing at chi = 0 (y' along phi-hat)
+            # and -w at chi = pi/2 (y' along -theta-hat).
+            nf = {'E_theta': zero, 'E_phi': -w, 'dT': dT_g, 'dP': dP_g}
+        kw = dict(probe=probe, probe_pol=pol, ka=ka, n_max=3, m_max=3, nu_max=1,
+                  probe_normalization='gain')
+        ff = nearfield2farfield(nf, dT_g, dP_g, normalization='gain', **kw)
+        gain = np.abs(ff['E_theta'])**2 + np.abs(ff['E_phi'])**2
+        t = field2wavecoeffs(nf, **kw)
+        mode = abs(t[0, 3, 1])                    # T_{s=2, m=0, n=1}
+        leak = np.abs(t).copy()
+        leak[0, 3, 1] = 0.0
+        row = int(np.unravel_index(np.argmax(gain), gain.shape)[0])
+        return abs(float(gain.max()) - 1.5), row, max(abs(mode - 1.0), float(leak.max()))
+
+    for pol, probe_g, eq in (('x', probe_x, '(27)'), ('y', probe_y, '(28)')):
+        worst_gain, worst_t, rows_ok = 0.0, 0.0, True
+        for ka_g in (3.0, 100.0):
+            g_err, row, t_err = _dipole_case(probe_g, pol, ka_g)
+            worst_gain, worst_t = max(worst_gain, g_err), max(worst_t, t_err)
+            rows_ok = rows_ok and (row == i_eq)
+        _check("Ideal transform, {}' probe".format(pol),
+               (worst_gain < 1e-10) and (worst_t < 1e-10) and rows_ok,
+               "{}'-polarized probe, Eq. {}: |peak gain - 1.5| = {:.2e}, "
+               "|T error| = {:.2e} at kA = 3, 100  (tolerance 1e-10)".format(
+                   pol, eq, worst_gain, worst_t))
+
+    # 'gain' output == default output / (sqrt(6)/4) == wavecoeffs2farfield.
+    T_g = _random_coeffs(6, seed=11)
+    d_th, d_ph = wavecoeffs2farfield_uniform(T_g, dT_g, dP_g)
+    g_th, g_ph = wavecoeffs2farfield_uniform(T_g, dT_g, dP_g, normalization='gain')
+    k_th, k_ph = wavecoeffs2farfield(T_g, TH_g.ravel(), PH_g.ravel())
+    scale = float(np.max(np.abs(k_th)))
+    err_def = float(max(np.max(np.abs(g_th*_DIPOLE_SIGNAL_FACTOR - d_th)),
+                        np.max(np.abs(g_ph*_DIPOLE_SIGNAL_FACTOR - d_ph)))/scale)
+    err_k = float(max(np.max(np.abs(g_th.ravel() - k_th)),
+                      np.max(np.abs(g_ph.ravel() - k_ph)))/scale)
+    _check('Gain output == K', (err_def < 1e-12) and (err_k < 1e-10),
+           "normalization='gain': vs default/(sqrt(6)/4) = {:.2e}, "
+           "vs wavecoeffs2farfield = {:.2e}".format(err_def, err_k))
+
+    # complex64 storage must survive the gain rescaling.
+    s_th, s_ph = wavecoeffs2farfield_uniform(T_g, dT_g, dP_g, dtype='complex64',
+                                             normalization='gain')
+    err_c64 = float(max(np.max(np.abs(s_th - g_th)), np.max(np.abs(s_ph - g_ph)))/scale)
+    is_c64 = (s_th.dtype == np.complex64) and (s_ph.dtype == np.complex64)
+    _check('Gain output, complex64', is_c64 and (err_c64 < 1e-5),
+           "normalization='gain', dtype='complex64': output dtype {}, "
+           "vs complex128 = {:.2e}  (tolerance 1e-5)".format(s_th.dtype, err_c64))
+
+    # probe_normalization='gain' rescales a copy, never the caller's dict.
+    probe_keep = {'E_theta': probe_x['E_theta'].copy(), 'E_phi': probe_x['E_phi'].copy()}
+    w_keep = 0.75*np.exp(10.0j)*(-0.1j + 0.01 + 0.001j)*np.sin(TH_g)     # Eq. (26), kA = 10
+    field2wavecoeffs({'E_theta': w_keep, 'E_phi': np.zeros_like(w_keep),
+                      'dT': dT_g, 'dP': dP_g}, probe=probe_x, ka=10.0,
+                     n_max=3, m_max=3, nu_max=1, probe_normalization='gain')
+    untouched = (np.array_equal(probe_x['E_theta'], probe_keep['E_theta'])
+                 and np.array_equal(probe_x['E_phi'], probe_keep['E_phi']))
+    _check('Probe dict not modified', untouched,
+           "probe_normalization='gain' leaves the caller's probe arrays unchanged")
+
+    raised = 0
+    for call in (lambda: wavecoeffs2farfield_uniform(T_g, dT_g, dP_g, normalization='db'),
+                 lambda: field2wavecoeffs({'E_theta': d_th, 'E_phi': d_ph,
+                                           'dT': dT_g, 'dP': dP_g},
+                                          probe_normalization='db')):
+        try:
+            call()
+        except ValueError:
+            raised += 1
+    _check('Validation: normalization keyword', raised == 2,
+           'unknown normalization value rejected ({} of 2 calls)'.format(raised))
 
     # -------------------------------------------------------------------
     n_fail = sum(1 for _, ok in results if not ok)

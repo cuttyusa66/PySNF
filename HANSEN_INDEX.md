@@ -28,7 +28,7 @@ Hansen directly.
 | (3.19)     | `translation_coefficients` | Series form of the translation coefficients |
 | (3.26)     | `probe_response_constants` | Build `P_{s mu n}(kA)` from `R^p` coefficients |
 | (3.27)-(3.28), (3.32), (3.36) | `transmission_formula` | x-polarized-probe reduction of (3.10) |
-| (3.52)-(3.54) | `wavecoeffs2farfield_uniform` | Dipole output-probe signal at `chi = 0, pi/2` |
+| (3.52)-(3.54) | `wavecoeffs2farfield_uniform` | Dipole output-probe signal at `chi = 0, pi/2`, `(sqrt(6)/4) K`; `normalization='gain'` divides the factor out and returns `K` |
 
 ## Chapter 4 — Data reduction in spherical near-field measurements
 
