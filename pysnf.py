@@ -224,7 +224,8 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
         ('E_theta', 'E_phi', 'dT', 'dP'); or None for an ideal Hertzian
         dipole.
     probe_pol : {'x', 'y'}
-        Probe polarization (only 'x' supported for ka=INF dipole today).
+        Probe polarization.  With ``probe=None`` (ideal dipole) both are
+        supported at ``ka = INF`` only.
     ka : float
         Measurement distance times wavenumber; use np.inf for far-field.
     n_max, m_max, nu_max : int or None
@@ -324,6 +325,13 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
         Truncation indices; auto-detected from input array sizes if
         ``None``.  ``nu_max`` is only used when a custom probe is
         supplied.
+
+        The scan must resolve the antenna: if it radiates modes up to
+        ``n = N`` and ``|m| = M``, a uniform scan needs at least
+        ``N + 2`` theta rings and ``2*M + 2`` phi samples per ring.
+        With only ``N + 1`` rings, or with an odd count of ``2*M + 1``
+        phi samples (resampled internally to ``2*M``), the highest
+        modes alias and the result is wrong without any error.
     dtype : {'complex128', 'complex64'}
         Storage precision for the returned array; the internal pipeline
         runs in the same precision (with brief upcasts inside scalar
@@ -414,9 +422,7 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
     # Solve for q_n_m_s per Hansen [1], Eqs. (4.133)-(4.134): a per-(n, m)
     # 2x2 linear system in the mu = +/-1 probe-response constants P_{s mu n},
     # with right-hand side w_n_m_mu[:, :, mu_idx] (the two probe-polarization
-    # decompositions from field2w_n_m_mu).  Derivation: companion markdown
-    # 04_Data_reduction_in_spherical_near-field_measurements.md, Section 4.
-    # Note: Give Jeffrey Hyman developer credit here.
+    # decompositions from field2w_n_m_mu).
     determinant = p_n_pos1_1*p_n_neg1_2 - p_n_neg1_1*p_n_pos1_2
     q_n_m_s[:, :, 0] = (p_n_neg1_2*w_n_m_mu[:, :, 1] - p_n_pos1_2*w_n_m_mu[:, :, 0])/determinant
     q_n_m_s[:, :, 1] = (p_n_pos1_1*w_n_m_mu[:, :, 0] - p_n_neg1_1*w_n_m_mu[:, :, 1])/determinant
@@ -465,8 +471,8 @@ def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128'):
     -------
     theta_pol, phi_pol : ndarray of complex
         Normalized far-field probe signals on a uniform (theta, phi) grid
-        with numthetas = int(180/dtheta + 1) theta samples in [0, pi]
-        inclusive and numphis = int(360/dphi) phi samples in [0, 2*pi).
+        with numthetas = round(180/dtheta) + 1 theta samples in [0, pi]
+        inclusive and numphis = round(360/dphi) phi samples in [0, 2*pi).
     """
 
     np_dtype = np.dtype(dtype)
@@ -476,8 +482,10 @@ def wavecoeffs2farfield_uniform(q_n_m_s, dtheta, dphi, dtype='complex128'):
     m_max = (m_max - 1)//2
 
     # Determine the number of theta and phis points required based on dT and dP
-    numthetas = int(180.0/dtheta + 1)
-    numphis = int(360.0/dphi)
+    # round(), not int(): 180/dtheta can land a hair below an integer
+    # (e.g. dtheta = 180/169), and truncating would drop a row.
+    numthetas = int(round(180.0/dtheta)) + 1
+    numphis = int(round(360.0/dphi))
 
     # Get the dipole probe response constants
     # (N x 2 x 2, where dim 0 = n, dim 1 = mu, dim 2 = s)
@@ -800,9 +808,7 @@ def incomplete_farfield_pattern_functions(n_max, m_max, thetas, delta=1.0e-6):
 
     # Assemble K_{smn} per Hansen [1], Eqs. (A1.59) (s = 1) and (A1.60)
     # (s = 2), split into theta- and phi-polarization components.
-    # Indexed forms and derivation: companion markdown summary
-    # A1_Spherical_wave_functions_notation_and_properties.md, Section 4
-    # (Far-Field Pattern Functions, Hansen §A1.1.3).
+    # Derivation: Hansen [1], Section A1.1.3 (far-field pattern functions).
     k_n_m_s_theta[:, :, :, 0] = term_1_2a *  term3a    # theta-pol, s = 1
     k_n_m_s_theta[:, :, :, 1] = term_1_2b *  term3b    # theta-pol, s = 2
     k_n_m_s_phi[:,   :, :, 0] = term_1_2a * -term3b    # phi-pol,   s = 1
@@ -2991,6 +2997,15 @@ if __name__ == '__main__':
     _check('Uniform round trip, N = 180', err_big < 1e-10,
            'max |dT|/max|T| = {:.2e}  (tolerance 1e-10)  [{:.1f} s]'.format(
                err_big, time.perf_counter() - t0))
+
+    # 180/(180/169) evaluates to just under 169, so sizing the output grid
+    # with int() instead of round() returned 169 x 337 here (PySNF <= 1.0.1).
+    print('--- Output grid size at a spacing that does not divide exactly, N = 168 ---')
+    T_one = np.zeros((168, 337, 2), dtype='complex128')
+    T_one[0, 168, 1] = 1.0
+    shape_168 = wavecoeffs2farfield_uniform(T_one, 180.0/169.0, 360.0/338.0)[0].shape
+    _check('Grid size, N = 168', shape_168 == (170, 338),
+           'wavecoeffs2farfield_uniform returned {} (expected (170, 338))'.format(shape_168))
 
     # -------------------------------------------------------------------
     # Latitude and MFC sampling

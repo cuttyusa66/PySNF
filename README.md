@@ -58,8 +58,8 @@ r_p = np.swapaxes(R_probe, 0, 2)
 # ---- Forward SNF transmission at a realistic measurement radius -----
 kA = 100.0                       # probe-to-origin distance * wavenumber
 dT = dP = 2.0                    # scan grid, degrees
-thetas = np.linspace(0.0, np.pi, int(180.0/dT + 1))
-phis = np.linspace(0.0, 2.0*np.pi, int(360.0/dP), endpoint=False)
+thetas = np.linspace(0.0, np.pi, int(round(180.0/dT)) + 1)
+phis = np.linspace(0.0, 2.0*np.pi, int(round(360.0/dP)), endpoint=False)
 T_grid, P_grid = np.meshgrid(thetas, phis, indexing='ij')
 
 # Probe signal at chi = 0 (theta-pol arm) and chi = pi/2 (phi-pol arm).
@@ -270,6 +270,11 @@ Hansen-equation → PySNF-function lookup table.
   from 1.0.1: the `m = 0` value at theta = pi for odd `n` (the sign was
   wrong), and the `|m| = 1` theta-derivative at both poles (was NaN).
   Neither was used by the transforms, so no transform result changes.
+- **Output grid size.** `wavecoeffs2farfield_uniform` sized its grid by
+  truncation, so at spacings such as `180/169` degrees (N = 168) it
+  returned one theta ring and one phi sample too few.  It now rounds.
+- **Spurious warning removed.** `translation_coefficients` no longer
+  raises "invalid value encountered in divide"; its output is unchanged.
 
 ## Self-test
 
@@ -277,7 +282,7 @@ Hansen-equation → PySNF-function lookup table.
 python pysnf.py
 ```
 
-runs 20 checks and ends with `=== 20 of 20 checks passed ===` (exit
+runs 21 checks and ends with `=== 21 of 21 checks passed ===` (exit
 code 1 otherwise).  They cover the original round-trip and single-mode
 tests, the normalized Legendre functions against Hansen's formulas, a
 uniform round trip at N = 180, and the latitude / MFC grids — including
