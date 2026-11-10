@@ -1711,7 +1711,12 @@ def translation_coefficients(n_max, nu_max, ka):
         idx_c = np.clip( n_int + nu_int - p, 0, None)
         idx_d = n_int + nu_int + p   # always non-negative
 
-        term3 = b_prime[idx_a] * b_prime[idx_b] * b_prime[idx_c] / b_prime[idx_d]
+        # B'(J) is defined for even J only (odd entries of b_prime are 0).
+        # Entries failing the parity rule have all four indices odd, i.e.
+        # 0/0; they are discarded by `valid` below, so give them a unit
+        # denominator rather than computing a NaN and warning about it.
+        term3 = (b_prime[idx_a] * b_prime[idx_b] * b_prime[idx_c]
+                 / np.where(valid, b_prime[idx_d], 1.0))
         term4 = (1j ** (-p)) * (2.0 * p + 1.0)
 
         contrib = term3 * term4 * hn[p]                # (n_max, nu_max)
