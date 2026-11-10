@@ -4,7 +4,9 @@
 spherical near-field to far-field transformation of antenna measurement
 data, implementing the SNIFT-style algorithm from Hansen [1].
 
-Version 1.0.1 — adds the MIT license and the Hansen equation index; no functional changes since 1.0.0.
+Version 1.1.0 — adds latitude (sin θ) and Maximum Fourier Content (MFC)
+sampling grids, and fixes a loss of accuracy above N ≈ 86 (see
+[What's new in 1.1.0](#whats-new-in-110)).
 
 ## Installation
 
@@ -98,6 +100,66 @@ For the ideal dipole-probe limit (no custom probe, `ka = inf`), the
 minimum synthesize + recover round trip in the self-test at the bottom
 of `pysnf.py` remains the shortest example.
 
+## Latitude and MFC sampling
+
+A uniform scan takes the same number of phi samples on every theta
+ring, which oversamples the rings near the poles.  A *latitude* grid
+keeps the same rings but thins the phi samples ring by ring.  PySNF
+supports two rules for the per-ring count:
+
+- `'latitude'` — the classical sin θ weighting (Hansen [1],
+  pp. 128-130): the equator count `2M + 1` scaled by sin θ.
+- `'mfc'` — the Maximum Fourier Content rule of Cutshall & Lawrence [2],
+  Eq. (15), which keeps aliasing below -100 dB for any antenna of the
+  same `N`.
+
+`sampling_grid` generates the sample locations, and `field2wavecoeffs`
+(or `nearfield2farfield`) accepts the scan through its `sampling`
+argument.  Continuing from the Quick start (`T_ant`, `n_max`, `m_max`):
+
+```python
+# ---- Where to sample ------------------------------------------------
+grid = sf.sampling_grid(n_max, m_max, sampling='mfc')   # or 'latitude'
+print(grid['n_points'], 'points;', grid['ring_counts'][:4], '... per ring')
+
+# ---- Probe signal at those points -----------------------------------
+# Here: simulated with an ideal far-field dipole probe.  In a measurement
+# these are the chi = 0 and chi = pi/2 probe signals at each point.
+k_theta, k_phi = sf.wavecoeffs2farfield(T_ant, np.deg2rad(grid['theta']),
+                                        np.deg2rad(grid['phi']))
+scan = {'theta': grid['theta'], 'phi': grid['phi'],     # degrees
+        'E_theta': np.sqrt(6.0)/4.0 * k_theta,          # dipole-probe scaling
+        'E_phi':   np.sqrt(6.0)/4.0 * k_phi}
+
+# ---- Recover the coefficients ---------------------------------------
+T_mfc = sf.field2wavecoeffs(scan, n_max=n_max, m_max=m_max, sampling='mfc')
+print('relative max error =',
+      np.max(np.abs(T_mfc - T_ant)) / np.max(np.abs(T_ant)))
+```
+
+Expected output: 2842 points (the uniform grid needs 3444) and a
+relative max error of order 1e-15.
+
+A latitude / MFC scan is four flat 1-D arrays of equal length, one
+entry per sample point: `'theta'` and `'phi'` (degrees), `'E_theta'` and
+`'E_phi'`.  The samples may be in any order; rings are found by grouping
+on theta.  What is required (and checked, with an error naming the
+offending ring):
+
+- ring thetas equally spaced from 0 to 180 degrees, poles included;
+- on each ring, phi equally spaced over 360 degrees starting at phi = 0;
+- at least 3 samples per ring.
+
+Each ring is Fourier-interpolated in phi onto a common uniform grid and
+the standard transform is applied, so `'latitude'` and `'mfc'` scans are
+processed identically; the two names differ only in `sampling_grid`.
+
+Choosing between them: the sin θ grid has fewer points but is an inexact
+scheme.  On the shipped horn it leaves about -72 dB of aliasing, and for
+a directive antenna pointed at the horizon it fails outright (about
+-25 dB at N = 40).  The MFC grid recovers both to better than -200 dB.
+Both figures are reproduced by the self-test.
+
 ## Conventions
 
 A condensed summary; see the module docstring of `pysnf.py` for full
@@ -139,11 +201,18 @@ defined for `|m| <= n`; out-of-triangle entries of `q_n_m_s` must be zero
 
 **Transform pipeline**
 - `nearfield2farfield` — measured scan -> far-field pattern (one-shot).
-- `field2wavecoeffs` — scan -> spherical-wave coefficients `T_{smn}`.
+- `field2wavecoeffs` — scan -> spherical-wave coefficients `T_{smn}`;
+  `sampling='uniform' | 'latitude' | 'mfc'` selects the scan grid.
 - `wavecoeffs2farfield_uniform` — `T_{smn}` -> far-field on a uniform
   (dtheta, dphi) grid (dipole output probe).
 - `wavecoeffs2farfield` — `T_{smn}` -> far-field at arbitrary paired
   (theta, phi) directions (no probe normalization).
+
+**Sampling grids**
+- `sampling_grid` — sample locations of an MFC, latitude (sin θ) or
+  uniform grid.
+- `mfc_phi_counts` — phi samples per ring, MFC rule ([2] Eq. (15)).
+- `sin_theta_phi_counts` — phi samples per ring, sin θ rule.
 
 **Building blocks**
 - `transmission_formula` — Hansen Eq. (3.10) probe-signal evaluation.
@@ -176,9 +245,31 @@ defined for `|m| <= n`; out-of-triangle entries of `q_n_m_s` must be zero
 [1] J. E. Hansen (ed.), *Spherical Near-Field Antenna Measurements*,
 IEE Electromagnetic Waves Series, vol. 26, Peter Peregrinus Ltd., 1988.
 
+[2] R. T. Cutshall and J. D. Lawrence, "Experimental Measurements Using
+the Uniform, Latitude, and Equally-Spaced Spherical Near-Field
+Measurement Grids," *AMTA 2015 Proceedings*.
+
 Cross-references in the source cite Hansen equation numbers (e.g.
 `[1], (4.135)`).  See [HANSEN_INDEX.md](HANSEN_INDEX.md) for a
 Hansen-equation → PySNF-function lookup table.
+
+## What's new in 1.1.0
+
+- **Latitude and MFC sampling.** `field2wavecoeffs` and
+  `nearfield2farfield` take a `sampling` argument; `sampling_grid`,
+  `mfc_phi_counts` and `sin_theta_phi_counts` are new.  The default
+  (`'uniform'`) is unchanged.
+- **Accuracy above N ≈ 86 fixed.** `lpmn_norm` scaled unnormalized
+  Legendre functions by a factorial ratio that underflows double
+  precision once `n + m` exceeds about 170.  Results were silently wrong
+  from N = 87 and meaningless from N = 89.  It now uses SciPy's
+  normalized recurrence; the uniform round trip is accurate to about
+  2e-13 at N = 180.  Results below N = 86 are unchanged to rounding.
+- **`lpmn_norm` at the poles.** Exactly at theta = 0 and theta = pi the
+  function now returns Hansen's closed-form values.  Two outputs differ
+  from 1.0.1: the `m = 0` value at theta = pi for odd `n` (the sign was
+  wrong), and the `|m| = 1` theta-derivative at both poles (was NaN).
+  Neither was used by the transforms, so no transform result changes.
 
 ## Self-test
 
@@ -186,8 +277,12 @@ Hansen-equation → PySNF-function lookup table.
 python pysnf.py
 ```
 
-runs a round-trip regression test and a single-mode purity test; both
-should report `PASS` at a 1e-10 tolerance.
+runs 20 checks and ends with `=== 20 of 20 checks passed ===` (exit
+code 1 otherwise).  They cover the original round-trip and single-mode
+tests, the normalized Legendre functions against Hansen's formulas, a
+uniform round trip at N = 180, and the latitude / MFC grids — including
+the worst-case antenna of [2] at N = 40 and N = 180.  It takes a few
+seconds and needs about 1.6 GB of memory for the N = 180 cases.
 
 ## License
 

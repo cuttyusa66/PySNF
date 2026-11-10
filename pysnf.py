@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # SPDX-License-Identifier: MIT
-""" PySNF Version 1.0.1
+""" PySNF Version 1.1.0
 
 A spherical near-field antenna measurement data-reduction library
 implementing the SNIFT-style transformation algorithm from Hansen [1],
@@ -13,6 +13,10 @@ References
     cross-reference" section below maps the principal Hansen symbols
     (Appendix A5 of [1]) onto the array names used in this module.
     See HANSEN_INDEX.md for an equation-number -> function lookup.
+[2] R. T. Cutshall and J. D. Lawrence, "Experimental Measurements Using
+    the Uniform, Latitude, and Equally-Spaced Spherical Near-Field
+    Measurement Grids," AMTA 2015 Proceedings.  Source of the Maximum
+    Fourier Content (MFC) latitude grid, Eq. (15).
 
 Conventions
 -----------
@@ -145,21 +149,44 @@ Probe convention
     A "+x" linearly-polarized probe with mu = +/- 1 is assumed unless
     a custom probe is supplied.  See ``dipole_probe_response_constants``
     and ``probe_response_constants`` for the precise definitions.
+
+Sampling grids
+    A scan is taken on theta rings equally spaced from 0 to 180 degrees
+    (poles included).  Three grids are supported, selected by the
+    ``sampling`` argument of `field2wavecoeffs` / `nearfield2farfield`:
+
+    ``'uniform'``
+        The same number of phi samples on every ring.  Scan dict keys:
+        ``'E_theta'``, ``'E_phi'`` (2-D, shape (numthetas, numphis)),
+        ``'dT'``, ``'dP'``.
+
+    ``'latitude'``, ``'mfc'``
+        Fewer phi samples on the rings near the poles: the classical
+        sin(theta) weighting ([1] pp. 128-130) or the Maximum Fourier
+        Content rule ([2] Eq. (15)).  Scan dict keys: ``'theta'``,
+        ``'phi'`` (sample coordinates in degrees), ``'E_theta'``,
+        ``'E_phi'`` -- four flat 1-D arrays, one entry per sample point,
+        in any order.  On each ring the phi samples must be equally
+        spaced over 360 degrees starting at phi = 0.  `sampling_grid`
+        generates the coordinates.  The sin(theta) rule can alias badly
+        for a directive antenna pointed at the horizon; the MFC rule
+        keeps the aliasing below -100 dB for any antenna of the same N.
+
+    For a transform that is exact to rounding, use at least ``n_max + 2``
+    theta rings and (uniform grid) ``2*m_max + 2`` phi samples.
 """
 
 # ---------------------
 # IMPORTS
 # ---------------------
-import math
 import numpy as np
 import scipy.special as sps
-import fractions
 # Note: matplotlib is intentionally NOT imported at module load.  It is
 # lazy-imported inside ``plot_spherical_wave_coefficients_mag_db`` so that
 # users on headless systems (or those who never plot) don't pay the
 # matplotlib import cost or need it installed.
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 # ---------------------
 # GLOBAL VARIABLES
@@ -174,7 +201,8 @@ PI = np.pi
 
 
 def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x', ka=INF,
-                       n_max=None, m_max=None, nu_max=None, dtype='complex128'):
+                       n_max=None, m_max=None, nu_max=None, dtype='complex128',
+                       sampling='uniform'):
     """Compute the far-field of the UUT from a sampled near-field scan.
 
     Parameters
@@ -207,6 +235,11 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
         this parameter controls only the storage precision at the API
         boundary, which is where large arrays live.  Use 'complex64' to
         halve memory for input scans and output patterns.
+    sampling : {'uniform', 'latitude', 'mfc'}
+        Sampling grid of ``nearfield``.  For ``'latitude'`` or ``'mfc'``
+        the dict instead holds flat 1-D arrays ``'theta'``, ``'phi'``
+        (degrees), ``'E_theta'`` and ``'E_phi'``, one entry per sample
+        point; see `field2wavecoeffs`.  The output is always uniform.
 
     Returns
     -------
@@ -233,15 +266,16 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
     # may briefly upcast to complex128, but the result is downcast back to
     # `dtype` at storage.
     nearfield_internal = nearfield
-    if (nearfield['E_theta'].dtype != np_dtype
-            or nearfield['E_phi'].dtype != np_dtype):
+    if (np.asarray(nearfield['E_theta']).dtype != np_dtype
+            or np.asarray(nearfield['E_phi']).dtype != np_dtype):
         nearfield_internal = nearfield.copy()
-        nearfield_internal['E_theta'] = nearfield['E_theta'].astype(np_dtype)
-        nearfield_internal['E_phi']   = nearfield['E_phi'].astype(np_dtype)
+        nearfield_internal['E_theta'] = np.asarray(nearfield['E_theta']).astype(np_dtype)
+        nearfield_internal['E_phi']   = np.asarray(nearfield['E_phi']).astype(np_dtype)
 
     # Calculate the spherical wave coefficients of the UUT
     q_n_m_s = field2wavecoeffs(nearfield_internal, probe, probe_pol, ka,
-                               n_max, m_max, nu_max, dtype=dtype)
+                               n_max, m_max, nu_max, dtype=dtype,
+                               sampling=sampling)
 
     # From the spherical wave coefficients, calculate the far-field
     E_theta, E_phi = wavecoeffs2farfield_uniform(q_n_m_s, dtheta_out, dphi_out,
@@ -258,7 +292,8 @@ def nearfield2farfield(nearfield, dtheta_out, dphi_out, probe=None, probe_pol='x
 
 
 def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
-                     n_max=None, m_max=None, nu_max=None, dtype='complex128'):
+                     n_max=None, m_max=None, nu_max=None, dtype='complex128',
+                     sampling='uniform'):
     """Recover spherical-wave coefficients ``T_{smn}`` from a probe scan.
 
     Implements Hansen [1], Eqs. (4.133)-(4.134): given the two-probe
@@ -269,11 +304,15 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
     Parameters
     ----------
     uut : dict
-        Test-antenna scan data with keys ``'E_theta'``, ``'E_phi'``,
-        ``'dT'``, ``'dP'``; same layout as the ``nearfield`` argument of
-        `nearfield2farfield`.
+        Test-antenna scan data.  For ``sampling='uniform'``: keys
+        ``'E_theta'``, ``'E_phi'``, ``'dT'``, ``'dP'``; same layout as the
+        ``nearfield`` argument of `nearfield2farfield`.  For
+        ``sampling='latitude'`` or ``'mfc'``: four flat 1-D arrays of equal
+        length, one entry per sample point -- ``'theta'`` and ``'phi'``
+        (coordinates in degrees) and ``'E_theta'`` and ``'E_phi'`` (see
+        ``sampling`` below).
     probe : dict or None
-        Custom probe scan with the same dict layout, or ``None`` for an
+        Custom probe scan with the uniform dict layout, or ``None`` for an
         ideal Hertzian dipole probe.
     probe_pol : {'x', 'y'}
         Probe polarization (only ``'x'`` and ``'y'`` are supported, and
@@ -289,6 +328,25 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
         Storage precision for the returned array; the internal pipeline
         runs in the same precision (with brief upcasts inside scalar
         literal arithmetic).
+    sampling : {'uniform', 'latitude', 'mfc'}
+        Sampling grid of ``uut``.
+
+        ``'uniform'`` (default) -- the same number of phi samples on every
+        theta ring.
+
+        ``'latitude'`` / ``'mfc'`` -- a thinned grid with fewer phi samples
+        on the rings near the poles: the sin(theta) rule or the Maximum
+        Fourier Content rule of [2] (see `sampling_grid`, which generates
+        both).  The rings are found from the data by grouping samples with
+        a common ``'theta'``, so the samples may be given in any order and
+        the two values are processed identically.  Requirements, checked
+        on entry: the ring thetas are equally spaced from 0 to 180 degrees
+        (poles included), and on every ring the phi samples are equally
+        spaced over 360 degrees starting at phi = 0, at least 3 per ring.
+        Each ring is Fourier-interpolated in phi onto a common uniform
+        grid ([1] A4.4.3) and the standard transform is then applied.
+        ``n_max`` then defaults to ``numthetas - 2`` and ``m_max`` to
+        ``min(n_max, (largest ring - 1)//2)``.
 
     Returns
     -------
@@ -299,6 +357,14 @@ def field2wavecoeffs(uut, probe=None, probe_pol='x', ka=INF,
     """
 
     np_dtype = np.dtype(dtype)
+
+    if sampling in ('latitude', 'mfc'):
+        # Bring the thinned scan back to a uniform grid; everything below
+        # then runs exactly as for a uniform scan.
+        uut, n_max, m_max = _thinned2uniform(uut, n_max, m_max, dtype=dtype)
+    elif sampling != 'uniform':
+        raise ValueError("sampling must be 'uniform', 'latitude' or 'mfc'; "
+                         "got {!r}".format(sampling))
 
     # Get the values for w_n_m_mu
     w_n_m_mu = field2w_n_m_mu(uut, n_max, m_max, probe_pol, dtype=dtype)
@@ -1251,10 +1317,13 @@ def lpmn_norm(n_max, m_max, thetas):
     by including the same (-1)^m factor in the normalization, matching the
     convention in Hansen [1], pg. 322.
 
-    At theta = 0 or pi, dP/dz is singular for some (m, n).  Multiplying by
-    -sin(theta) = 0 produces NaN entries in the derivative.  Callers of this
-    function that depend on derivative values at the poles must handle the
-    pole values separately (`rotation_coefficients` does so).
+    Exactly at theta = 0 or pi the values are written from the closed
+    forms rather than taken from SciPy: Hansen Eqs. (A1.36) and (A1.38)
+    for the function and (A1.42) and (A1.44) for the theta-derivative,
+    each scaled by the normalization (A1.25).  (dP/dz is singular there,
+    so the chain rule alone would give NaN; PySNF <= 1.0.1 returned NaN
+    for the |m| = 1 derivative at the poles, and the wrong sign for the
+    m = 0 function value at theta = pi with odd n.)
     """
 
     # Make sure that the thetas variable is a numpy array
@@ -1283,37 +1352,57 @@ def lpmn_norm(n_max, m_max, thetas):
     #
     # The order m runs over both signs (FFT layout); Hansen Eq. (A1.25) uses
     # only non-negative orders, so we slice axis 2 to indices [0, m_max].
+    #
+    # norm=True asks SciPy for the normalized functions directly:
+    #   sqrt((2n+1)/2 * (n-m)!/(n+m)!) * P_n^m(cos theta)
+    # which is the normalization of Hansen Eq. (A1.25), evaluated by a
+    # stable recurrence.  Do NOT compute the unnormalized P_n^m and scale it
+    # afterwards: the factor (n-m)!/(n+m)! underflows double precision once
+    # n + m exceeds ~170 (subnormal from n = m = 86, exactly zero from 89),
+    # which silently destroyed the transform above N ~ 86 in PySNF <= 1.0.1.
     z = np.cos(thetas)
-    p_and_deriv = sps.assoc_legendre_p_all(n_max, m_max, z, diff_n=1)
+    p_and_deriv = sps.assoc_legendre_p_all(n_max, m_max, z, norm=True, diff_n=1)
     p_values = p_and_deriv[0][:, :m_max+1, :]   # (n_max+1, m_max+1, T)
     p_dz     = p_and_deriv[1][:, :m_max+1, :]   # (n_max+1, m_max+1, T)
 
     # Convert derivative from d/dz to d/dtheta via chain rule:
     # d/dtheta = (dz/dtheta) * d/dz = -sin(theta) * d/dz.
-    # At theta = 0 or pi, d/dz may be Inf and -sin(theta) = 0, producing NaN.
-    # This is acceptable because callers handle the pole values separately.
+    # At theta = 0 or pi, d/dz may be Inf and -sin(theta) = 0, producing NaN;
+    # those pole entries are overwritten with closed forms below.
     with np.errstate(invalid='ignore'):
         p_dtheta = p_dz * (-np.sin(thetas))   # broadcast (n, m, T) * (T,)
 
-    # The (n_max+1, m_max+1, T) layout matches what downstream callers expect.
-    legendre_m_n_thetas = p_values
-    dlegendre_m_n_thetas = p_dtheta
+    # The (-1)^m factor undoes the Condon-Shortley phase included by scipy,
+    # completing Hansen Eq. (A1.25).  The (n_max+1, m_max+1, T) layout
+    # matches what downstream callers expect.
+    cs_phase = ((-1.0)**np.arange(m_max+1)).reshape(1, m_max+1, 1)
+    legendre_m_n_thetas = p_values * cs_phase
+    dlegendre_m_n_thetas = p_dtheta * cs_phase
 
-    # Normalization per Hansen Eq. (A1.25):
-    #   bar{P}_n^|m|(cos theta) = (-1)^m * sqrt((2n+1)/2 * (n-m)!/(n+m)!) * P_n^|m|(cos theta)
-    # The (-1)^m factor undoes the Condon-Shortley phase included by scipy.
-    normfactor = np.zeros((n_max+1, m_max+1, 1))
-    for m in range(m_max+1):
-        for n in range(n_max+1):
-            if m > n:
-                continue
-            temp1 = math.factorial(n - m)
-            temp2 = math.factorial(n + m)
-            temp3 = fractions.Fraction(temp1, temp2)
-            normfactor[n, m, 0] = (-1)**m * math.sqrt((2*n + 1)/2.0 * float(temp3))
+    # Exactly at the poles (z = +/-1) SciPy's norm=True branch returns the
+    # *unnormalized* m = 0 values P_n(+/-1) = (+/-1)^n (observed with SciPy
+    # 1.16).  Write the normalized pole values explicitly:
+    #   bar{P}_n^0(+/-1) = sqrt((2n+1)/2) * (+/-1)^n,   bar{P}_n^m(+/-1) = 0, m > 0
+    # so the result does not depend on that behavior.
+    pole_inds = np.abs(z) == 1.0
+    if np.any(pole_inds):
+        n_vec = np.arange(n_max+1).reshape(n_max+1, 1)
+        legendre_m_n_thetas[:, :, pole_inds] = 0.0
+        legendre_m_n_thetas[:, 0, pole_inds] = (np.sqrt((2.0*n_vec + 1.0)/2.0)
+                                                * z[pole_inds].reshape(1, -1)**n_vec)
 
-    legendre_m_n_thetas *= normfactor
-    dlegendre_m_n_thetas *= normfactor
+        # Theta-derivative at the poles, Hansen Eqs. (A1.42) and (A1.44):
+        #   dP_n^|m|/dtheta = 0                          for |m| != 1
+        #                   = (+/-1)^n * n(n+1)/2        for |m| == 1
+        # (+ at theta = 0, - at theta = pi).  Normalizing with (A1.25) at
+        # m = 1, where (n-1)!/(n+1)! = 1/(n(n+1)), gives
+        #   d bar{P}_n^1/dtheta = (+/-1)^n * sqrt((2n+1)/2) * sqrt(n(n+1))/2.
+        # The chain-rule product above is NaN (Inf * 0) for these entries.
+        dlegendre_m_n_thetas[:, :, pole_inds] = 0.0
+        if m_max >= 1:
+            dlegendre_m_n_thetas[:, 1, pole_inds] = (
+                np.sqrt((2.0*n_vec + 1.0)/2.0) * np.sqrt(n_vec*(n_vec + 1.0))/2.0
+                * z[pole_inds].reshape(1, -1)**n_vec)
 
     return legendre_m_n_thetas, dlegendre_m_n_thetas
 
@@ -2187,6 +2276,359 @@ def probe_response_constants(r_p, n_max, ka, c=None):
     return p
 
 # ------------------------------------------------------------------------
+# Thinned ("latitude") sampling grids
+# ------------------------------------------------------------------------
+# A latitude grid keeps the uniform theta rings of the standard grid but
+# takes fewer phi samples on the rings near the poles, where the probe
+# signal carries fewer azimuthal harmonics ([1] pp. 128-130).  Two rules
+# for the per-ring count are provided: the classical sin(theta) weighting
+# and the Maximum Fourier Content (MFC) rule of [2].  Data taken on either
+# grid is brought back to the uniform grid by Fourier interpolation of
+# each ring ([1] A4.4.3) before the standard transform runs.
+
+# Relative tolerance (as a fraction of the local sample spacing) used when
+# checking that thinned-grid coordinates are equally spaced.
+_GRID_TOL = 1.0e-4
+
+
+def mfc_phi_counts(theta_deg, n_max, m_max=None):
+    """Phi samples per ring for the Maximum Fourier Content latitude grid.
+
+    Implements Cutshall & Lawrence [2], Eq. (15)::
+
+        N_phi(theta) = min{ 2*ceil(N*sin(b*theta + c)) + 1, 2M+1 }   if b*theta + c <= pi/2
+                     = 2M+1                                           otherwise
+        b = 1.017657 + 20.952552 / N
+        c = 2.504431 * N**(-0.677533)
+
+    with theta in radians on ``[0, pi/2]``, mirrored about the equator for
+    the lower hemisphere.  The regression was fitted in [2] to the
+    -100 dB Fourier content of a maximum-directivity antenna of order
+    ``N = M`` pointed at the horizon, which is the worst case for any
+    test antenna of the same ``N``.
+
+    Parameters
+    ----------
+    theta_deg : array_like
+        Ring polar angles in *degrees*, ``0 <= theta <= 180``.
+    n_max : int
+        Polar truncation ``N``.
+    m_max : int or None
+        Azimuthal truncation ``M``; defaults to ``n_max``.
+
+    Returns
+    -------
+    counts : ndarray of int, same shape as ``theta_deg``
+        Odd sample counts, at least 3 and at most ``2*m_max + 1``.
+    """
+    if m_max is None:
+        m_max = n_max
+    if n_max < 1 or m_max < 1 or m_max > n_max:
+        raise ValueError("need 1 <= m_max <= n_max; got n_max = {}, m_max = {}"
+                         .format(n_max, m_max))
+    n = float(n_max)
+    th = np.deg2rad(np.asarray(theta_deg, dtype=float))
+    if np.any(th < 0.0) or np.any(th > PI + 1.0e-12):
+        raise ValueError("theta_deg values must be between 0 and 180.")
+    th = np.minimum(th, PI - th)                       # mirror about the equator
+    b = 1.017657 + 20.952552/n
+    c = 2.504431*n**(-0.677533)
+    arg = np.minimum(b*th + c, PI/2.0)                 # saturate past pi/2
+    counts = (2*np.ceil(n*np.sin(arg)) + 1).astype(int)
+    counts = np.minimum(counts, 2*m_max + 1)
+    return np.maximum(counts, 3)
+
+
+def sin_theta_phi_counts(theta_deg, n_max, m_max=None):
+    """Phi samples per ring for the classical sin(theta) latitude grid.
+
+    The equator count ``2M + 1`` scaled by ``sin(theta)`` ([1] pp. 128-130,
+    [2] Sec. II.B), rounded up to an odd integer, with a floor of 3 so the
+    ``m = +/-1`` content of the pole rings is always resolved.
+
+    Note that [2], Sec. IV shows this rule can alias badly for a directive
+    antenna pointed at the horizon; `mfc_phi_counts` is the safe choice.
+
+    Parameters and return value as for `mfc_phi_counts`.
+    """
+    if m_max is None:
+        m_max = n_max
+    if n_max < 1 or m_max < 1 or m_max > n_max:
+        raise ValueError("need 1 <= m_max <= n_max; got n_max = {}, m_max = {}"
+                         .format(n_max, m_max))
+    th = np.deg2rad(np.asarray(theta_deg, dtype=float))
+    if np.any(th < 0.0) or np.any(th > PI + 1.0e-12):
+        raise ValueError("theta_deg values must be between 0 and 180.")
+    x = (2*m_max + 1)*np.sin(th)
+    # Smallest odd integer >= x (the 1e-9 keeps an exact 2M+1 from rounding up).
+    counts = (2*np.ceil((x - 1.0)/2.0 - 1.0e-9) + 1).astype(int)
+    counts = np.minimum(counts, 2*m_max + 1)
+    return np.maximum(counts, 3)
+
+
+def sampling_grid(n_max, m_max=None, dtheta=None, sampling='mfc'):
+    """Generate the sample locations of a latitude, MFC or uniform scan grid.
+
+    All three grids use the same theta rings (equally spaced from 0 to
+    180 degrees, poles included); they differ only in the number of phi
+    samples per ring.  On every ring the phi samples are equally spaced
+    over 360 degrees and start at phi = 0.
+
+    Parameters
+    ----------
+    n_max : int
+        Polar truncation ``N = ceil(k*r_s + delta)``.
+    m_max : int or None
+        Azimuthal truncation ``M = ceil(k*r_c + delta)``; defaults to
+        ``n_max``.
+    dtheta : float or None
+        Ring spacing in degrees.  Must divide 180 and give at least
+        ``n_max + 2`` rings.  Default ``180/(n_max + 1)``, the coarsest
+        spacing the transform handles exactly.
+    sampling : {'mfc', 'latitude', 'uniform'}
+        ``'mfc'``      -- Maximum Fourier Content rule, `mfc_phi_counts`.
+        ``'latitude'`` -- sin(theta) weighting, `sin_theta_phi_counts`.
+        ``'uniform'``  -- ``2*m_max + 2`` samples on every ring.
+
+    Returns
+    -------
+    grid : dict
+        ``'theta'``, ``'phi'`` : 1-D float arrays of length ``n_points``
+            Coordinates of every sample point in degrees, ring by ring
+            with phi increasing.  Add ``'E_theta'`` and ``'E_phi'`` arrays
+            of the same length and the dict can be passed directly to
+            `field2wavecoeffs` (with a matching ``sampling`` argument for
+            the two thinned grids).
+        ``'ring_thetas'`` : (numthetas,) float -- theta of each ring.
+        ``'ring_counts'`` : (numthetas,) int -- phi samples on each ring.
+        ``'dT'`` : float -- ring spacing, degrees.
+        ``'n_points'`` : int -- total number of sample points.
+        ``'sampling'``, ``'n_max'``, ``'m_max'`` : the inputs, for reference.
+    """
+    if m_max is None:
+        m_max = n_max
+    n_max = int(n_max)
+    m_max = int(m_max)
+    if n_max < 1 or m_max < 1 or m_max > n_max:
+        raise ValueError("need 1 <= m_max <= n_max; got n_max = {}, m_max = {}"
+                         .format(n_max, m_max))
+    if dtheta is None:
+        dtheta = 180.0/float(n_max + 1)
+    numthetas = int(round(180.0/dtheta)) + 1
+    if abs((numthetas - 1)*dtheta - 180.0) > 1.0e-9:
+        raise ValueError("dtheta must divide 180 degrees; got {}".format(dtheta))
+    if numthetas < n_max + 2:
+        raise ValueError(
+            "dtheta = {} gives {} rings; at least n_max + 2 = {} are needed "
+            "(dtheta <= {})".format(dtheta, numthetas, n_max + 2,
+                                    180.0/float(n_max + 1)))
+    ring_thetas = np.linspace(0.0, 180.0, numthetas)
+
+    if sampling == 'mfc':
+        ring_counts = mfc_phi_counts(ring_thetas, n_max, m_max)
+    elif sampling == 'latitude':
+        ring_counts = sin_theta_phi_counts(ring_thetas, n_max, m_max)
+    elif sampling == 'uniform':
+        ring_counts = np.full(numthetas, 2*m_max + 2, dtype=int)
+    else:
+        raise ValueError("sampling must be 'mfc', 'latitude' or 'uniform'; "
+                         "got {!r}".format(sampling))
+
+    theta = np.repeat(ring_thetas, ring_counts)
+    phi = np.concatenate([np.arange(c)*(360.0/c) for c in ring_counts])
+
+    return {'theta': theta, 'phi': phi,
+            'ring_thetas': ring_thetas, 'ring_counts': ring_counts,
+            'dT': float(dtheta), 'n_points': int(np.sum(ring_counts)),
+            'sampling': sampling, 'n_max': n_max, 'm_max': m_max}
+
+
+def _group_rings(theta, phi, e_theta, e_phi):
+    """Sort thinned-grid samples into constant-theta rings and validate them.
+
+    Parameters
+    ----------
+    theta, phi : array_like, shape (n_points,)
+        Sample coordinates in degrees, in any order.
+    e_theta, e_phi : array_like, shape (n_points,), complex
+        The two probe-signal components at those points.
+
+    Returns
+    -------
+    dtheta : float
+        Ring spacing in degrees.
+    rings_theta, rings_phi : list of 1-D complex arrays
+        One array per ring (theta increasing), each ordered by increasing
+        phi starting at phi = 0.
+
+    Raises
+    ------
+    ValueError
+        If the arrays differ in length, the rings are not equally spaced
+        from 0 to 180 degrees, or any ring is not equally spaced over
+        360 degrees starting at phi = 0 with at least 3 samples.
+    """
+    theta = np.asarray(theta, dtype=float).ravel()
+    phi = np.asarray(phi, dtype=float).ravel()
+    e_theta = np.asarray(e_theta).ravel()
+    e_phi = np.asarray(e_phi).ravel()
+    if not (theta.size == phi.size == e_theta.size == e_phi.size):
+        raise ValueError(
+            "'theta', 'phi', 'E_theta' and 'E_phi' must have the same number "
+            "of entries; got {}, {}, {} and {}".format(
+                theta.size, phi.size, e_theta.size, e_phi.size))
+    if theta.size == 0:
+        raise ValueError("the scan contains no samples")
+
+    # --- Find the rings: samples sharing a theta value ------------------
+    # Sorted theta steps are either ~0 (same ring) or ~dtheta (next ring).
+    order = np.argsort(theta, kind='stable')
+    steps = np.diff(theta[order])
+    if steps.size == 0 or np.max(steps) <= 0.0:
+        raise ValueError("all samples have the same theta; need rings from "
+                         "0 to 180 degrees")
+    new_ring = steps > 0.5*np.max(steps)
+    ring_index = np.empty(theta.size, dtype=int)
+    ring_index[order] = np.concatenate([[0], np.cumsum(new_ring)])
+    numthetas = int(ring_index.max()) + 1
+    if numthetas < 3:
+        raise ValueError("found only {} theta ring(s); need rings from 0 to "
+                         "180 degrees".format(numthetas))
+    dtheta = 180.0/float(numthetas - 1)
+
+    # Every sample must sit on its ring of the grid linspace(0, 180, numthetas).
+    theta_err = np.abs(theta - ring_index*dtheta)
+    if np.max(theta_err) > _GRID_TOL*dtheta:
+        bad = int(ring_index[np.argmax(theta_err)])
+        raise ValueError(
+            "theta rings must be equally spaced from 0 to 180 degrees, poles "
+            "included: found {} rings (spacing {:.6g} deg), but ring {} has a "
+            "sample at theta = {:.6g} deg instead of {:.6g} deg".format(
+                numthetas, dtheta, bad, theta[np.argmax(theta_err)], bad*dtheta))
+
+    # --- Order each ring by phi and check its spacing --------------------
+    # Wrap phi into [0, 360), sending values a hair below 360 back to 0.
+    phi = np.mod(phi, 360.0)
+    phi[phi > 360.0 - 1.0e-9] = 0.0
+    order = np.lexsort((phi, ring_index))
+    phi = phi[order]
+    e_theta = e_theta[order]
+    e_phi = e_phi[order]
+    counts = np.bincount(ring_index, minlength=numthetas)
+    edges = np.concatenate([[0], np.cumsum(counts)])
+
+    rings_theta = []
+    rings_phi = []
+    for j in range(numthetas):
+        c = int(counts[j])
+        if c < 3:
+            raise ValueError(
+                "ring {} (theta = {:.6g} deg) has {} sample(s); every ring "
+                "needs at least 3".format(j, j*dtheta, c))
+        ring_phi = phi[edges[j]:edges[j + 1]]
+        spacing = 360.0/c
+        phi_err = np.abs(ring_phi - np.arange(c)*spacing)
+        if np.max(phi_err) > _GRID_TOL*spacing:
+            k = int(np.argmax(phi_err))
+            raise ValueError(
+                "ring {} (theta = {:.6g} deg, {} samples): phi must be equally "
+                "spaced over 360 degrees starting at phi = 0, i.e. every "
+                "{:.6g} deg; sample {} is at phi = {:.6g} deg instead of "
+                "{:.6g} deg".format(j, j*dtheta, c, spacing, k, ring_phi[k],
+                                    k*spacing))
+        rings_theta.append(e_theta[edges[j]:edges[j + 1]])
+        rings_phi.append(e_phi[edges[j]:edges[j + 1]])
+
+    return dtheta, rings_theta, rings_phi
+
+
+def _rings2uniform(rings, numphis, dtype='complex128'):
+    """Fourier-interpolate every ring onto ``numphis`` uniform phi samples.
+
+    Each ring is one period of a band-limited function of phi sampled at
+    equally spaced points starting at phi = 0, so FFT interpolation
+    (Hansen [1], A4.4.3; `interpft`) reproduces exactly the harmonics the
+    ring resolved.  Harmonics a ring did not resolve were aliased when it
+    was sampled and cannot be recovered here.
+
+    Parameters
+    ----------
+    rings : sequence of 1-D complex arrays
+        One array per theta ring; lengths may differ but none may exceed
+        ``numphis``.
+    numphis : int
+        Number of phi samples on every ring of the output.
+
+    Returns
+    -------
+    uniform : ndarray, shape (len(rings), numphis), complex
+    """
+    numphis = int(numphis)
+    counts = np.array([np.size(r) for r in rings])
+    if np.any(counts > numphis):
+        raise ValueError("a ring has {} samples, more than numphis = {}"
+                         .format(int(counts.max()), numphis))
+    uniform = np.zeros((len(rings), numphis), dtype=np.dtype(dtype))
+    # Rings with the same count are interpolated together in one FFT.
+    for c in np.unique(counts):
+        rows = np.where(counts == c)[0]
+        block = np.stack([np.asarray(rings[j]) for j in rows], axis=0)
+        if c == numphis:
+            uniform[rows, :] = block
+        else:
+            uniform[rows, :] = interpft(block, numphis)
+    return uniform
+
+
+def _thinned2uniform(uut, n_max=None, m_max=None, dtype='complex128'):
+    """Convert a latitude / MFC scan dict to the uniform-grid scan dict.
+
+    Parameters
+    ----------
+    uut : dict
+        Thinned scan with flat 1-D entries ``'theta'``, ``'phi'``
+        (degrees), ``'E_theta'`` and ``'E_phi'``.
+    n_max, m_max : int or None
+        Truncation indices.  Defaults: ``n_max = numthetas - 2`` and
+        ``m_max = min(n_max, (largest ring - 1)//2)``.
+
+    Returns
+    -------
+    uniform : dict
+        Keys ``'E_theta'``, ``'E_phi'`` (shape (numthetas, numphis)),
+        ``'dT'`` and ``'dP'``.
+    n_max, m_max : int
+        The truncation indices, with defaults filled in.
+    """
+    missing = [key for key in ('theta', 'phi', 'E_theta', 'E_phi') if key not in uut]
+    if missing:
+        raise ValueError(
+            "a latitude / MFC scan needs flat 1-D entries 'theta', 'phi' "
+            "(degrees), 'E_theta' and 'E_phi', one value per sample point; "
+            "missing {}".format(', '.join(repr(k) for k in missing)))
+
+    dtheta, rings_theta, rings_phi = _group_rings(
+        uut['theta'], uut['phi'], uut['E_theta'], uut['E_phi'])
+    numthetas = len(rings_theta)
+    max_count = max(r.size for r in rings_theta)
+
+    if n_max is None:
+        n_max = numthetas - 2
+    if m_max is None:
+        m_max = max(1, min(n_max, (max_count - 1)//2))
+
+    # Smallest even count that holds every ring and survives the odd -> even
+    # resample in singlesphere2doublesphere without losing m = +/-m_max.
+    numphis = max(max_count, 2*int(m_max) + 2)
+    numphis += numphis % 2
+
+    uniform = {'E_theta': _rings2uniform(rings_theta, numphis, dtype=dtype),
+               'E_phi': _rings2uniform(rings_phi, numphis, dtype=dtype),
+               'dT': dtheta, 'dP': 360.0/float(numphis)}
+    return uniform, n_max, m_max
+
+
+# ------------------------------------------------------------------------
 
 
 def singlesphere2doublesphere(singlesphere, dtype='complex128'):
@@ -2405,3 +2847,280 @@ if __name__ == '__main__':
         print('  PASS')
     else:
         print('  FAIL (tolerance 1e-10)')
+
+    # ===================================================================
+    # Tests added in 1.1.0
+    # ===================================================================
+    import math
+    import os
+    import time
+
+    results = [('Round-trip regression', max_abs_err < 1e-10),
+               ('Single-mode purity', (max_leakage < 1e-10) and (mode_err < 1e-10))]
+
+    def _check(name, passed, detail):
+        results.append((name, bool(passed)))
+        print('  {}  {}'.format('PASS' if passed else 'FAIL', detail))
+
+    def _rel_err(t_out, t_in):
+        return float(np.max(np.abs(t_out - t_in))/np.max(np.abs(t_in)))
+
+    def _random_coeffs(n_max, seed):
+        """Random T_{smn} filling the whole |m| <= n triangle (m_max = n_max)."""
+        rng = np.random.default_rng(seed)
+        shape = (n_max, 2*n_max + 1, 2)
+        t = rng.standard_normal(shape) + 1j*rng.standard_normal(shape)
+        for n in range(1, n_max + 1):
+            t[n - 1, :n_max - n, :] = 0.0
+            t[n - 1, n_max + n + 1:, :] = 0.0
+        return t
+
+    def _horizon_antenna(n_max):
+        """Maximum-directivity antenna of order N pointed at theta = 90 deg.
+
+        The worst case for azimuthal sampling ([2] Sec. IV.B).  Zenith-
+        pointing coefficients per [1] p. 57 / [2] Eq. (14),
+            T_{1,1,n} = T_{1,-1,n} = -T_{2,1,n} = T_{2,-1,n} = (-i)^n sqrt(2n+1),
+        rotated 90 deg about the y-axis with [1] (A2.1)-(A2.2):
+            T'_{s,mu,n} = sum_m Delta^n_{mu m} T_{s,m,n}.
+        """
+        n = np.arange(1, n_max + 1)
+        amp = ((-1j)**n*np.sqrt(2.0*n + 1.0)).reshape(n_max, 1)
+        deltas = delta_pyramid(n_max)[1:]            # [n-1, mu + n_max, m + n_max]
+        d_p1 = deltas[:, :, n_max + 1]               # Delta^n_{mu, +1}
+        d_m1 = deltas[:, :, n_max - 1]               # Delta^n_{mu, -1}
+        t = np.zeros((n_max, 2*n_max + 1, 2), dtype='complex128')
+        t[:, :, 0] = (d_p1 + d_m1)*amp
+        t[:, :, 1] = (d_m1 - d_p1)*amp
+        return t
+
+    def _scan_on_grid(t, grid):
+        """Probe signal of ``t`` at the points of a `sampling_grid` dict.
+
+        Synthesizes the pattern on the uniform grid with the same rings,
+        takes the exact phi-Fourier series of each ring (band-limited to
+        m_max) and evaluates it at that ring's own phi samples.
+        """
+        m_max_ = (t.shape[1] - 1)//2
+        numphis = 2*m_max_ + 2
+        comps = wavecoeffs2farfield_uniform(t, grid['dT'], 360.0/numphis)
+        m_bins = np.fft.fftfreq(numphis, 1.0/numphis)        # harmonic of each FFT bin
+        edges = np.concatenate([[0], np.cumsum(grid['ring_counts'])])
+        phi_rad = np.deg2rad(grid['phi'])
+        scan = {'theta': grid['theta'], 'phi': grid['phi']}
+        for key, comp in zip(('E_theta', 'E_phi'), comps):
+            if comp.shape[0] != grid['ring_thetas'].size:
+                raise RuntimeError('ring count mismatch in test synthesis')
+            spec = np.fft.fft(comp, axis=1)/numphis          # a_m of each ring
+            vals = np.zeros(grid['n_points'], dtype='complex128')
+            for j in range(comp.shape[0]):
+                ph = phi_rad[edges[j]:edges[j + 1]]
+                vals[edges[j]:edges[j + 1]] = spec[j] @ np.exp(1j*np.outer(m_bins, ph))
+            scan[key] = vals
+        return scan
+
+    def _raises_value_error(func):
+        try:
+            func()
+        except ValueError:
+            return True
+        return False
+
+    # -------------------------------------------------------------------
+    # Normalized Legendre functions and the large-N round trip
+    # -------------------------------------------------------------------
+    # PySNF <= 1.0.1 lost all accuracy above N ~ 86 because lpmn_norm
+    # scaled unnormalized Legendre functions by a factorial ratio that
+    # underflows.  Check lpmn_norm against Hansen (A1.25) evaluated with
+    # exact integer factorials at low order (interior angles), against
+    # Hansen's closed-form pole values, and then check the round trip at
+    # an order well past the old limit.
+    print('--- Normalized Legendre functions vs. Hansen (A1.25), N = 20 ---')
+    n_ref = 20
+    th_ref = np.linspace(0.0, PI, 13)
+    interior = slice(1, -1)
+    raw = sps.assoc_legendre_p_all(n_ref, n_ref, np.cos(th_ref[interior]), diff_n=1)
+    norm_ref = np.zeros((n_ref + 1, n_ref + 1, 1))
+    for n in range(n_ref + 1):
+        for m in range(n + 1):
+            norm_ref[n, m, 0] = ((-1)**m*math.sqrt((2*n + 1)/2.0)
+                                 * math.sqrt(math.factorial(n - m)/math.factorial(n + m)))
+    p_expected = norm_ref*raw[0][:, :n_ref + 1, :]
+    dp_expected = norm_ref*raw[1][:, :n_ref + 1, :]*(-np.sin(th_ref[interior]))
+    p_got, dp_got = lpmn_norm(n_ref, n_ref, th_ref)
+    lpmn_err = max(float(np.max(np.abs(p_got[:, :, interior] - p_expected))),
+                   float(np.max(np.abs(dp_got[:, :, interior] - dp_expected))))
+    _check('lpmn_norm vs (A1.25)', lpmn_err < 1e-11,
+           'interior angles: max |difference| (function and theta-derivative) = '
+           '{:.2e}  (tolerance 1e-11)'.format(lpmn_err))
+
+    # Poles: (A1.36)/(A1.38) for the function, (A1.42)/(A1.44) for the
+    # derivative, each scaled by the normalization (A1.25).
+    n_col = np.arange(n_ref + 1)
+    norm0 = np.sqrt((2.0*n_col + 1.0)/2.0)                       # m = 0
+    norm1 = np.zeros(n_ref + 1)                                  # m = 1
+    norm1[1:] = norm0[1:]/np.sqrt(n_col[1:]*(n_col[1:] + 1.0))
+    p_pole = np.zeros((n_ref + 1, n_ref + 1, 2))
+    dp_pole = np.zeros((n_ref + 1, n_ref + 1, 2))
+    p_pole[:, 0, 0] = norm0                                      # theta = 0
+    p_pole[:, 0, 1] = norm0*(-1.0)**n_col                        # theta = pi
+    dp_pole[:, 1, 0] = norm1*n_col*(n_col + 1.0)/2.0
+    dp_pole[:, 1, 1] = norm1*n_col*(n_col + 1.0)/2.0*(-1.0)**n_col
+    pole_err = max(float(np.max(np.abs(p_got[:, :, [0, -1]] - p_pole))),
+                   float(np.max(np.abs(dp_got[:, :, [0, -1]] - dp_pole))))
+    _check('lpmn_norm pole values', np.isfinite(pole_err) and pole_err < 1e-12,
+           'poles vs (A1.36), (A1.38), (A1.42), (A1.44): max |difference| = '
+           '{:.2e}  (tolerance 1e-12)'.format(pole_err))
+
+    print('--- Large-N uniform round trip, random coefficients, N = M = 180 ---')
+    n_big = 180
+    T_big = _random_coeffs(n_big, seed=0)
+    dT_big = 180.0/(n_big + 1)
+    dP_big = 360.0/(2*n_big + 2)
+    t0 = time.perf_counter()
+    e_th_big, e_ph_big = wavecoeffs2farfield_uniform(T_big, dT_big, dP_big)
+    T_big_out = field2wavecoeffs({'E_theta': e_th_big, 'E_phi': e_ph_big,
+                                  'dT': dT_big, 'dP': dP_big},
+                                 n_max=n_big, m_max=n_big)
+    err_big = _rel_err(T_big_out, T_big)
+    _check('Uniform round trip, N = 180', err_big < 1e-10,
+           'max |dT|/max|T| = {:.2e}  (tolerance 1e-10)  [{:.1f} s]'.format(
+               err_big, time.perf_counter() - t0))
+
+    # -------------------------------------------------------------------
+    # Latitude and MFC sampling
+    # -------------------------------------------------------------------
+    n_lat = 40
+    T_hor = _horizon_antenna(n_lat)
+    _check_m_le_n(T_hor, 'T_hor')
+    grids = {name: sampling_grid(n_lat, sampling=name)
+             for name in ('uniform', 'latitude', 'mfc')}
+    scans = {name: _scan_on_grid(T_hor, grids[name]) for name in grids}
+
+    print('--- Thinned-grid code path fed a full uniform grid, N = M = 40 ---')
+    T_ref = field2wavecoeffs({'E_theta': scans['uniform']['E_theta'].reshape(n_lat + 2, -1),
+                              'E_phi': scans['uniform']['E_phi'].reshape(n_lat + 2, -1),
+                              'dT': grids['uniform']['dT'], 'dP': 360.0/(2*n_lat + 2)},
+                             n_max=n_lat, m_max=n_lat)
+    T_via = field2wavecoeffs(scans['uniform'], n_max=n_lat, m_max=n_lat, sampling='mfc')
+    err_ref = _rel_err(T_ref, T_hor)
+    err_via = _rel_err(T_via, T_ref)
+    _check('Thinned path == uniform path', (err_ref < 1e-10) and (err_via < 1e-12),
+           '{} points; uniform round trip {:.2e}, thinned path vs uniform path {:.2e}'
+           .format(grids['uniform']['n_points'], err_ref, err_via))
+
+    print('--- Worst case: max-directivity antenna at the horizon, N = M = 40 ---')
+    T_mfc = field2wavecoeffs(scans['mfc'], n_max=n_lat, m_max=n_lat, sampling='mfc')
+    err_mfc = _rel_err(T_mfc, T_hor)
+    _check('MFC round trip, N = 40', err_mfc < 1e-5,
+           'MFC grid       : {} points ({:.0f}% of uniform), max |dT|/max|T| = {:.2e} '
+           '({:.0f} dB; target -100 dB)'.format(
+               grids['mfc']['n_points'],
+               100.0*grids['mfc']['n_points']/grids['uniform']['n_points'],
+               err_mfc, db(err_mfc)))
+    T_sin = field2wavecoeffs(scans['latitude'], n_max=n_lat, m_max=n_lat,
+                             sampling='latitude')
+    err_sin = _rel_err(T_sin, T_hor)
+    # The sin(theta) rule is *expected* to alias here ([2] Sec. IV); the
+    # check documents that finding rather than an accuracy requirement.
+    _check('sin(theta) aliases on worst case', err_sin > 100.0*err_mfc,
+           'sin(theta) grid: {} points ({:.0f}% of uniform), max |dT|/max|T| = {:.2e} '
+           '({:.0f} dB; aliasing expected per [2])'.format(
+               grids['latitude']['n_points'],
+               100.0*grids['latitude']['n_points']/grids['uniform']['n_points'],
+               err_sin, db(err_sin)))
+
+    print('--- Sample order: shuffled MFC scan ---')
+    perm = np.random.default_rng(1).permutation(grids['mfc']['n_points'])
+    shuffled = {key: scans['mfc'][key][perm] for key in ('theta', 'phi', 'E_theta', 'E_phi')}
+    T_shuf = field2wavecoeffs(shuffled, n_max=n_lat, m_max=n_lat, sampling='mfc')
+    err_shuf = float(np.max(np.abs(T_shuf - T_mfc)))
+    _check('Shuffled samples', err_shuf == 0.0,
+           'max |T_shuffled - T_ordered| = {:.2e}  (must be exactly 0)'.format(err_shuf))
+
+    print('--- Input validation ---')
+    ring1 = np.where(np.isclose(scans['mfc']['theta'], grids['mfc']['ring_thetas'][1]))[0]
+
+    def _rejects(change):
+        scan = {key: np.array(scans['mfc'][key]) for key in ('theta', 'phi', 'E_theta', 'E_phi')}
+        change(scan)
+        return _raises_value_error(lambda: field2wavecoeffs(scan, sampling='mfc'))
+
+    def _unequal_phi(scan): scan['phi'][ring1[2]] += 0.5
+    def _phi_offset(scan): scan['phi'][ring1] += 1.0
+    def _theta_off(scan): scan['theta'][ring1] += 0.3*grids['mfc']['dT']
+    def _short(scan): scan['E_phi'] = scan['E_phi'][:-1]
+    def _no_coords(scan): del scan['theta']
+
+    for label, raised in [
+            ('unequal phi spacing on a ring', _rejects(_unequal_phi)),
+            ('ring not starting at phi = 0', _rejects(_phi_offset)),
+            ('unequal theta spacing', _rejects(_theta_off)),
+            ('mismatched array lengths', _rejects(_short)),
+            ("missing 'theta' entry", _rejects(_no_coords)),
+            ('unknown sampling name', _raises_value_error(
+                lambda: field2wavecoeffs(scans['mfc'], sampling='spiral')))]:
+        _check('Validation: ' + label, raised,
+               '{}: ValueError {}'.format(label, 'raised' if raised else 'NOT raised'))
+
+    print('--- MFC ring counts vs. [2] Table III (N = M = 180) ---')
+    table3 = {5.0: 57, 10.0: 95, 15.0: 129}
+    got = mfc_phi_counts(list(table3.keys()), 180)
+    _check('MFC counts cover Table III',
+           all(g >= need for g, need in zip(got, table3.values())),
+           ', '.join('theta = {:g} deg: {} (needs {})'.format(th, g, need)
+                     for (th, need), g in zip(table3.items(), got)))
+
+    print('--- WR-284 horn (shipped coefficients), thinned grids ---')
+    csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'wr284_horn_Tsmn.csv')
+    if os.path.exists(csv_path):
+        raw = np.loadtxt(csv_path, delimiter=',', skiprows=5)
+        n_i, m_i, s_i = (raw[:, k].astype(int) for k in range(3))
+        n_horn = int(n_i.max())
+        T_horn = np.zeros((n_horn, 2*n_horn + 1, 2), dtype='complex128')
+        T_horn[n_i - 1, m_i + n_horn, s_i - 1] = raw[:, 3] + 1j*raw[:, 4]
+        # The sin(theta) grid is an inexact sampling scheme even for a
+        # benign zenith-pointed antenna ([2] Sec. IV.A): it leaves about
+        # -70 dB of aliasing on this horn, comparable to the -68 dB
+        # uniform-vs-latitude difference measured in [2], Table II.  Its
+        # tolerance is therefore -60 dB; the MFC grid is held to 1e-6.
+        for name, tol in (('latitude', 1e-3), ('mfc', 1e-6)):
+            grid = sampling_grid(n_horn, sampling=name)
+            scan = _scan_on_grid(T_horn, grid)
+            err = _rel_err(field2wavecoeffs(scan, n_max=n_horn, m_max=n_horn,
+                                            sampling=name), T_horn)
+            _check('Horn, {} grid'.format(name), err < tol,
+                   '{:8s} grid: {} points, max |dT|/max|T| = {:.2e} ({:.0f} dB; '
+                   'tolerance {:g})'.format(name, grid['n_points'], err, db(err), tol))
+        # One-shot helper on the MFC scan vs. direct synthesis.
+        ff = nearfield2farfield(scan, 2.0, 2.0, n_max=n_horn, m_max=n_horn, sampling='mfc')
+        e_th_ref, _ = wavecoeffs2farfield_uniform(T_horn, 2.0, 2.0)
+        err = float(np.max(np.abs(ff['E_theta'] - e_th_ref))/np.max(np.abs(e_th_ref)))
+        _check('Horn, nearfield2farfield (MFC)', err < 1e-6,
+               'nearfield2farfield from the MFC scan: max pattern error = {:.2e}  '
+               '(tolerance 1e-6)'.format(err))
+    else:
+        print('  SKIPPED (wr284_horn_Tsmn.csv not found next to pysnf.py)')
+
+    print('--- The case of [2] Sec. IV: MFC grid, N = M = 180, antenna at the horizon ---')
+    t0 = time.perf_counter()
+    T_hor_big = _horizon_antenna(n_big)
+    grid_big = sampling_grid(n_big, sampling='mfc')
+    scan_big = _scan_on_grid(T_hor_big, grid_big)
+    err_hor_big = _rel_err(field2wavecoeffs(scan_big, n_max=n_big, m_max=n_big,
+                                            sampling='mfc'), T_hor_big)
+    n_uniform_big = (n_big + 2)*(2*n_big + 2)
+    _check('MFC round trip, N = 180', err_hor_big < 1e-5,
+           '{} points ({:.0f}% of the uniform {}), max |dT|/max|T| = {:.2e} '
+           '({:.0f} dB; target -100 dB)  [{:.1f} s]'.format(
+               grid_big['n_points'], 100.0*grid_big['n_points']/n_uniform_big,
+               n_uniform_big, err_hor_big, db(err_hor_big), time.perf_counter() - t0))
+
+    # -------------------------------------------------------------------
+    n_fail = sum(1 for _, ok in results if not ok)
+    print('=== {} of {} checks passed ==='.format(len(results) - n_fail, len(results)))
+    if n_fail:
+        for name, ok in results:
+            if not ok:
+                print('    FAILED: ' + name)
+        raise SystemExit(1)
