@@ -4,8 +4,11 @@
 spherical near-field to far-field transformation of antenna measurement
 data, implementing the SNIFT-style algorithm from Hansen [1].
 
-Version 1.1.0 — adds latitude (sin θ) and Maximum Fourier Content (MFC)
-sampling grids, and fixes a loss of accuracy above N ≈ 86 (see
+Version 1.2.0 — adds opt-in gain normalization of the probe pattern and
+of the far-field output (see
+[Gain-normalized (ideal) transform](#gain-normalized-ideal-transform)).
+Version 1.1.0 added latitude (sin θ) and Maximum Fourier Content (MFC)
+sampling grids, and fixed a loss of accuracy above N ≈ 86 (see
 [What's new in 1.1.0](#whats-new-in-110)).
 
 ## Installation
@@ -160,6 +163,76 @@ a directive antenna pointed at the horizon it fails outright (about
 -25 dB at N = 40).  The MFC grid recovers both to better than -200 dB.
 Both figures are reproduced by the self-test.
 
+## Gain-normalized (ideal) transform
+
+By default every far-field array PySNF reads or writes is the signal of
+an infinitely remote Hertzian-dipole probe, `W = (√6/4)·K`, not the
+absolute far-field pattern `K` itself (`|K|²` is gain for
+power-normalized coefficients).  That is 4.26 dB below gain, and it
+applies in two places:
+
+- the **output** of `wavecoeffs2farfield_uniform` / `nearfield2farfield`;
+- the **probe pattern** passed as `probe=` to `field2wavecoeffs` /
+  `nearfield2farfield`.
+
+Two opt-in arguments switch each to `K`:
+
+| Argument | On | `'dipole'` (default) | `'gain'` |
+|---|---|---|---|
+| `normalization` | `wavecoeffs2farfield_uniform`, `nearfield2farfield` | output is `(√6/4)·K` | output is `K` |
+| `probe_normalization` | `field2wavecoeffs`, `nearfield2farfield` | probe pattern is `(√6/4)·K_p` | probe pattern is `K_p` (gain-normalized) |
+
+With both set to `'gain'` the transform adds no scaling of its own to
+the measured data — an *ideal* SNF-to-FF transform in the sense of [3],
+which is what absolute quantities such as G/T need.  The scan itself is
+never rescaled.
+
+The Appendix of [3] gives a closed-form check: a z-directed Hertzian
+dipole measured with a Hertzian-dipole probe must come out at exactly
+1.76 dBi, at any measurement distance.
+
+```python
+import numpy as np
+import pysnf as sf
+
+kA = 10.0
+dT = dP = 5.0
+thetas = np.linspace(0.0, np.pi, int(round(180.0/dT)) + 1)
+phis = np.linspace(0.0, 2.0*np.pi, int(round(360.0/dP)), endpoint=False)
+T, P = np.meshgrid(thetas, phis, indexing='ij')
+
+# Probe signal, [3] Eq. (26): chi = 0 (theta-pol) and chi = pi/2 (phi-pol).
+w = 0.75*np.exp(1j*kA)*(-1j/kA + 1/kA**2 + 1j/kA**3)*np.sin(T)
+nearfield = {'E_theta': w, 'E_phi': np.zeros_like(w), 'dT': dT, 'dP': dP}
+
+# Gain-normalized pattern of the x'-polarized dipole probe, [3] Eq. (27).
+probe = {'E_theta': np.sqrt(6)/2*np.cos(T)*np.cos(P),
+         'E_phi':  -np.sqrt(6)/2*np.sin(P), 'dT': dT, 'dP': dP}
+
+ff = sf.nearfield2farfield(nearfield, dT, dP, probe=probe, probe_pol='x', ka=kA,
+                           n_max=3, m_max=3, nu_max=1,
+                           normalization='gain', probe_normalization='gain')
+gain = np.abs(ff['E_theta'])**2 + np.abs(ff['E_phi'])**2
+print('peak gain = {:.4f} dBi'.format(10*np.log10(gain.max())))
+```
+
+Expected output: `peak gain = 1.7609 dBi`.  With the defaults the same
+call reports −6.76 dB: one factor of √6/4 from the probe pattern and one
+from the output.
+
+Two things to keep in mind:
+
+- **Probe roll.** `'E_theta'` is the signal at χ = 0, where the probe's
+  x′ axis lies along θ̂, and `'E_phi'` the signal at χ = π/2 (x′ along φ̂,
+  y′ along −θ̂).  The probe pattern is always given in the probe's own
+  frame.  For a y′-polarized probe ([3] Eq. (28)) the scan above
+  therefore becomes `'E_theta': 0, 'E_phi': -w`; leaving `w` under
+  `'E_theta'` gives a wrong answer without any error.
+- **Phase.** [3] Eqs. (27)-(28) equal `i·K` of the Hertzian-dipole
+  coefficients PySNF takes from Hansen [1].  A constant phase on the probe
+  pattern appears, conjugated, on the recovered coefficients; magnitudes
+  and gain are unaffected.
+
 ## Conventions
 
 A condensed summary; see the module docstring of `pysnf.py` for full
@@ -177,6 +250,10 @@ detail.
   Hertzian dipole.  Custom probes carry mu = +/-1 only (linearly
   polarized convention); mu = 0 (z-oriented dipole) is not yet
   supported.
+- **Normalization.** Far-field arrays are dipole-probe signals,
+  `(√6/4)·K`, unless `normalization='gain'` /
+  `probe_normalization='gain'` is passed (see
+  [Gain-normalized (ideal) transform](#gain-normalized-ideal-transform)).
 
 ## Array layout cheat sheet
 
@@ -200,11 +277,14 @@ defined for `|m| <= n`; out-of-triangle entries of `q_n_m_s` must be zero
 ## Public API
 
 **Transform pipeline**
-- `nearfield2farfield` — measured scan -> far-field pattern (one-shot).
+- `nearfield2farfield` — measured scan -> far-field pattern (one-shot);
+  takes both `normalization` and `probe_normalization`.
 - `field2wavecoeffs` — scan -> spherical-wave coefficients `T_{smn}`;
-  `sampling='uniform' | 'latitude' | 'mfc'` selects the scan grid.
+  `sampling='uniform' | 'latitude' | 'mfc'` selects the scan grid,
+  `probe_normalization='dipole' | 'gain'` the probe-pattern scaling.
 - `wavecoeffs2farfield_uniform` — `T_{smn}` -> far-field on a uniform
-  (dtheta, dphi) grid (dipole output probe).
+  (dtheta, dphi) grid (dipole output probe);
+  `normalization='dipole' | 'gain'` selects `(√6/4)·K` or `K`.
 - `wavecoeffs2farfield` — `T_{smn}` -> far-field at arbitrary paired
   (theta, phi) directions (no probe normalization).
 
@@ -249,9 +329,24 @@ IEE Electromagnetic Waves Series, vol. 26, Peter Peregrinus Ltd., 1988.
 the Uniform, Latitude, and Equally-Spaced Spherical Near-Field
 Measurement Grids," *AMTA 2015 Proceedings*.
 
+[3] R. T. Cutshall, J. Dobbins and M. N. Barr, "Measuring G/T with a
+Spherical Near-Field Antenna Measurement System via the CW-Ambient
+Technique," *AMTA 2020 Proceedings*.
+
 Cross-references in the source cite Hansen equation numbers (e.g.
 `[1], (4.135)`).  See [HANSEN_INDEX.md](HANSEN_INDEX.md) for a
 Hansen-equation → PySNF-function lookup table.
+
+## What's new in 1.2.0
+
+- **Gain normalization.** `wavecoeffs2farfield_uniform` and
+  `nearfield2farfield` take `normalization='gain'` to return the absolute
+  far-field pattern `K` instead of the dipole-probe signal `(√6/4)·K`.
+  `field2wavecoeffs` and `nearfield2farfield` take
+  `probe_normalization='gain'` to accept a gain-normalized probe pattern.
+  Both default to `'dipole'`, so existing results are unchanged.
+- **Self-test.** Four checks added, including the closed-form
+  Hertzian-dipole case of [3].
 
 ## What's new in 1.1.0
 
@@ -282,11 +377,12 @@ Hansen-equation → PySNF-function lookup table.
 python pysnf.py
 ```
 
-runs 21 checks and ends with `=== 21 of 21 checks passed ===` (exit
+runs 25 checks and ends with `=== 25 of 25 checks passed ===` (exit
 code 1 otherwise).  They cover the original round-trip and single-mode
 tests, the normalized Legendre functions against Hansen's formulas, a
-uniform round trip at N = 180, and the latitude / MFC grids — including
-the worst-case antenna of [2] at N = 40 and N = 180.  It takes a few
+uniform round trip at N = 180, the latitude / MFC grids — including
+the worst-case antenna of [2] at N = 40 and N = 180 — and the
+gain-normalized Hertzian-dipole case of [3].  It takes a few
 seconds and needs about 1.6 GB of memory for the N = 180 cases.
 
 ## License
