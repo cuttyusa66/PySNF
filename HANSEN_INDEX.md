@@ -55,6 +55,8 @@ Hansen directly.
 | Hansen eq. | PySNF function | Purpose |
 |------------|----------------|---------|
 | (A1.25)    | `lpmn_norm`    | Normalized associated Legendre functions |
+| (A1.36), (A1.38) | `lpmn_norm` | Closed-form pole values of the Legendre functions |
+| (A1.42), (A1.44) | `lpmn_norm` | Closed-form pole values of their theta-derivatives |
 | (A1.59)-(A1.60) | `incomplete_farfield_pattern_functions`, `farfield_pattern_functions`, `wavecoeffs2farfield` | Far-field pattern functions `K_{smn}` |
 | (A1.61)-(A1.64) | `incomplete_farfield_pattern_functions` | Closed-form pole values of `K_{smn}` |
 
@@ -84,6 +86,14 @@ Used for the DFT conventions in `_fft` / `_ifft` and the `interpft`
 band-limited resampler.  No individual equations are cross-referenced;
 see the module docstring of `pysnf.py` under "Conventions / DFT" for
 the sign convention, and `interpft` for the interpolation basis.
+
+The same interpolation (Section A4.4.3) is what brings latitude / MFC
+scans back to the uniform grid in `field2wavecoeffs(..., sampling=...)`
+(internal helper `_rings2uniform`).  Thinning the phi samples near the
+poles is discussed on pp. 128-130; the per-ring count rules are
+`sin_theta_phi_counts` and `mfc_phi_counts`, and `sampling_grid`
+generates the sample locations.  The MFC rule itself is not from Hansen;
+see reference [2] in the `pysnf.py` module docstring.
 
 ## Appendix A5 — List of principal symbols
 
