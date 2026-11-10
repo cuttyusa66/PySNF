@@ -233,6 +233,63 @@ Two things to keep in mind:
   pattern appears, conjugated, on the recovered coefficients; magnitudes
   and gain are unaffected.
 
+## G/T measurements (`pysnf_gt.py`)
+
+The companion module [pysnf_gt.py](pysnf_gt.py) computes Gain over Noise
+Temperature of an active unit under test by the CW-Ambient technique of
+[3].  It needs four measurements: the power into the probe, the ambient
+noise power out of the UUT (P1), the power out of the UUT with the probe
+radiating a CW tone from one pose P (P2), and a full dual-polarized scan
+that contains P.
+
+```python
+import numpy as np
+import pysnf as sf
+import pysnf_gt as gt
+
+# --- A synthetic measurement: z-dipole UUT (gain 1.5), T_sys = 437 K ---
+k_B, T_sys, B, P_in = gt.BOLTZMANN, 437.0, 2.0e6, 3.0e-4
+kA = 10.0
+dT = dP = 5.0
+thetas = np.linspace(0.0, np.pi, int(round(180.0/dT)) + 1)
+phis = np.linspace(0.0, 2.0*np.pi, int(round(360.0/dP)), endpoint=False)
+T, P = np.meshgrid(thetas, phis, indexing='ij')
+w = 0.75*np.exp(1j*kA)*(-1j/kA + 1/kA**2 + 1j/kA**3)*np.sin(T)   # [3] Eq. (26)
+G_elex, a_sf = 1.0e3, 0.37*np.exp(0.7j)        # unknown to the method
+ref = (18, 0)                                  # CW pose P: theta = 90 deg, phi = 0
+nearfield = {'E_theta': np.sqrt(2*P_in*G_elex)*a_sf*w,           # receiver values
+             'E_phi': np.zeros_like(w), 'dT': dT, 'dP': dP}
+p_ambient = k_B*T_sys*B*G_elex                                   # P1
+p_cw = P_in*abs(w[ref])**2*G_elex + p_ambient                    # P2
+
+# --- Gain-normalized probe pattern, [3] Eq. (27) ---
+probe = {'E_theta': np.sqrt(6)/2*np.cos(T)*np.cos(P),
+         'E_phi':  -np.sqrt(6)/2*np.sin(P), 'dT': dT, 'dP': dP}
+
+res = gt.g_over_t(nearfield, probe, kA, P_in, p_ambient, p_cw, B,
+                  ref_index=ref, ref_pol='theta', n_max=3, m_max=3, nu_max=1)
+print('peak G/T = {:.4f} dB/K'.format(10*np.log10(res['G_T'].max())))
+```
+
+Expected output: `peak G/T = -24.6439 dB/K`, i.e. `1.5 / 437`.
+
+- **Probe gain.** The probe pattern must carry its gain
+  (`|E_theta|² + |E_phi|²` = gain).  For a pattern normalized to 0 dB,
+  pass `probe_gain=` (linear) and it is rescaled.  No separate division
+  by the probe gain is needed, unlike [3] Eq. (19).
+- **Receiver.** The scan is complex receiver values with any constant
+  scale factor; it cancels.  Because the reference is taken from the scan
+  itself, there is no RMS / peak-power choice to make ([3] Eqs. (19) and
+  (23) coincide).  `p_in` must be true power in watts.
+- **Output.** `res['G_T_theta']`, `res['G_T_phi']`, `res['G_T']` (total)
+  in 1/K; pass `copol=(c_theta, c_phi)` for a specific polarization.
+- `gt.near_zone_correction` returns the factor N_SNF of [3] Eq. (24).
+
+`python pysnf_gt.py` runs the module's own four checks.  They are
+synthetic: they verify the scale factors, not the assumptions of the
+CW-Ambient technique (UUT noise dominant, matched lines, stable ambient),
+which are listed in the module docstring.
+
 ## Conventions
 
 A condensed summary; see the module docstring of `pysnf.py` for full
@@ -347,6 +404,9 @@ Hansen-equation → PySNF-function lookup table.
   Both default to `'dipole'`, so existing results are unchanged.
 - **Self-test.** Four checks added, including the closed-form
   Hertzian-dipole case of [3].
+- **G/T helpers.** New companion module `pysnf_gt.py` with `g_over_t`
+  and `near_zone_correction`, implementing the CW-Ambient technique of
+  [3] (see [G/T measurements](#gt-measurements-pysnf_gtpy)).
 
 ## What's new in 1.1.0
 
