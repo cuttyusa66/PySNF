@@ -13,14 +13,26 @@ sampling grids, and fixed a loss of accuracy above N ≈ 86 (see
 
 ## Installation
 
-PySNF is a single module (`pysnf.py`).  Drop it into your project, or
-add the containing directory to `PYTHONPATH`.  The optional G/T helpers
-live in a second file, `pysnf_gt.py`, which imports `pysnf`; copy it
-alongside if you need them.
+Install from [PyPI](https://pypi.org/project/pysnf/):
+
+```
+pip install pysnf
+```
+
+This installs `pysnf` and the optional G/T helpers, `pysnf_gt`.  For
+the plotting helper, use `pip install "pysnf[plot]"` to pull in
+`matplotlib` as well.
+
+PySNF is also still a single module (`pysnf.py`): you can instead drop
+it into your project, or add the containing directory to `PYTHONPATH`.
+`pysnf_gt.py` imports `pysnf`; copy it alongside if you need it.  The
+example data file used below, `wr284_horn_Tsmn.csv`, is in the
+[GitHub repository](https://github.com/cuttyusa66/PySNF) and is not
+installed by `pip`.
 
 Dependencies:
 
-- Python 3.9+
+- Python 3.10+
 - `numpy`
 - `scipy` (uses `scipy.special.assoc_legendre_p_all`, requires
   SciPy >= 1.15)
